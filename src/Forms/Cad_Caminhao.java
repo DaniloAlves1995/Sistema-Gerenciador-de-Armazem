@@ -16,8 +16,16 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Danilo
+ ***********************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class Cad_Caminhao extends javax.swing.JFrame {
 
     /**
@@ -234,31 +242,31 @@ public class Cad_Caminhao extends javax.swing.JFrame {
     }//GEN-LAST:event_jTPreCargaKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            if (Verificar()) {
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                //Cria um objeto produto para setar os valores dos TextFilds
-                Caminhao s = new Caminhao();
-                //Seta os valores dos TextFilds
-                s.setNome(jTNome.getText());
-                s.setCarga(Integer.parseInt(jTPreCarga.getText()));
-                s.setData(df.format(new Date()));
-                try {
-                    //Cria um objeto DAO para inserir o novo produto no banco
-                    CaminhaoDao d = new CaminhaoDao();
-                    //Adiciona o novo produto no banco
-                    d.adiciona(s);
-                    int id = d.getIdUltimoCam();
-                    s.setId(id);
-                    d.adicionaCamCarga(s);
-                    JOptionPane.showMessageDialog(null, "Caminhão registrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-                    //Limpa os TextFilds depois do Cadastro
-                    Limpar();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-                }
-
+        if (Verificar()) {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            //Cria um objeto produto para setar os valores dos TextFilds
+            Caminhao s = new Caminhao();
+            //Seta os valores dos TextFilds
+            s.setNome(jTNome.getText());
+            s.setCarga(Integer.parseInt(jTPreCarga.getText()));
+            s.setData(df.format(new Date()));
+            try {
+                //Cria um objeto DAO para inserir o novo produto no banco
+                CaminhaoDao d = new CaminhaoDao();
+                //Adiciona o novo produto no banco
+                d.adiciona(s);
+                int id = d.getIdUltimoCam();
+                s.setId(id);
+                d.adicionaCamCarga(s);
+                JOptionPane.showMessageDialog(null, "Caminhão registrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+                //Limpa os TextFilds depois do Cadastro
+                Limpar();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
-       
+
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -279,10 +287,10 @@ public class Cad_Caminhao extends javax.swing.JFrame {
                 jTPreCarga.requestFocus();
                 valor = false;
             } else {
-                try{
+                try {
                     int a = Integer.parseInt(jTPreCarga.getText());
-                    
-                }catch(Exception e){
+
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "O campo Previsão de Sacas deve ser um número inteiro!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
                     valor = false;
                 }
@@ -290,12 +298,12 @@ public class Cad_Caminhao extends javax.swing.JFrame {
         }
         return valor;
     }
-    
-    public void Limpar(){
+
+    public void Limpar() {
         jTNome.setText("");
         jTPreCarga.setText("");
     }
-    
+
     /**
      * @param args the command line arguments
      */

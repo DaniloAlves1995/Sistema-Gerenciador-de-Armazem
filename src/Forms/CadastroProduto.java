@@ -29,16 +29,15 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  ***********************************************************
- * ------------- ..::NorthTech Automação::.. ------------- *
- *********************************************************** 
- * 
- *@Desenvolvedor Danilo Alves
- * 
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
-           //<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-           //</editor-fold>
-                  //<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
-                  //</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class CadastroProduto extends javax.swing.JFrame {
 
     DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)"});
@@ -57,7 +56,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         this.setTitle("Cadastrar Produto - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         setIconImage(imagemTituloJanela.getImage());
-        
+
         //Desabilita os campos
         Desabilitar();
         //mostrar qtd de produtos
@@ -415,7 +414,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-   
+
         if (salvar == 0) {
             //Verifica se ha algum campo vazio
             if (Verificar()) {
@@ -424,10 +423,9 @@ public class CadastroProduto extends javax.swing.JFrame {
                 //Seta os valores dos TextFilds
                 s.setProduto(jTProduto.getText());
                 s.setPreco(Double.parseDouble(jTPreco.getText().replace(",", ".")));
-              
-                
+
                 s.setObs(jTObs.getText());
-               
+
                 try {
                     //Cria um objeto DAO para inserir o novo produto no banco
                     ProdutoDao d = new ProdutoDao();
@@ -438,14 +436,14 @@ public class CadastroProduto extends javax.swing.JFrame {
                     int idp = d.getIdUltimoProduto();
                     Estoque e = new Estoque();
                     EstoqueDao edao = new EstoqueDao();
-                    
+
                     e.setId_p(idp);
                     e.setQtd(0);
                     edao.adiciona(e);
                     //Limpa os TextFilds depois do Cadastro
                     Limpar();
                 } catch (SQLException ex) {
-                     JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -458,7 +456,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                         listarProduto();
                         Limpar();
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                     }
 
                 }
@@ -466,13 +464,13 @@ public class CadastroProduto extends javax.swing.JFrame {
         }
         MostrarQtdProdutos();
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     //Método para limpar os TextFilds
     public void Limpar() {
         jTProduto.setText("");
         jTPreco.setText("");
-        jTId.setText(""); 
-        jTObs.setText(""); 
+        jTId.setText("");
+        jTObs.setText("");
     }
 
     //Método para Desabilitar os TextFilds
@@ -487,7 +485,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         jTProduto.setEditable(true);
         jTPreco.setEditable(true);
         jTObs.setEditable(true);
-   }
+    }
 
     protected void listarProduto() throws SQLException {
         ProdutoDao me = new ProdutoDao();
@@ -501,7 +499,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         while (tmProduto.getRowCount() > 0) {
             tmProduto.removeRow(0);
         }
-       
+
         if ((produto.isEmpty()) && (l == ' ')) {
             JOptionPane.showMessageDialog(null, "Nenhum Produto com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -512,7 +510,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             tmProduto.setValueAt(produto.get(i).getId(), i, 0);
             tmProduto.setValueAt(produto.get(i).getProduto(), i, 1);
             tmProduto.setValueAt(produto.get(i).getPreco(), i, 2);
-           
+
         }
     }
 
@@ -522,7 +520,6 @@ public class CadastroProduto extends javax.swing.JFrame {
             return false;
         } else {
             return true;
-
         }
     }
 
@@ -532,15 +529,12 @@ public class CadastroProduto extends javax.swing.JFrame {
 
     private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
         l = evt.getKeyChar();
-        // System.out.println(l);
-        
+
         try {
             listarProduto();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }//GEN-LAST:event_jTPesquisarKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -555,8 +549,6 @@ public class CadastroProduto extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Produto na tabela para poder Editar!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
         }
-
-
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -602,13 +594,11 @@ public class CadastroProduto extends javax.swing.JFrame {
                 jTPreco.setBackground(new Color(255, 51, 51));
                 jTPreco.requestFocus();
                 valor = false;
-            } else {
-                
             }
         }
-        try{
+        try {
             double t = Double.parseDouble(jTPreco.getText().replace(",", "."));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "O preço deve ser um número.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             valor = false;
         }
@@ -616,7 +606,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     }
 
     //Esse metodo serve para Alterar os valores do produto no banco
-      private void alteraProduto() throws SQLException {
+    private void alteraProduto() throws SQLException {
 
         if (Verificar()) {
             Produto m = new Produto();
@@ -625,14 +615,12 @@ public class CadastroProduto extends javax.swing.JFrame {
             m.setProduto(jTProduto.getText());
             m.setPreco(Double.parseDouble(jTPreco.getText()));
             m.setObs(jTObs.getText());
-            
+
             dao.altera(m);
             JOptionPane.showMessageDialog(null, "Produto Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
             Desabilitar();
-
         }
-
     }
 
     //Metodo para excluir o produto
@@ -646,7 +634,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                 jTPesquisar.setText("");
                 listarProduto();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -691,21 +679,19 @@ public class CadastroProduto extends javax.swing.JFrame {
         try {
             if (jTProdutos.getSelectedRow() != -1) {
                 jTProduto.setText(produto.get(tabela.getSelectedRow()).getProduto());
-                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPreco()+"");
-                jTId.setText(produto.get(tabela.getSelectedRow()).getId()+"");
-                jTObs.setText(produto.get(tabela.getSelectedRow()).getObs()+"");
-                
-                Desabilitar();
-            } else {
+                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPreco() + "");
+                jTId.setText(produto.get(tabela.getSelectedRow()).getId() + "");
+                jTObs.setText(produto.get(tabela.getSelectedRow()).getObs() + "");
 
+                Desabilitar();
             }
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
         }
-    } 
-    
+    }
+
     //metodo para mostrar a qtd de sócios
-    public void MostrarQtdProdutos(){
+    public void MostrarQtdProdutos() {
         try {
             //pega a qtd de sócios cadastrados no banco
             ProdutoDao dao = new ProdutoDao();

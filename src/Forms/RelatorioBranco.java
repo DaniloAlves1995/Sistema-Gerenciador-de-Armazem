@@ -9,6 +9,7 @@ import Conexao.ConexaoRel;
 import DAO.EstoqueDao;
 import DAO.ProdutoDao;
 import Entidades.Produto;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,14 +17,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.StyledEditorKit;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -32,49 +30,56 @@ import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
- * @author Danilo
+ ***********************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class RelatorioBranco extends javax.swing.JFrame {
 
-    DefaultTableModel tmProdutos = new DefaultTableModel(new Object [][] {}, new String [] {"Selecionar", "Id", "Produto", "Quantidade"}) 
-    {
-        Class[] types = new Class [] {
+    DefaultTableModel tmProdutos = new DefaultTableModel(new Object[][]{}, new String[]{"Selecionar", "Id", "Produto", "Quantidade"}) {
+        Class[] types = new Class[]{
             Boolean.class, Object.class, Object.class, Object.class
         };
 
         public Class getColumnClass(int columnIndex) {
-            return types [columnIndex];
+            return types[columnIndex];
         }
     };
-    
+
     List<Produto> produtos;
-    
+
     public RelatorioBranco() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Relatório para entrada em estoque - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         setIconImage(imagemTituloJanela.getImage());
-        
+
         try {
             ProdutoDao pdao = new ProdutoDao();
             produtos = pdao.getListaTodos();
-            adicionarTabela(produtos);
-            
+            this.adicionarTabela(produtos);
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    
-    public void adicionarTabela(List<Produto> produtos){
+
+    public final void adicionarTabela(List<Produto> produtos) {
         try {
             while (tmProdutos.getRowCount() > 0) {
                 tmProdutos.removeRow(0);
             }
-            
+
             EstoqueDao edao = new EstoqueDao();
-            
+
             Object[] linha = new Object[]{null, null, null, null};
             for (int i = 0; i < produtos.size(); i++) {
                 tmProdutos.addRow(linha);
@@ -82,7 +87,6 @@ public class RelatorioBranco extends javax.swing.JFrame {
                 tmProdutos.setValueAt(produtos.get(i).getId(), i, 1);
                 tmProdutos.setValueAt(produtos.get(i).getProduto(), i, 2);
                 tmProdutos.setValueAt(edao.GetEstoque(produtos.get(i).getId()).getQtd(), i, 3);
-                
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
@@ -204,16 +208,17 @@ public class RelatorioBranco extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int verificar = 0;
         List<Produto> lista = new ArrayList<>();
-        for(int i = 0; i<produtos.size(); i++){
-            if(Boolean.parseBoolean(tmProdutos.getValueAt(i, 0).toString()) == true){
-                if(verificar==0)
+        for (int i = 0; i < produtos.size(); i++) {
+            if (Boolean.parseBoolean(tmProdutos.getValueAt(i, 0).toString()) == true) {
+                if (verificar == 0) {
                     verificar = 1;
+                }
                 lista.add(produtos.get(i));
             }
         }
-        if(verificar ==0){
+        if (verificar == 0) {
             JOptionPane.showMessageDialog(null, "Para gerar o relatório você precisa selecionar pelo menos um produto.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-        }else{
+        } else {
             ProdutoDao pdao;
             try {
                 pdao = new ProdutoDao();
@@ -223,7 +228,6 @@ public class RelatorioBranco extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
-            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -255,10 +259,8 @@ public class RelatorioBranco extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RelatorioBranco().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new RelatorioBranco().setVisible(true);
         });
     }
 
@@ -291,7 +293,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
         } else {
             mess = "" + mes;
         }
-        String nome = "Relatorio_Entrada_data_"+dias+"-"+mess+"-"+ano;
+        String nome = "Relatorio_Entrada_data_" + dias + "-" + mess + "-" + ano;
         String arquivo = nome;
 
         ConexaoRel con = new ConexaoRel();
@@ -315,8 +317,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
         try {
             con.conecta();
             con.executeSQL("select * from pdf_relatorioe;");
-           
-          
+
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/RelatorioEntrada.jasper"), new HashMap(), jrRS);
@@ -336,7 +337,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
                     try {
                         Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                     } catch (IOException e) {
-                         JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
@@ -347,22 +348,12 @@ public class RelatorioBranco extends javax.swing.JFrame {
                 try {
                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                 } catch (IOException e) {
-                     JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
-
-            //   JasperViewer jv = new JasperViewer(jp, false);
-            //  jv.setVisible(true);
-            //  jv.setTitle("Lista Contatos");
-            //  jv.setIconImage(new ImageIcon(getClass().getResource("/Icones/vista (18).png")).getImage());
-        } catch (Exception erro) {
-
+        } catch (HeadlessException | JRException erro) {
             JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
-            
         }
     }
 
 }
-
-

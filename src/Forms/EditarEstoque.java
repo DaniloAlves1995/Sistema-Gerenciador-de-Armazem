@@ -12,8 +12,6 @@ import Entidades.Produto;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -24,16 +22,24 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Danilo
+ ***********************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class EditarEstoque extends javax.swing.JFrame {
 
-    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)","Qtd estoque"});
+    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)", "Qtd estoque"});
     ListSelectionModel lsmProduto;
     List<Produto> produto;
     char l;
     int salvar = 0;
-    
+
     public EditarEstoque() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -356,14 +362,14 @@ public class EditarEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jTPesquisarKeyPressed
 
     private void jTPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyReleased
-        l=evt.getKeyChar();
-        if(evt.getKeyCode()==40){
+        l = evt.getKeyChar();
+        if (evt.getKeyCode() == 40) {
             jTProduto.requestFocus();
         }
-        try{
+        try {
             listarProduto();
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "SGE", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "SGE", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTPesquisarKeyReleased
 
@@ -396,21 +402,20 @@ public class EditarEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jTQtdKeyPressed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(salvar == 1){
-            if(verificar()){
-                
+        if (salvar == 1) {
+            if (verificar()) {
                 try {
                     EstoqueDao edao = new EstoqueDao();
                     Estoque e = edao.GetEstoque(produto.get(jTProdutos.getSelectedRow()).getId());
                     e.setQtd(Integer.parseInt(jTQtd.getText()));
-                    
+
                     edao.altera(e);
                     JOptionPane.showMessageDialog(null, "Estoque atualizado com sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                     listarProduto();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "A quantidade em estoque preciza ser um número inteiro!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
             }
         }
@@ -423,31 +428,31 @@ public class EditarEstoque extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Cliente na tabela para poder Editar!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
         }
-
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    public void Habilitar(){
+    public void Habilitar() {
         jTQtd.setEditable(true);
     }
-    
-    public void Desabilitar(){
+
+    public void Desabilitar() {
         jTQtd.setEditable(false);
     }
-    
-    public boolean verificar(){
+
+    public boolean verificar() {
         boolean s = true;
-        if(jTQtd.getText().trim().equals("")){
+        if (jTQtd.getText().trim().equals("")) {
             s = false;
-        }else{
-            try{
+        } else {
+            try {
                 int a = Integer.parseInt(jTQtd.getText());
-            }catch(Exception e){
+            } catch (Exception e) {
                 s = false;
             }
         }
-        
+
         return s;
     }
+
     /**
      * @param args the command line arguments
      */
@@ -482,7 +487,7 @@ public class EditarEstoque extends javax.swing.JFrame {
             }
         });
     }
-    
+
     protected void listarProduto() throws SQLException {
         ProdutoDao me = new ProdutoDao();
         produto = me.getLista("%" + jTPesquisar.getText() + "%");
@@ -495,7 +500,7 @@ public class EditarEstoque extends javax.swing.JFrame {
         while (tmProduto.getRowCount() > 0) {
             tmProduto.removeRow(0);
         }
-       
+
         if ((produto.isEmpty()) && (l == ' ')) {
             JOptionPane.showMessageDialog(null, "Nenhum Produto com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -506,34 +511,32 @@ public class EditarEstoque extends javax.swing.JFrame {
             tmProduto.setValueAt(produto.get(i).getId(), i, 0);
             tmProduto.setValueAt(produto.get(i).getProduto(), i, 1);
             tmProduto.setValueAt(produto.get(i).getPreco(), i, 2);
-            tmProduto.setValueAt(getqtdEstoque(produto.get(i).getId())+"", i, 3);
+            tmProduto.setValueAt(getqtdEstoque(produto.get(i).getId()) + "", i, 3);
         }
     }
-    
+
     private void jTTabelaLinhaSelecionada(JTable tabela) {
         try {
             if (jTProdutos.getSelectedRow() != -1) {
                 jTProduto.setText(produto.get(tabela.getSelectedRow()).getProduto());
-                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPreco()+"");
-                jTId.setText(produto.get(tabela.getSelectedRow()).getId()+"");
+                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPreco() + "");
+                jTId.setText(produto.get(tabela.getSelectedRow()).getId() + "");
                 //busca a qtd desse produto em estoque
-                jTQtd.setText(getqtdEstoque(produto.get(tabela.getSelectedRow()).getId())+"");
-            } else {
-
+                jTQtd.setText(getqtdEstoque(produto.get(tabela.getSelectedRow()).getId()) + "");
             }
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
         }
-    } 
+    }
 
     //pega a qtd de estoque de determinado produto
-    public int getqtdEstoque(int id_prod){
+    public int getqtdEstoque(int id_prod) {
         Estoque estoque = null;
         try {
             //busca a qtd desse produto em estoque
             EstoqueDao edao = new EstoqueDao();
             estoque = edao.GetEstoque(id_prod);
-            if(estoque==null){
+            if (estoque == null) {
                 Estoque e = new Estoque();
                 e.setId_p(id_prod);
                 e.setQtd(0);
@@ -543,7 +546,7 @@ public class EditarEstoque extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         return estoque.getQtd();
     }
 

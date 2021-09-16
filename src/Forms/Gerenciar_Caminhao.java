@@ -6,14 +6,10 @@
 package Forms;
 
 import DAO.CaminhaoDao;
-import DAO.ProdutoDao;
 import Entidades.Caminhao;
-import Entidades.Produto;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -24,8 +20,16 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Danilo
+ ***********************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class Gerenciar_Caminhao extends javax.swing.JFrame {
 
     char l;
@@ -33,14 +37,15 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     ListSelectionModel lsmCaminhao;
     List<Caminhao> caminhoes;
     int salvar = 0;
+
     public Gerenciar_Caminhao() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Gerenciar Caminhão - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
-        
-        MostrarQtdCaminhoes();
+        this.setIconImage(imagemTituloJanela.getImage());
+
+        this.MostrarQtdCaminhoes();
     }
 
     /**
@@ -391,14 +396,12 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
 
     private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
         l = evt.getKeyChar();
-        // System.out.println(l);
 
         try {
             listarCaminhoes();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_jTPesquisarKeyTyped
 
     private void jTTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTotalActionPerformed
@@ -422,22 +425,20 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     }//GEN-LAST:event_jTPreCargaKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-       
-            if (Verificar()) {
-                if (Everificar()) {
-                    try {
-                        alteraCaminhao();
-                        jTPesquisar.setText("");
-                        listarCaminhoes();
-                        Limpar();
-                    } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-                    }
-
+        if (Verificar()) {
+            if (Everificar()) {
+                try {
+                    alteraCaminhao();
+                    jTPesquisar.setText("");
+                    listarCaminhoes();
+                    Limpar();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
+
             }
-        
+        }
+
         MostrarQtdCaminhoes();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -502,7 +503,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
             }
         });
     }
-    
+
     protected void listarCaminhoes() throws SQLException {
         CaminhaoDao me = new CaminhaoDao();
         caminhoes = me.getLista("%" + jTPesquisar.getText() + "%", 0);
@@ -515,7 +516,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         while (tmCaminhao.getRowCount() > 0) {
             tmCaminhao.removeRow(0);
         }
-       
+
         if ((caminhoes.isEmpty()) && (l == ' ')) {
             JOptionPane.showMessageDialog(null, "Nenhum Caminhão com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -526,14 +527,14 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
             tmCaminhao.setValueAt(caminhoes.get(i).getId(), i, 0);
             tmCaminhao.setValueAt(caminhoes.get(i).getNome(), i, 1);
             tmCaminhao.setValueAt(caminhoes.get(i).getCarga(), i, 2);
-           
+
         }
     }
-    
+
     public void Limpar() {
         jTNome.setText("");
         jTPreCarga.setText("");
-        jTId.setText(""); 
+        jTId.setText("");
         jTSacRest.setText("");
     }
 
@@ -549,8 +550,8 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         jTNome.setEditable(true);
         jTPreCarga.setEditable(true);
         jTSacRest.setEditable(true);
-   }
-    
+    }
+
     public boolean Verificar() {
         boolean valor = true;
         if (jTNome.getText().equals("")) {
@@ -565,17 +566,17 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
                 jTPreCarga.requestFocus();
                 valor = false;
             } else {
-                try{
+                try {
                     int a = Integer.parseInt(jTPreCarga.getText());
-                    
-                }catch(Exception e){
+
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "O campo Previsão de Sacas deve ser um número inteiro!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
                     valor = false;
                 }
-                try{
+                try {
                     int a = Integer.parseInt(jTSacRest.getText());
-                    
-                }catch(Exception e){
+
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "O campo Sacas restantes deve ser um número inteiro!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
                     valor = false;
                 }
@@ -585,7 +586,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     }
 
     //Esse metodo serve para Alterar os valores do produto no banco
-      private void alteraCaminhao() throws SQLException {
+    private void alteraCaminhao() throws SQLException {
 
         if (Verificar()) {
             Caminhao m = new Caminhao();
@@ -593,18 +594,16 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
             m.setId(caminhoes.get(jTCaminhoes.getSelectedRow()).getId());
             m.setNome(jTNome.getText());
             m.setCarga(Integer.parseInt(jTPreCarga.getText()));
-            
+
             dao.altera(m);
             m.setCarga(Integer.parseInt(jTSacRest.getText()));
             dao.alteraCamCarga(m);
             JOptionPane.showMessageDialog(null, "Caminhão Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
             Desabilitar();
-
         }
-
     }
-      
+
     public boolean Everificar() {
         try {
             CaminhaoDao cdao = new CaminhaoDao();
@@ -614,10 +613,9 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
                 return false;
             } else {
                 return true;
-
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERRO: "+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERRO: " + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -634,13 +632,13 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
                 jTPesquisar.setText("");
                 listarCaminhoes();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-    
+
     //metodo para mostrar a qtd de sócios
-    public void MostrarQtdCaminhoes(){
+    public final void MostrarQtdCaminhoes() {
         try {
             //pega a qtd de sócios cadastrados no banco
             CaminhaoDao dao = new CaminhaoDao();
@@ -649,25 +647,22 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de caminhões!", "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void jTTabelaLinhaSelecionada(JTable tabela) {
         try {
             if (jTCaminhoes.getSelectedRow() != -1) {
                 jTNome.setText(caminhoes.get(tabela.getSelectedRow()).getNome());
-                jTSacRest.setText(caminhoes.get(tabela.getSelectedRow()).getCarga()+"");
-                jTId.setText(caminhoes.get(tabela.getSelectedRow()).getId()+"");
+                jTSacRest.setText(caminhoes.get(tabela.getSelectedRow()).getCarga() + "");
+                jTId.setText(caminhoes.get(tabela.getSelectedRow()).getId() + "");
                 CaminhaoDao cdao = new CaminhaoDao();
-                jTPreCarga.setText(""+cdao.GetCaminhao(caminhoes.get(tabela.getSelectedRow()).getId()).getCarga());
-                
+                jTPreCarga.setText("" + cdao.GetCaminhao(caminhoes.get(tabela.getSelectedRow()).getId()).getCarga());
+
                 Desabilitar();
-            } else {
-
             }
-        } catch (Exception e) {
-
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
         }
-    } 
-
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

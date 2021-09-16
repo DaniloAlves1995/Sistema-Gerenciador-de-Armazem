@@ -17,8 +17,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -29,8 +27,16 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Danilo
+ ***********************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ *********************************************************** 
+ * 
+ * 
  */
+           //<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+           //</editor-fold>
+                  //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+                  //</editor-fold>
 public class ProducaoSacas extends javax.swing.JFrame {
 
     DefaultTableModel tmCaminhao = new DefaultTableModel(null, new String[]{"Id", "Nome", "Sacas Previstas"});
@@ -92,7 +98,7 @@ public class ProducaoSacas extends javax.swing.JFrame {
         jTCaminhoes.setSelectionBackground(new java.awt.Color(0, 131, 73));
         jTCaminhoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lsmCaminhao = jTCaminhoes.getSelectionModel();
-        lsmCaminhao.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTCaminhoes); } }
+        lsmCaminhao.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){  } }
         });
         jScrollPane1.setViewportView(jTCaminhoes);
 
@@ -308,8 +314,7 @@ public class ProducaoSacas extends javax.swing.JFrame {
                         c.setCarga(c.getCarga()-Integer.parseInt(jTQtd.getText()));
                         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
                         
-                        try {
-                            
+                        try { 
                             Saca s = new Saca();
                             s.setId_p(produto.getId());
                             s.setId_ca(c.getId());
@@ -324,6 +329,7 @@ public class ProducaoSacas extends javax.swing.JFrame {
                             Estoque e = edao.GetEstoque(produto.getId());
                             e.setQtd(e.getQtd()+Integer.parseInt(jTQtd.getText()));
                             edao.altera(e);
+                            
                             //adiciona ao histórico de entradas do estoque
                             e.setQtd(Integer.parseInt(jTQtd.getText()));
                             e.setData(sf.format(new Date()));
@@ -346,8 +352,6 @@ public class ProducaoSacas extends javax.swing.JFrame {
                 }else{
                         JOptionPane.showMessageDialog(null, "Você precisa selecionar um caminhão na tabela.", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
                 }
-            } else {
-
             }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -384,10 +388,8 @@ public class ProducaoSacas extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ProducaoSacas().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ProducaoSacas().setVisible(true);
         });
     }
     
@@ -404,14 +406,12 @@ public class ProducaoSacas extends javax.swing.JFrame {
             tmCaminhao.removeRow(0);
         }
        
-
         String[] linha = new String[]{null, null, null};
         for (int i = 0; i < caminhoes.size(); i++) {
             tmCaminhao.addRow(linha);
             tmCaminhao.setValueAt(caminhoes.get(i).getId(), i, 0);
             tmCaminhao.setValueAt(caminhoes.get(i).getNome(), i, 1);
             tmCaminhao.setValueAt(caminhoes.get(i).getCarga(), i, 2);
-           
         }
     }
     
@@ -430,12 +430,10 @@ public class ProducaoSacas extends javax.swing.JFrame {
         } else {
                 try{
                     int a = Integer.parseInt(jTQtd.getText());
-                    
-                }catch(Exception e){
+                }catch(NumberFormatException e){
                     JOptionPane.showMessageDialog(null, "O campo Qtd Produzida deve ser um número inteiro!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
                     valor = false;
                 }
-            
         }
         return valor;
     }
@@ -445,10 +443,7 @@ public class ProducaoSacas extends javax.swing.JFrame {
         jTProduto.setText(produto.getProduto());
         this.produto = produto;
     }
-    
-    private void jTTabelaLinhaSelecionada(JTable tabela) {
-        
-    } 
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

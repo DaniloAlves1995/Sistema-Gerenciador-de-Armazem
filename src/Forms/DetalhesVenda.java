@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Forms;
 
 import DAO.ClienteDao;
@@ -16,106 +15,93 @@ import Entidades.Produto;
 import Entidades.Saida;
 import Entidades.Venda;
 import Entidades.Vendedor;
-import java.awt.Color;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  ***********************************************************
- * ------------- ..::NorthTech Automação::.. ------------- *
- *********************************************************** 
- * 
- *@Desenvolvedor Danilo Alves
- * 
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
-           //<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-           //</editor-fold>
-                  //<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
-                  //</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class DetalhesVenda extends javax.swing.JFrame {
 
-   
-   List<Venda> venda;
-   DefaultListModel dlista;
-   DefaultListModel dlistam;
-   public int id;
-   DefaultTableModel tmVendas = new DefaultTableModel(null, new String[]{"Produto", "Quantidade", "Preço(R$)"});
-   List<Venda> vendas;//lista utilizada para armazenar as vendas da tabela
-   Produto produto=null;
-   List<Vendedor> vendedores;
-   private int idcliente;
-   Saida nota;
-   boolean veri=false;
-   
+    List<Venda> venda;
+    DefaultListModel dlista;
+    DefaultListModel dlistam;
+    public int id;
+    DefaultTableModel tmVendas = new DefaultTableModel(null, new String[]{"Produto", "Quantidade", "Preço(R$)"});
+    List<Venda> vendas;//lista utilizada para armazenar as vendas da tabela
+    Produto produto = null;
+    List<Vendedor> vendedores;
+    private int idcliente;
+    Saida nota;
+    boolean veri = false;
+
     char l;
-    int mais=-1;//para verificar se já clicou na seta para baixo
-    int contr=1;//para controlar quando o usuário percorre o produto na lista
-    int ilistp=-1;//índice para referenciar a posição selecionada da lista com a lista <produto> 
-    int qtd=0;//para contar a quantidade de produtos vendidos
-    int contrenter=0;
-    int contfocus=0;
-    int controlefocus2=0;//para controlar se está passando pelos campos para cadastrar ou editar
-    
+    int mais = -1;//para verificar se já clicou na seta para baixo
+    int contr = 1;//para controlar quando o usuário percorre o produto na lista
+    int ilistp = -1;//índice para referenciar a posição selecionada da lista com a lista <produto> 
+    int qtd = 0;//para contar a quantidade de produtos vendidos
+    int contrenter = 0;
+    int contfocus = 0;
+    int controlefocus2 = 0;//para controlar se está passando pelos campos para cadastrar ou editar
+
     public DetalhesVenda() {
         initComponents();
-        
+
         this.setLocationRelativeTo(null);
         this.setTitle("Detalhes da venda - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         setIconImage(imagemTituloJanela.getImage());
-        
+
         //desabilitar os vendadores
         jComboBox2.setEnabled(false);
-        
-        
+
         //inicializa a lista vendas
         venda = new ArrayList<Venda>();
-       
-     
+
         //inicializa os DefaultListModels para ser utilizado no esfeito da pesquisa dinâmic do produto
         dlista = new DefaultListModel();
         dlistam = new DefaultListModel();
-       
+
         jTValor.setEditable(false);
         jTPreco.setEditable(false);
         jTEndereco.setEditable(false);
-        
-        
-        
+
         PreencherVendedores();
     }
-    
-    public void SetId(int id){
-        this.id=id;
+
+    public void SetId(int id) {
+        this.id = id;
     }
 
-    public void Iniciar(){
+    public void Iniciar() {
         try {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
             Date d;
-            
+
             SaidaDao da = new SaidaDao();
-            List<Saida> notas = da.getLista(id+"", "", 1);
+            List<Saida> notas = da.getLista(id + "", "", 1);
             nota = notas.get(0);
-            jTNVenda.setText(notas.get(0).getId_s()+"");
-            jTTotal.setText(notas.get(0).getTotal()+"");
-            d=df.parse(notas.get(0).getData());
+            jTNVenda.setText(notas.get(0).getId_s() + "");
+            jTTotal.setText(notas.get(0).getTotal() + "");
+            d = df.parse(notas.get(0).getData());
             jTData.setText(df2.format(d));
             ClienteDao cdao = new ClienteDao();
             idcliente = notas.get(0).getId_c();
@@ -128,16 +114,15 @@ public class DetalhesVenda extends javax.swing.JFrame {
             VendedorDao vdao = new VendedorDao();
             Vendedor v = vdao.GetVendedor(notas.get(0).getId_fun());
             jComboBox2.setSelectedItem(v.getNome());
-            
-            
+
             listarVendas();
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         } catch (ParseException ex) {
-           JOptionPane.showMessageDialog(null, "ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-       }
+            JOptionPane.showMessageDialog(null, "ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    
+
     protected void listarVendas() throws SQLException {
         VendaDao me = new VendaDao();
         vendas = me.getLista(id);
@@ -150,7 +135,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
         while (tmVendas.getRowCount() > 0) {
             tmVendas.removeRow(0);
         }
-       
+
         String[] linha = new String[]{null, null, null, null};
         for (int i = 0; i < vendas.size(); i++) {
             try {
@@ -161,12 +146,12 @@ public class DetalhesVenda extends javax.swing.JFrame {
                 tmVendas.setValueAt(vendas.get(i).getQtd(), i, 1);
                 tmVendas.setValueAt(vendas.get(i).getPreco(), i, 2);
             } catch (SQLException ex) {
-                 JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
-           
+
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -699,7 +684,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTDataKeyPressed
 
     private void jTProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTProdutoFocusLost
-     
+
     }//GEN-LAST:event_jTProdutoFocusLost
 
     private void jTProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyPressed
@@ -707,7 +692,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTProdutoKeyPressed
 
     private void jTProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyReleased
-       
+
     }//GEN-LAST:event_jTProdutoKeyReleased
 
     private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
@@ -719,7 +704,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTValorKeyReleased
 
     private void jTClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTClienteMouseClicked
-       
+
     }//GEN-LAST:event_jTClienteMouseClicked
 
     private void jTClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyPressed
@@ -751,7 +736,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTQtdActionPerformed
 
     private void jTQtdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTQtdFocusLost
-        
+
     }//GEN-LAST:event_jTQtdFocusLost
 
     private void jTQtdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTQtdKeyPressed
@@ -759,15 +744,15 @@ public class DetalhesVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTQtdKeyPressed
 
     private void jTQtdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTQtdKeyReleased
-       
+
     }//GEN-LAST:event_jTQtdKeyReleased
 
     private void jTVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTVendasMouseClicked
-       ClicarTabela();
+        ClicarTabela();
     }//GEN-LAST:event_jTVendasMouseClicked
 
     private void jTProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutoMouseClicked
-        
+
     }//GEN-LAST:event_jTProdutoMouseClicked
 
     private void jTCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCpfMouseClicked
@@ -819,49 +804,48 @@ public class DetalhesVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTContato2KeyTyped
 
     public PesquisarVendas pesqvenda;
+
     //metodo que recebe a instância do Form PesquisarVenda
-    public void SetPesquisarVendas(PesquisarVendas pesqvenda){
+    public void SetPesquisarVendas(PesquisarVendas pesqvenda) {
         this.pesqvenda = pesqvenda;
     }
-   
+
     //metodo para mostrar os valores nos campos quando clicar na tabela
-    public void ClicarTabela(){
-         if(jTVendas.getSelectedRow()!=-1){
+    public void ClicarTabela() {
+        if (jTVendas.getSelectedRow() != -1) {
             try {
                 ProdutoDao pdao = new ProdutoDao();
                 Produto p = pdao.GetProduto(vendas.get(jTVendas.getSelectedRow()).getId_p());
                 jTProduto.setText(p.getProduto());
-                jTPreco.setText(vendas.get(jTVendas.getSelectedRow()).getValor_p()+"");
-                jTQtd.setText(vendas.get(jTVendas.getSelectedRow()).getQtd()+"");
-                jTValor.setText(vendas.get(jTVendas.getSelectedRow()).getPreco()+"");
-                
+                jTPreco.setText(vendas.get(jTVendas.getSelectedRow()).getValor_p() + "");
+                jTQtd.setText(vendas.get(jTVendas.getSelectedRow()).getQtd() + "");
+                jTValor.setText(vendas.get(jTVendas.getSelectedRow()).getPreco() + "");
+
             } catch (SQLException ex) {
-                 JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
-            
-            
         }
     }
-    
-     //método que limpa os campos para a venda de outro produto
-    public void Limpar(){
+
+    //método que limpa os campos para a venda de outro produto
+    public void Limpar() {
         jTPreco.setText("");
         jTProduto.setText("");
         jTQtd.setText("1");
         jTValor.setText("");
     }
-    
+
     private void atualizarTabela(List<Entidades.Venda> venda) {
 
         while (tmVendas.getRowCount() > 0) {
             tmVendas.removeRow(0);
         }
-       
+
         String[] linha = new String[]{null, null, null, null};
         for (int i = 0; i < venda.size(); i++) {
             tmVendas.addRow(linha);
-            String produto="";
-            String preco="";
+            String produto = "";
+            String preco = "";
             try {
                 //Pega o produto com o id na lista da venda
                 ProdutoDao dao = new ProdutoDao();
@@ -869,33 +853,29 @@ public class DetalhesVenda extends javax.swing.JFrame {
                 produto = p.getProduto();
                 preco = String.valueOf(p.getPreco());
             } catch (SQLException ex) {
-                 JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
-            
+
             tmVendas.setValueAt(produto, i, 0);
             tmVendas.setValueAt(venda.get(i).getQtd(), i, 1);
             tmVendas.setValueAt(venda.get(i).getPreco(), i, 2);
-           
+
         }
     }
- 
-  
-    
+
     //metodo para preencher o combobox dos vendedores
-    public void PreencherVendedores(){
+    public void PreencherVendedores() {
         try {
-            VendedorDao a = new  VendedorDao();
+            VendedorDao a = new VendedorDao();
             vendedores = a.getLista("");
-            for(int y=0;y<vendedores.size(); y++){
+            for (int y = 0; y < vendedores.size(); y++) {
                 jComboBox2.addItem(vendedores.get(y).getNome());
             }
-            
-            
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "SysGEM'S", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "SysGEM'S", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */

@@ -12,9 +12,9 @@ import DAO.SaidaDao;
 import DAO.VendaDao;
 import Entidades.Cliente;
 import Entidades.Estoque;
-import Entidades.Produto;
 import Entidades.Saida;
 import Entidades.Venda;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -39,29 +39,36 @@ import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
- * @author Danilo
+ ***********************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class PesquisarVendas extends javax.swing.JFrame {
 
-     DefaultTableModel tmNota = new DefaultTableModel(null, new String[] {"Selecionar", "Nº", "Cliente","Valor(R$)", "Data"})
-     {
-        Class[] types = new Class [] {
+    DefaultTableModel tmNota = new DefaultTableModel(null, new String[]{"Selecionar", "Nº", "Cliente", "Valor(R$)", "Data"}) {
+        Class[] types = new Class[]{
             Boolean.class, Object.class, Object.class, Object.class, Object.class
         };
 
         public Class getColumnClass(int columnIndex) {
-            return types [columnIndex];
+            return types[columnIndex];
         }
     };
-    List<Saida> saidas;
-    
+    private List<Saida> saidas;
+
     public PesquisarVendas() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Pesquisar Vendas - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
-        saidas = new ArrayList<Saida>();
+        this.setIconImage(imagemTituloJanela.getImage());
+        this.saidas = new ArrayList<>();
     }
 
     /**
@@ -306,48 +313,47 @@ public class PesquisarVendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTNotaMouseClicked
-        if(jTNota.getSelectedRow() != -1){
+        if (jTNota.getSelectedRow() != -1) {
             jBExcluir.setEnabled(true);
             jBGerarN.setEnabled(true);
         }
     }//GEN-LAST:event_jTNotaMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(jTNota.getSelectedRow() != -1){
+        if (jTNota.getSelectedRow() != -1) {
             DetalhesVenda e = new DetalhesVenda();
             e.SetId(saidas.get(jTNota.getSelectedRow()).getId_s());
             e.SetPesquisarVendas(this);
             e.Iniciar();
             e.show();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Por favor selecione uma venda na tabela.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
-        if(jTNota.getSelectedRow() != -1){
+        if (jTNota.getSelectedRow() != -1) {
             try {
                 int op = JOptionPane.showConfirmDialog(null, "Você deseja excluir essa venda?", "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                if(op==0){
+                if (op == 0) {
                     //Caso seja sim
                     Saida a = saidas.get(jTNota.getSelectedRow());
                     SaidaDao ndao = new SaidaDao();
                     ndao.Excluir(a);
-                    
+
                     VendaDao vdao = new VendaDao();
                     vdao.ExcluirVendas(a.getId_s());
                     JOptionPane.showMessageDialog(null, "Venda excluida com sucesso!", "..: SGE :..", JOptionPane.QUESTION_MESSAGE);
                     pesquisar();
                 }
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
-
         }
     }//GEN-LAST:event_jBExcluirActionPerformed
 
     private void jBGerarNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarNActionPerformed
-        if(jTNota.getSelectedRow()!= -1){
+        if (jTNota.getSelectedRow() != -1) {
             relatorioNota();
         }
     }//GEN-LAST:event_jBGerarNActionPerformed
@@ -357,11 +363,11 @@ public class PesquisarVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_jDateChooser1PropertyChange
 
     private void jDateChooser1VetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jDateChooser1VetoableChange
-        
+
     }//GEN-LAST:event_jDateChooser1VetoableChange
 
     private void jDateChooser1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser1MouseClicked
-    
+
     }//GEN-LAST:event_jDateChooser1MouseClicked
 
     private void jDateChooser2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser2PropertyChange
@@ -369,53 +375,54 @@ public class PesquisarVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_jDateChooser2PropertyChange
 
     private void jBGerarN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarN1ActionPerformed
-        if(saidas.size()>0){
+        if (saidas.size() > 0) {
             try {
                 VendaDao vdao = new VendaDao();
                 vdao.adicionaPDF(d1, d2);
-            
+
                 relatorio();
                 vdao.LimparPDF();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-            }   
-        }else{
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "Não houve nenhuma venda no período informado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBGerarN1ActionPerformed
 
     private void jBGerarN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarN2ActionPerformed
-        if(saidas.size()>0){
+        if (saidas.size() > 0) {
             try {
                 int verificar = 0;
                 int qtd_total = 0;
                 double preco_total = 0;
                 String idss_s = "";
                 VendaDao vdao = new VendaDao();
-                
+
                 ProdutoDao pdao = new ProdutoDao();
                 List<Saida> listas = new ArrayList<>();
                 List<Venda> listav = new ArrayList<>();
                 List<Estoque> listae = new ArrayList<>();
-                
+
                 //fica somente com os ids das saidas selecionados
-                for(int i = 0; i<saidas.size(); i++){
-                    if(Boolean.parseBoolean(tmNota.getValueAt(i, 0).toString()) == true){
-                        if(verificar==0)
+                for (int i = 0; i < saidas.size(); i++) {
+                    if (Boolean.parseBoolean(tmNota.getValueAt(i, 0).toString()) == true) {
+                        if (verificar == 0) {
                             verificar = 1;
+                        }
                         Saida s = new Saida();
                         s.setId_s(saidas.get(i).getId_s());
                         listas.add(s);
                     }
                 }
                 //verifica se tem algum valor pesquisado na tabela
-                if(verificar ==0){
+                if (verificar == 0) {
                     JOptionPane.showMessageDialog(null, "Para gerar o Romaneio você precisa selecionar pelo menos uma venda.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-                }else{
+                } else {
                     //retorna a lista de ids de produtos de todas as saidas sem repetir
                     listav = vdao.getIdsProdSaida(listas);
                     SaidaDao sdao = new SaidaDao();
-                    for(int i = 0; i<listav.size(); i++){
+                    for (int i = 0; i < listav.size(); i++) {
                         int qtd = vdao.getQTDProdSaida(listas, listav.get(i).getId_p());
                         Estoque p = new Estoque();
                         p.setId_p(listav.get(i).getId_p());
@@ -427,21 +434,22 @@ public class PesquisarVendas extends javax.swing.JFrame {
                     relatorioResumo();
                     sdao.LimparPDFResumo();
                 }
-                
+
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Não houve nenhuma venda no período informado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBGerarN2ActionPerformed
     String d1, d2;
-    public void pesquisar(){
-        if(jDateChooser1.getDate() != null && jDateChooser2.getDate()!= null){
+
+    public void pesquisar() {
+        if (jDateChooser1.getDate() != null && jDateChooser2.getDate() != null) {
             SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
             d1 = sd.format(jDateChooser1.getDate());
             d2 = sd.format(jDateChooser2.getDate());
-            
+
             try {
                 SaidaDao sdao = new SaidaDao();
                 saidas = sdao.getLista(d1, d2, 8);
@@ -451,20 +459,20 @@ public class PesquisarVendas extends javax.swing.JFrame {
             }
         }
     }
-    
+
     //Mostra a pesquisa na tabela de notas
-     private void mostrarSaidas(List<Saida> saidas) {
-         
+    private void mostrarSaidas(List<Saida> saidas) {
+
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
         Date d;
-       
-        while(tmNota.getRowCount()>0){
+
+        while (tmNota.getRowCount() > 0) {
             tmNota.removeRow(0);
         }
-       if(!saidas.isEmpty()){
-           Object[] linha = new Object[]{Boolean.FALSE, null, null, null, null};
-           for (int i = 0; i < saidas.size(); i++) {
+        if (!saidas.isEmpty()) {
+            Object[] linha = new Object[]{Boolean.FALSE, null, null, null, null};
+            for (int i = 0; i < saidas.size(); i++) {
                 try {
                     tmNota.addRow(linha);
                     tmNota.setValueAt(saidas.get(i).getId_s(), i, 1);
@@ -476,25 +484,16 @@ public class PesquisarVendas extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                     }
                     tmNota.setValueAt(c.getNome(), i, 2);
-                    tmNota.setValueAt(saidas.get(i).getTotal()+"", i, 3);
+                    tmNota.setValueAt(saidas.get(i).getTotal() + "", i, 3);
                     d = df.parse(saidas.get(i).getData());
                     tmNota.setValueAt(df2.format(d), i, 4);
-                    
-                    
-                    
                 } catch (ParseException ex) {
-                   JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
-                
-                
-                
-           }
-       }else{
-                  
-       }
-             
-        
+            }
+        }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -523,90 +522,88 @@ public class PesquisarVendas extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PesquisarVendas().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new PesquisarVendas().setVisible(true);
         });
     }
-    
+
     //Cria o relatorio da lista de vendas
     private void relatorio() {
-         try {
-             Date data = new Date();
-             int ano = data.getYear() + 1900;
-             int dia = data.getDate();
-             int mes = data.getMonth() + 1;
-             String dias = null, mess = null;
-             if (dia < 10) {
-                 dias = "0" + dia;
-             } else {
-                 dias = "" + dia;
-             }    if (mes < 10) {
-                 mess = "0" + mes;
-             } else {
-                 mess = "" + mes;
-             }    String nome = "Relatório_Vendas_DATA_"+dias + "-" + mess + "-" + ano;
-             String arquivo = nome;
-             ConexaoRel con = new ConexaoRel();
-             //diretorio que vai salvar
-             File dir = new File("c:/SGE");
-             if (!dir.exists()) {
-                 dir.mkdir();
-             }    File l = new File("c:/SGE/Relatorios");
-             if(!l.exists()){
-                 l.mkdir();
-             }    File li = new File("c:/SGE/Relatorios/Vendas");
-             if(!li.exists()){
-                 li.mkdir();
-             }    String MostrarRelatorio;
-             String path = "c:/SGE/Relatorios/Vendas";
-             con.conecta();
-             con.executeSQL("select * from produto, venda, saida, cliente, pdf_venda where venda.id_s = saida.id_s and produto.id_p = venda.id_p and saida.id_c = cliente.id_c and saida.data between '" + d1 +"' and '"+d2+"' order by saida.data");
-             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
-             //referencia o jasper
-             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/RelatorioSaidas.jasper"), new HashMap(), jrRS);
-             JasperViewer jv = new JasperViewer(jp, false);
-             jv.setVisible(true);
-             jv.setTitle("Relatório de Estoque - .: SGE :.");
-             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
-             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-             // JasperViewer.viewReport(jp,true);
-             File arq = new File(path + arquivo + ".pdf");
-             if (arq.exists()) {
-                 int result = JOptionPane.showConfirmDialog(null, "O relatório " + arquivo + ".pdf já existe.\n Dezeja substitui-lo?", "SGE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                 if (result == JOptionPane.YES_NO_OPTION) {
-                     JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                     MostrarRelatorio = path + arquivo + ".pdf";
-                     JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
-                     try {
-                         Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
-                     } catch (IOException e) {
-                         JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
-                     }
-                 }
-             } else {
-                 
-                 JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                 MostrarRelatorio = path + arquivo + ".pdf";
-                 JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
-                 try {
-                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
-                 } catch (IOException e) {
-                     JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
-                 }
-                 
-             }
-             
-             //   JasperViewer jv = new JasperViewer(jp, false);
-             //  jv.setVisible(true);
-             //  jv.setTitle("Lista Contatos");
-             //  jv.setIconImage(new ImageIcon(getClass().getResource("/Icones/vista (18).png")).getImage());
-             //JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
-         } catch (JRException ex) {
-             Logger.getLogger(PesquisarVendas.class.getName()).log(Level.SEVERE, null, ex);
-         }
-        
+        try {
+            Date data = new Date();
+            int ano = data.getYear() + 1900;
+            int dia = data.getDate();
+            int mes = data.getMonth() + 1;
+            String dias = null, mess = null;
+            if (dia < 10) {
+                dias = "0" + dia;
+            } else {
+                dias = "" + dia;
+            }
+            if (mes < 10) {
+                mess = "0" + mes;
+            } else {
+                mess = "" + mes;
+            }
+            String nome = "Relatório_Vendas_DATA_" + dias + "-" + mess + "-" + ano;
+            String arquivo = nome;
+            ConexaoRel con = new ConexaoRel();
+            //diretorio que vai salvar
+            File dir = new File("c:/SGE");
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            File l = new File("c:/SGE/Relatorios");
+            if (!l.exists()) {
+                l.mkdir();
+            }
+            File li = new File("c:/SGE/Relatorios/Vendas");
+            if (!li.exists()) {
+                li.mkdir();
+            }
+            String MostrarRelatorio;
+            String path = "c:/SGE/Relatorios/Vendas";
+            con.conecta();
+            con.executeSQL("select * from produto, venda, saida, cliente, pdf_venda where venda.id_s = saida.id_s and produto.id_p = venda.id_p and saida.id_c = cliente.id_c and saida.data between '" + d1 + "' and '" + d2 + "' order by saida.data");
+            JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
+            //referencia o jasper
+            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/RelatorioSaidas.jasper"), new HashMap(), jrRS);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+            jv.setTitle("Relatório de Estoque - .: SGE :.");
+            jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
+            jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            // JasperViewer.viewReport(jp,true);
+            File arq = new File(path + arquivo + ".pdf");
+            if (arq.exists()) {
+                int result = JOptionPane.showConfirmDialog(null, "O relatório " + arquivo + ".pdf já existe.\n Dezeja substitui-lo?", "SGE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (result == JOptionPane.YES_NO_OPTION) {
+                    JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
+                    MostrarRelatorio = path + arquivo + ".pdf";
+                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                    try {
+                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+
+                JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
+                MostrarRelatorio = path + arquivo + ".pdf";
+                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+
+        } catch (JRException ex) {
+            Logger.getLogger(PesquisarVendas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -647,7 +644,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
         } else {
             mess = "" + mes;
         }
-        String nome = "NOTA_VENDA_N_"+saidas.get(jTNota.getSelectedRow()).getId_s();
+        String nome = "NOTA_VENDA_N_" + saidas.get(jTNota.getSelectedRow()).getId_s();
         String arquivo = nome;
 
         ConexaoRel con = new ConexaoRel();
@@ -670,9 +667,8 @@ public class PesquisarVendas extends javax.swing.JFrame {
         String path = "c:/SGE/Relatorios/NotasVendas/";
         try {
             con.conecta();
-            con.executeSQL("select saida.*, produto.*, venda.*, cliente.*, funcionario.nome_fun from  saida, produto, venda, cliente, funcionario where saida.id_s="+saidas.get(jTNota.getSelectedRow()).getId_s()+" and saida.id_s=venda.id_s and venda.id_p=produto.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
-           
-          
+            con.executeSQL("select saida.*, produto.*, venda.*, cliente.*, funcionario.nome_fun from  saida, produto, venda, cliente, funcionario where saida.id_s=" + saidas.get(jTNota.getSelectedRow()).getId_s() + " and saida.id_s=venda.id_s and venda.id_p=produto.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
+
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/NotaVenda.jasper"), new HashMap(), jrRS);
@@ -692,7 +688,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
                     try {
                         Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                     } catch (IOException e) {
-                         JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
@@ -703,22 +699,15 @@ public class PesquisarVendas extends javax.swing.JFrame {
                 try {
                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                 } catch (IOException e) {
-                     JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
 
-            //   JasperViewer jv = new JasperViewer(jp, false);
-            //  jv.setVisible(true);
-            //  jv.setTitle("Lista Contatos");
-            //  jv.setIconImage(new ImageIcon(getClass().getResource("/Icones/vista (18).png")).getImage());
-        } catch (Exception erro) {
-
+        } catch (HeadlessException | JRException erro) {
             JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
-            
         }
     }
-    
+
     //Cria o relatorio da nota
     private void relatorioResumo() {
         Date data = new Date();
@@ -737,15 +726,14 @@ public class PesquisarVendas extends javax.swing.JFrame {
         } else {
             mess = "" + mes;
         }
-        String nome = "ROMANEIO_VENDA_DATA_"+dias+"-"+mess+"-"+ano;
+        String nome = "ROMANEIO_VENDA_DATA_" + dias + "-" + mess + "-" + ano;
         String arquivo = nome;
 
         ConexaoRel con = new ConexaoRel();
-      
+
         //gerar string sql;
         String sql = "select produto.*, pdf_resumon.* from produto, pdf_resumon where pdf_resumon.id_p = produto.id_p;";
-        
-        
+
         //diretorio que vai salvar
         File dir = new File("c:/SGE");
         if (!dir.exists()) {
@@ -765,8 +753,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
         try {
             con.conecta();
             con.executeSQL(sql);
-           
-          
+
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/ResumoVendas.jasper"), new HashMap(), jrRS);
@@ -786,7 +773,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
                     try {
                         Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                     } catch (IOException e) {
-                         JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
@@ -797,19 +784,12 @@ public class PesquisarVendas extends javax.swing.JFrame {
                 try {
                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                 } catch (IOException e) {
-                     JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
-
-            //   JasperViewer jv = new JasperViewer(jp, false);
-            //  jv.setVisible(true);
-            //  jv.setTitle("Lista Contatos");
-            //  jv.setIconImage(new ImageIcon(getClass().getResource("/Icones/vista (18).png")).getImage());
-        } catch (Exception erro) {
-
+        } catch (HeadlessException | JRException erro) {
             JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
-            
         }
     }
 

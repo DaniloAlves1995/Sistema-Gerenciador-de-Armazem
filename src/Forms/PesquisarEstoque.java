@@ -11,10 +11,12 @@ import DAO.ProdutoDao;
 import Entidades.Estoque;
 import Entidades.Produto;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +30,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -36,21 +39,29 @@ import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
- * @author Danilo
+ ***********************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class PesquisarEstoque extends javax.swing.JFrame {
 
-    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)","Qtd estoque"});
+    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)", "Qtd estoque"});
     ListSelectionModel lsmProduto;
     List<Produto> produto = new ArrayList<>();
     char l;
-    
+
     public PesquisarEstoque() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Pesquisar Estoque - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
     }
 
     /**
@@ -332,14 +343,14 @@ public class PesquisarEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jTPesquisarKeyPressed
 
     private void jTPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyReleased
-        l=evt.getKeyChar();
-        if(evt.getKeyCode()==40){
+        l = evt.getKeyChar();
+        if (evt.getKeyCode() == 40) {
             jTProduto.requestFocus();
         }
-        try{
+        try {
             listarProduto();
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "SGE", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "SGE", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTPesquisarKeyReleased
 
@@ -372,9 +383,9 @@ public class PesquisarEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jTQtdKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(produto.size()>0){
+        if (produto.size() > 0) {
             relatorio();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Nenhum produto para listar.", "SGE", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -407,13 +418,11 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PesquisarEstoque().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new PesquisarEstoque().setVisible(true);
         });
     }
-    
+
     protected void listarProduto() throws SQLException {
         ProdutoDao me = new ProdutoDao();
         produto = me.getLista("%" + jTPesquisar.getText() + "%");
@@ -426,7 +435,7 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         while (tmProduto.getRowCount() > 0) {
             tmProduto.removeRow(0);
         }
-       
+
         if ((produto.isEmpty()) && (l == ' ')) {
             JOptionPane.showMessageDialog(null, "Nenhum Produto com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -437,34 +446,32 @@ public class PesquisarEstoque extends javax.swing.JFrame {
             tmProduto.setValueAt(produto.get(i).getId(), i, 0);
             tmProduto.setValueAt(produto.get(i).getProduto(), i, 1);
             tmProduto.setValueAt(produto.get(i).getPreco(), i, 2);
-            tmProduto.setValueAt(getqtdEstoque(produto.get(i).getId())+"", i, 3);
+            tmProduto.setValueAt(getqtdEstoque(produto.get(i).getId()) + "", i, 3);
         }
     }
-    
+
     private void jTTabelaLinhaSelecionada(JTable tabela) {
         try {
             if (jTProdutos.getSelectedRow() != -1) {
                 jTProduto.setText(produto.get(tabela.getSelectedRow()).getProduto());
-                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPreco()+"");
-                jTId.setText(produto.get(tabela.getSelectedRow()).getId()+"");
+                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPreco() + "");
+                jTId.setText(produto.get(tabela.getSelectedRow()).getId() + "");
                 //busca a qtd desse produto em estoque
-                jTQtd.setText(getqtdEstoque(produto.get(tabela.getSelectedRow()).getId())+"");
-            } else {
-
+                jTQtd.setText(getqtdEstoque(produto.get(tabela.getSelectedRow()).getId()) + "");
             }
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
         }
-    } 
+    }
 
     //pega a qtd de estoque de determinado produto
-    public int getqtdEstoque(int id_prod){
+    public int getqtdEstoque(int id_prod) {
         Estoque estoque = null;
         try {
             //busca a qtd desse produto em estoque
             EstoqueDao edao = new EstoqueDao();
             estoque = edao.GetEstoque(id_prod);
-            if(estoque==null){
+            if (estoque == null) {
                 Estoque e = new Estoque();
                 e.setId_p(id_prod);
                 e.setQtd(0);
@@ -474,7 +481,7 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         return estoque.getQtd();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -517,7 +524,7 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         } else {
             mess = "" + mes;
         }
-        String nome = "Relatório_Estoque_DATA_"+dias + "-" + mess + "-" + ano;
+        String nome = "Relatório_Estoque_DATA_" + dias + "-" + mess + "-" + ano;
         String arquivo = nome;
 
         ConexaoRel con = new ConexaoRel();
@@ -540,10 +547,10 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         String path = "c:/SGE/Relatorios/Estoque/";
         try {
             con.conecta();
-            con.executeSQL("select produto.*, estoque.qtd from produto, estoque where produto.id_p=estoque.id_p and produto.nome_p LIKE '%"+jTPesquisar.getText()+"%';");
-           
-          
+            con.executeSQL("select produto.*, estoque.qtd from produto, estoque where produto.id_p=estoque.id_p and produto.nome_p LIKE '%" + jTPesquisar.getText() + "%';");
+
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
+
             //referencia o jasper
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/QtdEstoque.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
@@ -562,31 +569,22 @@ public class PesquisarEstoque extends javax.swing.JFrame {
                     try {
                         Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                     } catch (IOException e) {
-                         JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + Arrays.toString(e.getStackTrace()), "SGE", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
-
                 JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
                 MostrarRelatorio = path + arquivo + ".pdf";
                 JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
                 try {
                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                 } catch (IOException e) {
-                     JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
-
-            //   JasperViewer jv = new JasperViewer(jp, false);
-            //  jv.setVisible(true);
-            //  jv.setTitle("Lista Contatos");
-            //  jv.setIconImage(new ImageIcon(getClass().getResource("/Icones/vista (18).png")).getImage());
-        } catch (Exception erro) {
-
+        } catch (HeadlessException | JRException erro) {
             JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
-            
         }
     }
-    
+
 }

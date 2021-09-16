@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Forms;
 
 import DAO.VendedorDao;
@@ -18,17 +17,25 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author RC
+ ***********************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class Cad_Vendedor extends javax.swing.JFrame {
 
     /**
      * Creates new form Cad_Vendedor
      */
     public Cad_Vendedor() {
-        
+
         initComponents();
-       this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         this.setTitle("Cadastrar Vendedor - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         setIconImage(imagemTituloJanela.getImage());
@@ -236,32 +243,31 @@ public class Cad_Vendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            //Verifica se ha algum campo vazio
-            if (Verifica()) {
-                //Cria um objeto Vendedor para setar os valores dos TextFilds
-                Vendedor s = new Vendedor();
-                //Seta os valores dos TextFilds
-                s.setNome(jTNome.getText());
-                s.setEndereco(jTEndereco.getText());
-                s.setContato1(jTTelefone.getText());
-                s.setContato2(jTTelefone2.getText());
-              
+        //Verifica se ha algum campo vazio
+        if (Verifica()) {
+            //Cria um objeto Vendedor para setar os valores dos TextFilds
+            Vendedor s = new Vendedor();
+            //Seta os valores dos TextFilds
+            s.setNome(jTNome.getText());
+            s.setEndereco(jTEndereco.getText());
+            s.setContato1(jTTelefone.getText());
+            s.setContato2(jTTelefone2.getText());
 
-                try {
-                    //Cria um objeto DAO para inserir o novo Vendedor no banco
-                    VendedorDao d = new VendedorDao();
-                    //Adiciona o novo Vendedor no banco
-                    d.adiciona(s);
-                    JOptionPane.showMessageDialog(null, "Vendedor cadastrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-                    
-                    //fecha a janela
-                    this.dispose();
-         
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-                }
+            try {
+                //Cria um objeto DAO para inserir o novo Vendedor no banco
+                VendedorDao d = new VendedorDao();
+                //Adiciona o novo Vendedor no banco
+                d.adiciona(s);
+                JOptionPane.showMessageDialog(null, "Vendedor cadastrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
 
+                //fecha a janela
+                this.dispose();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
+
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -279,41 +285,41 @@ public class Cad_Vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTTelefone2KeyPressed
 
     //Para verificar os campos
-    public boolean Verifica(){
+    public boolean Verifica() {
         return VerificarCampo(jTNome, "Nome") && VerificarCampo(jTEndereco, "Endereço") && VerificarCampo(jTTelefone, "Contato 1");
     }
-    
+
     //metodo para veificar o campo se está vazio e colorir o background caso não esteja
-    public boolean VerificarCampo(final JTextField campo, String nome){
+    public boolean VerificarCampo(final JTextField campo, String nome) {
         if (campo.getText().equals("") || campo.getText().equals("(  )    -    ")) {
-            JOptionPane.showMessageDialog(null, "O campo "+nome+" não pede ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "O campo " + nome + " não pede ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
             campo.setBackground(new Color(255, 51, 51));
             campo.requestFocus();
-            
+
             campo.addKeyListener(new KeyListener() {
-
-                @Override
-                public void keyTyped(KeyEvent ke) {
-                    
-                }
-
                 @Override
                 public void keyPressed(KeyEvent ke) {
-                    if (campo.getBackground() != Color.WHITE)
-                         campo.setBackground(Color.WHITE);
-        
+                    if (campo.getBackground() != Color.WHITE) {
+                        campo.setBackground(Color.WHITE);
+                    }
                 }
 
                 @Override
-                public void keyReleased(KeyEvent ke) {
-                    
+                public void keyTyped(KeyEvent e) {
+                    //Não utilizado
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    //Não utilizado
                 }
             });
             return false;
-        }else{
+        } else {
             return true;
         }
     }
+
     /**
      * @param args the command line arguments
      */

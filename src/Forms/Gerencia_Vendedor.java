@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Forms;
 
-import DAO.ClienteDao;
 import DAO.VendedorDao;
-import Entidades.Cliente;
 import Entidades.Vendedor;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -26,17 +23,23 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author RC
+ ***********************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
-public class Gerencia_Vendedor extends javax.swing.JFrame {
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
+public final class Gerencia_Vendedor extends javax.swing.JFrame {
 
     DefaultTableModel tmVendedor = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato 1"});
     ListSelectionModel lsmVendedor;
     List<Vendedor> vendedor;
     char l;
-    /**
-     * Creates new form Gerencia_Vendedor
-     */
+
     public Gerencia_Vendedor() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -44,8 +47,8 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         setIconImage(imagemTituloJanela.getImage());
         //Desabilita os campos
-        Desabilitar();
-        MostrarQtdVendedores();
+        this.Desabilitar();
+        this.MostrarQtdVendedores();
     }
 
     /**
@@ -421,12 +424,11 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
 
     private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
         l = evt.getKeyChar();
-        // System.out.println(l);
 
         try {
             listarVendedor();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jTPesquisarKeyTyped
@@ -448,22 +450,22 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTEnderecoKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            if(jTVendedores.getSelectedRow()!=-1){
-          
-                if (Everificar()) {
-                    try {
-                        alteraVendedor();
-                        jTPesquisar.setText("");
-                        listarVendedor();
-                        Limpar();
-                    } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-                    }
+        if (jTVendedores.getSelectedRow() != -1) {
 
+            if (Everificar()) {
+                try {
+                    alteraVendedor();
+                    jTPesquisar.setText("");
+                    listarVendedor();
+                    Limpar();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
-            
-        MostrarQtdVendedores();
+
             }
+
+            this.MostrarQtdVendedores();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -481,7 +483,7 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Vendedor na Tabela para poder Excluir!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
         }
-        MostrarQtdVendedores();
+        this.MostrarQtdVendedores();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTIdActionPerformed
@@ -499,7 +501,7 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTTelefone2KeyPressed
 
     //Esse metodo serve para Alterar os valores do vendedor no banco
-      private void alteraVendedor() throws SQLException {
+    private void alteraVendedor() throws SQLException {
 
         if (Verifica()) {
             Vendedor m = new Vendedor();
@@ -509,17 +511,15 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
             m.setEndereco(jTEndereco.getText());
             m.setContato1(jTTelefone.getText());
             m.setContato2(jTTelefone2.getText());
-            
+
             dao.altera(m);
             JOptionPane.showMessageDialog(null, "Vendedor Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             Desabilitar();
-
         }
-
     }
-      
-     public boolean Everificar() {
-        if ((vendedor.get(jTVendedores.getSelectedRow()).getNome().equals(jTNome.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getEndereco().equals(jTEndereco.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getContato1().equals(jTTelefone.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getContato2().equals(jTTelefone2.getText()))){
+
+    public boolean Everificar() {
+        if ((vendedor.get(jTVendedores.getSelectedRow()).getNome().equals(jTNome.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getEndereco().equals(jTEndereco.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getContato1().equals(jTTelefone.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getContato2().equals(jTTelefone2.getText()))) {
             JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
@@ -527,50 +527,51 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
 
         }
     }
-     //Para verificar os campos
-    public boolean Verifica(){
+    
+    //Para verificar os campos
+    public boolean Verifica() {
         return VerificarCampo(jTNome, "Nome") && VerificarCampo(jTEndereco, "Endereço") && VerificarCampo(jTTelefone, "Contato 1");
     }
-    
+
     //metodo para veificar o campo se está vazio e colorir o background caso não esteja
-    public boolean VerificarCampo(final JTextField campo, String nome){
-        if (campo.getText().equals("")  || campo.getText().equals("(  )    -    ")) {
-            JOptionPane.showMessageDialog(null, "O campo "+nome+" não pede ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+    public boolean VerificarCampo(final JTextField campo, String nome) {
+        if (campo.getText().equals("") || campo.getText().equals("(  )    -    ")) {
+            JOptionPane.showMessageDialog(null, "O campo " + nome + " não pede ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
             campo.setBackground(new Color(255, 51, 51));
             campo.requestFocus();
-            
+
             campo.addKeyListener(new KeyListener() {
 
                 @Override
                 public void keyTyped(KeyEvent ke) {
-                    
+                    //Não utilizado
                 }
 
                 @Override
                 public void keyPressed(KeyEvent ke) {
-                    if (campo.getBackground() != Color.WHITE)
-                         campo.setBackground(Color.WHITE);
-        
+                    if (campo.getBackground() != Color.WHITE) {
+                        campo.setBackground(Color.WHITE);
+                    }
                 }
 
                 @Override
                 public void keyReleased(KeyEvent ke) {
-                    
+                    //Não utilizado
                 }
             });
             return false;
-        }else{
+        } else {
             return true;
         }
     }
-      
+
     //Método para limpar os TextFilds
     public void Limpar() {
         jTNome.setText("");
         jTEndereco.setText("");
         jTTelefone.setText("");
         jTTelefone2.setText("");
-        jTId.setText("");   
+        jTId.setText("");
     }
 
     //Método para Desabilitar os TextFilds
@@ -588,7 +589,7 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
         jTTelefone.setEditable(true);
         jTTelefone2.setEditable(true);
     }
-    
+
     //Metodo para excluir o sócio 
     public void Excluir() {
         int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente excluir o Vendedor " + jTNome.getText().toUpperCase(), "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -600,11 +601,11 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
                 jTPesquisar.setText("");
                 listarVendedor();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-    
+
     protected void listarVendedor() throws SQLException {
         VendedorDao me = new VendedorDao();
         vendedor = me.getLista("%" + jTPesquisar.getText() + "%");
@@ -617,7 +618,7 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
         while (tmVendedor.getRowCount() > 0) {
             tmVendedor.removeRow(0);
         }
-       
+
         if ((vendedor.isEmpty()) && (l == ' ')) {
             JOptionPane.showMessageDialog(null, "Nenhum Vendedor com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -629,11 +630,11 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
             tmVendedor.setValueAt(vendedor.get(i).getNome(), i, 1);
             tmVendedor.setValueAt(vendedor.get(i).getEndereco(), i, 2);
             tmVendedor.setValueAt(vendedor.get(i).getContato1(), i, 3);
-           
+
         }
     }
-    
-     private void jTTabelaLinhaSelecionada(JTable tabela) {
+
+    private void jTTabelaLinhaSelecionada(JTable tabela) {
         try {
             if (jTVendedores.getSelectedRow() != -1) {
                 Limpar();
@@ -641,20 +642,17 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
                 jTEndereco.setText(vendedor.get(tabela.getSelectedRow()).getEndereco());
                 jTTelefone.setText(vendedor.get(tabela.getSelectedRow()).getContato1());
                 jTTelefone2.setText(vendedor.get(tabela.getSelectedRow()).getContato2());
-                jTId.setText(vendedor.get(tabela.getSelectedRow()).getId_vendedor()+"");
-                
-                
-                Desabilitar();
-            } else {
+                jTId.setText(vendedor.get(tabela.getSelectedRow()).getId_vendedor() + "");
 
+                Desabilitar();
             }
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
         }
-    } 
-     
-     //metodo para mostrar a qtd de sócios
-    public void MostrarQtdVendedores(){
+    }
+
+    //metodo para mostrar a qtd de sócios
+    public void MostrarQtdVendedores() {
         try {
             //pega a qtd de sócios cadastrados no banco
             VendedorDao dao = new VendedorDao();
@@ -663,8 +661,7 @@ public class Gerencia_Vendedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de clientes!", "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */

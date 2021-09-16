@@ -151,7 +151,7 @@
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTCaminhoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;lsmCaminhao = jTCaminhoes.getSelectionModel();&#xd;&#xa;lsmCaminhao.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTCaminhoes); } }&#xd;&#xa;});"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTCaminhoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xa;lsmCaminhao = jTCaminhoes.getSelectionModel();&#xa;lsmCaminhao.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){  } }&#xa;});"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

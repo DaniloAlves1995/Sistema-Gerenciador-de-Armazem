@@ -7,15 +7,11 @@ package Forms;
 
 import Conexao.ConexaoRel;
 import DAO.CaminhaoDao;
-import DAO.ClienteDao;
 import DAO.EstoqueDao;
 import DAO.ProdutoDao;
 import DAO.SacaDao;
-import DAO.SaidaDao;
-import Entidades.Caminhao;
-import Entidades.Cliente;
 import Entidades.Saca;
-import Entidades.Saida;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -25,12 +21,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -39,20 +34,28 @@ import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
- * @author Danilo
+ ***********************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class PesquisarProducaoSacas extends javax.swing.JFrame {
 
-    DefaultTableModel tmSacas = new DefaultTableModel(null, new String[] {"Produto", "Qtd", "Caminhão", "Data"});
-    List<Saca> sacas;
-    
+    DefaultTableModel tmSacas = new DefaultTableModel(null, new String[]{"Produto", "Qtd", "Caminhão", "Data"});
+    private List<Saca> sacas;
+
     public PesquisarProducaoSacas() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Pesquisar produção de sacas - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
-        sacas = new ArrayList<Saca>();
+        this.setIconImage(imagemTituloJanela.getImage());
+        this.sacas = new ArrayList<Saca>();
         jRadioButton2.setSelected(true);
     }
 
@@ -318,12 +321,12 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTNotaMouseClicked
-      
+
     }//GEN-LAST:event_jTNotaMouseClicked
 
     private void jBGerarN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarN1ActionPerformed
-        if(sacas.size()>0){
-            if(jRadioButton1.isSelected()){
+        if (this.sacas.size() > 0) {
+            if (jRadioButton1.isSelected()) {
                 try {
                     EstoqueDao edao = new EstoqueDao();
                     SacaDao sdao = new SacaDao();
@@ -332,12 +335,12 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
                     relatorio();
                     edao.LimparTotal();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "ERRO: "+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "ERRO: " + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
-            }else{
+            } else {
                 relatorio();
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Não houve nenhuma produção no período informado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBGerarN1ActionPerformed
@@ -381,13 +384,14 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     String d1, d2;
-    public void pesquisar(){
-        if(jDateChooser1.getDate() != null && jDateChooser2.getDate()!= null){
+
+    public void pesquisar() {
+        if (jDateChooser1.getDate() != null && jDateChooser2.getDate() != null) {
             SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
             d1 = sd.format(jDateChooser1.getDate());
             d2 = sd.format(jDateChooser2.getDate());
-            
-            if(jRadioButton2.isSelected()){
+
+            if (jRadioButton2.isSelected()) {
                 try {
                     SacaDao sdao = new SacaDao();
                     sacas = sdao.getLista(d1, d2, 1, "");
@@ -395,7 +399,7 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
-            }else{
+            } else {
                 try {
                     SacaDao sdao = new SacaDao();
                     sacas = sdao.getLista(d1, d2, 0, jTProduto.getText());
@@ -406,39 +410,36 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
             }
         }
     }
-    
+
     //Mostra a pesquisa na tabela de notas
-     private void mostrarSaidas(List<Saca> sacas) {
+    private void mostrarSaidas(List<Saca> sacas) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
         Date d;
-        while(tmSacas.getRowCount()>0){
+        while (tmSacas.getRowCount() > 0) {
             tmSacas.removeRow(0);
         }
-       if(!sacas.isEmpty()){
-           Object[] linha = new Object[]{null, null, null, null};
-           for (int i = 0; i < sacas.size(); i++) {
-               try {
-                   tmSacas.addRow(linha);
-                   ProdutoDao pdao = new ProdutoDao();
-                   CaminhaoDao cdao = new CaminhaoDao();
-                   tmSacas.setValueAt(pdao.GetProduto(sacas.get(i).getId_p()).getProduto(), i, 0);
-                   tmSacas.setValueAt(sacas.get(i).getQtd(), i, 1);
-                   tmSacas.setValueAt(cdao.GetCaminhao(sacas.get(i).getId_ca()).getNome(), i, 2);
-                   d = df.parse(sacas.get(i).getData());
-                   tmSacas.setValueAt(df2.format(d), i, 3);
-               } catch (SQLException ex) {
-                   JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-               } catch (ParseException ex) {
-                   JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-               }
-           }
-       }else{
-                  
-       }
-             
-        
+        if (!sacas.isEmpty()) {
+            Object[] linha = new Object[]{null, null, null, null};
+            for (int i = 0; i < sacas.size(); i++) {
+                try {
+                    tmSacas.addRow(linha);
+                    ProdutoDao pdao = new ProdutoDao();
+                    CaminhaoDao cdao = new CaminhaoDao();
+                    tmSacas.setValueAt(pdao.GetProduto(sacas.get(i).getId_p()).getProduto(), i, 0);
+                    tmSacas.setValueAt(sacas.get(i).getQtd(), i, 1);
+                    tmSacas.setValueAt(cdao.GetCaminhao(sacas.get(i).getId_ca()).getNome(), i, 2);
+                    d = df.parse(sacas.get(i).getData());
+                    tmSacas.setValueAt(df2.format(d), i, 3);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -468,10 +469,8 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PesquisarProducaoSacas().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new PesquisarProducaoSacas().setVisible(true);
         });
     }
 
@@ -496,7 +495,7 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
     private javax.swing.JTextField jTProduto;
     // End of variables declaration//GEN-END:variables
 
-     //Cria o relatorio da lista de vendas
+    //Cria o relatorio da lista de vendas
     private void relatorio() {
         Date data = new Date();
 
@@ -514,7 +513,7 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
         } else {
             mess = "" + mes;
         }
-        String nome = "Relatório_Produção_Sacas_DATA_"+dias + "-" + mess + "-" + ano;
+        String nome = "Relatório_Produção_Sacas_DATA_" + dias + "-" + mess + "-" + ano;
         String arquivo = nome;
 
         ConexaoRel con = new ConexaoRel();
@@ -525,11 +524,11 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
             dir.mkdir();
         }
         File l = new File("c:/SGE/Relatorios");
-        if(!l.exists()){
+        if (!l.exists()) {
             l.mkdir();
         }
         File li = new File("c:/SGE/Relatorios/Entrada");
-        if(!li.exists()){
+        if (!li.exists()) {
             li.mkdir();
         }
 
@@ -539,16 +538,15 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
             con.conecta();
             String sql = "";
             String jasper = "";
-            if(jRadioButton2.isSelected()){
-                sql = "select produto.nome_p, caminhao.nome_ca, sacas.* from produto, caminhao, sacas WHERE sacas.data between '"+d1+"' and '"+d2+"' and produto.id_p=sacas.id_p and caminhao.id_ca = sacas.id_ca;";
+            if (jRadioButton2.isSelected()) {
+                sql = "select produto.nome_p, caminhao.nome_ca, sacas.* from produto, caminhao, sacas WHERE sacas.data between '" + d1 + "' and '" + d2 + "' and produto.id_p=sacas.id_p and caminhao.id_ca = sacas.id_ca;";
                 jasper = "/Jasper/RelatorioProducaoSacas.jasper";
-            }else{
-                sql = "select pdf_total.*, produto.nome_p, caminhao.nome_ca, sacas.* from sacas, produto, caminhao, pdf_total WHERE sacas.data between '" + d1 +"' and '"+d2+"' and produto.nome_p LIKE '%"+jTProduto.getText()+"%' and produto.id_p = sacas.id_p and sacas.id_ca=caminhao.id_ca;";
+            } else {
+                sql = "select pdf_total.*, produto.nome_p, caminhao.nome_ca, sacas.* from sacas, produto, caminhao, pdf_total WHERE sacas.data between '" + d1 + "' and '" + d2 + "' and produto.nome_p LIKE '%" + jTProduto.getText() + "%' and produto.id_p = sacas.id_p and sacas.id_ca=caminhao.id_ca;";
                 jasper = "/Jasper/RelatorioProducaoSacas_i.jasper";
             }
             con.executeSQL(sql);
-           
-          
+
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream(jasper), new HashMap(), jrRS);
@@ -568,30 +566,21 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
                     try {
                         Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                     } catch (IOException e) {
-                         JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
-
                 JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
                 MostrarRelatorio = path + arquivo + ".pdf";
                 JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
                 try {
                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                 } catch (IOException e) {
-                     JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
-
-            //   JasperViewer jv = new JasperViewer(jp, false);
-            //  jv.setVisible(true);
-            //  jv.setTitle("Lista Contatos");
-            //  jv.setIconImage(new ImageIcon(getClass().getResource("/Icones/vista (18).png")).getImage());
-        } catch (Exception erro) {
-
+        } catch (HeadlessException | JRException erro) {
             JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
-            
         }
     }
 

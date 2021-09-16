@@ -3,21 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Forms;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,42 +15,42 @@ import javax.swing.JOptionPane;
 /**
  *
  ***********************************************************
- * ------------- ..::NorthTech Automação::.. ------------- *
- *********************************************************** 
- * 
- *@Desenvolvedor Danilo Alves
- * 
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
-           //<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-           //</editor-fold>
-                  //<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
-                  //</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class Principal extends javax.swing.JFrame {
 
     /**
      * Creates new form Principal
      */
-    public static boolean flag=false;
+    public static boolean flag = false;
+
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Sistema SGE ..:: Especializado para ARMAZÉM OLIVEIRA ::..");
+        this.setTitle("Sistema SGE ..:: Especializado para Empresa X ::..");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         setIconImage(imagemTituloJanela.getImage());
-        
+
         this.setExtendedState(MAXIMIZED_BOTH);
         Date d = new Date();
         int h = d.getHours();
-        if(h>=12 && h<18){
+        if (h >= 12 && h < 18) {
             jLabel1.setText("Boa Tarde!");
-        }else{
-            if(h>=18){
+        } else {
+            if (h >= 18) {
                 jLabel1.setText("Boa Noite!");
-            }else{
-                if(h>=0 && h<=5){
+            } else {
+                if (h >= 0 && h <= 5) {
                     jLabel1.setText("Boa Madrugada ;-)");
-                }else{
-                    if(h>5 && h<12){
+                } else {
+                    if (h > 5 && h < 12) {
                         jLabel1.setText("Bom dia!");
                     }
                 }
@@ -68,11 +58,10 @@ public class Principal extends javax.swing.JFrame {
         }
         //posiciona a logo no centro da janela
         JLabel logo = new JLabel(new ImageIcon(getClass().getResource("/Imagens/LOGO_Principal.png")));
-        
-        
+
         logo.setSize(320, 236);
         logo.show();
-        logo.setLocation(jPanel1.getWidth()/2+logo.getWidth()/2-60,jPanel1.getHeight()/2-logo.getHeight()/2-50);
+        logo.setLocation(jPanel1.getWidth() / 2 + logo.getWidth() / 2 - 60, jPanel1.getHeight() / 2 - logo.getHeight() / 2 - 50);
         jPanel1.add(logo);
     }
 
@@ -396,7 +385,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
-        
+
     }//GEN-LAST:event_jMenu4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -404,11 +393,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-       sair();
+        sair();
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-       new Cad_Vendedor().show();
+        new Cad_Vendedor().show();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
@@ -416,7 +405,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-         
+
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
@@ -456,7 +445,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-       new PesquisarProducaoSacas().show();
+        new PesquisarProducaoSacas().show();
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -492,35 +481,28 @@ public class Principal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Principal().setVisible(true);
         });
     }
-    
+
     public void sair() {
         try {
             //Realiza o backup do banco
-           Runtime run = Runtime.getRuntime();
-          // run.exec("cmd.exe /C C:\\wamp\\bin\\mysql\\mysql5.0.45\\bin/mysqldump -u root gems>c:/Gems/gems.sql");
-          File f = new File("c:/SGE");
-          if(!f.exists()){
-              f.mkdir();
-          }
-          run.exec("cmd.exe /C C:\\wamp64\\bin\\mysql\\mysql5.7.31\\bin/mysqldump -u root armazem>c:/SGE/armazem.sql");
-          //run.exec("cmd.exe /D D:\\wamp\\bin\\mysql\\mysql5.6.17\\bin/mysqldump -u root armazem>c:/SGE/armazem.sql");
-          
-            
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar dados! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-        }
-        int v = JOptionPane.showConfirmDialog(this, "Você deseja realmente sair?", "..: SGE :..", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-  
-        if (v == 0) {
-            System.exit(0);
-        } else {
+            Runtime run = Runtime.getRuntime();
+            File f = new File("c:/SGE");
+            if (!f.exists()) {
+                f.mkdir();
+            }
+            run.exec("cmd.exe /C C:\\wamp64\\bin\\mysql\\mysql5.7.31\\bin/mysqldump -u root armazem>c:/SGE/armazem.sql");
 
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar dados! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+        }
+        int op = JOptionPane.showConfirmDialog(this, "Você deseja realmente sair?", "..: SGE :..", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (op == 0) {
+            System.exit(0);
         }
     }
 

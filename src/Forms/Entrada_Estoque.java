@@ -10,19 +10,24 @@ import Entidades.Estoque;
 import Entidades.Produto;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
  *
- * @author Danilo
+ ***********************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class Entrada_Estoque extends javax.swing.JFrame {
 
     /**
@@ -31,12 +36,13 @@ public class Entrada_Estoque extends javax.swing.JFrame {
     //Produto que está entrando em estoque
     private Produto produto;
     private Estoque estoque;
+
     public Entrada_Estoque() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Entrada em Estoque - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
     }
 
     /**
@@ -299,7 +305,7 @@ public class Entrada_Estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jTProdutoKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       SalvarEstoque();
+        SalvarEstoque();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -307,12 +313,12 @@ public class Entrada_Estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTQtd_entKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTQtd_entKeyPressed
-        if(evt.getKeyCode()==10){
+        if (evt.getKeyCode() == 10) {
             SalvarEstoque();
         }
     }//GEN-LAST:event_jTQtd_entKeyPressed
     //metodo para adicionar o produto
-    public void SetProduto(Produto p){
+    public void SetProduto(Produto p) {
         this.produto = p;
         //preenche os campos do produto
         jTProduto.setText(produto.getProduto());
@@ -321,25 +327,25 @@ public class Entrada_Estoque extends javax.swing.JFrame {
             //busca a qtd desse produto em estoque
             EstoqueDao edao = new EstoqueDao();
             this.estoque = edao.GetEstoque(produto.getId());
-            if(estoque==null){
+            if (estoque == null) {
                 Estoque e = new Estoque();
                 e.setId_p(produto.getId());
                 e.setQtd(0);
                 edao.adiciona(e);
-                
+
                 this.estoque = edao.GetEstoque(produto.getId());
             }
-            jTQtd_es.setText(estoque.getQtd()+"");
+            jTQtd_es.setText(estoque.getQtd() + "");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    
+
     //metodo para atualizar o valor de estoque
-    public void SalvarEstoque(){
-        if(!jTQtd_ent.getText().equals("")){
-            if(isInteger(jTQtd_ent)){
+    public void SalvarEstoque() {
+        if (!jTQtd_ent.getText().equals("")) {
+            if (isInteger(jTQtd_ent)) {
                 try {
                     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
                     //editar na tabela do estoque corrente
@@ -347,37 +353,39 @@ public class Entrada_Estoque extends javax.swing.JFrame {
                     Estoque e = new Estoque();
                     e.setId_e(estoque.getId_e());
                     e.setId_p(estoque.getId_p());
-                    int qtd = Integer.parseInt(jTQtd_es.getText())+Integer.parseInt(jTQtd_ent.getText());
+                    int qtd = Integer.parseInt(jTQtd_es.getText()) + Integer.parseInt(jTQtd_ent.getText());
                     e.setQtd(qtd);
                     edao.altera(e);
-                    
+
                     //adiciona na tabela do histórico de entradas
                     e.setQtd(Integer.parseInt(jTQtd_ent.getText()));
                     e.setData(sf.format(new Date()));
                     edao.adicionaEstEntrada(e);
-                    
-                    jTQtd_es.setText(qtd+"");
+
+                    jTQtd_es.setText(qtd + "");
                     jTQtd_ent.setText("");
                     JOptionPane.showMessageDialog(null, "Entrada adicionada ao estoque!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "O campo Quantidade de entrada deve ser um número inteiro.", "SGE", JOptionPane.WARNING_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "O campo Quantidade de entrada não pode ser vazio.", "SGE", JOptionPane.WARNING_MESSAGE);
         }
     }
+
     //metodo para verificar se é inteiro
-    public boolean isInteger(JTextField campo){
-        try{
+    public boolean isInteger(JTextField campo) {
+        try {
             int d = Integer.parseInt(campo.getText());
             return true;
-        }catch(Exception ex){
-            return false; 
+        } catch (Exception ex) {
+            return false;
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -412,19 +420,21 @@ public class Entrada_Estoque extends javax.swing.JFrame {
             }
         });
     }
+
     int la;
-    public void EventoChamarPoduto(KeyEvent evt){
-        if(evt.getKeyCode()==17){
+
+    public void EventoChamarPoduto(KeyEvent evt) {
+        if (evt.getKeyCode() == 17) {
             la = 1;
         }
-        if(evt.getKeyCode()==80 && la == 1){
+        if (evt.getKeyCode() == 80 && la == 1) {
             la = 0;
             BuscarProduto b = new BuscarProduto();
             b.SetEntradaEstoque(this);
             b.SetTipo(0);
             b.show();
         }
-       
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

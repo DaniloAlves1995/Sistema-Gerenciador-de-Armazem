@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Forms;
 
 import DAO.ProdutoDao;
@@ -22,22 +21,22 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  ***********************************************************
- * ------------- ..::NorthTech Automação::.. ------------- *
- *********************************************************** 
- * 
- *@Desenvolvedor Danilo Alves
- * 
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
-           //<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-           //</editor-fold>
-                  //<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
-                  //</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class BuscarProduto extends javax.swing.JFrame {
 
-DefaultTableModel tmProduto = new DefaultTableModel(null, new String[] {"Id", "Nome", "Preço"});
-ListSelectionModel lsmProduto;
-List<Produto> produtos;
-char l;
+    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço"});
+    ListSelectionModel lsmProduto;
+    List<Produto> produtos;
+    char l;
+
     /**
      * Creates new form PesquisarSocio
      */
@@ -47,10 +46,10 @@ char l;
         this.setTitle("Buscar Produto - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         setIconImage(imagemTituloJanela.getImage());
-        
+
         //Desabilita os TextFilds
-       jTNome.setEditable(false);
-       jTPreco.setEditable(false);
+        jTNome.setEditable(false);
+        jTPreco.setEditable(false);
     }
 
     /**
@@ -276,14 +275,14 @@ char l;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyPressed
-        if(jTNome.getBackground() != Color.WHITE){
+        if (jTNome.getBackground() != Color.WHITE) {
             jTNome.setBackground(Color.WHITE);
         }
 
     }//GEN-LAST:event_jTNomeKeyPressed
 
     private void jTPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPrecoKeyPressed
-        if(jTPreco.getBackground() != Color.WHITE){
+        if (jTPreco.getBackground() != Color.WHITE) {
             jTPreco.setBackground(Color.WHITE);
         }
     }//GEN-LAST:event_jTPrecoKeyPressed
@@ -293,30 +292,30 @@ char l;
     }//GEN-LAST:event_jTPesquisarKeyPressed
 
     private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
-       
+
     }//GEN-LAST:event_jTPesquisarKeyTyped
 
     private void jTPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyReleased
-        l=evt.getKeyChar();
-        if(evt.getKeyCode()==40){
+        l = evt.getKeyChar();
+        if (evt.getKeyCode() == 40) {
             jTProduto.requestFocus();
         }
-        try{ 
-        listarProduto();   
-  }catch(SQLException ex){
-      JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "SGE", JOptionPane.ERROR_MESSAGE);
-  }
+        try {
+            listarProduto();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "SGE", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jTPesquisarKeyReleased
 
     private void jBOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOkActionPerformed
-        if(jTProduto.getSelectedRow()!= -1){
-            if(tipo==0){
+        if (jTProduto.getSelectedRow() != -1) {
+            if (tipo == 0) {
                 entradae.SetProduto(produtos.get(jTProduto.getSelectedRow()));
             }
-            if(tipo==1){
+            if (tipo == 1) {
                 svenda.SetProduto(produtos.get(jTProduto.getSelectedRow()));
             }
-            if(tipo==2){
+            if (tipo == 2) {
                 producao.SetProduto(produtos.get(jTProduto.getSelectedRow()));
             }
             this.dispose();
@@ -328,18 +327,18 @@ char l;
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jTProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyPressed
-        if(evt.getKeyCode()==10){
-            if(jTProduto.getSelectedRow()!=-1){
-                if(tipo==0){
+        if (evt.getKeyCode() == 10) {
+            if (jTProduto.getSelectedRow() != -1) {
+                if (tipo == 0) {
                     entradae.SetProduto(produtos.get(jTProduto.getSelectedRow()));
                 }
-                if(tipo==1){
+                if (tipo == 1) {
                     svenda.SetProduto(produtos.get(jTProduto.getSelectedRow()));
                 }
-                if(tipo==2){
+                if (tipo == 2) {
                     producao.SetProduto(produtos.get(jTProduto.getSelectedRow()));
                 }
-                this.dispose(); 
+                this.dispose();
             }
         }
     }//GEN-LAST:event_jTProdutoKeyPressed
@@ -348,23 +347,23 @@ char l;
     private SaidaVenda svenda;
     private ProducaoSacas producao;
     private int tipo;// 0 = EntradaEstoque; 1 = SaidaVenda; 2 = ProducaoSacas
-    
-    public void SetEntradaEstoque(Entrada_Estoque entradae){
+
+    public void SetEntradaEstoque(Entrada_Estoque entradae) {
         this.entradae = entradae;
     }
-  
-    public void SetSaidaVenda(SaidaVenda svenda){
+
+    public void SetSaidaVenda(SaidaVenda svenda) {
         this.svenda = svenda;
     }
-    
-    public void SetProducaoSacas(ProducaoSacas producao){
+
+    public void SetProducaoSacas(ProducaoSacas producao) {
         this.producao = producao;
     }
-    
-    public void SetTipo(int tipo){
+
+    public void SetTipo(int tipo) {
         this.tipo = tipo;
     }
-   
+
     /**
      * @param args the command line arguments
      *
@@ -423,51 +422,47 @@ char l;
     // End of variables declaration//GEN-END:variables
 
     //Realiza a pesquisa do valor digitado no banco
-    protected void listarProduto() throws SQLException{
+    protected void listarProduto() throws SQLException {
         ProdutoDao me = new ProdutoDao();
-        produtos = me.getLista("%"+jTPesquisar.getText()+"%");
+        produtos = me.getLista("%" + jTPesquisar.getText() + "%");
         mostraPesquisa(produtos);
     }
-  
+
     //Mostra a pesquisa na tabela
-     private void mostraPesquisa(List<Produto> produto) {
-       
-        while(tmProduto.getRowCount()>0){
+    private void mostraPesquisa(List<Produto> produto) {
+
+        while (tmProduto.getRowCount() > 0) {
             tmProduto.removeRow(0);
         }
-        int a=1;
-         
-        if(((produtos.isEmpty()))&&(l==' ')){
-             JOptionPane.showMessageDialog(null,"Nenhum Produto com o Nome "+jTPesquisar.getText().toUpperCase()+" cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-             
-              if(produtos.isEmpty()==false){
-                    String[] linha = new String[]{null, null, null};
-                    for (int i = 0; i < produtos.size(); i++) {
-                      tmProduto.addRow(linha);
-                      tmProduto.setValueAt(produtos.get(i).getId(), i, 0);
-                      tmProduto.setValueAt(produtos.get(i).getProduto(), i, 1);
-                      tmProduto.setValueAt(produtos.get(i).getPreco(), i, 2);
-                    }
-              }else{
-                  
-              }
-             
-        }         
-    }
-     
-     //Metodo para pagar o valor da linha selecionada
-     private void jTTabelaLinhaSelecionada(JTable tabela) {
-     try{
-        if (jTProduto.getSelectedRow() != -1) {
-            jTNome.setText(produtos.get(tabela.getSelectedRow()).getProduto());
-            jTPreco.setText(produtos.get(tabela.getSelectedRow()).getPreco()+"");
-            
+        int a = 1;
+
+        if (((produtos.isEmpty())) && (l == ' ')) {
+            JOptionPane.showMessageDialog(null, "Nenhum Produto com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            
+
+            if (produtos.isEmpty() == false) {
+                String[] linha = new String[]{null, null, null};
+                for (int i = 0; i < produtos.size(); i++) {
+                    tmProduto.addRow(linha);
+                    tmProduto.setValueAt(produtos.get(i).getId(), i, 0);
+                    tmProduto.setValueAt(produtos.get(i).getProduto(), i, 1);
+                    tmProduto.setValueAt(produtos.get(i).getPreco(), i, 2);
+                }
+            }
+
         }
-     }catch(Exception e){
-         
-     }
+    }
+
+    //Metodo para pagar o valor da linha selecionada
+    private void jTTabelaLinhaSelecionada(JTable tabela) {
+        try {
+            if (jTProduto.getSelectedRow() != -1) {
+                jTNome.setText(produtos.get(tabela.getSelectedRow()).getProduto());
+                jTPreco.setText(produtos.get(tabela.getSelectedRow()).getPreco() + "");
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

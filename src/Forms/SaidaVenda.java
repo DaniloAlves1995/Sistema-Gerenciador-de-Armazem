@@ -19,7 +19,7 @@ import Entidades.Saida;
 import Entidades.Venda;
 import Entidades.Vendedor;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -31,12 +31,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -44,6 +41,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -53,21 +51,17 @@ import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  ***********************************************************
- * ------------- ..::NorthTech Automação::.. ------------- *
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
  * **********************************************************
  *
- * @Desenvolvedor Danilo Alves
  *
  */
 //<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
 //</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
 public class SaidaVenda extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Venda
-     */
     List<Venda> venda;
     DefaultListModel dlista;
     DefaultListModel dlistam;
@@ -91,7 +85,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
     public SaidaVenda() {
         initComponents();
-        
+
         this.setLocationRelativeTo(null);
         this.setTitle("Realizar Venda - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
@@ -100,12 +94,9 @@ public class SaidaVenda extends javax.swing.JFrame {
         //inicializa a lista vendas
         venda = new ArrayList<Venda>();
 
-
         PreencherVendedores();
 
-
-        //impede a edição de alguns textfilds
-        
+        //impede a edição de alguns campos
         jTValor.setEditable(false);
         jTEndereco.setEditable(false);
         jLQtd.setVisible(false);
@@ -684,7 +675,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         jTValor.setText(jTValor.getText().replace(",", "."));
     }
     private void jTClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyPressed
-       EventoChamarPoduto(evt);
+        EventoChamarPoduto(evt);
     }//GEN-LAST:event_jTClienteKeyPressed
 
     private void jTClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyReleased
@@ -717,7 +708,7 @@ public class SaidaVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTProdutoFocusLost
     int contfocus = 0;
     private void jTQtdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTQtdFocusLost
-        
+
     }//GEN-LAST:event_jTQtdFocusLost
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -744,13 +735,13 @@ public class SaidaVenda extends javax.swing.JFrame {
         if (evt.getKeyCode() == 10) {
             if (!jTQtd.getText().equals("")) {
                 contrenter = 1;
+
                 //calcula o valor do prodto com essa área
                 double valor = Double.parseDouble(jTPreco.getText()) * Double.parseDouble(jTQtd.getText());
                 DecimalFormat num = new DecimalFormat("0.00");
                 jTValor.setText(num.format(valor) + "");
                 jTValor.setText(jTValor.getText().replace(",", "."));
                 AdicionaVenda();
-                //jTProduto.requestFocus();
             }
 
         }
@@ -765,7 +756,7 @@ public class SaidaVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTQtdKeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       FinalizarTotal();
+        FinalizarTotal();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTClienteMouseClicked
@@ -813,7 +804,7 @@ public class SaidaVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox2KeyPressed
 
     private void jTValorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTValorKeyPressed
-        
+
     }//GEN-LAST:event_jTValorKeyPressed
 
     private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
@@ -832,16 +823,17 @@ public class SaidaVenda extends javax.swing.JFrame {
         EventoChamarPoduto(evt);
     }//GEN-LAST:event_jTVendasKeyPressed
 
-    public void FinalizarTotal(){
+    public void FinalizarTotal() {
         if (venda.size() > 0) {
             Finalizar();
             jTTotalg.setText("");
             jLQtd.setVisible(false);
-            qtd=0;
-            if(jCheckBox1.isSelected()){
+            qtd = 0;
+            if (jCheckBox1.isSelected()) {
                 relatorio();
             }
             try {
+
                 //Para mostrar o id dessa nova nota
                 SaidaDao ndao = new SaidaDao();
                 idnota = ndao.getIdUltimaNota();
@@ -850,37 +842,32 @@ public class SaidaVenda extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
-        }else {
+        } else {
             JOptionPane.showMessageDialog(null, "Você precisa realizar uma venda antes de finalizar.", "SGE", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
-    public void AdicionarP(){
+
+    public void AdicionarP() {
         if (tipo == 0) {
             if (Verifica()) {
-                if(jComboBox2.getSelectedIndex()!=-1){
+                if (jComboBox2.getSelectedIndex() != -1) {
                     CalcularValor();
                     if (Integer.parseInt(jTQtd.getText()) <= Integer.parseInt(jTQtd_est.getText())) {
                         AdicionaVenda();
                     } else {
                         JOptionPane.showMessageDialog(null, "A quantidade informada não pode ser maior que a de estoque.", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
                     }
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "É preciso selecionar um vendedor.", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
                 }
-            } else {
-
             }
         } else {
             if (Verifica2()) {
                 AdicionaVenda();
-
-            } else {
-
             }
         }
     }
-    
+
     public void CalcularValor() {
         try {
             int d = Integer.parseInt(jTQtd.getText());
@@ -910,7 +897,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
     //metodo para setar o produto que foi escolhido
     public void SetProduto(Produto produto) {
-       
+
         jTProduto.setText(produto.getProduto());
         jTPreco.setText(produto.getPreco() + "");
 
@@ -937,8 +924,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
     //adiciona na lista a venda do produto
     public void AdicionaVenda() {
-        
-        
+
         Venda v = new Venda();
         v.setId_p(produto.getId());
         v.setPreco(Double.parseDouble(jTValor.getText()));
@@ -962,7 +948,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         qtd++;
         jLQtd.setText(qtd + " Iten(s)");
         jLQtd.setVisible(true);
-        // Limpar()
+
         JOptionPane.showMessageDialog(null, "Produto adicionado a venda!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         Limpar();
     }
@@ -986,7 +972,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
                 @Override
                 public void keyTyped(KeyEvent ke) {
-
+                    //Não utilizado
                 }
 
                 @Override
@@ -994,12 +980,11 @@ public class SaidaVenda extends javax.swing.JFrame {
                     if (campo.getBackground() != Color.WHITE) {
                         campo.setBackground(Color.WHITE);
                     }
-
                 }
 
                 @Override
                 public void keyReleased(KeyEvent ke) {
-
+                    //Não utilizado
                 }
             });
             return false;
@@ -1012,7 +997,6 @@ public class SaidaVenda extends javax.swing.JFrame {
     public void Limpar() {
         jTPreco.setText("");
         jTProduto.setText("");
-        //jTQtd.setText("1");
         jTQtd_est.setText("");
         jTValor.setText("");
     }
@@ -1048,10 +1032,8 @@ public class SaidaVenda extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SaidaVenda().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new SaidaVenda().setVisible(true);
         });
     }
 
@@ -1062,7 +1044,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         }
 
         String[] linha = new String[]{null, null, null, null};
-      
+
         for (int i = 0; i < venda.size(); i++) {
             tmVenda.addRow(linha);
             String produto = "";
@@ -1071,7 +1053,7 @@ public class SaidaVenda extends javax.swing.JFrame {
                 ProdutoDao dao = new ProdutoDao();
                 Produto p = dao.GetProduto(venda.get(i).getId_p());
                 produto = p.getProduto();
-                
+
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
@@ -1108,8 +1090,6 @@ public class SaidaVenda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    
 
     //Cria o relatorio da nota
     private void relatorio(int idnota) {
@@ -1200,59 +1180,56 @@ public class SaidaVenda extends javax.swing.JFrame {
 
     //Metodo de Finalizar
     public void Finalizar() {
-            if(VerificaEstoque()){
-                try {
-                    
-                    SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd");
-                    SaidaDao dao = new SaidaDao();
-                    Saida n = new Saida();
+        if (VerificaEstoque()) {
+            try {
 
-                    Date d = new Date();
-                    n.setId_c(idcliente);
+                SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd");
+                SaidaDao dao = new SaidaDao();
+                Saida n = new Saida();
 
-                    n.setTotal(Double.parseDouble(jTTotalg.getText()));
-                    n.setData(fo.format(d));
-                    n.setId_fun(vendedores.get(jComboBox2.getSelectedIndex()).getId_vendedor());
-                    
-                    dao.adiciona(n);
-                    int idnota = dao.getIdUltimaNota();
+                Date d = new Date();
+                n.setId_c(idcliente);
 
-                    //adiciona o id da nota para as vendas
-                    for (int i = 0; i < venda.size(); i++) {
-                        venda.get(i).setId_s(idnota);
-                    }
+                n.setTotal(Double.parseDouble(jTTotalg.getText()));
+                n.setData(fo.format(d));
+                n.setId_fun(vendedores.get(jComboBox2.getSelectedIndex()).getId_vendedor());
 
-                    //inicia o cadastro as vendas
-                    VendaDao vd = new VendaDao();
-                    for (int i = 0; i < venda.size(); i++) {
-                        vd.adiciona(venda.get(i));
-                    }
-                    
-                    ProdutoDao pdao = new ProdutoDao();
-                    EstoqueDao edao = new EstoqueDao();
-                    for (int i = 0; i < venda.size(); i++) {
-                        Produto p = pdao.GetProduto(venda.get(i).getId_p());
-                        Estoque e = edao.GetEstoque(p.getId());
+                dao.adiciona(n);
+                int idnota = dao.getIdUltimaNota();
 
-                        int sub = e.getQtd() - venda.get(i).getQtd();
-                        e.setQtd(sub);
-                        edao.altera(e);
-                        venda.remove(venda.get(i));
-                        i = i - 1;
-                    }
-                    
-                    JOptionPane.showMessageDialog(null, "Saída de estoque cadastrada com sucesso.", "SGE", JOptionPane.INFORMATION_MESSAGE);
-                    atualizarTabela(venda);
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                //adiciona o id da nota para as vendas
+                for (int i = 0; i < venda.size(); i++) {
+                    venda.get(i).setId_s(idnota);
                 }
-                
-            }
-        
 
+                //inicia o cadastro as vendas
+                VendaDao vd = new VendaDao();
+                for (int i = 0; i < venda.size(); i++) {
+                    vd.adiciona(venda.get(i));
+                }
+
+                ProdutoDao pdao = new ProdutoDao();
+                EstoqueDao edao = new EstoqueDao();
+                for (int i = 0; i < venda.size(); i++) {
+                    Produto p = pdao.GetProduto(venda.get(i).getId_p());
+                    Estoque e = edao.GetEstoque(p.getId());
+
+                    int sub = e.getQtd() - venda.get(i).getQtd();
+                    e.setQtd(sub);
+                    edao.altera(e);
+                    venda.remove(venda.get(i));
+                    i = i - 1;
+                }
+
+                JOptionPane.showMessageDialog(null, "Saída de estoque cadastrada com sucesso.", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                atualizarTabela(venda);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
-    
-    public boolean VerificaEstoque(){
+
+    public boolean VerificaEstoque() {
         boolean r = true;
         try {
             ProdutoDao pdao = new ProdutoDao();
@@ -1260,42 +1237,44 @@ public class SaidaVenda extends javax.swing.JFrame {
             for (int i = 0; i < venda.size(); i++) {
                 Produto p = pdao.GetProduto(venda.get(i).getId_p());
                 Estoque e = edao.GetEstoque(p.getId());
-                
+
                 int sub = e.getQtd() - venda.get(i).getQtd();
                 if (sub < 0) {
                     r = false;
                     JOptionPane.showMessageDialog(null, "A quantidade de " + p.getProduto().toUpperCase() + " \n\r em estoque não é suficiente.", "SGE", JOptionPane.WARNING_MESSAGE);
                 }
-                
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
         return r;
     }
-    
-    public void EventoChamarPoduto(KeyEvent evt){
-        if(evt.getKeyCode()==17){
+
+    public void EventoChamarPoduto(KeyEvent evt) {
+        if (evt.getKeyCode() == 17) {
             la = 1;
         }
+
         //Para adicionar um cliente
-        if(evt.getKeyCode()==67 && la == 1){
+        if (evt.getKeyCode() == 67 && la == 1) {
             la = 0;
             BuscarCliente b = new BuscarCliente();
             b.SetVenda(this);
             b.SetTipo(0);
             b.show();
         }
+
         //Para adicionar um produto
-        if(evt.getKeyCode()==80 && la == 1){
+        if (evt.getKeyCode() == 80 && la == 1) {
             la = 0;
             BuscarProduto b = new BuscarProduto();
             b.SetTipo(1);
             b.SetSaidaVenda(this);
             b.show();
         }
+
         //Para finalizar a venda completa
-        if(evt.getKeyCode()==70 && la == 1){
+        if (evt.getKeyCode() == 70 && la == 1) {
             la = 0;
             FinalizarTotal();
         }
@@ -1362,7 +1341,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         } else {
             mess = "" + mes;
         }
-        String nome = "NOTA_VENDA_N_"+idnota;
+        String nome = "NOTA_VENDA_N_" + idnota;
         String arquivo = nome;
 
         ConexaoRel con = new ConexaoRel();
@@ -1385,9 +1364,8 @@ public class SaidaVenda extends javax.swing.JFrame {
         String path = "c:/SGE/Relatorios/NotasVendas/";
         try {
             con.conecta();
-            con.executeSQL("select saida.*, produto.*, venda.*, cliente.*, funcionario.nome_fun from  saida, produto, venda, cliente, funcionario where saida.id_s="+idnota+" and saida.id_s=venda.id_s and venda.id_p=produto.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
-           
-          
+            con.executeSQL("select saida.*, produto.*, venda.*, cliente.*, funcionario.nome_fun from  saida, produto, venda, cliente, funcionario where saida.id_s=" + idnota + " and saida.id_s=venda.id_s and venda.id_p=produto.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
+
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/NotaVenda.jasper"), new HashMap(), jrRS);
@@ -1407,31 +1385,22 @@ public class SaidaVenda extends javax.swing.JFrame {
                     try {
                         Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                     } catch (IOException e) {
-                         JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
-
                 JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
                 MostrarRelatorio = path + arquivo + ".pdf";
                 JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
                 try {
                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                 } catch (IOException e) {
-                     JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:"+e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
-
-            //   JasperViewer jv = new JasperViewer(jp, false);
-            //  jv.setVisible(true);
-            //  jv.setTitle("Lista Contatos");
-            //  jv.setIconImage(new ImageIcon(getClass().getResource("/Icones/vista (18).png")).getImage());
-        } catch (Exception erro) {
-
+        } catch (HeadlessException | JRException erro) {
             JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
-            
         }
     }
-
 }

@@ -3,17 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Forms;
 
 import DAO.ClienteDao;
 import Entidades.Cliente;
-import Forms.CadastroCliente;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -25,23 +21,23 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  ***********************************************************
- * ------------- ..::NorthTech Automação::.. ------------- *
- *********************************************************** 
- * 
- *@Desenvolvedor Danilo Alves
- * 
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
-           //<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-           //</editor-fold>
-                  //<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
-                  //</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class BuscarCliente extends javax.swing.JFrame {
 
-DefaultTableModel tmCliente = new DefaultTableModel(null, new String[] {"Id", "Nome", "Endereço", "Telefone"});
-ListSelectionModel lsmCliente;
-List<Cliente> cliente;
-char l;
-int tipo=0;//para separar, tipo=0 adionar a venda; tipo = 1 mensalidade;
+    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Telefone"});
+    ListSelectionModel lsmCliente;
+    List<Cliente> cliente;
+    char l;
+    int tipo = 0;//para separar, tipo=0 adionar a venda;
+
     /**
      * Creates new form PesquisarSocio
      */
@@ -51,14 +47,12 @@ int tipo=0;//para separar, tipo=0 adionar a venda; tipo = 1 mensalidade;
         this.setTitle("Buscar Cliente - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         setIconImage(imagemTituloJanela.getImage());
-        
+
         //Desabilita os TextFilds
-       jTNome.setEditable(false);
-       jTEndereco.setEditable(false);
-       jTTelefone.setEditable(false);
-       jTCpf.setEditable(false);
-    
-   
+        jTNome.setEditable(false);
+        jTEndereco.setEditable(false);
+        jTTelefone.setEditable(false);
+        jTCpf.setEditable(false);
     }
 
     /**
@@ -311,14 +305,14 @@ int tipo=0;//para separar, tipo=0 adionar a venda; tipo = 1 mensalidade;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyPressed
-        if(jTNome.getBackground() != Color.WHITE){
+        if (jTNome.getBackground() != Color.WHITE) {
             jTNome.setBackground(Color.WHITE);
         }
 
     }//GEN-LAST:event_jTNomeKeyPressed
 
     private void jTEnderecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEnderecoKeyPressed
-        if(jTEndereco.getBackground() != Color.WHITE){
+        if (jTEndereco.getBackground() != Color.WHITE) {
             jTEndereco.setBackground(Color.WHITE);
         }
     }//GEN-LAST:event_jTEnderecoKeyPressed
@@ -328,42 +322,29 @@ int tipo=0;//para separar, tipo=0 adionar a venda; tipo = 1 mensalidade;
     }//GEN-LAST:event_jTPesquisarKeyPressed
 
     private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
-       
+
     }//GEN-LAST:event_jTPesquisarKeyTyped
 
     private void jTPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyReleased
-        l=evt.getKeyChar();
-        
-        if(evt.getKeyCode()==40){
+        l = evt.getKeyChar();
+
+        if (evt.getKeyCode() == 40) {
             jTCliente.requestFocus();
         }
-        try{ 
-        listarCliente();   
-  }catch(SQLException ex){
-      JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-  }
+        try {
+            listarCliente();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jTPesquisarKeyReleased
 
     private void jBOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOkActionPerformed
-       switch(tipo){
-           case 0:
-                if(jTCliente.getSelectedRow() != -1){
+        switch (tipo) {
+            case 0:
+                if (jTCliente.getSelectedRow() != -1) {
                     svenda.SetCliente(cliente.get(jTCliente.getSelectedRow()));
                     this.dispose();
                 }
-                break;
-            case 1:
-                /*if(jTCliente.getSelectedRow() != -1){
-                    mensalidades.SetCliente(cliente.get(jTCliente.getSelectedRow()));
-                    this.dispose();
-                }*/
-                break;
-            case 2:
-               /* if(jTCliente.getSelectedRow() != -1){
-                    pesqvenda.SetCliente(cliente.get(jTCliente.getSelectedRow()));
-                    pesqvenda.DesabilitarB();
-                    this.dispose();
-                }*/
                 break;
         }
     }//GEN-LAST:event_jBOkActionPerformed
@@ -373,52 +354,28 @@ int tipo=0;//para separar, tipo=0 adionar a venda; tipo = 1 mensalidade;
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jTClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyPressed
-        if(evt.getKeyCode()==10){
-            switch(tipo){
+        if (evt.getKeyCode() == 10) {
+            switch (tipo) {
                 case 0:
-                     if(jTCliente.getSelectedRow() != -1){
-                         svenda.SetCliente(cliente.get(jTCliente.getSelectedRow()));
-                         this.dispose();
-                     }
-                     break;
-                 case 1:
-                     /*if(jTCliente.getSelectedRow() != -1){
-                         mensalidades.SetCliente(cliente.get(jTCliente.getSelectedRow()));
-                         this.dispose();
-                     }*/
-                     break;
-                 case 2:
-                    /* if(jTCliente.getSelectedRow() != -1){
-                         pesqvenda.SetCliente(cliente.get(jTCliente.getSelectedRow()));
-                         pesqvenda.DesabilitarB();
-                         this.dispose();
-                     }*/
-                     break;
+                    if (jTCliente.getSelectedRow() != -1) {
+                        svenda.SetCliente(cliente.get(jTCliente.getSelectedRow()));
+                        this.dispose();
+                    }
+                    break;
             }
         }
     }//GEN-LAST:event_jTClienteKeyPressed
 
     private SaidaVenda svenda;
-    //private PesquisarVenda pesqvenda;
-    //private EditarVenda edvenda;
-    
-    public void SetVenda(SaidaVenda svenda){
+
+    public void SetVenda(SaidaVenda svenda) {
         this.svenda = svenda;
     }
-    
-    /*public void SetEditVenda(EditarVenda edit){
-        this.edvenda = edit;
-    }
-    
-    public void SetPesquisaVenda(PesquisarVenda pes){
-        this.pesqvenda = pes;
-    }*/
-    
-    public void SetTipo(int tipo){
+
+    public void SetTipo(int tipo) {
         this.tipo = tipo;
     }
-   
-   
+
     /**
      * @param args the command line arguments
      */
@@ -478,55 +435,51 @@ int tipo=0;//para separar, tipo=0 adionar a venda; tipo = 1 mensalidade;
     // End of variables declaration//GEN-END:variables
 
     //Realiza a pesquisa do valor digitado no banco
-    protected void listarCliente() throws SQLException{
+    protected void listarCliente() throws SQLException {
         ClienteDao me = new ClienteDao();
-        cliente = me.getLista("%"+jTPesquisar.getText()+"%");
+        cliente = me.getLista("%" + jTPesquisar.getText() + "%");
         mostraPesquisa(cliente);
     }
-  
+
     //Mostra a pesquisa na tabela
-     private void mostraPesquisa(List<Cliente> cliente) {
-       
-        while(tmCliente.getRowCount()>0){
+    private void mostraPesquisa(List<Cliente> cliente) {
+
+        while (tmCliente.getRowCount() > 0) {
             tmCliente.removeRow(0);
         }
-        int a=1;
-         
-        if(((cliente.isEmpty()))&&(l==' ')){
-             JOptionPane.showMessageDialog(null,"Nenhum Cliente com o Nome "+jTPesquisar.getText().toUpperCase()+" cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-             
-              if(cliente.isEmpty()==false){
-                 String[] linha = new String[]{null, null, null, null};
-              for (int i = 0; i < cliente.size(); i++) {
-                tmCliente.addRow(linha);
-                tmCliente.setValueAt(cliente.get(i).getId(), i, 0);
-                tmCliente.setValueAt(cliente.get(i).getNome(), i, 1);
-                tmCliente.setValueAt(cliente.get(i).getEndereco(), i, 2);
-                tmCliente.setValueAt(cliente.get(i).getContato1(), i, 3);
-                
-              }
-              }else{
-                  
-              }
-             
-        }         
-    }
-     
-     //Metodo para pagar o valor da linha selecionada
-     private void jTTabelaLinhaSelecionada(JTable tabela) {
-     try{
-        if (jTCliente.getSelectedRow() != -1) {
-            jTNome.setText(cliente.get(tabela.getSelectedRow()).getNome());
-            jTEndereco.setText(cliente.get(tabela.getSelectedRow()).getEndereco());
-            jTTelefone.setText(cliente.get(tabela.getSelectedRow()).getContato1());
-            jTCpf.setText(cliente.get(tabela.getSelectedRow()).getCpf());
-           
+        int a = 1;
+
+        if (((cliente.isEmpty())) && (l == ' ')) {
+            JOptionPane.showMessageDialog(null, "Nenhum Cliente com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            
+
+            if (cliente.isEmpty() == false) {
+                String[] linha = new String[]{null, null, null, null};
+                for (int i = 0; i < cliente.size(); i++) {
+                    tmCliente.addRow(linha);
+                    tmCliente.setValueAt(cliente.get(i).getId(), i, 0);
+                    tmCliente.setValueAt(cliente.get(i).getNome(), i, 1);
+                    tmCliente.setValueAt(cliente.get(i).getEndereco(), i, 2);
+                    tmCliente.setValueAt(cliente.get(i).getContato1(), i, 3);
+
+                }
+            }
+
         }
-     }catch(Exception e){
-         
-     }
+    }
+
+    //Metodo para pagar o valor da linha selecionada
+    private void jTTabelaLinhaSelecionada(JTable tabela) {
+        try {
+            if (jTCliente.getSelectedRow() != -1) {
+                jTNome.setText(cliente.get(tabela.getSelectedRow()).getNome());
+                jTEndereco.setText(cliente.get(tabela.getSelectedRow()).getEndereco());
+                jTTelefone.setText(cliente.get(tabela.getSelectedRow()).getContato1());
+                jTCpf.setText(cliente.get(tabela.getSelectedRow()).getCpf());
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

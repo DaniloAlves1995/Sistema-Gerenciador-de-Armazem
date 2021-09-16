@@ -9,11 +9,7 @@ import DAO.ClienteDao;
 import Entidades.Cliente;
 import java.awt.Color;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -25,16 +21,15 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  ***********************************************************
- * ------------- ..::NorthTech Automação::.. ------------- *
- *********************************************************** 
- * 
- *@Desenvolvedor Danilo Alves
- * 
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * **********************************************************
+ *
+ *
  */
-           //<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-           //</editor-fold>
-                  //<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
-                  //</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
+//</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
+//</editor-fold>
 public class CadastroCliente extends javax.swing.JFrame {
 
     DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato"});
@@ -52,12 +47,12 @@ public class CadastroCliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Cadastrar Cliente - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
-        
+        this.setIconImage(imagemTituloJanela.getImage());
+
         //Desabilita os campos
-        Desabilitar();
+        this.Desabilitar();
         //mostrar qtd de socios
-        MostrarQtdClientes();
+        this.MostrarQtdClientes();
 
     }
 
@@ -468,7 +463,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      
+
         if (salvar == 0) {
             //Verifica se ha algum campo vazio
             if (Verificar()) {
@@ -480,7 +475,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 s.setContato1(jTTelefone.getText());
                 s.setContato2(jTTelefone1.getText());
                 s.setCpf(jTCpf.getText());
-               
+
                 try {
                     //Cria um objeto DAO para inserir o novo Socio no banco
                     ClienteDao d = new ClienteDao();
@@ -490,7 +485,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                     //Limpa os TextFilds depois do Cadastro
                     Limpar();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -503,7 +498,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                         listarSocio();
                         Limpar();
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                     }
 
                 }
@@ -512,19 +507,19 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         MostrarQtdClientes();
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     //Método para limpar os TextFilds
     public void Limpar() {
         jTNome.setText("");
         jTEndereco.setText("");
         jTTelefone.setText("");
         jTTelefone1.setText("");
-        jTId.setText("");   
+        jTId.setText("");
         jTCpf.setText("");
     }
 
     //Método para Desabilitar os TextFilds
-    public void Desabilitar() {
+    public final void Desabilitar() {
         jTNome.setEditable(false);
         jTEndereco.setEditable(false);
         jTTelefone.setEditable(false);
@@ -553,7 +548,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         while (tmCliente.getRowCount() > 0) {
             tmCliente.removeRow(0);
         }
-       
+
         if ((cliente.isEmpty()) && (l == ' ')) {
             JOptionPane.showMessageDialog(null, "Nenhum Cliente com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -565,7 +560,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             tmCliente.setValueAt(cliente.get(i).getNome(), i, 1);
             tmCliente.setValueAt(cliente.get(i).getEndereco(), i, 2);
             tmCliente.setValueAt(cliente.get(i).getContato1(), i, 3);
-           
+
         }
     }
 
@@ -575,7 +570,6 @@ public class CadastroCliente extends javax.swing.JFrame {
             return false;
         } else {
             return true;
-
         }
     }
 
@@ -585,15 +579,12 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
         l = evt.getKeyChar();
-        // System.out.println(l);
-        
+
         try {
             listarSocio();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }//GEN-LAST:event_jTPesquisarKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -608,8 +599,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Cliente na tabela para poder Editar!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
         }
-
-
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -670,23 +659,19 @@ public class CadastroCliente extends javax.swing.JFrame {
                 jTEndereco.requestFocus();
                 valor = false;
             } else {
-                
-                    if (jTTelefone.getText().equals("(  )    -    ")) {
-                        JOptionPane.showMessageDialog(null, "O campo Contato 1 não pode ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-                        jTTelefone.setBackground(new Color(255, 51, 51));
-                        jTTelefone.requestFocus();
-                        valor = false;
-                    } else {
-
-                    }
-                
+                if (jTTelefone.getText().equals("(  )    -    ")) {
+                    JOptionPane.showMessageDialog(null, "O campo Contato 1 não pode ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+                    jTTelefone.setBackground(new Color(255, 51, 51));
+                    jTTelefone.requestFocus();
+                    valor = false;
+                }
             }
         }
         return valor;
     }
 
     //Esse metodo serve para Alterar os valores do sócio no banco
-      private void alteraSocio() throws SQLException {
+    private void alteraSocio() throws SQLException {
 
         if (Verificar()) {
             Cliente m = new Cliente();
@@ -697,14 +682,13 @@ public class CadastroCliente extends javax.swing.JFrame {
             m.setContato1(jTTelefone.getText());
             m.setContato2(jTTelefone1.getText());
             m.setCpf(jTCpf.getText());
-            
+
             dao.altera(m);
             JOptionPane.showMessageDialog(null, "Cliente Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
             Desabilitar();
 
         }
-
     }
 
     //Metodo para excluir o sócio 
@@ -718,7 +702,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 jTPesquisar.setText("");
                 listarSocio();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -766,20 +750,18 @@ public class CadastroCliente extends javax.swing.JFrame {
                 jTEndereco.setText(cliente.get(tabela.getSelectedRow()).getEndereco());
                 jTTelefone.setText(cliente.get(tabela.getSelectedRow()).getContato1());
                 jTTelefone1.setText(cliente.get(tabela.getSelectedRow()).getContato2());
-                jTId.setText(cliente.get(tabela.getSelectedRow()).getId()+"");
+                jTId.setText(cliente.get(tabela.getSelectedRow()).getId() + "");
                 jTCpf.setText(cliente.get(tabela.getSelectedRow()).getCpf());
-                
-                Desabilitar();
-            } else {
 
+                Desabilitar();
             }
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
         }
-    } 
-    
+    }
+
     //metodo para mostrar a qtd de sócios
-    public void MostrarQtdClientes(){
+    public final void MostrarQtdClientes() {
         try {
             //pega a qtd de sócios cadastrados no banco
             ClienteDao dao = new ClienteDao();
