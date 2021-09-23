@@ -51,16 +51,19 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 public class PesquisarVendas extends javax.swing.JFrame {
 
-    DefaultTableModel tmNota = new DefaultTableModel(null, new String[]{"Selecionar", "Nº", "Cliente", "Valor(R$)", "Data"}) {
+    private List<Saida> saidas;
+    private String d1, d2;
+    private DefaultTableModel tmNota = new DefaultTableModel(null, new String[]{"Selecionar", "Nº", "Cliente", "Valor(R$)", "Data"}) {
         Class[] types = new Class[]{
             Boolean.class, Object.class, Object.class, Object.class, Object.class
         };
 
+        @Override
         public Class getColumnClass(int columnIndex) {
             return types[columnIndex];
         }
     };
-    private List<Saida> saidas;
+    
 
     public PesquisarVendas() {
         initComponents();
@@ -442,8 +445,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não houve nenhuma venda no período informado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBGerarN2ActionPerformed
-    String d1, d2;
-
+ 
     public void pesquisar() {
         if (jDateChooser1.getDate() != null && jDateChooser2.getDate() != null) {
             SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");

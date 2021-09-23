@@ -6,7 +6,6 @@
 package Forms;
 
 import Conexao.ConexaoRel;
-import DAO.CaminhaoDao;
 import DAO.EstoqueDao;
 import DAO.ProdutoDao;
 import Entidades.Estoque;
@@ -45,15 +44,16 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 public class PesquisarEntEstoque extends javax.swing.JFrame {
 
-    DefaultTableModel tmEstoque = new DefaultTableModel(null, new String[]{"Id_prod", "Produto", "Qtd", "Data"});
-    List<Estoque> estoques;
+    private DefaultTableModel tmEstoque = new DefaultTableModel(null, new String[]{"Id_prod", "Produto", "Qtd", "Data"});
+    private List<Estoque> estoques;
+    private String d1, d2;
 
     public PesquisarEntEstoque() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Pesquisar entrada de estoque - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
         estoques = new ArrayList<>();
         jRadioButton2.setSelected(true);
     }
@@ -351,11 +351,9 @@ public class PesquisarEntEstoque extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "ERRO: " + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
-
             } else {
                 relatorio();
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "Não houve nenhuma entrada de estoque no período informado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -382,8 +380,6 @@ public class PesquisarEntEstoque extends javax.swing.JFrame {
     private void jTProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyReleased
         pesquisar();
     }//GEN-LAST:event_jTProdutoKeyReleased
-
-    String d1, d2;
 
     public void pesquisar() {
         if (jDateChooser1.getDate() != null && jDateChooser2.getDate() != null) {

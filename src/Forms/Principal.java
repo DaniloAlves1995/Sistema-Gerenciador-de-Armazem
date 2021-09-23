@@ -36,23 +36,23 @@ public class Principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Sistema SGE ..:: Especializado para Empresa X ::..");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
 
         this.setExtendedState(MAXIMIZED_BOTH);
         Date d = new Date();
         int h = d.getHours();
-        if (h >= 12 && h < 18) {
+        if (h >= 12 && h < 18)
             jLabel1.setText("Boa Tarde!");
-        } else {
-            if (h >= 18) {
+        else {
+            if (h >= 18)
                 jLabel1.setText("Boa Noite!");
-            } else {
-                if (h >= 0 && h <= 5) {
+            else {
+                if (h >= 0 && h <= 5)
                     jLabel1.setText("Boa Madrugada ;-)");
-                } else {
-                    if (h > 5 && h < 12) {
+                else {
+                    if (h > 5 && h < 12)
                         jLabel1.setText("Bom dia!");
-                    }
+                    
                 }
             }
         }

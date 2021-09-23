@@ -5,19 +5,13 @@
  */
 package Forms;
 
-import DAO.ClienteDao;
 import DAO.EstoqueDao;
 import DAO.ProdutoDao;
-import Entidades.Cliente;
 import Entidades.Estoque;
 import Entidades.Produto;
 import java.awt.Color;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -40,10 +34,10 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class CadastroProduto extends javax.swing.JFrame {
 
-    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)"});
-    ListSelectionModel lsmProduto;
-    List<Produto> produto;
-    char l;
+    private final DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)"});
+    private ListSelectionModel lsmProduto;
+    private List<Produto> produto;
+    private char l;
     public int habilit;
     public int salvar = 0;
 
@@ -55,7 +49,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Cadastrar Produto - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
 
         //Desabilita os campos
         Desabilitar();
@@ -474,7 +468,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     }
 
     //Método para Desabilitar os TextFilds
-    public void Desabilitar() {
+    public final void Desabilitar() {
         jTProduto.setEditable(false);
         jTPreco.setEditable(false);
         jTObs.setEditable(false);
@@ -691,7 +685,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     }
 
     //metodo para mostrar a qtd de sócios
-    public void MostrarQtdProdutos() {
+    public final void MostrarQtdProdutos() {
         try {
             //pega a qtd de sócios cadastrados no banco
             ProdutoDao dao = new ProdutoDao();

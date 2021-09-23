@@ -32,10 +32,14 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class BuscarProduto extends javax.swing.JFrame {
 
-    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço"});
-    ListSelectionModel lsmProduto;
-    List<Produto> produtos;
-    char l;
+    private final DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço"});
+    private ListSelectionModel lsmProduto;
+    private List<Produto> produtos;
+    private char l;
+    private Entrada_Estoque entradae;
+    private SaidaVenda svenda;
+    private ProducaoSacas producao;
+    private int tipo;// 0 = EntradaEstoque; 1 = SaidaVenda; 2 = ProducaoSacas
 
     /**
      * Creates new form PesquisarSocio
@@ -45,7 +49,7 @@ public class BuscarProduto extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Buscar Produto - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
 
         //Desabilita os TextFilds
         jTNome.setEditable(false);
@@ -343,10 +347,6 @@ public class BuscarProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTProdutoKeyPressed
 
-    private Entrada_Estoque entradae;
-    private SaidaVenda svenda;
-    private ProducaoSacas producao;
-    private int tipo;// 0 = EntradaEstoque; 1 = SaidaVenda; 2 = ProducaoSacas
 
     public void SetEntradaEstoque(Entrada_Estoque entradae) {
         this.entradae = entradae;

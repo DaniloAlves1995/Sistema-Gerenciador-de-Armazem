@@ -40,17 +40,17 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class DetalhesVenda extends javax.swing.JFrame {
 
-    List<Venda> venda;
-    DefaultListModel dlista;
-    DefaultListModel dlistam;
-    public int id;
-    DefaultTableModel tmVendas = new DefaultTableModel(null, new String[]{"Produto", "Quantidade", "Preço(R$)"});
-    List<Venda> vendas;//lista utilizada para armazenar as vendas da tabela
-    Produto produto = null;
-    List<Vendedor> vendedores;
+    private List<Venda> venda, vendas;//lista utilizada para armazenar as vendas da tabela
+    private DefaultListModel dlista, dlistam;
+    private DefaultTableModel tmVendas = new DefaultTableModel(null, new String[]{"Produto", "Quantidade", "Preço(R$)"});
+    private Produto produto = null;
+    private List<Vendedor> vendedores;
     private int idcliente;
-    Saida nota;
-    boolean veri = false;
+    private Saida nota;
+    private boolean veri = false;
+    
+    public int id;
+    public PesquisarVendas pesqvenda;
 
     char l;
     int mais = -1;//para verificar se já clicou na seta para baixo
@@ -67,7 +67,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Detalhes da venda - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
 
         //desabilitar os vendadores
         jComboBox2.setEnabled(false);
@@ -803,8 +803,6 @@ public class DetalhesVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTContato2KeyTyped
 
-    public PesquisarVendas pesqvenda;
-
     //metodo que recebe a instância do Form PesquisarVenda
     public void SetPesquisarVendas(PesquisarVendas pesqvenda) {
         this.pesqvenda = pesqvenda;
@@ -864,7 +862,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
     }
 
     //metodo para preencher o combobox dos vendedores
-    public void PreencherVendedores() {
+    public final void PreencherVendedores() {
         try {
             VendedorDao a = new VendedorDao();
             vendedores = a.getLista("");

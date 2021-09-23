@@ -62,17 +62,17 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 public class SaidaVenda extends javax.swing.JFrame {
 
-    List<Venda> venda;
-    DefaultListModel dlista;
-    DefaultListModel dlistam;
+    private List<Venda> venda;
+    private DefaultListModel dlista, dlistam;
+    
+    private DefaultTableModel tmVenda = new DefaultTableModel(null, new String[]{"Produto", "Preço (R$)", "Qtd", "Total (R$)"});
+    private ListSelectionModel lsmVenda;
+    private Produto produto;
+    private List<Vendedor> vendedores;
+    private Cliente cliente;
+    
     int idcliente;
-
-    DefaultTableModel tmVenda = new DefaultTableModel(null, new String[]{"Produto", "Preço (R$)", "Qtd", "Total (R$)"});
-    ListSelectionModel lsmVenda;
-    Produto produto;
-    List<Vendedor> vendedores;
     int idnota = 0;
-
     char l;
     int mais = -1;//para verificar se já clicou na seta para baixo
     int contr = 1;//para controlar quando o usuário percorre o produto na lista
@@ -89,7 +89,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Realizar Venda - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
 
         //inicializa a lista vendas
         venda = new ArrayList<Venda>();
@@ -886,8 +886,6 @@ public class SaidaVenda extends javax.swing.JFrame {
         }
     }
 
-    private Cliente cliente;
-
     public void SetCliente(Cliente cliente) {
         this.cliente = cliente;
         jTCliente.setText(cliente.getNome());
@@ -1047,18 +1045,18 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         for (int i = 0; i < venda.size(); i++) {
             tmVenda.addRow(linha);
-            String produto = "";
+            String produto_local = "";
             try {
                 //Pega o produto com o id na lista da venda
                 ProdutoDao dao = new ProdutoDao();
                 Produto p = dao.GetProduto(venda.get(i).getId_p());
-                produto = p.getProduto();
+                produto_local = p.getProduto();
 
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
 
-            tmVenda.setValueAt(produto, i, 0);
+            tmVenda.setValueAt(produto_local, i, 0);
             tmVenda.setValueAt(venda.get(i).getValor_p(), i, 1);
             tmVenda.setValueAt(venda.get(i).getQtd(), i, 2);
             tmVenda.setValueAt(venda.get(i).getPreco(), i, 3);
@@ -1078,7 +1076,7 @@ public class SaidaVenda extends javax.swing.JFrame {
     }
 
     //metodo para preencher o combobox dos vendedores
-    public void PreencherVendedores() {
+    public final void PreencherVendedores() {
         try {
             VendedorDao a = new VendedorDao();
             vendedores = a.getLista("");
@@ -1167,11 +1165,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
             }
 
-            //   JasperViewer jv = new JasperViewer(jp, false);
-            //  jv.setVisible(true);
-            //  jv.setTitle("Lista Contatos");
-            //  jv.setIconImage(new ImageIcon(getClass().getResource("/Icones/vista (18).png")).getImage());
-        } catch (Exception erro) {
+        } catch (HeadlessException | JRException erro) {
 
             JOptionPane.showMessageDialog(null, "Erro!" + erro, "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
 

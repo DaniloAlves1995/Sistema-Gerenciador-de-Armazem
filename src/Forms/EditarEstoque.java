@@ -34,18 +34,18 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class EditarEstoque extends javax.swing.JFrame {
 
-    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)", "Qtd estoque"});
-    ListSelectionModel lsmProduto;
-    List<Produto> produto;
-    char l;
-    int salvar = 0;
+    private DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)", "Qtd estoque"});
+    private ListSelectionModel lsmProduto;
+    private List<Produto> produto;
+    private char l;
+    private int salvar = 0;
 
     public EditarEstoque() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Editar Estoque - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
     }
 
     /**

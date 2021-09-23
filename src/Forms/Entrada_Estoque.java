@@ -36,6 +36,7 @@ public class Entrada_Estoque extends javax.swing.JFrame {
     //Produto que está entrando em estoque
     private Produto produto;
     private Estoque estoque;
+    private int la;
 
     public Entrada_Estoque() {
         initComponents();
@@ -420,8 +421,6 @@ public class Entrada_Estoque extends javax.swing.JFrame {
             }
         });
     }
-
-    int la;
 
     public void EventoChamarPoduto(KeyEvent evt) {
         if (evt.getKeyCode() == 17) {

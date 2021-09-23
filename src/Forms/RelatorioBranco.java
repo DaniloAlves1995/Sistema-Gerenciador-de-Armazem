@@ -42,17 +42,18 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 public class RelatorioBranco extends javax.swing.JFrame {
 
-    DefaultTableModel tmProdutos = new DefaultTableModel(new Object[][]{}, new String[]{"Selecionar", "Id", "Produto", "Quantidade"}) {
+    private DefaultTableModel tmProdutos = new DefaultTableModel(new Object[][]{}, new String[]{"Selecionar", "Id", "Produto", "Quantidade"}) {
         Class[] types = new Class[]{
             Boolean.class, Object.class, Object.class, Object.class
         };
 
+        @Override
         public Class getColumnClass(int columnIndex) {
             return types[columnIndex];
         }
     };
 
-    List<Produto> produtos;
+    private List<Produto> produtos;
 
     public RelatorioBranco() {
         initComponents();

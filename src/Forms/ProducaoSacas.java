@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -39,17 +38,17 @@ import javax.swing.table.DefaultTableModel;
                   //</editor-fold>
 public class ProducaoSacas extends javax.swing.JFrame {
 
-    DefaultTableModel tmCaminhao = new DefaultTableModel(null, new String[]{"Id", "Nome", "Sacas Previstas"});
-    ListSelectionModel lsmCaminhao;
-    List<Caminhao> caminhoes;
-    Produto produto;
+    private DefaultTableModel tmCaminhao = new DefaultTableModel(null, new String[]{"Id", "Nome", "Sacas Previstas"});
+    private ListSelectionModel lsmCaminhao;
+    private List<Caminhao> caminhoes;
+    private Produto produto;
     
     public ProducaoSacas() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Produção de Sacas - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
         
         try {
             listarCaminhoes();
@@ -393,7 +392,7 @@ public class ProducaoSacas extends javax.swing.JFrame {
         });
     }
     
-    protected void listarCaminhoes() throws SQLException {
+    protected final void listarCaminhoes() throws SQLException {
         CaminhaoDao me = new CaminhaoDao();
         caminhoes = me.getLista("", 1);
 

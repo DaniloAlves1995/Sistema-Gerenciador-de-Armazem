@@ -32,10 +32,10 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class CadastroCliente extends javax.swing.JFrame {
 
-    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato"});
-    ListSelectionModel lsmCliente;
-    List<Cliente> cliente;
-    char l;
+    private final DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato"});
+    private ListSelectionModel lsmCliente;
+    private List<Cliente> cliente;
+    private char l;
     public int habilit;
     public int salvar = 0;
 

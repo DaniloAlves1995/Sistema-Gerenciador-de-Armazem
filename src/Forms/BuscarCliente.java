@@ -32,11 +32,12 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class BuscarCliente extends javax.swing.JFrame {
 
-    DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Telefone"});
-    ListSelectionModel lsmCliente;
-    List<Cliente> cliente;
-    char l;
-    int tipo = 0;//para separar, tipo=0 adionar a venda;
+    private final DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Telefone"});
+    private ListSelectionModel lsmCliente;
+    private List<Cliente> cliente;
+    private char l;
+    private SaidaVenda svenda;
+    private int tipo = 0;//para separar, tipo=0 adionar a venda;
 
     /**
      * Creates new form PesquisarSocio
@@ -46,7 +47,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Buscar Cliente - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
 
         //Desabilita os TextFilds
         jTNome.setEditable(false);
@@ -365,8 +366,6 @@ public class BuscarCliente extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTClienteKeyPressed
-
-    private SaidaVenda svenda;
 
     public void SetVenda(SaidaVenda svenda) {
         this.svenda = svenda;

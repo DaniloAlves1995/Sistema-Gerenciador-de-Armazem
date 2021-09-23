@@ -38,7 +38,7 @@ public class Cad_Vendedor extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Cadastrar Vendedor - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
     }
 
     /**

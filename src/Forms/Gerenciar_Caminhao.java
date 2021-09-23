@@ -32,11 +32,12 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class Gerenciar_Caminhao extends javax.swing.JFrame {
 
-    char l;
-    DefaultTableModel tmCaminhao = new DefaultTableModel(null, new String[]{"Id", "Nome", "Sacas Restantes."});
-    ListSelectionModel lsmCaminhao;
-    List<Caminhao> caminhoes;
-    int salvar = 0;
+    
+    private DefaultTableModel tmCaminhao = new DefaultTableModel(null, new String[]{"Id", "Nome", "Sacas Restantes."});
+    private ListSelectionModel lsmCaminhao;
+    private List<Caminhao> caminhoes;
+    private int salvar = 0;
+    private char l;
 
     public Gerenciar_Caminhao() {
         initComponents();
@@ -485,15 +486,11 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gerenciar_Caminhao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gerenciar_Caminhao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gerenciar_Caminhao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Gerenciar_Caminhao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -568,15 +565,13 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
             } else {
                 try {
                     int a = Integer.parseInt(jTPreCarga.getText());
-
-                } catch (Exception e) {
+                } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "O campo Previsão de Sacas deve ser um número inteiro!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
                     valor = false;
                 }
                 try {
                     int a = Integer.parseInt(jTSacRest.getText());
-
-                } catch (Exception e) {
+                } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "O campo Sacas restantes deve ser um número inteiro!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
                     valor = false;
                 }

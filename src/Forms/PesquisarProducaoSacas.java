@@ -46,8 +46,9 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 public class PesquisarProducaoSacas extends javax.swing.JFrame {
 
-    DefaultTableModel tmSacas = new DefaultTableModel(null, new String[]{"Produto", "Qtd", "Caminhão", "Data"});
+    private DefaultTableModel tmSacas = new DefaultTableModel(null, new String[]{"Produto", "Qtd", "Caminhão", "Data"});
     private List<Saca> sacas;
+    private String d1, d2;
 
     public PesquisarProducaoSacas() {
         initComponents();
@@ -55,7 +56,7 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
         this.setTitle("Pesquisar produção de sacas - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         this.setIconImage(imagemTituloJanela.getImage());
-        this.sacas = new ArrayList<Saca>();
+        this.sacas = new ArrayList<>();
         jRadioButton2.setSelected(true);
     }
 
@@ -382,8 +383,6 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
         jTProduto.setEnabled(false);
         pesquisar();
     }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    String d1, d2;
 
     public void pesquisar() {
         if (jDateChooser1.getDate() != null && jDateChooser2.getDate() != null) {

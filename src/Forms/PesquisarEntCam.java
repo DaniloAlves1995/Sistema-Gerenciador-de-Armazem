@@ -44,15 +44,15 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 public class PesquisarEntCam extends javax.swing.JFrame {
 
-    DefaultTableModel tmCaminhoes = new DefaultTableModel(null, new String[]{"Id", "Nome", "Previsão de carga", "Data"});
-    List<Caminhao> caminhoes;
+    private DefaultTableModel tmCaminhoes = new DefaultTableModel(null, new String[]{"Id", "Nome", "Previsão de carga", "Data"});
+    private List<Caminhao> caminhoes;
 
     public PesquisarEntCam() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Pesquisar entrada de caminhões - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
         caminhoes = new ArrayList<>();
     }
 

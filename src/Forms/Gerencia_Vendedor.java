@@ -35,17 +35,17 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public final class Gerencia_Vendedor extends javax.swing.JFrame {
 
-    DefaultTableModel tmVendedor = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato 1"});
-    ListSelectionModel lsmVendedor;
-    List<Vendedor> vendedor;
-    char l;
+    private DefaultTableModel tmVendedor = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato 1"});
+    private ListSelectionModel lsmVendedor;
+    private List<Vendedor> vendedor;
+    private char l;
 
     public Gerencia_Vendedor() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Gerenciar Vendedor - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setIconImage(imagemTituloJanela.getImage());
         //Desabilita os campos
         this.Desabilitar();
         this.MostrarQtdVendedores();
@@ -451,7 +451,6 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jTVendedores.getSelectedRow() != -1) {
-
             if (Everificar()) {
                 try {
                     alteraVendedor();
@@ -461,9 +460,7 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
-
             this.MostrarQtdVendedores();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -474,7 +471,6 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Vendedor na tabela para poder Editar!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
         }
-
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -502,7 +498,6 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
 
     //Esse metodo serve para Alterar os valores do vendedor no banco
     private void alteraVendedor() throws SQLException {
-
         if (Verifica()) {
             Vendedor m = new Vendedor();
             VendedorDao dao = new VendedorDao();

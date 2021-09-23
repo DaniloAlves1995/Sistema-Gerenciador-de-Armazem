@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -51,10 +49,10 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 public class PesquisarEstoque extends javax.swing.JFrame {
 
-    DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)", "Qtd estoque"});
-    ListSelectionModel lsmProduto;
-    List<Produto> produto = new ArrayList<>();
-    char l;
+    private DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)", "Qtd estoque"});
+    private ListSelectionModel lsmProduto;
+    private List<Produto> produto = new ArrayList<>();
+    private char l;
 
     public PesquisarEstoque() {
         initComponents();
