@@ -1340,7 +1340,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         ConexaoRel con = new ConexaoRel();
 
-//diretorio que vai salvar
+        //diretorio que vai salvar
         File dir = new File("c:/SGE");
         if (!dir.exists()) {
             dir.mkdir();
