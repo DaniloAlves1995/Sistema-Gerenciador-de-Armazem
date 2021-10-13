@@ -41,8 +41,6 @@ public class Saida {
     public void setId_fun(int Id_fun) {
         this.Id_fun = Id_fun;
     }
-
-    
     
     public int getId_c() {
         return Id_c;

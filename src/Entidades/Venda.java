@@ -35,8 +35,6 @@ public class Venda {
         this.valor_p = valor_p;
     }
     
-    
-
     public int getId_v() {
         return Id_v;
     }
@@ -52,8 +50,6 @@ public class Venda {
     public void setId_s(int Id_s) {
         this.Id_s = Id_s;
     }
-
-   
 
     public int getId_p() {
         return Id_p;
@@ -78,6 +74,5 @@ public class Venda {
     public void setPreco(double preco) {
         this.preco = preco;
     }
-    
     
 }
