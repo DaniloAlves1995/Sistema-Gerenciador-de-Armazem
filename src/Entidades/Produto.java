@@ -8,9 +8,9 @@ package Entidades;
 
 /**
  *
- ***********************************************************
- * ------------- ..::NorthTech Automação::.. ------------- *
- *********************************************************** 
+ *************************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * ***********************************************************
  * 
  *@Desenvolvedor Danilo Alves
  * 
@@ -48,7 +48,6 @@ public class Produto {
     public void setProduto(String Produto) {
         this.Produto = Produto;
     }
-
 
     public double getPreco() {
         return Preco;

@@ -13,12 +13,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author Danilo
+ *************************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * ***********************************************************
+ * 
+ *@Desenvolvedor Danilo Alves
+ * 
  */
-public class CaminhaoDao {
+
+public class CaminhaoDao implements InterfaceBasicDB<Caminhao>{
 
     private final Connection conexao;
 
@@ -28,17 +36,22 @@ public class CaminhaoDao {
     }
 
     //método para adicionar o pruduto
-    public void adiciona(Caminhao m1) throws SQLException {
-        String sql = "insert into caminhao(nome_ca, carga, data) "
-                + "values(?, ?, ?)";
-        PreparedStatement stmt = conexao.prepareStatement(sql);
-
-        stmt.setString(1, m1.getNome().toUpperCase());
-        stmt.setInt(2, m1.getCarga());
-        stmt.setString(3, m1.getData());
-
-        stmt.execute();
-        stmt.close();
+    @Override
+    public void adicionar(Caminhao m1) {
+        try {
+            String sql = "insert into caminhao(nome_ca, carga, data) "
+                    + "values(?, ?, ?)";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            
+            stmt.setString(1, m1.getNome().toUpperCase());
+            stmt.setInt(2, m1.getCarga());
+            stmt.setString(3, m1.getData());
+            
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CaminhaoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     //método para adicionar o pruduto
@@ -103,7 +116,8 @@ public class CaminhaoDao {
     }
 
     //método para alterar o produto no banco
-    public void altera(Caminhao m) throws SQLException {
+    @Override
+    public void alterar(Caminhao m) {
         String sql = "update caminhao set nome_ca=?, carga=?"
                 + " where id_ca=?";
         try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
@@ -112,6 +126,8 @@ public class CaminhaoDao {
             stmt.setInt(3, m.getId());
 
             stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(CaminhaoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -126,12 +142,15 @@ public class CaminhaoDao {
     }
 
     //método para excluir um produto do banco
-    public void Excluir(Caminhao m) throws SQLException {
+    @Override
+    public void Excluir(Caminhao m) {
         String sql = "delete from caminhao where id_ca=?";
         try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
             stmt.setInt(1, m.getId());
 
             stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(CaminhaoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

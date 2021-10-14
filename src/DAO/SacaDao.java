@@ -16,8 +16,14 @@ import java.util.List;
 
 /**
  *
- * @author Danilo
+ *************************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * ***********************************************************
+ * 
+ *@Desenvolvedor Danilo Alves
+ * 
  */
+
 public class SacaDao {
 
     //Variavel que recebe a conexão da classe CriaConexao

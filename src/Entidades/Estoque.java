@@ -7,7 +7,12 @@ package Entidades;
 
 /**
  *
- * @author Danilo
+ *************************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * ***********************************************************
+ * 
+ *@Desenvolvedor Danilo Alves
+ * 
  */
 public class Estoque {
     private int id_e;

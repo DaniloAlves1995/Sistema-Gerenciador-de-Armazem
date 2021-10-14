@@ -7,7 +7,12 @@ package Entidades;
 
 /**
  *
- * @author Danilo
+ *************************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * ***********************************************************
+ * 
+ *@Desenvolvedor Danilo Alves
+ * 
  */
 public class Saca {
     private int id_sa;

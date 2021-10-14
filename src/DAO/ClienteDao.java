@@ -9,21 +9,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- ***********************************************************
- * ------------- ..::NorthTech Automação::.. ------------- *
- * **********************************************************
- *
- * @Desenvolvedor Danilo Alves
- *
+ *************************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * ***********************************************************
+ * 
+ *@Desenvolvedor Danilo Alves
+ * 
  */
+
 //<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
 //</editor-fold>
-public class ClienteDao {
+
+public class ClienteDao implements InterfaceBasicDB<Cliente>{
 
     //Variavel que recebe a conexão da classe CriaConexao
     private final Connection conexao;
@@ -34,7 +38,8 @@ public class ClienteDao {
     }
 
     //método para adicionar o cliente
-    public void adiciona(Cliente m1) throws SQLException {
+    @Override
+    public void adicionar(Cliente m1) {
         String sql = "insert into cliente(nome, endereco, cpf, contato1, contato2) "
                 + "values(?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -45,14 +50,16 @@ public class ClienteDao {
             stmt.setString(5, m1.getContato2());
 
             stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     //método para pegar uma lista de socios no banco
-    public List<Cliente> getLista(String dado) throws SQLException {
+    public List<Cliente> getLista(String dado) {
         String sql = "select * from cliente WHERE nome LIKE '%?%';";
         ResultSet rs;
-        List<Cliente> ma;
+        List<Cliente> ma = null;
         try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
             stmt.setString(1, dado);
 
@@ -70,9 +77,12 @@ public class ClienteDao {
 
                 ma.add(m);
             }
+            
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        rs.close();
-
+       
         return ma;
     }
 
@@ -105,7 +115,8 @@ public class ClienteDao {
     }
 
     //método para alterar o cliente no banco
-    public void altera(Cliente m) throws SQLException {
+    @Override
+    public void alterar(Cliente m)  {
         String sql = "update cliente set nome=?, endereco=?, cpf=?, contato1=?, contato2=?"
                 + " where id_c=?";
         try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
@@ -117,15 +128,20 @@ public class ClienteDao {
             stmt.setInt(6, m.getId());
 
             stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     //método para excluir um cliente do banco
-    public void Excluir(Cliente m) throws SQLException {
+    @Override
+    public void Excluir(Cliente m)  {
         String sql = "delete from cliente where id_c=?";
         try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
             stmt.setInt(1, m.getId());
             stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

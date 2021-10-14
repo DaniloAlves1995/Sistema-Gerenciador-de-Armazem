@@ -14,26 +14,36 @@ package Entidades;
  *@Desenvolvedor Danilo Alves
  * 
  */
-public class Caminhao {
-    private int Id;
+
+public class Pessoa {
     private String Nome;
-    private int Carga;
-    private String Data;
-
-    public String getData() {
-        return Data;
+    private String Endereco;
+    private String Contato1;
+    private String Contato2;
+    
+    public String getContato1() {
+        return Contato1;
     }
 
-    public void setData(String Data) {
-        this.Data = Data;
+    public void setContato1(String Contato1) {
+        this.Contato1 = Contato1;
     }
 
-    public int getId() {
-        return Id;
+    public String getContato2() {
+        return Contato2;
     }
 
-    public void setId(int Id) {
-        this.Id = Id;
+    public void setContato2(String Contato2) {
+        this.Contato2 = Contato2;
+    }
+
+    
+    public String getEndereco() {
+        return Endereco;
+    }
+
+    public void setEndereco(String Endereco) {
+        this.Endereco = Endereco;
     }
 
     public String getNome() {
@@ -43,14 +53,4 @@ public class Caminhao {
     public void setNome(String Nome) {
         this.Nome = Nome;
     }
-
-    public int getCarga() {
-        return Carga;
-    }
-
-    public void setCarga(int Carga) {
-        this.Carga = Carga;
-    }
-    
-    
 }

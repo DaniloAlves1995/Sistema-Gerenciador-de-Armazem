@@ -8,9 +8,9 @@ package Entidades;
 
 /**
  *
- ***********************************************************
- * ------------- ..::NorthTech Automação::.. ------------- *
- *********************************************************** 
+ *************************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * ***********************************************************
  * 
  *@Desenvolvedor Danilo Alves
  * 
@@ -19,13 +19,10 @@ package Entidades;
            //</editor-fold>
                   //<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
                   //</editor-fold>
-public class Cliente {
+public class Cliente extends Pessoa{
     private int Id;
-    private String Nome;
-    private String Endereco;
-    private String Contato1;
-    private String Contato2;
-
+    private String Cpf;
+   
     public String getCpf() {
         return Cpf;
     }
@@ -33,8 +30,7 @@ public class Cliente {
     public void setCpf(String Cpf) {
         this.Cpf = Cpf;
     }
-    private String Cpf;
-
+    
     public int getId() {
         return Id;
     }
@@ -42,39 +38,5 @@ public class Cliente {
     public void setId(int Id) {
         this.Id = Id;
     }
-
-    public String getNome() {
-        return Nome;
-    }
-
-    public void setNome(String Nome) {
-        this.Nome = Nome;
-    }
-
-    public String getEndereco() {
-        return Endereco;
-    }
-
-    public void setEndereco(String Endereco) {
-        this.Endereco = Endereco;
-    }
-
-    public String getContato1() {
-        return Contato1;
-    }
-
-    public void setContato1(String Contato1) {
-        this.Contato1 = Contato1;
-    }
-
-    public String getContato2() {
-        return Contato2;
-    }
-
-    public void setContato2(String Contato2) {
-        this.Contato2 = Contato2;
-    }
-
-    
     
 }

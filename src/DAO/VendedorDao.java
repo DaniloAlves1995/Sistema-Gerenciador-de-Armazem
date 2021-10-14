@@ -12,13 +12,14 @@ import java.util.List;
 
 /**
  *
- ***********************************************************
- * ------------- ..::NorthTech Automação::.. ------------- *
- * **********************************************************
- *
- * @Desenvolvedor Danilo Alves
- *
+ *************************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * ***********************************************************
+ * 
+ *@Desenvolvedor Danilo Alves
+ * 
  */
+
 //<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">

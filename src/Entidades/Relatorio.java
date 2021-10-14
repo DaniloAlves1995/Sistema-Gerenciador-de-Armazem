@@ -25,7 +25,12 @@ import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
- * @author danil
+ *************************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * ***********************************************************
+ * 
+ *@Desenvolvedor Danilo Alves
+ * 
  */
 public class Relatorio {
     private String sql;
