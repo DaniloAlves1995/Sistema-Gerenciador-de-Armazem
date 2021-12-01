@@ -155,6 +155,7 @@ public class VendaDao {
     //método para pegar a soma da qtd de produtos de um determinado produto e uma saida
     public int getQTDProdSaida(List<Saida> listas, int id_p) throws SQLException {
 
+        //montando String SQL dinamicamente
         String sql = "select SUM(qtd) from venda WHERE id_p=" + id_p + " and (";
         for (int i = 0; i < listas.size(); i++) {
             sql = (i == 0) ? sql + "id_s=" + listas.get(i).getId_s() : sql + " or id_s=" + listas.get(i).getId_s();

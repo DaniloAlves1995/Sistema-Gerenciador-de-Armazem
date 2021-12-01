@@ -590,7 +590,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
             m.setNome(jTNome.getText());
             m.setCarga(Integer.parseInt(jTPreCarga.getText()));
 
-            dao.altera(m);
+            dao.alterar(m);
             m.setCarga(Integer.parseInt(jTSacRest.getText()));
             dao.alteraCamCarga(m);
             JOptionPane.showMessageDialog(null, "Caminhão Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);

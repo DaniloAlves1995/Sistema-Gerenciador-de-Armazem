@@ -446,7 +446,6 @@ public class BuscarCliente extends javax.swing.JFrame {
         while (tmCliente.getRowCount() > 0) {
             tmCliente.removeRow(0);
         }
-        int a = 1;
 
         if (((cliente.isEmpty())) && (l == ' ')) {
             JOptionPane.showMessageDialog(null, "Nenhum Cliente com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
@@ -475,7 +474,6 @@ public class BuscarCliente extends javax.swing.JFrame {
                 jTEndereco.setText(cliente.get(tabela.getSelectedRow()).getEndereco());
                 jTTelefone.setText(cliente.get(tabela.getSelectedRow()).getContato1());
                 jTCpf.setText(cliente.get(tabela.getSelectedRow()).getCpf());
-
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);

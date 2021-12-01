@@ -50,12 +50,12 @@ public class VendedorDao {
 
     //método para pegar uma lista de Vendedores no banco
     public List<Vendedor> getLista(String dado) throws SQLException {
-        String sql = "select * from funcionario WHERE nome_fun LIKE '%?%';";
+        String sql = "select * from funcionario WHERE nome_fun LIKE ?";
         ResultSet rs;
         List<Vendedor> ma;
         try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
 
-            stmt.setString(1, dado);
+            stmt.setString(1, "%"+dado+"%");
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();

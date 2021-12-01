@@ -57,11 +57,11 @@ public class ClienteDao implements InterfaceBasicDB<Cliente>{
 
     //método para pegar uma lista de socios no banco
     public List<Cliente> getLista(String dado) {
-        String sql = "select * from cliente WHERE nome LIKE '%?%';";
+        String sql = "select * from cliente WHERE nome LIKE ?";
         ResultSet rs;
         List<Cliente> ma = null;
         try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
-            stmt.setString(1, dado);
+            stmt.setString(1, "%"+dado+"%");
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
@@ -88,11 +88,11 @@ public class ClienteDao implements InterfaceBasicDB<Cliente>{
 
     //metodo que retorna uma lista de clientes pelo endereço
     public List<Cliente> getListE(String endereco) throws SQLException {
-        String sql = "select * from cliente WHERE endereco LIKE '%?%';";
+        String sql = "select * from cliente WHERE endereco LIKE ?";
         ResultSet rs;
         List<Cliente> ma;
         try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
-            stmt.setString(1, endereco);
+            stmt.setString(1, "%"+endereco+"%");
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();

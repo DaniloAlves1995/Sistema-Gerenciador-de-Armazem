@@ -48,11 +48,11 @@ public class ProdutoDao {
 
     //método para pegar uma lista de produtos no banco
     public List<Produto> getLista(String dado) throws SQLException {
-        String sql = "select * from produto WHERE nome_p LIKE '%?%';";
+        String sql = "select * from produto WHERE nome_p LIKE ?";
         ResultSet rs;
         List<Produto> ma;
         try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
-            stmt.setString(1, dado);
+            stmt.setString(1, "%"+dado+"%");
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();

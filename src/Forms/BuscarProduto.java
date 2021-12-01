@@ -279,16 +279,13 @@ public class BuscarProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyPressed
-        if (jTNome.getBackground() != Color.WHITE) {
+        if (jTNome.getBackground() != Color.WHITE)
             jTNome.setBackground(Color.WHITE);
-        }
-
     }//GEN-LAST:event_jTNomeKeyPressed
 
     private void jTPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPrecoKeyPressed
-        if (jTPreco.getBackground() != Color.WHITE) {
+        if (jTPreco.getBackground() != Color.WHITE)
             jTPreco.setBackground(Color.WHITE);
-        }
     }//GEN-LAST:event_jTPrecoKeyPressed
 
     private void jTPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyPressed
@@ -300,10 +297,9 @@ public class BuscarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTPesquisarKeyTyped
 
     private void jTPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyReleased
-        l = evt.getKeyChar();
-        if (evt.getKeyCode() == 40) {
+        this.l = evt.getKeyChar();
+        if (evt.getKeyCode() == 40)
             jTProduto.requestFocus();
-        }
         try {
             listarProduto();
         } catch (SQLException ex) {
@@ -312,18 +308,7 @@ public class BuscarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTPesquisarKeyReleased
 
     private void jBOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOkActionPerformed
-        if (jTProduto.getSelectedRow() != -1) {
-            if (tipo == 0) {
-                entradae.SetProduto(produtos.get(jTProduto.getSelectedRow()));
-            }
-            if (tipo == 1) {
-                svenda.SetProduto(produtos.get(jTProduto.getSelectedRow()));
-            }
-            if (tipo == 2) {
-                producao.SetProduto(produtos.get(jTProduto.getSelectedRow()));
-            }
-            this.dispose();
-        }
+        this.confirmButton();
     }//GEN-LAST:event_jBOkActionPerformed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
@@ -331,22 +316,27 @@ public class BuscarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jTProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyPressed
-        if (evt.getKeyCode() == 10) {
-            if (jTProduto.getSelectedRow() != -1) {
-                if (tipo == 0) {
-                    entradae.SetProduto(produtos.get(jTProduto.getSelectedRow()));
-                }
-                if (tipo == 1) {
-                    svenda.SetProduto(produtos.get(jTProduto.getSelectedRow()));
-                }
-                if (tipo == 2) {
-                    producao.SetProduto(produtos.get(jTProduto.getSelectedRow()));
-                }
-                this.dispose();
-            }
-        }
+        if (evt.getKeyCode() == 10)
+            this.confirmButton();
     }//GEN-LAST:event_jTProdutoKeyPressed
 
+    //press ok button
+    private void confirmButton(){
+        if (jTProduto.getSelectedRow() != -1) {
+            switch(tipo){
+                case 0:
+                    entradae.SetProduto(produtos.get(jTProduto.getSelectedRow()));
+                    break;
+                case 1:
+                    svenda.SetProduto(produtos.get(jTProduto.getSelectedRow()));
+                    break;
+                case 2:
+                    producao.SetProduto(produtos.get(jTProduto.getSelectedRow()));
+                    break;       
+            }
+            this.dispose();
+        }
+    }
 
     public void SetEntradaEstoque(Entrada_Estoque entradae) {
         this.entradae = entradae;
@@ -459,7 +449,6 @@ public class BuscarProduto extends javax.swing.JFrame {
             if (jTProduto.getSelectedRow() != -1) {
                 jTNome.setText(produtos.get(tabela.getSelectedRow()).getProduto());
                 jTPreco.setText(produtos.get(tabela.getSelectedRow()).getPreco() + "");
-
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);

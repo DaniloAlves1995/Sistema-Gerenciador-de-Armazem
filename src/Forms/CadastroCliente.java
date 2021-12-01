@@ -480,7 +480,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                     //Cria um objeto DAO para inserir o novo Socio no banco
                     ClienteDao d = new ClienteDao();
                     //Adiciona o novo Sócio no banco
-                    d.adiciona(s);
+                    d.adicionar(s);
                     JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                     //Limpa os TextFilds depois do Cadastro
                     Limpar();
@@ -683,7 +683,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             m.setContato2(jTTelefone1.getText());
             m.setCpf(jTCpf.getText());
 
-            dao.altera(m);
+            dao.alterar(m);
             JOptionPane.showMessageDialog(null, "Cliente Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
             Desabilitar();

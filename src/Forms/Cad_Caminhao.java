@@ -7,9 +7,13 @@ package Forms;
 
 import DAO.CaminhaoDao;
 import Entidades.Caminhao;
+import Utils.ManageFields;
 import java.awt.Color;
+import java.awt.TextField;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -27,6 +31,8 @@ import javax.swing.JOptionPane;
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
 public class Cad_Caminhao extends javax.swing.JFrame {
+    
+    private final ManageFields manageFields;
 
     /**
      * Creates new form Cad_Caminhao
@@ -37,6 +43,11 @@ public class Cad_Caminhao extends javax.swing.JFrame {
         this.setTitle("Cadastrar Caminhão - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         this.setIconImage(imagemTituloJanela.getImage());
+        
+        //setup manage class
+        this.manageFields = new ManageFields();
+        this.manageFields.setFields(Arrays.asList(jTNome, jTPreCarga));
+        this.manageFields.setEvent();
     }
 
     /**
@@ -77,23 +88,8 @@ public class Cad_Caminhao extends javax.swing.JFrame {
         jLabel5.setText("Previsão de sacas:");
 
         jTNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTNomeKeyPressed(evt);
-            }
-        });
 
         jTPreCarga.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTPreCarga.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTPreCargaActionPerformed(evt);
-            }
-        });
-        jTPreCarga.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTPreCargaKeyPressed(evt);
-            }
-        });
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/caminao_a.png"))); // NOI18N
 
@@ -225,27 +221,12 @@ public class Cad_Caminhao extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyPressed
-        if (jTNome.getBackground() != Color.WHITE) {
-            jTNome.setBackground(Color.WHITE);
-        }
-    }//GEN-LAST:event_jTNomeKeyPressed
-
-    private void jTPreCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPreCargaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTPreCargaActionPerformed
-
-    private void jTPreCargaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPreCargaKeyPressed
-        if (jTPreCarga.getBackground() != Color.WHITE) {
-            jTPreCarga.setBackground(Color.WHITE);
-        }
-    }//GEN-LAST:event_jTPreCargaKeyPressed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (Verificar()) {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             //Cria um objeto produto para setar os valores dos TextFilds
             Caminhao s = new Caminhao();
+            
             //Seta os valores dos TextFilds
             s.setNome(jTNome.getText());
             s.setCarga(Integer.parseInt(jTPreCarga.getText()));
@@ -253,14 +234,16 @@ public class Cad_Caminhao extends javax.swing.JFrame {
             try {
                 //Cria um objeto DAO para inserir o novo produto no banco
                 CaminhaoDao d = new CaminhaoDao();
+                
                 //Adiciona o novo produto no banco
-                d.adiciona(s);
+                d.adicionar(s);
                 int id = d.getIdUltimoCam();
                 s.setId(id);
                 d.adicionaCamCarga(s);
                 JOptionPane.showMessageDialog(null, "Caminhão registrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+                
                 //Limpa os TextFilds depois do Cadastro
-                Limpar();
+                this.Limpar();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }

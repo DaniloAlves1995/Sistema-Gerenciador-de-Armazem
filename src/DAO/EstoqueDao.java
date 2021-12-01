@@ -194,7 +194,7 @@ public class EstoqueDao {
 
     //metodo para retornar o produto pesquisado pelo nome
     public Produto GetProduto(String nome) throws SQLException {
-        String sql = "select * from produto where nome='?';";
+        String sql = "select * from produto where nome=?;";
         Produto m;
         try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
             stmt.setString(1, nome);

@@ -483,7 +483,7 @@ public class CadastroProduto extends javax.swing.JFrame {
 
     protected void listarProduto() throws SQLException {
         ProdutoDao me = new ProdutoDao();
-        produto = me.getLista("%" + jTPesquisar.getText() + "%");
+        produto = me.getLista(jTPesquisar.getText());
 
         mostraPesquisa(produto);
     }
