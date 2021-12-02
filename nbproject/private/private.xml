@@ -6,6 +6,7 @@
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/DAO/EstoqueDao.java</file>
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/Forms/ProducaoSacas.java</file>
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/Forms/CadastroProduto.java</file>
+            <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/Utils/ManageFields.java</file>
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/Forms/EditarEstoque.java</file>
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/Forms/Principal.java</file>
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/Forms/PesquisarVendas.java</file>
@@ -17,11 +18,11 @@
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/DAO/SaidaDao.java</file>
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/Forms/Gerenciar_Caminhao.java</file>
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/DAO/VendaDao.java</file>
-            <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/DAO/VendedorDao.java</file>
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/Conexao/CriaConexao.java</file>
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/DAO/InterfaceBasicDB.java</file>
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/Forms/Cad_Caminhao.java</file>
             <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/Conexao/ConexaoRel.java</file>
+            <file>file:/C:/Users/danil/Documents/Projetos/NetBeansProjects/Armazem/src/Forms/BuscarProduto.java</file>
         </group>
     </open-files>
 </project-private>

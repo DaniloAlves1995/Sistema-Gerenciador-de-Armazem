@@ -222,7 +222,7 @@ public class Cad_Caminhao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (Verificar()) {
+        if (this.manageFields.chackFields()) {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             //Cria um objeto produto para setar os valores dos TextFilds
             Caminhao s = new Caminhao();
@@ -243,7 +243,7 @@ public class Cad_Caminhao extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Caminhão registrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                 
                 //Limpa os TextFilds depois do Cadastro
-                this.Limpar();
+                this.manageFields.clearFields();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
@@ -255,32 +255,6 @@ public class Cad_Caminhao extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    public boolean Verificar() {
-        boolean valor = true;
-        if (jTNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo Nome não pode ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-            jTNome.setBackground(new Color(255, 51, 51));
-            jTNome.requestFocus();
-            valor = false;
-        } else {
-            if (jTPreCarga.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo Previsão de Carga não pode ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-                jTPreCarga.setBackground(new Color(255, 51, 51));
-                jTPreCarga.requestFocus();
-                valor = false;
-            } else {
-                try {
-                    int a = Integer.parseInt(jTPreCarga.getText());
-
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "O campo Previsão de Sacas deve ser um número inteiro!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-                    valor = false;
-                }
-            }
-        }
-        return valor;
-    }
 
     public void Limpar() {
         jTNome.setText("");

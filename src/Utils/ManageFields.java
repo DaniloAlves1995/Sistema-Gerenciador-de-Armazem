@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -18,6 +19,7 @@ import javax.swing.JTextField;
 public class ManageFields {
     
     private List<JTextField> fields;
+    private boolean value;
     
     /**
     * Set the fields array. The attribute 'fields' of class receives
@@ -29,6 +31,10 @@ public class ManageFields {
         this.fields = newFields;
     }
     
+    /**
+    * Set key pressed event. Change background color to white when 
+    * user type and color still isn't white. 
+    */
     public void setEvent(){
         this.fields.forEach((t) -> {
             t.addKeyListener(new KeyListener() {
@@ -49,6 +55,35 @@ public class ManageFields {
                 }
             });
                
+        });
+    }
+    
+    /**
+    * Check fields. Check if there are some fields void. Case true, a message
+    * is show to user, the void field is setting to red background color.
+    * 
+    * @return a boolean indicating if there are void fields
+    */
+    public boolean chackFields(){
+        this.value = true;
+        this.fields.forEach((t) -> {
+            if (t.getText().equals("") && this.value == true) {
+                JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+                t.setBackground(new Color(255, 51, 51));
+                t.requestFocus();
+                this.value = false;
+            }
+        });
+        
+        return this.value;
+    }
+    
+    /**
+    * Clear fields. Set text values of all fields to void.
+    */
+    public void clearFields(){
+        this.fields.forEach((t) -> {
+            t.setText("");
         });
     }
 }
