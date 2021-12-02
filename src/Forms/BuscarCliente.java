@@ -54,6 +54,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         jTEndereco.setEditable(false);
         jTTelefone.setEditable(false);
         jTCpf.setEditable(false);
+        
     }
 
     /**
@@ -100,14 +101,8 @@ public class BuscarCliente extends javax.swing.JFrame {
 
         jTPesquisar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTPesquisarKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyTyped(evt);
             }
         });
 
@@ -160,18 +155,8 @@ public class BuscarCliente extends javax.swing.JFrame {
         jLabel8.setText("Contato 1:");
 
         jTNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTNomeKeyPressed(evt);
-            }
-        });
 
         jTEndereco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTEnderecoKeyPressed(evt);
-            }
-        });
 
         jTTelefone.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -305,33 +290,12 @@ public class BuscarCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyPressed
-        if (jTNome.getBackground() != Color.WHITE) {
-            jTNome.setBackground(Color.WHITE);
-        }
-
-    }//GEN-LAST:event_jTNomeKeyPressed
-
-    private void jTEnderecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEnderecoKeyPressed
-        if (jTEndereco.getBackground() != Color.WHITE) {
-            jTEndereco.setBackground(Color.WHITE);
-        }
-    }//GEN-LAST:event_jTEnderecoKeyPressed
-
-    private void jTPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTPesquisarKeyPressed
-
-    private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
-
-    }//GEN-LAST:event_jTPesquisarKeyTyped
-
     private void jTPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyReleased
         l = evt.getKeyChar();
 
-        if (evt.getKeyCode() == 40) {
+        if (evt.getKeyCode() == 40)
             jTCliente.requestFocus();
-        }
+        
         try {
             listarCliente();
         } catch (SQLException ex) {

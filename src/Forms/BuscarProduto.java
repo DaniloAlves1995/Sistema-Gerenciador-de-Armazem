@@ -96,14 +96,8 @@ public class BuscarProduto extends javax.swing.JFrame {
 
         jTPesquisar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTPesquisarKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyTyped(evt);
             }
         });
 
@@ -152,18 +146,8 @@ public class BuscarProduto extends javax.swing.JFrame {
         jLabel5.setText("Preço(R$):");
 
         jTNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTNomeKeyPressed(evt);
-            }
-        });
 
         jTPreco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTPreco.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTPrecoKeyPressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -277,24 +261,6 @@ public class BuscarProduto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyPressed
-        if (jTNome.getBackground() != Color.WHITE)
-            jTNome.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jTNomeKeyPressed
-
-    private void jTPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPrecoKeyPressed
-        if (jTPreco.getBackground() != Color.WHITE)
-            jTPreco.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jTPrecoKeyPressed
-
-    private void jTPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTPesquisarKeyPressed
-
-    private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
-
-    }//GEN-LAST:event_jTPesquisarKeyTyped
 
     private void jTPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyReleased
         this.l = evt.getKeyChar();

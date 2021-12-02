@@ -7,10 +7,12 @@ package Forms;
 
 import DAO.VendedorDao;
 import Entidades.Vendedor;
+import Utils.ManageFields;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.SQLException;
+import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -28,6 +30,8 @@ import javax.swing.JTextField;
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
 public class Cad_Vendedor extends javax.swing.JFrame {
+    
+    private final ManageFields manageFields;
 
     /**
      * Creates new form Cad_Vendedor
@@ -39,6 +43,11 @@ public class Cad_Vendedor extends javax.swing.JFrame {
         this.setTitle("Cadastrar Vendedor - SGE");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         this.setIconImage(imagemTituloJanela.getImage());
+        
+        //setup manage class
+        this.manageFields = new ManageFields();
+        this.manageFields.setFields(Arrays.asList(jTNome, jTEndereco, jTTelefone));
+        this.manageFields.setEvent();
     }
 
     /**
@@ -108,11 +117,6 @@ public class Cad_Vendedor extends javax.swing.JFrame {
         }catch(Exception e){
             System.out.println(e.getStackTrace());
         }
-        jTTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTTelefoneKeyPressed(evt);
-            }
-        });
 
         try{
             try {
@@ -124,11 +128,6 @@ public class Cad_Vendedor extends javax.swing.JFrame {
         }catch(Exception e){
             System.out.println(e.getStackTrace());
         }
-        jTTelefone2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTTelefone2KeyPressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -244,7 +243,7 @@ public class Cad_Vendedor extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //Verifica se ha algum campo vazio
-        if (Verifica()) {
+        if (this.manageFields.checkFields()) {
             //Cria um objeto Vendedor para setar os valores dos TextFilds
             Vendedor s = new Vendedor();
             //Seta os valores dos TextFilds
@@ -273,52 +272,6 @@ public class Cad_Vendedor extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jTTelefoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTelefoneKeyPressed
-        if (jTTelefone.getBackground() != Color.WHITE) {
-            jTTelefone.setBackground(Color.WHITE);
-        }
-    }//GEN-LAST:event_jTTelefoneKeyPressed
-
-    private void jTTelefone2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTelefone2KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTTelefone2KeyPressed
-
-    //Para verificar os campos
-    public boolean Verifica() {
-        return VerificarCampo(jTNome, "Nome") && VerificarCampo(jTEndereco, "Endereço") && VerificarCampo(jTTelefone, "Contato 1");
-    }
-
-    //metodo para veificar o campo se está vazio e colorir o background caso não esteja
-    public boolean VerificarCampo(final JTextField campo, String nome) {
-        if (campo.getText().equals("") || campo.getText().equals("(  )    -    ")) {
-            JOptionPane.showMessageDialog(null, "O campo " + nome + " não pede ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-            campo.setBackground(new Color(255, 51, 51));
-            campo.requestFocus();
-
-            campo.addKeyListener(new KeyListener() {
-                @Override
-                public void keyPressed(KeyEvent ke) {
-                    if (campo.getBackground() != Color.WHITE) {
-                        campo.setBackground(Color.WHITE);
-                    }
-                }
-
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    //Não utilizado
-                }
-
-                @Override
-                public void keyReleased(KeyEvent e) {
-                    //Não utilizado
-                }
-            });
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     /**
      * @param args the command line arguments

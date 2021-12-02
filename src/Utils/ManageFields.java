@@ -64,10 +64,10 @@ public class ManageFields {
     * 
     * @return a boolean indicating if there are void fields
     */
-    public boolean chackFields(){
+    public boolean checkFields(){
         this.value = true;
         this.fields.forEach((t) -> {
-            if (t.getText().equals("") && this.value == true) {
+            if ((t.getText().trim().equals("") || t.getText().equals("(  )    -    ")) && this.value == true) {
                 JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
                 t.setBackground(new Color(255, 51, 51));
                 t.requestFocus();

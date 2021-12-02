@@ -8,11 +8,8 @@ package Forms;
 import DAO.CaminhaoDao;
 import Entidades.Caminhao;
 import Utils.ManageFields;
-import java.awt.Color;
-import java.awt.TextField;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import javax.swing.ImageIcon;
@@ -222,7 +219,7 @@ public class Cad_Caminhao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (this.manageFields.chackFields()) {
+        if (this.manageFields.checkFields()) {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             //Cria um objeto produto para setar os valores dos TextFilds
             Caminhao s = new Caminhao();
@@ -255,11 +252,6 @@ public class Cad_Caminhao extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    public void Limpar() {
-        jTNome.setText("");
-        jTPreCarga.setText("");
-    }
 
     /**
      * @param args the command line arguments
