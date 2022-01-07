@@ -7,8 +7,10 @@ package Forms;
 
 import DAO.ClienteDao;
 import Entidades.Cliente;
+import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -32,12 +34,14 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class CadastroCliente extends javax.swing.JFrame {
 
+    private final ManageFields manageFields;
     private final DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato"});
     private ListSelectionModel lsmCliente;
     private List<Cliente> cliente;
     private char l;
     public int habilit;
     public int salvar = 0;
+    
 
     /**
      * Metódo para criar uma nova instância do Form
@@ -53,7 +57,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         this.Desabilitar();
         //mostrar qtd de socios
         this.MostrarQtdClientes();
-
+        
+        //setup manage class
+        this.manageFields = new ManageFields();
+        this.manageFields.setFields(Arrays.asList(jTNome, jTEndereco, jTTelefone, jTCpf));
+        this.manageFields.setEvent();
     }
 
     /**
@@ -466,7 +474,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         if (salvar == 0) {
             //Verifica se ha algum campo vazio
-            if (Verificar()) {
+            if (this.manageFields.checkFields()) {
                 //Cria um objeto Sócio para setar os valores dos TextFilds
                 Cliente s = new Cliente();
                 //Seta os valores dos TextFilds
@@ -490,7 +498,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
             }
         } else {
-            if (Verificar()) {
+            if (this.manageFields.checkFields()) {
                 if (Everificar()) {
                     try {
                         alteraSocio();
@@ -510,12 +518,9 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     //Método para limpar os TextFilds
     public void Limpar() {
-        jTNome.setText("");
-        jTEndereco.setText("");
-        jTTelefone.setText("");
         jTTelefone1.setText("");
         jTId.setText("");
-        jTCpf.setText("");
+        this.manageFields.clearFields();
     }
 
     //Método para Desabilitar os TextFilds
@@ -645,35 +650,10 @@ public class CadastroCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTTelefone1KeyPressed
 
-    public boolean Verificar() {
-        boolean valor = true;
-        if (jTNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo Nome não pede ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-            jTNome.setBackground(new Color(255, 51, 51));
-            jTNome.requestFocus();
-            valor = false;
-        } else {
-            if (jTEndereco.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo Endereço não pode ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-                jTEndereco.setBackground(new Color(255, 51, 51));
-                jTEndereco.requestFocus();
-                valor = false;
-            } else {
-                if (jTTelefone.getText().equals("(  )    -    ")) {
-                    JOptionPane.showMessageDialog(null, "O campo Contato 1 não pode ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-                    jTTelefone.setBackground(new Color(255, 51, 51));
-                    jTTelefone.requestFocus();
-                    valor = false;
-                }
-            }
-        }
-        return valor;
-    }
-
     //Esse metodo serve para Alterar os valores do sócio no banco
     private void alteraSocio() throws SQLException {
 
-        if (Verificar()) {
+        if (this.manageFields.checkFields()) {
             Cliente m = new Cliente();
             ClienteDao dao = new ClienteDao();
             m.setId(cliente.get(jTClientes.getSelectedRow()).getId());
@@ -707,9 +687,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @Desenvolvedor Danilo Alves
-     */
+  
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

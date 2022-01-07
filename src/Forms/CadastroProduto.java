@@ -9,8 +9,10 @@ import DAO.EstoqueDao;
 import DAO.ProdutoDao;
 import Entidades.Estoque;
 import Entidades.Produto;
+import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -34,6 +36,7 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class CadastroProduto extends javax.swing.JFrame {
 
+    private final ManageFields manageFields;
     private final DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)"});
     private ListSelectionModel lsmProduto;
     private List<Produto> produto;
@@ -55,6 +58,11 @@ public class CadastroProduto extends javax.swing.JFrame {
         Desabilitar();
         //mostrar qtd de produtos
         MostrarQtdProdutos();
+        
+        //setup manage class
+        this.manageFields = new ManageFields();
+        this.manageFields.setFields(Arrays.asList(jTProduto, jTPreco));
+        this.manageFields.setEvent();
     }
 
     /**
@@ -411,7 +419,7 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         if (salvar == 0) {
             //Verifica se ha algum campo vazio
-            if (Verificar()) {
+            if (this.manageFields.checkFields()) {
                 //Cria um objeto produto para setar os valores dos TextFilds
                 Produto s = new Produto();
                 //Seta os valores dos TextFilds
@@ -434,6 +442,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                     e.setId_p(idp);
                     e.setQtd(0);
                     edao.adiciona(e);
+                    
                     //Limpa os TextFilds depois do Cadastro
                     Limpar();
                 } catch (SQLException ex) {
@@ -442,7 +451,7 @@ public class CadastroProduto extends javax.swing.JFrame {
 
             }
         } else {
-            if (Verificar()) {
+            if (this.manageFields.checkFields()) {
                 if (Everificar()) {
                     try {
                         alteraProduto();
@@ -461,8 +470,7 @@ public class CadastroProduto extends javax.swing.JFrame {
 
     //Método para limpar os TextFilds
     public void Limpar() {
-        jTProduto.setText("");
-        jTPreco.setText("");
+        this.manageFields.clearFields();
         jTId.setText("");
         jTObs.setText("");
     }
@@ -575,34 +583,11 @@ public class CadastroProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTTotalActionPerformed
 
-    public boolean Verificar() {
-        boolean valor = true;
-        if (jTProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo Nome não pode ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-            jTProduto.setBackground(new Color(255, 51, 51));
-            jTProduto.requestFocus();
-            valor = false;
-        } else {
-            if (jTPreco.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo Preço não pode ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-                jTPreco.setBackground(new Color(255, 51, 51));
-                jTPreco.requestFocus();
-                valor = false;
-            }
-        }
-        try {
-            double t = Double.parseDouble(jTPreco.getText().replace(",", "."));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "O preço deve ser um número.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-            valor = false;
-        }
-        return valor;
-    }
 
     //Esse metodo serve para Alterar os valores do produto no banco
     private void alteraProduto() throws SQLException {
 
-        if (Verificar()) {
+        if (this.manageFields.checkFields()) {
             Produto m = new Produto();
             ProdutoDao dao = new ProdutoDao();
             m.setId(produto.get(jTProdutos.getSelectedRow()).getId());

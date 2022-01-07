@@ -12,9 +12,11 @@ import Entidades.Caminhao;
 import Entidades.Estoque;
 import Entidades.Produto;
 import Entidades.Saca;
+import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -38,6 +40,7 @@ import javax.swing.table.DefaultTableModel;
                   //</editor-fold>
 public class ProducaoSacas extends javax.swing.JFrame {
 
+    private final ManageFields manageFields;
     private DefaultTableModel tmCaminhao = new DefaultTableModel(null, new String[]{"Id", "Nome", "Sacas Previstas"});
     private ListSelectionModel lsmCaminhao;
     private List<Caminhao> caminhoes;
@@ -55,6 +58,11 @@ public class ProducaoSacas extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
+        
+        //setup manage class
+        this.manageFields = new ManageFields();
+        this.manageFields.setFields(Arrays.asList(jTProduto, jTQtd));
+        this.manageFields.setEvent();
     }
 
     /**
@@ -306,7 +314,7 @@ public class ProducaoSacas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-            if (Verificar()) {
+            if (this.manageFields.checkFields()) {
                 if(jTCaminhoes.getSelectedRow() != -1){
                     if (Integer.parseInt(jTQtd.getText()) <= caminhoes.get(jTCaminhoes.getSelectedRow()).getCarga()) {
                         Caminhao c = caminhoes.get(jTCaminhoes.getSelectedRow());
@@ -417,24 +425,6 @@ public class ProducaoSacas extends javax.swing.JFrame {
     public void Limpar(){
         jTProduto.setText("");
         jTQtd.setText("");
-    }
-    
-    public boolean Verificar() {
-        boolean valor = true;
-        if (jTProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo Produto não pode ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-            jTProduto.setBackground(new Color(255, 51, 51));
-            jTProduto.requestFocus();
-            valor = false;
-        } else {
-                try{
-                    int a = Integer.parseInt(jTQtd.getText());
-                }catch(NumberFormatException e){
-                    JOptionPane.showMessageDialog(null, "O campo Qtd Produzida deve ser um número inteiro!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-                    valor = false;
-                }
-        }
-        return valor;
     }
     
     //metodo para setar o produto que foi escolhido

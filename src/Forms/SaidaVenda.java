@@ -18,6 +18,7 @@ import Entidades.Produto;
 import Entidades.Saida;
 import Entidades.Venda;
 import Entidades.Vendedor;
+import Utils.ManageFields;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
@@ -28,6 +29,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +64,7 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 public class SaidaVenda extends javax.swing.JFrame {
 
+    private final ManageFields manageFields;
     private List<Venda> venda;
     private DefaultListModel dlista, dlistam;
     
@@ -109,7 +112,11 @@ public class SaidaVenda extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
-
+        
+        //setup manage class
+        this.manageFields = new ManageFields();
+        this.manageFields.setFields(Arrays.asList(jTCliente, jTProduto, jTQtd));
+        this.manageFields.setEvent();
     }
 
     /**
@@ -849,7 +856,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
     public void AdicionarP() {
         if (tipo == 0) {
-            if (Verifica()) {
+            if (this.manageFields.checkFields()) {
                 if (jComboBox2.getSelectedIndex() != -1) {
                     CalcularValor();
                     if (Integer.parseInt(jTQtd.getText()) <= Integer.parseInt(jTQtd_est.getText())) {
@@ -862,7 +869,7 @@ public class SaidaVenda extends javax.swing.JFrame {
                 }
             }
         } else {
-            if (Verifica2()) {
+            if (this.manageFields.checkFields()) {
                 AdicionaVenda();
             }
         }
@@ -949,46 +956,6 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(null, "Produto adicionado a venda!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         Limpar();
-    }
-
-    public boolean Verifica() {
-        return VerificarCampo(jTCliente, "Cliente") && VerificarCampo(jTProduto, "Produto") && VerificarCampo(jTQtd, "Qtd");
-    }
-
-    public boolean Verifica2() {
-        return VerificarCampo(jTCliente, "Cliente") && VerificarCampo(jTProduto, "Produto") && VerificarCampo(jTQtd, "Qtd");
-    }
-
-    //metodo para veificar o campo se está vazio e colorir o background caso não esteja
-    public boolean VerificarCampo(final JTextField campo, String nome) {
-        if (campo.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo " + nome + " não pede ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-            campo.setBackground(new Color(255, 51, 51));
-            campo.requestFocus();
-
-            campo.addKeyListener(new KeyListener() {
-
-                @Override
-                public void keyTyped(KeyEvent ke) {
-                    //Não utilizado
-                }
-
-                @Override
-                public void keyPressed(KeyEvent ke) {
-                    if (campo.getBackground() != Color.WHITE) {
-                        campo.setBackground(Color.WHITE);
-                    }
-                }
-
-                @Override
-                public void keyReleased(KeyEvent ke) {
-                    //Não utilizado
-                }
-            });
-            return false;
-        } else {
-            return true;
-        }
     }
 
     //método que limpa os campos para a venda de outro produto

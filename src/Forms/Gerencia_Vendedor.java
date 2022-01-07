@@ -7,10 +7,12 @@ package Forms;
 
 import DAO.VendedorDao;
 import Entidades.Vendedor;
+import Utils.ManageFields;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -35,6 +37,7 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public final class Gerencia_Vendedor extends javax.swing.JFrame {
 
+    private final ManageFields manageFields;
     private DefaultTableModel tmVendedor = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato 1"});
     private ListSelectionModel lsmVendedor;
     private List<Vendedor> vendedor;
@@ -49,6 +52,11 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         //Desabilita os campos
         this.Desabilitar();
         this.MostrarQtdVendedores();
+        
+        //setup manage class
+        this.manageFields = new ManageFields();
+        this.manageFields.setFields(Arrays.asList(jTNome, jTTelefone, jTEndereco));
+        this.manageFields.setEvent();
     }
 
     /**
@@ -498,7 +506,7 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
 
     //Esse metodo serve para Alterar os valores do vendedor no banco
     private void alteraVendedor() throws SQLException {
-        if (Verifica()) {
+        if (this.manageFields.checkFields()) {
             Vendedor m = new Vendedor();
             VendedorDao dao = new VendedorDao();
             m.setId_vendedor(vendedor.get(jTVendedores.getSelectedRow()).getId_vendedor());
@@ -521,11 +529,6 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
             return true;
 
         }
-    }
-    
-    //Para verificar os campos
-    public boolean Verifica() {
-        return VerificarCampo(jTNome, "Nome") && VerificarCampo(jTEndereco, "Endereço") && VerificarCampo(jTTelefone, "Contato 1");
     }
 
     //metodo para veificar o campo se está vazio e colorir o background caso não esteja
@@ -562,9 +565,7 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
 
     //Método para limpar os TextFilds
     public void Limpar() {
-        jTNome.setText("");
-        jTEndereco.setText("");
-        jTTelefone.setText("");
+        this.manageFields.clearFields();
         jTTelefone2.setText("");
         jTId.setText("");
     }

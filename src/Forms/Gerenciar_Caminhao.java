@@ -7,8 +7,10 @@ package Forms;
 
 import DAO.CaminhaoDao;
 import Entidades.Caminhao;
+import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -32,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class Gerenciar_Caminhao extends javax.swing.JFrame {
 
-    
+    private final ManageFields manageFields;
     private DefaultTableModel tmCaminhao = new DefaultTableModel(null, new String[]{"Id", "Nome", "Sacas Restantes."});
     private ListSelectionModel lsmCaminhao;
     private List<Caminhao> caminhoes;
@@ -47,6 +49,11 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         this.setIconImage(imagemTituloJanela.getImage());
 
         this.MostrarQtdCaminhoes();
+        
+         //setup manage class
+        this.manageFields = new ManageFields();
+        this.manageFields.setFields(Arrays.asList(jTNome, jTSacRest, jTPreCarga));
+        this.manageFields.setEvent();
     }
 
     /**
@@ -426,7 +433,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     }//GEN-LAST:event_jTPreCargaKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (Verificar()) {
+        if (this.manageFields.checkFields()) {
             if (Everificar()) {
                 try {
                     alteraCaminhao();
@@ -529,10 +536,8 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     }
 
     public void Limpar() {
-        jTNome.setText("");
-        jTPreCarga.setText("");
+        this.manageFields.clearFields();
         jTId.setText("");
-        jTSacRest.setText("");
     }
 
     //Método para Desabilitar os TextFilds
@@ -549,41 +554,10 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         jTSacRest.setEditable(true);
     }
 
-    public boolean Verificar() {
-        boolean valor = true;
-        if (jTNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo Nome não pode ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-            jTNome.setBackground(new Color(255, 51, 51));
-            jTNome.requestFocus();
-            valor = false;
-        } else {
-            if (jTPreCarga.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo Previsão de Sacas não pode ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-                jTPreCarga.setBackground(new Color(255, 51, 51));
-                jTPreCarga.requestFocus();
-                valor = false;
-            } else {
-                try {
-                    int a = Integer.parseInt(jTPreCarga.getText());
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "O campo Previsão de Sacas deve ser um número inteiro!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-                    valor = false;
-                }
-                try {
-                    int a = Integer.parseInt(jTSacRest.getText());
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "O campo Sacas restantes deve ser um número inteiro!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-                    valor = false;
-                }
-            }
-        }
-        return valor;
-    }
-
     //Esse metodo serve para Alterar os valores do produto no banco
     private void alteraCaminhao() throws SQLException {
 
-        if (Verificar()) {
+        if (this.manageFields.checkFields()) {
             Caminhao m = new Caminhao();
             CaminhaoDao dao = new CaminhaoDao();
             m.setId(caminhoes.get(jTCaminhoes.getSelectedRow()).getId());
