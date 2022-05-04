@@ -42,11 +42,11 @@ public class Relatorio {
     
     public Relatorio(){
         //diretorio para salvar
-        File dir = new File("c:/SGE");
+        File dir = new File("c:/SGA");
         if (!dir.exists()) {
             dir.mkdir();
         }
-        File l = new File("c:/SGE/Relatorios");
+        File l = new File("c:/SGA/Relatorios");
         if (!l.exists()) {
             l.mkdir();
         }
@@ -88,13 +88,13 @@ public class Relatorio {
     }
     
     public void gerarRelatorio(){
-        File li = new File("c:/SGE/Relatorios/"+this.tipo);
+        File li = new File("c:/SGA/Relatorios/"+this.tipo);
         if (!li.exists()) {
             li.mkdir();
         }
 
         String MostrarRelatorio;
-        String path = "c:/SGE/Relatorios/"+this.tipo+"/";
+        String path = "c:/SGA/Relatorios/"+this.tipo+"/";
         try {
             con.conecta();
             con.executeSQL(this.sql);
@@ -104,14 +104,14 @@ public class Relatorio {
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/"+this.tipo+".jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle(this.titulo+" - .: SGE :.");
+            jv.setTitle(this.titulo+" - .: SGA :.");
             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             
             File arq = new File(path + this.nome + ".pdf");
             boolean salvarPdf = false;
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + this.nome + ".pdf já existe.\n Dezeja substitui-lo?", "SGE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "O relatório " + this.nome + ".pdf já existe.\n Dezeja substitui-lo?", "SGA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION)
                     salvarPdf = true; 
             } else
@@ -120,15 +120,15 @@ public class Relatorio {
             if (salvarPdf){
                 JasperExportManager.exportReportToPdfFile(jp, path + this.nome + ".pdf");
                 MostrarRelatorio = path + this.nome + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + this.nome + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + this.nome + ".pdf", "SGA", JOptionPane.INFORMATION_MESSAGE);
                 try {
                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + Arrays.toString(e.getStackTrace()), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + Arrays.toString(e.getStackTrace()), "SGA", JOptionPane.ERROR_MESSAGE);
                 }
             }  
         } catch (HeadlessException | JRException erro) {
-            JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGA", JOptionPane.INFORMATION_MESSAGE);
         }
     
     }

@@ -18,10 +18,9 @@ import javax.swing.*;
 //</editor-fold>
 public class ConexaoRel {
 
-    final private String driver = "com.mysql.jdbc.Driver";
     final private String url = "jdbc:mysql://localhost/armazem";
     final private String usuario = "root";
-    final private String senha = "";
+    final private String senha = "danilo123";
     public Connection conexao;
     public Statement statement;
     public ResultSet resultset;
@@ -30,13 +29,9 @@ public class ConexaoRel {
         boolean result = true;
 
         try {
-            Class.forName(driver);
             conexao = DriverManager.getConnection(url, usuario, senha);
-        } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Erro na conexão do relatório com o banco! \n\r ERRO:" + ex.getMessage(), "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-            result = false;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro na conexão do relatório com o banco! \n\r ERRO:" + ex.getMessage(), "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro na conexão do relatório com o banco! \n\r ERRO:" + ex.getMessage(), "..: SGA :..", JOptionPane.ERROR_MESSAGE);
         }
 
         return result;
@@ -46,7 +41,7 @@ public class ConexaoRel {
         try {
             conexao.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão do relatório com o banco! \n\r ERRO:" + ex.getMessage(), "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão do relatório com o banco! \n\r ERRO:" + ex.getMessage(), "..: SGA :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -56,7 +51,7 @@ public class ConexaoRel {
                     ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             resultset = statement.executeQuery(sql);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao executar SQL na conexão do relatório com o banco! \n\r ERRO:" + ex.getMessage(), "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao executar SQL na conexão do relatório com o banco! \n\r ERRO:" + ex.getMessage(), "..: SGA :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 

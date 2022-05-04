@@ -1,6 +1,6 @@
 package DAO;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 
 import Conexao.CriaConexao;
 import Entidades.Vendedor;
@@ -27,7 +27,7 @@ import java.util.List;
 public class VendedorDao {
 
     //Variavel que recebe a conexão da classe CriaConexao
-    private Connection conexao;
+    private final Connection conexao;
 
     //abrir uma nova conexão a cada instância da classe
     public VendedorDao() throws SQLException {

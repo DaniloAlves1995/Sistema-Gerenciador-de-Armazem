@@ -34,7 +34,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Sistema SGE ..:: Especializado para Empresa X ::..");
+        this.setTitle("Sistema SGA ..:: Especializado para Empresa X ::..");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         this.setIconImage(imagemTituloJanela.getImage());
 
@@ -487,18 +487,6 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void sair() {
-        try {
-            //Realiza o backup do banco
-            Runtime run = Runtime.getRuntime();
-            File f = new File("c:/SGE");
-            if (!f.exists()) {
-                f.mkdir();
-            }
-            run.exec("cmd.exe /C C:\\wamp64\\bin\\mysql\\mysql5.7.31\\bin/mysqldump -u root armazem>c:/SGE/armazem.sql");
-
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar dados! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-        }
         int op = JOptionPane.showConfirmDialog(this, "Você deseja realmente sair?", "..: SGE :..", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (op == 0) {

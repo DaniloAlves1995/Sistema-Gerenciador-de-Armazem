@@ -49,7 +49,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     public CadastroCliente() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Cadastrar Cliente - SGE");
+        this.setTitle("Cadastrar Cliente - SGA");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         this.setIconImage(imagemTituloJanela.getImage());
 
@@ -489,11 +489,11 @@ public class CadastroCliente extends javax.swing.JFrame {
                     ClienteDao d = new ClienteDao();
                     //Adiciona o novo Sócio no banco
                     d.adicionar(s);
-                    JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
                     //Limpa os TextFilds depois do Cadastro
                     Limpar();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -506,7 +506,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                         listarSocio();
                         Limpar();
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
                     }
 
                 }
@@ -555,7 +555,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
 
         if ((cliente.isEmpty()) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Cliente com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhum Cliente com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
         }
 
         String[] linha = new String[]{null, null, null, null, null};
@@ -571,7 +571,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     public boolean Everificar() {
         if ((cliente.get(jTClientes.getSelectedRow()).getNome().equals(jTNome.getText())) && (cliente.get(jTClientes.getSelectedRow()).getEndereco().equals(jTEndereco.getText())) && (cliente.get(jTClientes.getSelectedRow()).getContato1().equals(jTTelefone.getText())) && (cliente.get(jTClientes.getSelectedRow()).getContato2().equals(jTTelefone1.getText())) && (cliente.get(jTClientes.getSelectedRow()).getCpf().equals(jTCpf.getText()))) {
-            JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
             return true;
@@ -588,7 +588,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         try {
             listarSocio();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTPesquisarKeyTyped
 
@@ -602,7 +602,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             Habilitar();
             salvar = 1;
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Cliente na tabela para poder Editar!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Cliente na tabela para poder Editar!", "..: SGA :..", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -610,7 +610,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (jTClientes.getSelectedRow() != -1) {
             Excluir();
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Cliente na Tabela para poder Excluir!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Cliente na Tabela para poder Excluir!", "..: SGA :..", JOptionPane.WARNING_MESSAGE);
         }
         MostrarQtdClientes();
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -664,7 +664,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             m.setCpf(jTCpf.getText());
 
             dao.alterar(m);
-            JOptionPane.showMessageDialog(null, "Cliente Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Cliente Alterado com SUCESSO!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
             Desabilitar();
 
@@ -673,16 +673,16 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     //Metodo para excluir o sócio 
     public void Excluir() {
-        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente excluir o Cliente " + jTNome.getText().toUpperCase(), "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente excluir o Cliente " + jTNome.getText().toUpperCase(), "..: SGA :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
                 ClienteDao m = new ClienteDao();
                 m.Excluir(cliente.get(jTClientes.getSelectedRow()));
-                JOptionPane.showMessageDialog(null, "Cliente excluido(a) com sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cliente excluido(a) com sucesso!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
                 jTPesquisar.setText("");
                 listarSocio();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -734,7 +734,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 Desabilitar();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGA", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -745,7 +745,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             ClienteDao dao = new ClienteDao();
             jTTotal.setText(String.valueOf(dao.GetQtdClientes()));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de clientes!", "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de clientes!", "..: SGA :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 

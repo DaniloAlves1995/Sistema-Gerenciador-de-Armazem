@@ -22,20 +22,11 @@ import javax.swing.JOptionPane;
 public class CriaConexao {
 
     public  static Connection getConexao() throws SQLException{
-        try {
-            try {
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-            } catch (InstantiationException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao buscar Driver JDBC! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-            } catch (IllegalAccessException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-            }
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/armazem", "root", "");
+      
+           
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/armazem", "root", "danilo123");
             
             return con;
-        } catch (ClassNotFoundException e) {
-           JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:"+e.getMessage(), "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-           throw new SQLException(e.getMessage());
-        }
+        
     }
 }

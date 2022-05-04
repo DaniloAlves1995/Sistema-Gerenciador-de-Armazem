@@ -1,6 +1,6 @@
 package DAO;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 
 import Conexao.CriaConexao;
 import Entidades.Estoque;

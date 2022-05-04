@@ -45,7 +45,7 @@ public class BuscarCliente extends javax.swing.JFrame {
     public BuscarCliente() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Buscar Cliente - SGE");
+        this.setTitle("Buscar Cliente - SGA");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         this.setIconImage(imagemTituloJanela.getImage());
 
@@ -299,7 +299,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         try {
             listarCliente();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTPesquisarKeyReleased
 
@@ -412,7 +412,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         }
 
         if (((cliente.isEmpty())) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Cliente com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhum Cliente com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
         } else {
 
             if (cliente.isEmpty() == false) {
@@ -440,7 +440,7 @@ public class BuscarCliente extends javax.swing.JFrame {
                 jTCpf.setText(cliente.get(tabela.getSelectedRow()).getCpf());
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGA", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

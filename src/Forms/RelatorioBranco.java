@@ -12,6 +12,7 @@ import Entidades.Produto;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,9 +24,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -221,14 +224,12 @@ public class RelatorioBranco extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Para gerar o relatório você precisa selecionar pelo menos um produto.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         } else {
             ProdutoDao pdao;
-            try {
-                pdao = new ProdutoDao();
-                pdao.AddPDF_RelatorioE(lista);
-                relatorio();
-                pdao.LimparPDF_RelatorioE();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
-            }
+          
+                //pdao = new ProdutoDao();
+                //pdao.AddPDF_RelatorioE(lista);
+                relatorio(lista);
+                //pdao.LimparPDF_RelatorioE();
+            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -277,7 +278,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     //Cria o relatorio em branco
-    private void relatorio() {
+    private void relatorio(List<Produto> lista) {
         Date data = new Date();
 
         int ano = data.getYear() + 1900;
@@ -299,7 +300,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
 
         ConexaoRel con = new ConexaoRel();
 
-//diretorio que vai salvar
+        //diretorio para salvar
         File dir = new File("c:/SGE");
         if (!dir.exists()) {
             dir.mkdir();
@@ -317,7 +318,16 @@ public class RelatorioBranco extends javax.swing.JFrame {
         String path = "c:/SGE/Relatorios/Entrada/";
         try {
             con.conecta();
-            con.executeSQL("select * from pdf_relatorioe;");
+            String sql = "select row_number() over (order by produto.id_p) as id_ree, produto.id_p, produto.nome_p as produto, estoque.qtd as qtd_e from produto, estoque where \n" +
+"produto.id_p=estoque.id_p and (";
+            for (int i=0; i<lista.size(); i++){
+                if (i == 0)
+                    sql += "produto.id_p="+lista.get(i).getId();
+                else
+                    sql += " and produto.id_p="+lista.get(i).getId();
+            }
+            sql += ")";
+            con.executeSQL(sql);
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper

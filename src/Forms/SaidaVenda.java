@@ -90,7 +90,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         initComponents();
 
         this.setLocationRelativeTo(null);
-        this.setTitle("Realizar Venda - SGE");
+        this.setTitle("Realizar Venda - SGA");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         this.setIconImage(imagemTituloJanela.getImage());
 
@@ -1127,14 +1127,14 @@ public class SaidaVenda extends javax.swing.JFrame {
                 try {
                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "..: SGA :..", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
 
         } catch (HeadlessException | JRException erro) {
 
-            JOptionPane.showMessageDialog(null, "Erro!" + erro, "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + erro, "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
 
         }
     }
@@ -1182,10 +1182,10 @@ public class SaidaVenda extends javax.swing.JFrame {
                     i = i - 1;
                 }
 
-                JOptionPane.showMessageDialog(null, "Saída de estoque cadastrada com sucesso.", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Saída de estoque cadastrada com sucesso.", "SGA", JOptionPane.INFORMATION_MESSAGE);
                 atualizarTabela(venda);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -1202,11 +1202,11 @@ public class SaidaVenda extends javax.swing.JFrame {
                 int sub = e.getQtd() - venda.get(i).getQtd();
                 if (sub < 0) {
                     r = false;
-                    JOptionPane.showMessageDialog(null, "A quantidade de " + p.getProduto().toUpperCase() + " \n\r em estoque não é suficiente.", "SGE", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "A quantidade de " + p.getProduto().toUpperCase() + " \n\r em estoque não é suficiente.", "SGA", JOptionPane.WARNING_MESSAGE);
                 }
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
         }
         return r;
     }
@@ -1332,7 +1332,7 @@ public class SaidaVenda extends javax.swing.JFrame {
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/NotaVenda.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle("Nota de Venda - .: SGE :.");
+            jv.setTitle("Nota de Venda - .: SGA :.");
             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);

@@ -7,7 +7,7 @@ package DAO;
 
 import Conexao.CriaConexao;
 import Entidades.Saca;
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
