@@ -5,7 +5,7 @@
  */
 package Entidades;
 
-import Conexao.ConexaoRel;
+import Conexao.ConectionReport;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class Relatorio {
     private String local;
     private String tipo;
     private String titulo;
-    private ConexaoRel con;
+    private ConectionReport con;
     
     public Relatorio(){
         //diretorio para salvar
@@ -52,7 +52,7 @@ public class Relatorio {
         }
         
         //cria conexão
-        this.con = new ConexaoRel();
+        this.con = new ConectionReport();
     }
 
     public String getSql() {
@@ -96,7 +96,7 @@ public class Relatorio {
         String MostrarRelatorio;
         String path = "c:/SGA/Relatorios/"+this.tipo+"/";
         try {
-            con.conecta();
+            con.connect();
             con.executeSQL(this.sql);
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);

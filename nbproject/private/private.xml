@@ -4,16 +4,22 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/Cad_Caminhao.java</file>
-            <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/CadastroProduto.java</file>
             <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/CadastroCliente.java</file>
+            <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/BuscarCliente.java</file>
             <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/Cad_Vendedor.java</file>
+            <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/PesquisarVendas.java</file>
             <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/Gerencia_Vendedor.java</file>
             <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/SaidaVenda.java</file>
+            <file>file:/home/danilo/Documents/Projects/Armazem/src/DAO/EstoqueDao.java</file>
             <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/Gerenciar_Caminhao.java</file>
-            <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/EditarEstoque.java</file>
             <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/ProducaoSacas.java</file>
-            <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/Principal.java</file>
             <file>file:/home/danilo/Documents/Projects/Armazem/src/Utils/ManageFields.java</file>
+            <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/CadastroProduto.java</file>
+            <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/RelatorioBranco.java</file>
+            <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/EditarEstoque.java</file>
+            <file>file:/home/danilo/Documents/Projects/Armazem/src/Entidades/Relatorio.java</file>
+            <file>file:/home/danilo/Documents/Projects/Armazem/src/DAO/ProdutoDao.java</file>
+            <file>file:/home/danilo/Documents/Projects/Armazem/src/Forms/Principal.java</file>
         </group>
     </open-files>
 </project-private>

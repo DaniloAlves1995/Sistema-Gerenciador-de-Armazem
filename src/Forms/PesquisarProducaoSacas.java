@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import Conexao.ConexaoRel;
+import Conexao.ConectionReport;
 import DAO.CaminhaoDao;
 import DAO.EstoqueDao;
 import DAO.ProdutoDao;
@@ -515,7 +515,7 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
         String nome = "Relatório_Produção_Sacas_DATA_" + dias + "-" + mess + "-" + ano;
         String arquivo = nome;
 
-        ConexaoRel con = new ConexaoRel();
+        ConectionReport con = new ConectionReport();
 
         //diretorio que vai salvar
         File dir = new File("c:/SGE");
@@ -534,7 +534,7 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
         String MostrarRelatorio;
         String path = "c:/SGE/Relatorios/Entrada/";
         try {
-            con.conecta();
+            con.connect();
             String sql = "";
             String jasper = "";
             if (jRadioButton2.isSelected()) {

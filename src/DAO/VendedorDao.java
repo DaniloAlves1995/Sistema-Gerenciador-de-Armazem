@@ -2,7 +2,7 @@ package DAO;
 
 import java.sql.Connection;
 
-import Conexao.CriaConexao;
+import Conexao.CreateConnection;
 import Entidades.Vendedor;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,12 +26,12 @@ import java.util.List;
 //</editor-fold>
 public class VendedorDao {
 
-    //Variavel que recebe a conexão da classe CriaConexao
+    //Variavel que recebe a conexão da classe CreateConnection
     private final Connection conexao;
 
     //abrir uma nova conexão a cada instância da classe
     public VendedorDao() throws SQLException {
-        this.conexao = (Connection) CriaConexao.getConexao();
+        this.conexao = (Connection) CreateConnection.getConnection();
     }
 
     //método para adicionar o Vendedor

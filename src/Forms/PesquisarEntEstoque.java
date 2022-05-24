@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import Conexao.ConexaoRel;
+import Conexao.ConectionReport;
 import DAO.EstoqueDao;
 import DAO.ProdutoDao;
 import Entidades.Estoque;
@@ -515,7 +515,7 @@ public class PesquisarEntEstoque extends javax.swing.JFrame {
         String nome = "Relatório_Entrada_Estoque_DATA_" + dias + "-" + mess + "-" + ano;
         String arquivo = nome;
 
-        ConexaoRel con = new ConexaoRel();
+        ConectionReport con = new ConectionReport();
 
         //diretorio que vai salvar
         File dir = new File("c:/SGE");
@@ -534,7 +534,7 @@ public class PesquisarEntEstoque extends javax.swing.JFrame {
         String MostrarRelatorio;
         String path = "c:/SGE/Relatorios/Entrada/";
         try {
-            con.conecta();
+            con.connect();
 
             String sql = "";
             String jasper = "";

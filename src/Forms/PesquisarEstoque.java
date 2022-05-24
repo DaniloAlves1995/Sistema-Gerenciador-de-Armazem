@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import Conexao.ConexaoRel;
+import Conexao.ConectionReport;
 import DAO.EstoqueDao;
 import DAO.ProdutoDao;
 import Entidades.Estoque;
@@ -525,7 +525,7 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         String nome = "Relatório_Estoque_DATA_" + dias + "-" + mess + "-" + ano;
         String arquivo = nome;
 
-        ConexaoRel con = new ConexaoRel();
+        ConectionReport con = new ConectionReport();
 
 //diretorio que vai salvar
         File dir = new File("c:/SGE");
@@ -544,7 +544,7 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         String MostrarRelatorio;
         String path = "c:/SGE/Relatorios/Estoque/";
         try {
-            con.conecta();
+            con.connect();
             con.executeSQL("select produto.*, estoque.qtd from produto, estoque where produto.id_p=estoque.id_p and produto.nome_p LIKE '%" + jTPesquisar.getText() + "%';");
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);

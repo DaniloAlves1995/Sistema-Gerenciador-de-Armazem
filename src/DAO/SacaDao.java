@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Conexao.CriaConexao;
+import Conexao.CreateConnection;
 import Entidades.Saca;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,12 +26,12 @@ import java.util.List;
 
 public class SacaDao {
 
-    //Variavel que recebe a conexão da classe CriaConexao
+    //Variavel que recebe a conexão da classe CreateConnection
     private final Connection conexao;
 
     //Método Principal da Classe que serve para toda vez que tiver uma instância da classe abrir uma nova conexão 
     public SacaDao() throws SQLException {
-        this.conexao = (Connection) CriaConexao.getConexao();
+        this.conexao = (Connection) CreateConnection.getConnection();
     }
 
     //método para adicionar o pruduto

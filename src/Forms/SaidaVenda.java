@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import Conexao.ConexaoRel;
+import Conexao.ConectionReport;
 import DAO.EstoqueDao;
 import DAO.ProdutoDao;
 import DAO.SaidaDao;
@@ -1077,7 +1077,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         String nome = "Orçamento" + idnota + " DATA" + dias + "-" + mess + "-" + ano;
         String arquivo = nome;
 
-        ConexaoRel con = new ConexaoRel();
+        ConectionReport con = new ConectionReport();
 
 //diretorio que vai salvar
         File dir = new File("c:/FARelatorios/Orcamento");
@@ -1094,7 +1094,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         String MostrarRelatorio;
         String path = "c:/FARelatorios/Orcamento/";
         try {
-            con.conecta();
+            con.connect();
             con.executeSQL("select nota.*, produto.*, venda.*, cliente.*, pdf.* from  nota, produto, venda, cliente, pdf where nota.id=" + idnota + " and nota.id=venda.id_n and venda.id_p=produto.id and nota.id_c=cliente.id and pdf.id_n=" + idnota + ";");
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
@@ -1305,7 +1305,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         String nome = "NOTA_VENDA_N_" + idnota;
         String arquivo = nome;
 
-        ConexaoRel con = new ConexaoRel();
+        ConectionReport con = new ConectionReport();
 
         //diretorio que vai salvar
         File dir = new File("c:/SGE");
@@ -1324,7 +1324,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         String MostrarRelatorio;
         String path = "c:/SGE/Relatorios/NotasVendas/";
         try {
-            con.conecta();
+            con.connect();
             con.executeSQL("select saida.*, produto.*, venda.*, cliente.*, funcionario.nome_fun from  saida, produto, venda, cliente, funcionario where saida.id_s=" + idnota + " and saida.id_s=venda.id_s and venda.id_p=produto.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);

@@ -2,7 +2,7 @@ package DAO;
 
 import java.sql.Connection;
 
-import Conexao.CriaConexao;
+import Conexao.CreateConnection;
 import Entidades.Cliente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,12 +29,12 @@ import java.util.logging.Logger;
 
 public class ClienteDao implements InterfaceBasicDB<Cliente>{
 
-    //Variavel que recebe a conexão da classe CriaConexao
+    //Variavel que recebe a conexão da classe CreateConnection
     private final Connection conexao;
 
     //Método Principal da Classe que serve para toda vez que tiver uma instância da classe abrir uma nova conexão 
     public ClienteDao() throws SQLException {
-        this.conexao = (Connection) CriaConexao.getConexao();
+        this.conexao = (Connection) CreateConnection.getConnection();
     }
 
     //método para adicionar o cliente

@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import Conexao.ConexaoRel;
+import Conexao.ConectionReport;
 import DAO.ClienteDao;
 import DAO.ProdutoDao;
 import DAO.SaidaDao;
@@ -549,7 +549,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
             }
             String nome = "Relatório_Vendas_DATA_" + dias + "-" + mess + "-" + ano;
             String arquivo = nome;
-            ConexaoRel con = new ConexaoRel();
+            ConectionReport con = new ConectionReport();
             //diretorio que vai salvar
             File dir = new File("c:/SGE");
             if (!dir.exists()) {
@@ -565,7 +565,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
             }
             String MostrarRelatorio;
             String path = "c:/SGE/Relatorios/Vendas";
-            con.conecta();
+            con.connect();
             con.executeSQL("select * from produto, venda, saida, cliente, pdf_venda where venda.id_s = saida.id_s and produto.id_p = venda.id_p and saida.id_c = cliente.id_c and saida.data between '" + d1 + "' and '" + d2 + "' order by saida.data");
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
@@ -649,7 +649,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
         String nome = "NOTA_VENDA_N_" + saidas.get(jTNota.getSelectedRow()).getId_s();
         String arquivo = nome;
 
-        ConexaoRel con = new ConexaoRel();
+        ConectionReport con = new ConectionReport();
 
 //diretorio que vai salvar
         File dir = new File("c:/SGE");
@@ -668,7 +668,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
         String MostrarRelatorio;
         String path = "c:/SGE/Relatorios/NotasVendas/";
         try {
-            con.conecta();
+            con.connect();
             con.executeSQL("select saida.*, produto.*, venda.*, cliente.*, funcionario.nome_fun from  saida, produto, venda, cliente, funcionario where saida.id_s=" + saidas.get(jTNota.getSelectedRow()).getId_s() + " and saida.id_s=venda.id_s and venda.id_p=produto.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
@@ -731,7 +731,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
         String nome = "ROMANEIO_VENDA_DATA_" + dias + "-" + mess + "-" + ano;
         String arquivo = nome;
 
-        ConexaoRel con = new ConexaoRel();
+        ConectionReport con = new ConectionReport();
 
         //gerar string sql;
         String sql = "select produto.*, pdf_resumon.* from produto, pdf_resumon where pdf_resumon.id_p = produto.id_p;";
@@ -753,7 +753,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
         String MostrarRelatorio;
         String path = "c:/SGE/Relatorios/NotasVendas/";
         try {
-            con.conecta();
+            con.connect();
             con.executeSQL(sql);
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);

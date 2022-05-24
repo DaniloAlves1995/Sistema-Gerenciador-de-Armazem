@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import Conexao.ConexaoRel;
+import Conexao.ConectionReport;
 import DAO.CaminhaoDao;
 import Entidades.Caminhao;
 import java.awt.HeadlessException;
@@ -382,7 +382,7 @@ public class PesquisarEntCam extends javax.swing.JFrame {
         String nome = "Relatório_Entrada_Caminhão_DATA_" + dias + "-" + mess + "-" + ano;
         String arquivo = nome;
 
-        ConexaoRel con = new ConexaoRel();
+        ConectionReport con = new ConectionReport();
 
         //diretorio que vai salvar
         File dir = new File("c:/SGE");
@@ -401,7 +401,7 @@ public class PesquisarEntCam extends javax.swing.JFrame {
         String MostrarRelatorio;
         String path = "c:/SGE/Relatorios/Entrada/";
         try {
-            con.conecta();
+            con.connect();
             con.executeSQL("select * from caminhao WHERE data between '" + d1 + "' and '" + d2 + "'");
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);

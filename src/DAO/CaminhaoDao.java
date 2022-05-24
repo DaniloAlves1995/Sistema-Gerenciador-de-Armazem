@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Conexao.CriaConexao;
+import Conexao.CreateConnection;
 import Entidades.Caminhao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +32,7 @@ public class CaminhaoDao implements InterfaceBasicDB<Caminhao>{
 
     //Método Principal da Classe que serve para toda vez que tiver uma instância da classe abrir uma nova conexão 
     public CaminhaoDao() throws SQLException {
-        this.conexao = (Connection) CriaConexao.getConexao();
+        this.conexao = (Connection) CreateConnection.getConnection();
     }
 
     //método para adicionar o pruduto

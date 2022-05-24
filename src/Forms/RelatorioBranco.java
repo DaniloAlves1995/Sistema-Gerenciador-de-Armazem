@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import Conexao.ConexaoRel;
+import Conexao.ConectionReport;
 import DAO.EstoqueDao;
 import DAO.ProdutoDao;
 import Entidades.Produto;
@@ -298,7 +298,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
         String nome = "Relatorio_Entrada_data_" + dias + "-" + mess + "-" + ano;
         String arquivo = nome;
 
-        ConexaoRel con = new ConexaoRel();
+        ConectionReport con = new ConectionReport();
 
         //diretorio para salvar
         File dir = new File("c:/SGE");
@@ -317,7 +317,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
         String MostrarRelatorio;
         String path = "c:/SGE/Relatorios/Entrada/";
         try {
-            con.conecta();
+            con.connect();
             String sql = "select row_number() over (order by produto.id_p) as id_ree, produto.id_p, produto.nome_p as produto, estoque.qtd as qtd_e from produto, estoque where \n" +
 "produto.id_p=estoque.id_p and (";
             for (int i=0; i<lista.size(); i++){

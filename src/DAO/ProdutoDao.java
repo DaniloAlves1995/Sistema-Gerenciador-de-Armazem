@@ -2,7 +2,7 @@ package DAO;
 
 import java.sql.Connection;
 
-import Conexao.CriaConexao;
+import Conexao.CreateConnection;
 import Entidades.Produto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,12 +26,12 @@ import java.util.List;
 //</editor-fold>
 public class ProdutoDao {
 
-    //Variavel que recebe a conexão da classe CriaConexao
+    //Variavel que recebe a conexão da classe CreateConnection
     private Connection conexao;
 
     //Método Principal da Classe que serve para toda vez que tiver uma instância da classe abrir uma nova conexão 
     public ProdutoDao() throws SQLException {
-        this.conexao = (Connection) CriaConexao.getConexao();
+        this.conexao = (Connection) CreateConnection.getConnection();
     }
 
     //método para adicionar o pruduto
