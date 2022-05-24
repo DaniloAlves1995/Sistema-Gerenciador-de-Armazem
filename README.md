@@ -16,6 +16,8 @@ Esse repositório é sobre um sistema desenvolvido para gerenciar uma empresa de
 
 A arquitetura utiliza Design Pattern DAO (Data Access Object) que permite isolar a camada de negócios da aplicação, abstraindo a complexidade de operações no banco de dados para mecanismos de persistencia das classes DAO. Dessa forma, a responsabilidade para o acesso ao banco fica concentrada em uma camada específica da aplicação, deixando a camada de negócios para a lógica das funcionalidades.
 
+<img src="https://github.com/DaniloAlves1995/Sistema-Gerenciador-de-Armazem/blob/main/assets/architecture.png">
+
 ## Organização
 
 | Package | Description |
@@ -35,4 +37,17 @@ A arquitetura utiliza Design Pattern DAO (Data Access Object) que permite isolar
 * MySQL
 
 ## Algumas telas do sistema
+
+* Tela de cadastro de clientes:
+
+<img src="https://github.com/DaniloAlves1995/Sistema-Gerenciador-de-Armazem/blob/main/assets/Cadastrar_cliente.png" width="600">
+
+* Tela para realização de venda:
+
+<img src="https://github.com/DaniloAlves1995/Sistema-Gerenciador-de-Armazem/blob/main/assets/Realizar_venda.png" width="600">
+
+* Tela com a nota de venda gerada:
+
+<img src="https://github.com/DaniloAlves1995/Sistema-Gerenciador-de-Armazem/blob/main/assets/Relat%C3%B3rio_venda.png" width="600">
+
 
