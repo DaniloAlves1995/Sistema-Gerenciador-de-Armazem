@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import DAO.CaminhaoDao;
+import DAO.TruckDao;
 import Entidades.Caminhao;
 import Utils.ManageFields;
 import java.awt.Color;
@@ -509,8 +509,8 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     }
 
     protected void listarCaminhoes() throws SQLException {
-        CaminhaoDao me = new CaminhaoDao();
-        caminhoes = me.getLista("%" + jTPesquisar.getText() + "%", 0);
+        TruckDao me = new TruckDao();
+        caminhoes = me.getList("%" + jTPesquisar.getText() + "%", 0);
 
         mostraPesquisa(caminhoes);
     }
@@ -559,14 +559,14 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
 
         if (this.manageFields.checkFields()) {
             Caminhao m = new Caminhao();
-            CaminhaoDao dao = new CaminhaoDao();
+            TruckDao dao = new TruckDao();
             m.setId(caminhoes.get(jTCaminhoes.getSelectedRow()).getId());
             m.setNome(jTNome.getText());
             m.setCarga(Integer.parseInt(jTPreCarga.getText()));
 
-            dao.alterar(m);
+            dao.update(m);
             m.setCarga(Integer.parseInt(jTSacRest.getText()));
-            dao.alteraCamCarga(m);
+            dao.updateTruckLoad(m);
             JOptionPane.showMessageDialog(null, "Caminhão Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
             Desabilitar();
@@ -575,8 +575,8 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
 
     public boolean Everificar() {
         try {
-            CaminhaoDao cdao = new CaminhaoDao();
-            String carga_prev = String.valueOf(cdao.GetCaminhao(caminhoes.get(jTCaminhoes.getSelectedRow()).getId()).getCarga());
+            TruckDao cdao = new TruckDao();
+            String carga_prev = String.valueOf(cdao.getTruck(caminhoes.get(jTCaminhoes.getSelectedRow()).getId()).getCarga());
             if ((caminhoes.get(jTCaminhoes.getSelectedRow()).getNome().equals(jTNome.getText())) && (String.valueOf(caminhoes.get(jTCaminhoes.getSelectedRow()).getCarga()).equals(jTPreCarga.getText())) && jTSacRest.getText().equals(carga_prev)) {
                 JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                 return false;
@@ -594,9 +594,9 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente excluir o Caminhão " + jTNome.getText().toUpperCase(), "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
-                CaminhaoDao m = new CaminhaoDao();
-                m.Excluir(caminhoes.get(jTCaminhoes.getSelectedRow()));
-                m.ExcluirCamCarga(caminhoes.get(jTCaminhoes.getSelectedRow()));
+                TruckDao m = new TruckDao();
+                m.delete(caminhoes.get(jTCaminhoes.getSelectedRow()));
+                m.deleteTruckLoad(caminhoes.get(jTCaminhoes.getSelectedRow()));
                 JOptionPane.showMessageDialog(null, "Caminhão excluido(a) com sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                 jTPesquisar.setText("");
                 listarCaminhoes();
@@ -610,8 +610,8 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     public final void MostrarQtdCaminhoes() {
         try {
             //pega a qtd de sócios cadastrados no banco
-            CaminhaoDao dao = new CaminhaoDao();
-            jTTotal.setText(String.valueOf(dao.GetQtdCaminhoes()));
+            TruckDao dao = new TruckDao();
+            jTTotal.setText(String.valueOf(dao.getAmountTrucks()));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de caminhões!", "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
@@ -623,8 +623,8 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
                 jTNome.setText(caminhoes.get(tabela.getSelectedRow()).getNome());
                 jTSacRest.setText(caminhoes.get(tabela.getSelectedRow()).getCarga() + "");
                 jTId.setText(caminhoes.get(tabela.getSelectedRow()).getId() + "");
-                CaminhaoDao cdao = new CaminhaoDao();
-                jTPreCarga.setText("" + cdao.GetCaminhao(caminhoes.get(tabela.getSelectedRow()).getId()).getCarga());
+                TruckDao cdao = new TruckDao();
+                jTPreCarga.setText("" + cdao.getTruck(caminhoes.get(tabela.getSelectedRow()).getId()).getCarga());
 
                 Desabilitar();
             }

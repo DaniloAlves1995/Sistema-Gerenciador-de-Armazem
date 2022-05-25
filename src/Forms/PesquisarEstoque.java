@@ -6,8 +6,8 @@
 package Forms;
 
 import Conexao.ConectionReport;
-import DAO.EstoqueDao;
-import DAO.ProdutoDao;
+import DAO.StockDao;
+import DAO.ProductDao;
 import Entidades.Estoque;
 import Entidades.Produto;
 import java.awt.Color;
@@ -422,8 +422,8 @@ public class PesquisarEstoque extends javax.swing.JFrame {
     }
 
     protected void listarProduto() throws SQLException {
-        ProdutoDao me = new ProdutoDao();
-        produto = me.getLista("%" + jTPesquisar.getText() + "%");
+        ProductDao me = new ProductDao();
+        produto = me.getList("%" + jTPesquisar.getText() + "%");
 
         mostraPesquisa(produto);
     }
@@ -467,14 +467,14 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         Estoque estoque = null;
         try {
             //busca a qtd desse produto em estoque
-            EstoqueDao edao = new EstoqueDao();
-            estoque = edao.GetEstoque(id_prod);
+            StockDao edao = new StockDao();
+            estoque = edao.getStock(id_prod);
             if (estoque == null) {
                 Estoque e = new Estoque();
                 e.setId_p(id_prod);
                 e.setQtd(0);
-                edao.adiciona(e);
-                estoque = edao.GetEstoque(id_prod);
+                edao.add(e);
+                estoque = edao.getStock(id_prod);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);

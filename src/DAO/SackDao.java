@@ -20,24 +20,21 @@ import java.util.List;
  * ------------- ..::Danilo Alves Oliveira::.. ------------- *
  * ***********************************************************
  * 
- *@Desenvolvedor Danilo Alves
+ *@Developer Danilo Alves
  * 
  */
 
-public class SacaDao {
+public class SackDao {
 
-    //Variavel que recebe a conexão da classe CreateConnection
-    private final Connection conexao;
+    private final Connection connection;
 
-    //Método Principal da Classe que serve para toda vez que tiver uma instância da classe abrir uma nova conexão 
-    public SacaDao() throws SQLException {
-        this.conexao = (Connection) CreateConnection.getConnection();
+    public SackDao() throws SQLException {
+        this.connection = (Connection) CreateConnection.getConnection();
     }
 
-    //método para adicionar o pruduto
-    public void adiciona(Saca m1) throws SQLException {
+    public void add(Saca m1) throws SQLException {
         String sql = "insert into sacas(id_p, id_ca, qtd, data) values(?, ?, ?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, m1.getId_p());
             stmt.setInt(2, m1.getId_ca());
             stmt.setInt(3, m1.getQtd());
@@ -47,25 +44,22 @@ public class SacaDao {
         }
     }
 
-    //método para pegar uma lista de produtos no banco
-    public List<Saca> getLista(String dado, String data, int tipo, String produto) throws SQLException {
+    public List<Saca> getList(String data, String date, int tipo, String product) throws SQLException {
 
-        String sql = (tipo == 0) ? "select produto.nome_p, caminhao.nome_ca, sacas.* "
-                + "from sacas, produto, caminhao WHERE sacas.data between '?' "
-                + "and '?' and produto.nome_p LIKE '%?%' and produto.id_p = "
-                + "sacas.id_p and sacas.id_ca=caminhao.id_ca;"
-                : "select produto.nome_p, caminhao.nome_ca, sacas.* from "
-                + "produto, caminhao, sacas WHERE sacas.data between '?' and"
-                + "'?' and produto.id_p=sacas.id_p and caminhao.id_ca = sacas.id_ca;";
+        String sql = (tipo == 0) ? "select produto.nome_p, caminhao.nome_ca, sacas.* from sacas, produto, caminhao"
+                +" WHERE sacas.data between '?' and '?' and produto.nome_p LIKE '%?%' and produto.id_p = sacas.id_p"
+                +" and sacas.id_ca=caminhao.id_ca;" : "select produto.nome_p, caminhao.nome_ca, sacas.* from "
+                + "produto, caminhao, sacas WHERE sacas.data between '?' and '?' and produto.id_p=sacas.id_p"
+                +" and caminhao.id_ca = sacas.id_ca;";
 
         ResultSet rs;
         List<Saca> ma;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
-            stmt.setString(1, dado);
-            stmt.setString(2, data);
-            if (tipo == 0) {
-                stmt.setString(3, produto);
-            }
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+            stmt.setString(1, data);
+            stmt.setString(2, date);
+            if (tipo == 0) 
+                stmt.setString(3, product);
+            
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
@@ -86,19 +80,19 @@ public class SacaDao {
         return ma;
     }
 
-    public int GetQtdSacas(String d1, String d2, String produto) throws SQLException {
+    public int getAmoutSacks(String d1, String d2, String product) throws SQLException {
         String sql = "select sum(qtd) from sacas, produto WHERE sacas.data between '?' and '?' and produto.nome_p LIKE '%?%' and produto.id_p = sacas.id_p;";
         int qtd;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, d1);
             stmt.setString(2, d2);
-            stmt.setString(3, produto);
+            stmt.setString(3, product);
 
             ResultSet rs = stmt.executeQuery();
             qtd = 0;
-            while (rs.next()) {
+            while (rs.next())
                 qtd = rs.getInt("sum(qtd)");
-            }
+            
         }
 
         return qtd;

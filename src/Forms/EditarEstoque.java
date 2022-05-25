@@ -5,8 +5,8 @@
  */
 package Forms;
 
-import DAO.EstoqueDao;
-import DAO.ProdutoDao;
+import DAO.StockDao;
+import DAO.ProductDao;
 import Entidades.Estoque;
 import Entidades.Produto;
 import java.awt.Color;
@@ -405,11 +405,11 @@ public class EditarEstoque extends javax.swing.JFrame {
         if (salvar == 1) {
             if (verificar()) {
                 try {
-                    EstoqueDao edao = new EstoqueDao();
-                    Estoque e = edao.GetEstoque(produto.get(jTProdutos.getSelectedRow()).getId());
+                    StockDao edao = new StockDao();
+                    Estoque e = edao.getStock(produto.get(jTProdutos.getSelectedRow()).getId());
                     e.setQtd(Integer.parseInt(jTQtd.getText()));
 
-                    edao.altera(e);
+                    edao.update(e);
                     JOptionPane.showMessageDialog(null, "Estoque atualizado com sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                     listarProduto();
                 } catch (SQLException ex) {
@@ -489,8 +489,8 @@ public class EditarEstoque extends javax.swing.JFrame {
     }
 
     protected void listarProduto() throws SQLException {
-        ProdutoDao me = new ProdutoDao();
-        produto = me.getLista("%" + jTPesquisar.getText() + "%");
+        ProductDao me = new ProductDao();
+        produto = me.getList("%" + jTPesquisar.getText() + "%");
 
         mostraPesquisa(produto);
     }
@@ -534,14 +534,14 @@ public class EditarEstoque extends javax.swing.JFrame {
         Estoque estoque = null;
         try {
             //busca a qtd desse produto em estoque
-            EstoqueDao edao = new EstoqueDao();
-            estoque = edao.GetEstoque(id_prod);
+            StockDao edao = new StockDao();
+            estoque = edao.getStock(id_prod);
             if (estoque == null) {
                 Estoque e = new Estoque();
                 e.setId_p(id_prod);
                 e.setQtd(0);
-                edao.adiciona(e);
-                estoque = edao.GetEstoque(id_prod);
+                edao.add(e);
+                estoque = edao.getStock(id_prod);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);

@@ -17,29 +17,22 @@ import java.util.List;
  * ------------- ..::Danilo Alves Oliveira::.. ------------- *
  * ***********************************************************
  * 
- *@Desenvolvedor Danilo Alves
+ *@Developer Danilo Alves
  * 
  */
 
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
-//</editor-fold>
-public class VendaDao {
+public class SaleDao {
 
-    //Variavel que recebe a conexão da classe CreateConnection
-    private Connection conexao;
+    private Connection connection;
 
-    //Método Principal da Classe que serve para toda vez que tiver uma instância da classe abrir uma nova conexão 
-    public VendaDao() throws SQLException {
-        this.conexao = (Connection) CreateConnection.getConnection();
+    public SaleDao() throws SQLException {
+        this.connection = (Connection) CreateConnection.getConnection();
     }
 
-    //método para adicionar o pruduto
-    public void adiciona(Venda m1) throws SQLException {
+    public void add(Venda m1) throws SQLException {
         String sql = "insert into venda(id_s, id_p, preco, qtd, valor_p) "
                 + "values(?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, m1.getId_s());
             stmt.setInt(2, m1.getId_p());
             stmt.setDouble(3, m1.getPreco());
@@ -50,12 +43,11 @@ public class VendaDao {
         }
     }
 
-    //método para pegar uma lista de vendas no banco
-    public List<Venda> getLista(int id_s) throws SQLException {
+    public List<Venda> getList(int id_s) throws SQLException {
         String sql = "select * from venda WHERE id_s=?";
         ResultSet rs;
         List<Venda> ma;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
 
             stmt.setInt(1, id_s);
 
@@ -79,11 +71,10 @@ public class VendaDao {
         return ma;
     }
 
-//método para alterar a venda no banco
-    public void altera(Venda m) throws SQLException {
+    public void update(Venda m) throws SQLException {
         String sql = "update venda set id_p=?, preco=?, qtd=?, valor_p=?"
                 + " where id_v=?";
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId_p());
             stmt.setDouble(2, m.getPreco());
             stmt.setInt(3, m.getQtd());
@@ -94,28 +85,25 @@ public class VendaDao {
         }
     }
 
-    //método para excluir uma venda do banco
-    public void Excluir(Venda m) throws SQLException {
+    public void deleteBySale(Venda m) throws SQLException {
         String sql = "delete from venda where id_v=?";
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId_v());
             stmt.execute();
         }
     }
 
-    //método para excluir as vendas relacionadas ao id da nota
-    public void ExcluirVendas(int idsaida) throws SQLException {
+    public void deleteByOut(int idsaida) throws SQLException {
         String sql = "delete from venda where id_s=?";
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, idsaida);
             stmt.execute();
         }
     }
 
-    //método para adicionar os valores de data ao relatório
     public void adicionaPDF(String d1, String d2) throws SQLException {
         String sql = "insert into pdf_venda(dataI, dataF) values(?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, d1);
             stmt.setString(2, d2);
 
@@ -123,28 +111,26 @@ public class VendaDao {
         }
     }
 
-    //método para limpar a tabela pdf
     public void LimparPDF() throws SQLException {
         String sql = "TRUNCATE TABLE `pdf_venda`";
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.execute();
         }
     }
 
-    //método para pegar a soma da qtd de produtos de uma saida
-    public int getQTD(int id_s) throws SQLException {
+    public int getAmount(int id_s) throws SQLException {
         String sql = "select SUM(qtd) from venda WHERE id_s=?";
         ResultSet rs;
         int qtd;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
 
             stmt.setInt(1, id_s);
 
             rs = stmt.executeQuery();
             qtd = 0;
-            while (rs.next()) {
+            while (rs.next()) 
                 qtd = rs.getInt("SUM(qtd)");
-            }
+            
 
         }
         rs.close();
@@ -152,20 +138,18 @@ public class VendaDao {
         return qtd;
     }
 
-    //método para pegar a soma da qtd de produtos de um determinado produto e uma saida
-    public int getQTDProdSaida(List<Saida> listas, int id_p) throws SQLException {
+    public int getAmountProductsOut(List<Saida> lists, int id_p) throws SQLException {
 
         //montando String SQL dinamicamente
         String sql = "select SUM(qtd) from venda WHERE id_p=" + id_p + " and (";
-        for (int i = 0; i < listas.size(); i++) {
-            sql = (i == 0) ? sql + "id_s=" + listas.get(i).getId_s() : sql + " or id_s=" + listas.get(i).getId_s();
-        }
+        for (int i = 0; i < lists.size(); i++)
+            sql = (i == 0) ? sql + "id_s=" + lists.get(i).getId_s() : sql + " or id_s=" + lists.get(i).getId_s();
 
         sql += ");";
 
         ResultSet rs;
         int qtd;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             rs = stmt.executeQuery();
             qtd = 0;
             while (rs.next()) {
@@ -177,16 +161,13 @@ public class VendaDao {
         return qtd;
     }
 
-    //método para pegar a soma da qtd de produtos de um determinado produto e uma saida
-    public List<Venda> getIdsProdSaida(List<Saida> listas) throws SQLException {
+    public List<Venda> getProductsOut(List<Saida> listas) throws SQLException {
         String sql = "select distinct id_p from venda WHERE ";
-        for (int i = 0; i < listas.size(); i++) {
+        for (int i = 0; i < listas.size(); i++)
             sql += (i == 0) ? "id_s=" + listas.get(i).getId_s() : " or id_s=" + listas.get(i).getId_s();
-        }
-
         ResultSet rs;
         List<Venda> lista;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             rs = stmt.executeQuery();
             lista = new ArrayList<>();
             while (rs.next()) {

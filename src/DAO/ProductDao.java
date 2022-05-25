@@ -16,28 +16,21 @@ import java.util.List;
  * ------------- ..::Danilo Alves Oliveira::.. ------------- *
  * ***********************************************************
  * 
- *@Desenvolvedor Danilo Alves
+ *@Developer Danilo Alves
  * 
  */
 
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
-//</editor-fold>
-public class ProdutoDao {
+public class ProductDao {
 
-    //Variavel que recebe a conexão da classe CreateConnection
-    private Connection conexao;
+    private Connection connection;
 
-    //Método Principal da Classe que serve para toda vez que tiver uma instância da classe abrir uma nova conexão 
-    public ProdutoDao() throws SQLException {
-        this.conexao = (Connection) CreateConnection.getConnection();
+    public ProductDao() throws SQLException {
+        this.connection = (Connection) CreateConnection.getConnection();
     }
 
-    //método para adicionar o pruduto
-    public void adiciona(Produto m1) throws SQLException {
+    public void add(Produto m1) throws SQLException {
         String sql = "insert into produto(nome_p, preco_p, obs) values(?, ?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, m1.getProduto().toUpperCase());
             stmt.setDouble(2, m1.getPreco());
             stmt.setString(3, m1.getObs().toUpperCase());
@@ -46,13 +39,12 @@ public class ProdutoDao {
         }
     }
 
-    //método para pegar uma lista de produtos no banco
-    public List<Produto> getLista(String dado) throws SQLException {
+    public List<Produto> getList(String data) throws SQLException {
         String sql = "select * from produto WHERE nome_p LIKE ?";
         ResultSet rs;
         List<Produto> ma;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
-            stmt.setString(1, "%"+dado+"%");
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+            stmt.setString(1, "%"+data+"%");
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
@@ -72,12 +64,11 @@ public class ProdutoDao {
         return ma;
     }
 
-    //método para pegar uma lista de produtos no banco
-    public List<Produto> getListaTodos() throws SQLException {
+    public List<Produto> getListAll() throws SQLException {
         String sql = "select * from produto";
         ResultSet rs;
         List<Produto> ma;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
@@ -96,10 +87,9 @@ public class ProdutoDao {
         return ma;
     }
 
-    //método para alterar o produto no banco
-    public void altera(Produto m) throws SQLException {
+    public void update(Produto m) throws SQLException {
         String sql = "update produto set nome_p=?, preco_p=?, obs=? where id_p=?";
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, m.getProduto().toUpperCase());
             stmt.setDouble(2, m.getPreco());
             stmt.setString(3, m.getObs().toUpperCase());
@@ -109,37 +99,33 @@ public class ProdutoDao {
         }
     }
 
-    //método para excluir um produto do banco
-    public void Excluir(Produto m) throws SQLException {
+    public void delete(Produto m) throws SQLException {
         String sql = "delete from produto where id_p=?";
 
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId());
             stmt.execute();
         }
     }
 
-    //metodo para retornar a qtd de sócios no banco
-    public int GetQtdProdutos() throws SQLException {
+    public int getAmountProducts() throws SQLException {
         String sql = "SELECT COUNT(*) FROM produto;";
-        int qtd = 0;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        int amount = 0;
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                qtd = rs.getInt("COUNT(*)");
+                amount = rs.getInt("COUNT(*)");
             }
-
         }
 
-        return qtd;
+        return amount;
     }
 
-    //retorna o produto com o id pesquisado
-    public Produto GetProduto(int id) throws SQLException {
+    public Produto getProduct(int id) throws SQLException {
         String sql = "select * from produto where id_p=?";
         Produto m;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
 
             ResultSet rs = stmt.executeQuery();
@@ -155,12 +141,11 @@ public class ProdutoDao {
         return m;
     }
 
-    //metodo para retornar o produto pesquisado pelo nome
-    public Produto GetProduto(String nome) throws SQLException {
+    public Produto getProduct(String name) throws SQLException {
         String sql = "select * from produto where nome_p='?';";
         Produto m;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
-            stmt.setString(1, nome);
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+            stmt.setString(1, name);
 
             ResultSet rs = stmt.executeQuery();
             m = new Produto();
@@ -177,24 +162,23 @@ public class ProdutoDao {
 
     public void AddPDF_RelatorioE(List<Produto> lista) throws SQLException {
         String sql = "insert into pdf_relatorioe(id_p, produto, qtd_e) values(?, ?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            EstoqueDao edao = new EstoqueDao();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            StockDao edao = new StockDao();
 
             for (int i = 0; i < lista.size(); i++) {
                 stmt.setInt(1, lista.get(i).getId());
                 stmt.setString(2, lista.get(i).getProduto().toUpperCase());
-                stmt.setInt(3, edao.GetEstoque(lista.get(i).getId()).getQtd());
+                stmt.setInt(3, edao.getStock(lista.get(i).getId()).getQtd());
 
                 stmt.execute();
             }
         }
     }
 
-    //metodo que retorna o id do último produto adicionado
-    public int getIdUltimoProduto() throws SQLException {
+    public int getLastId() throws SQLException {
         String sql = "SELECT * FROM produto ORDER BY id_p DESC LIMIT 1";
         int id;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             id = 0;
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -204,10 +188,9 @@ public class ProdutoDao {
         return id;
     }
 
-    //metodo que retorna o id do último produto adicionado
     public void LimparPDF_RelatorioE() throws SQLException {
         String sql = "TRUNCATE pdf_relatorioe";
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.execute();
         }
     }

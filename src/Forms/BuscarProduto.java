@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import DAO.ProdutoDao;
+import DAO.ProductDao;
 import Entidades.Produto;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -379,8 +379,8 @@ public class BuscarProduto extends javax.swing.JFrame {
 
     //Realiza a pesquisa do valor digitado no banco
     protected void listarProduto() throws SQLException {
-        ProdutoDao me = new ProdutoDao();
-        produtos = me.getLista("%" + jTPesquisar.getText() + "%");
+        ProductDao me = new ProductDao();
+        produtos = me.getList("%" + jTPesquisar.getText() + "%");
         mostraPesquisa(produtos);
     }
 

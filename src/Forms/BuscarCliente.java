@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import DAO.ClienteDao;
+import DAO.CustomerDao;
 import Entidades.Cliente;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -399,8 +399,8 @@ public class BuscarCliente extends javax.swing.JFrame {
 
     //Realiza a pesquisa do valor digitado no banco
     protected void listarCliente() throws SQLException {
-        ClienteDao me = new ClienteDao();
-        cliente = me.getLista("%" + jTPesquisar.getText() + "%");
+        CustomerDao me = new CustomerDao();
+        cliente = me.getList("%" + jTPesquisar.getText() + "%");
         mostraPesquisa(cliente);
     }
 

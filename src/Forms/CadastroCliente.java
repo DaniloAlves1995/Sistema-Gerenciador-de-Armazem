@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import DAO.ClienteDao;
+import DAO.CustomerDao;
 import Entidades.Cliente;
 import Utils.ManageFields;
 import java.awt.Color;
@@ -486,9 +486,9 @@ public class CadastroCliente extends javax.swing.JFrame {
 
                 try {
                     //Cria um objeto DAO para inserir o novo Socio no banco
-                    ClienteDao d = new ClienteDao();
+                    CustomerDao d = new CustomerDao();
                     //Adiciona o novo Sócio no banco
-                    d.adicionar(s);
+                    d.add(s);
                     JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
                     //Limpa os TextFilds depois do Cadastro
                     Limpar();
@@ -542,8 +542,8 @@ public class CadastroCliente extends javax.swing.JFrame {
     }
 
     protected void listarSocio() throws SQLException {
-        ClienteDao me = new ClienteDao();
-        cliente = me.getLista("%" + jTPesquisar.getText() + "%");
+        CustomerDao me = new CustomerDao();
+        cliente = me.getList("%" + jTPesquisar.getText() + "%");
 
         mostraPesquisa(cliente);
     }
@@ -655,7 +655,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         if (this.manageFields.checkFields()) {
             Cliente m = new Cliente();
-            ClienteDao dao = new ClienteDao();
+            CustomerDao dao = new CustomerDao();
             m.setId(cliente.get(jTClientes.getSelectedRow()).getId());
             m.setNome(jTNome.getText());
             m.setEndereco(jTEndereco.getText());
@@ -663,7 +663,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             m.setContato2(jTTelefone1.getText());
             m.setCpf(jTCpf.getText());
 
-            dao.alterar(m);
+            dao.update(m);
             JOptionPane.showMessageDialog(null, "Cliente Alterado com SUCESSO!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
             Desabilitar();
@@ -676,8 +676,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente excluir o Cliente " + jTNome.getText().toUpperCase(), "..: SGA :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
-                ClienteDao m = new ClienteDao();
-                m.Excluir(cliente.get(jTClientes.getSelectedRow()));
+                CustomerDao m = new CustomerDao();
+                m.delete(cliente.get(jTClientes.getSelectedRow()));
                 JOptionPane.showMessageDialog(null, "Cliente excluido(a) com sucesso!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
                 jTPesquisar.setText("");
                 listarSocio();
@@ -742,8 +742,8 @@ public class CadastroCliente extends javax.swing.JFrame {
     public final void MostrarQtdClientes() {
         try {
             //pega a qtd de sócios cadastrados no banco
-            ClienteDao dao = new ClienteDao();
-            jTTotal.setText(String.valueOf(dao.GetQtdClientes()));
+            CustomerDao dao = new CustomerDao();
+            jTTotal.setText(String.valueOf(dao.getAmountCustumers()));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de clientes!", "..: SGA :..", JOptionPane.ERROR_MESSAGE);
         }

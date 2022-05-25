@@ -6,10 +6,10 @@
 package Forms;
 
 import Conexao.ConectionReport;
-import DAO.CaminhaoDao;
-import DAO.EstoqueDao;
-import DAO.ProdutoDao;
-import DAO.SacaDao;
+import DAO.TruckDao;
+import DAO.StockDao;
+import DAO.ProductDao;
+import DAO.SackDao;
 import Entidades.Saca;
 import java.awt.HeadlessException;
 import java.io.File;
@@ -329,12 +329,12 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
         if (this.sacas.size() > 0) {
             if (jRadioButton1.isSelected()) {
                 try {
-                    EstoqueDao edao = new EstoqueDao();
-                    SacaDao sdao = new SacaDao();
-                    int qtd = sdao.GetQtdSacas(d1, d2, jTProduto.getText());
-                    edao.adicionaTotal(qtd);
+                    StockDao edao = new StockDao();
+                    SackDao sdao = new SackDao();
+                    int qtd = sdao.getAmoutSacks(d1, d2, jTProduto.getText());
+                    edao.addTotal(qtd);
                     relatorio();
-                    edao.LimparTotal();
+                    edao.cleanTotal();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "ERRO: " + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
@@ -392,16 +392,16 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
 
             if (jRadioButton2.isSelected()) {
                 try {
-                    SacaDao sdao = new SacaDao();
-                    sacas = sdao.getLista(d1, d2, 1, "");
+                    SackDao sdao = new SackDao();
+                    sacas = sdao.getList(d1, d2, 1, "");
                     mostrarSaidas(sacas);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 try {
-                    SacaDao sdao = new SacaDao();
-                    sacas = sdao.getLista(d1, d2, 0, jTProduto.getText());
+                    SackDao sdao = new SackDao();
+                    sacas = sdao.getList(d1, d2, 0, jTProduto.getText());
                     mostrarSaidas(sacas);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
@@ -423,11 +423,11 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
             for (int i = 0; i < sacas.size(); i++) {
                 try {
                     tmSacas.addRow(linha);
-                    ProdutoDao pdao = new ProdutoDao();
-                    CaminhaoDao cdao = new CaminhaoDao();
-                    tmSacas.setValueAt(pdao.GetProduto(sacas.get(i).getId_p()).getProduto(), i, 0);
+                    ProductDao pdao = new ProductDao();
+                    TruckDao cdao = new TruckDao();
+                    tmSacas.setValueAt(pdao.getProduct(sacas.get(i).getId_p()).getProduto(), i, 0);
                     tmSacas.setValueAt(sacas.get(i).getQtd(), i, 1);
-                    tmSacas.setValueAt(cdao.GetCaminhao(sacas.get(i).getId_ca()).getNome(), i, 2);
+                    tmSacas.setValueAt(cdao.getTruck(sacas.get(i).getId_ca()).getNome(), i, 2);
                     d = df.parse(sacas.get(i).getData());
                     tmSacas.setValueAt(df2.format(d), i, 3);
                 } catch (SQLException ex) {

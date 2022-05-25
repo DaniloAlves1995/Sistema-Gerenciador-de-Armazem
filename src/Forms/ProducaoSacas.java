@@ -5,9 +5,9 @@
  */
 package Forms;
 
-import DAO.CaminhaoDao;
-import DAO.EstoqueDao;
-import DAO.SacaDao;
+import DAO.TruckDao;
+import DAO.StockDao;
+import DAO.SackDao;
 import Entidades.Caminhao;
 import Entidades.Estoque;
 import Entidades.Produto;
@@ -328,27 +328,27 @@ public class ProducaoSacas extends javax.swing.JFrame {
                             s.setQtd(Integer.parseInt(jTQtd.getText()));
                             s.setData(sf.format(new Date()));
                             
-                            SacaDao sdao = new SacaDao();
-                            sdao.adiciona(s);
+                            SackDao sdao = new SackDao();
+                            sdao.add(s);
                             
                             //altera o estoque corrente
-                            EstoqueDao edao = new EstoqueDao();
-                            Estoque e = edao.GetEstoque(produto.getId());
+                            StockDao edao = new StockDao();
+                            Estoque e = edao.getStock(produto.getId());
                             e.setQtd(e.getQtd()+Integer.parseInt(jTQtd.getText()));
-                            edao.altera(e);
+                            edao.update(e);
                             
                             //adiciona ao histórico de entradas do estoque
                             e.setQtd(Integer.parseInt(jTQtd.getText()));
                             e.setData(sf.format(new Date()));
-                            edao.adicionaEstEntrada(e);
+                            edao.addStockIn(e);
                                 
-                            CaminhaoDao cdao = new CaminhaoDao();
-                            cdao.alteraCamCarga(c);
+                            TruckDao cdao = new TruckDao();
+                            cdao.updateTruckLoad(c);
                             JOptionPane.showMessageDialog(null, "A produção de "+jTQtd.getText()+" sacas de "+jTProduto.getText()+"\n\r foi retirada do caminhão e adicionada ao estoque.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                             listarCaminhoes();
                             Limpar();
                             if(c.getCarga()==0){
-                                cdao.ExcluirCamCarga(c);
+                                cdao.deleteTruckLoad(c);
                             }
                         } catch (SQLException ex) {
                             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
@@ -401,8 +401,8 @@ public class ProducaoSacas extends javax.swing.JFrame {
     }
     
     protected final void listarCaminhoes() throws SQLException {
-        CaminhaoDao me = new CaminhaoDao();
-        caminhoes = me.getLista("", 1);
+        TruckDao me = new TruckDao();
+        caminhoes = me.getList("", 1);
 
         mostraPesquisa(caminhoes);
     }

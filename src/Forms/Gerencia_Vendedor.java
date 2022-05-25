@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import DAO.VendedorDao;
+import DAO.SalesmanDao;
 import Entidades.Vendedor;
 import Utils.ManageFields;
 import java.awt.Color;
@@ -508,14 +508,14 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
     private void alteraVendedor() throws SQLException {
         if (this.manageFields.checkFields()) {
             Vendedor m = new Vendedor();
-            VendedorDao dao = new VendedorDao();
+            SalesmanDao dao = new SalesmanDao();
             m.setId_vendedor(vendedor.get(jTVendedores.getSelectedRow()).getId_vendedor());
             m.setNome(jTNome.getText());
             m.setEndereco(jTEndereco.getText());
             m.setContato1(jTTelefone.getText());
             m.setContato2(jTTelefone2.getText());
 
-            dao.altera(m);
+            dao.update(m);
             JOptionPane.showMessageDialog(null, "Vendedor Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             Desabilitar();
         }
@@ -591,8 +591,8 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente excluir o Vendedor " + jTNome.getText().toUpperCase(), "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
-                VendedorDao m = new VendedorDao();
-                m.Excluir(vendedor.get(jTVendedores.getSelectedRow()));
+                SalesmanDao m = new SalesmanDao();
+                m.delete(vendedor.get(jTVendedores.getSelectedRow()));
                 JOptionPane.showMessageDialog(null, "Vendedor excluido(a) com sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                 jTPesquisar.setText("");
                 listarVendedor();
@@ -603,8 +603,8 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
     }
 
     protected void listarVendedor() throws SQLException {
-        VendedorDao me = new VendedorDao();
-        vendedor = me.getLista("%" + jTPesquisar.getText() + "%");
+        SalesmanDao me = new SalesmanDao();
+        vendedor = me.getList("%" + jTPesquisar.getText() + "%");
 
         mostraPesquisa(vendedor);
     }
@@ -651,8 +651,8 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
     public void MostrarQtdVendedores() {
         try {
             //pega a qtd de sócios cadastrados no banco
-            VendedorDao dao = new VendedorDao();
-            jTTotal.setText(String.valueOf(dao.GetQtdVendedores()));
+            SalesmanDao dao = new SalesmanDao();
+            jTTotal.setText(String.valueOf(dao.getAmountSelesman()));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de clientes!", "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }

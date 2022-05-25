@@ -6,8 +6,8 @@
 package Forms;
 
 import Conexao.ConectionReport;
-import DAO.EstoqueDao;
-import DAO.ProdutoDao;
+import DAO.StockDao;
+import DAO.ProductDao;
 import Entidades.Produto;
 import java.awt.HeadlessException;
 import java.io.File;
@@ -66,8 +66,8 @@ public class RelatorioBranco extends javax.swing.JFrame {
         setIconImage(imagemTituloJanela.getImage());
 
         try {
-            ProdutoDao pdao = new ProdutoDao();
-            produtos = pdao.getListaTodos();
+            ProductDao pdao = new ProductDao();
+            produtos = pdao.getListAll();
             this.adicionarTabela(produtos);
 
         } catch (SQLException ex) {
@@ -82,7 +82,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
                 tmProdutos.removeRow(0);
             }
 
-            EstoqueDao edao = new EstoqueDao();
+            StockDao edao = new StockDao();
 
             Object[] linha = new Object[]{null, null, null, null};
             for (int i = 0; i < produtos.size(); i++) {
@@ -90,7 +90,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
                 tmProdutos.setValueAt(Boolean.FALSE, i, 0);
                 tmProdutos.setValueAt(produtos.get(i).getId(), i, 1);
                 tmProdutos.setValueAt(produtos.get(i).getProduto(), i, 2);
-                tmProdutos.setValueAt(edao.GetEstoque(produtos.get(i).getId()).getQtd(), i, 3);
+                tmProdutos.setValueAt(edao.getStock(produtos.get(i).getId()).getQtd(), i, 3);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
@@ -223,9 +223,9 @@ public class RelatorioBranco extends javax.swing.JFrame {
         if (verificar == 0) {
             JOptionPane.showMessageDialog(null, "Para gerar o relatório você precisa selecionar pelo menos um produto.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            ProdutoDao pdao;
+            ProductDao pdao;
           
-                //pdao = new ProdutoDao();
+                //pdao = new ProductDao();
                 //pdao.AddPDF_RelatorioE(lista);
                 relatorio(lista);
                 //pdao.LimparPDF_RelatorioE();

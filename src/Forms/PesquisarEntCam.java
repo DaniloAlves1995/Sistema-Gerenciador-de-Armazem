@@ -6,7 +6,7 @@
 package Forms;
 
 import Conexao.ConectionReport;
-import DAO.CaminhaoDao;
+import DAO.TruckDao;
 import Entidades.Caminhao;
 import java.awt.HeadlessException;
 import java.io.File;
@@ -279,8 +279,8 @@ public class PesquisarEntCam extends javax.swing.JFrame {
             d2 = sd.format(jDateChooser2.getDate());
 
             try {
-                CaminhaoDao sdao = new CaminhaoDao();
-                caminhoes = sdao.getListaEntDatas(d1, d2);
+                TruckDao sdao = new TruckDao();
+                caminhoes = sdao.getTruckDates(d1, d2);
                 mostrarSaidas(caminhoes);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);

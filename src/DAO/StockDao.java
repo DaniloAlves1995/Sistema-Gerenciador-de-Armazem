@@ -17,28 +17,21 @@ import java.util.List;
  * ------------- ..::Danilo Alves Oliveira::.. ------------- *
  * ***********************************************************
  * 
- *@Desenvolvedor Danilo Alves
+ *@Developer Danilo Alves
  * 
  */
 
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
-//</editor-fold>
-public class EstoqueDao {
+public class StockDao {
 
-    //Variavel que recebe a conexão da classe CreateConnection
-    private Connection conexao;
+    private Connection connection;
 
-    //Método Principal da Classe que serve para toda vez que tiver uma instância da classe abrir uma nova conexão 
-    public EstoqueDao() throws SQLException {
-        this.conexao = (Connection) CreateConnection.getConnection();
+    public StockDao() throws SQLException {
+        this.connection = (Connection) CreateConnection.getConnection();
     }
 
-    //método para adicionar o pruduto
-    public void adiciona(Estoque m1) throws SQLException {
+    public void add(Estoque m1) throws SQLException {
         String sql = "insert into estoque(id_p, qtd) values(?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, m1.getId_p());
             stmt.setInt(2, m1.getQtd());
 
@@ -46,27 +39,25 @@ public class EstoqueDao {
         }
     }
 
-    //método para adicionar o pruduto
-    public void adicionaTotal(int qtd) throws SQLException {
+    public void addTotal(int amount) throws SQLException {
         String sql = "insert into pdf_total(total) values(?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, qtd);
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, amount);
 
             stmt.execute();
         }
     }
 
-    //método para adicionar o pruduto
-    public void LimparTotal() throws SQLException {
+    public void cleanTotal() throws SQLException {
         String sql = "TRUNCATE pdf_total";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.execute();
         }
     }
 
-    public void adicionaEstEntrada(Estoque m1) throws SQLException {
+    public void addStockIn(Estoque m1) throws SQLException {
         String sql = "insert into estoque_entrada(id_p, qtd, data) values(?, ?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, m1.getId_p());
             stmt.setInt(2, m1.getQtd());
             stmt.setString(3, m1.getData());
@@ -75,13 +66,12 @@ public class EstoqueDao {
         }
     }
 
-    //método para pegar uma lista de produtos no banco
-    public List<Estoque> getLista(String dado) throws SQLException {
+    public List<Estoque> getList(String data) throws SQLException {
         String sql = "select * from estoque WHERE id_p=?";
         ResultSet rs;
         List<Estoque> ma;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
-            stmt.setString(1, dado);
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+            stmt.setString(1, data);
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
@@ -100,20 +90,20 @@ public class EstoqueDao {
         return ma;
     }
 
-    public List<Estoque> getListaEstEntrada(String dado, String data, int tipo, String produto) throws SQLException {
+    public List<Estoque> getListStockIn(String data, String date, int tipo, String produto) throws SQLException {
         String sql = "";
-        if (tipo == 0) {
+        if (tipo == 0)
             //seja produto especifico
             sql = "select * from estoque_entrada, produto WHERE estoque_entrada.data between '?' and '?' and produto.nome_p LIKE '%?%' and produto.id_p = estoque_entrada.id_p;";
-        } else {
+        else
             sql = "select * from estoque_entrada WHERE data between '?' and '?'";
-        }
+        
 
         ResultSet rs;
         List<Estoque> ma;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
-            stmt.setString(1, dado);
-            stmt.setString(2, data);
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+            stmt.setString(1, data);
+            stmt.setString(2, date);
             if (tipo == 0) {
                 stmt.setString(3, produto);
             }
@@ -136,10 +126,9 @@ public class EstoqueDao {
         return ma;
     }
 
-    //método para alterar o produto no banco
-    public void altera(Estoque m) throws SQLException {
+    public void update(Estoque m) throws SQLException {
         String sql = "update estoque set qtd=? where id_e=?";
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getQtd());
             stmt.setInt(2, m.getId_e());
 
@@ -147,35 +136,32 @@ public class EstoqueDao {
         }
     }
 
-    //método para excluir um produto do banco
-    public void Excluir(Estoque m) throws SQLException {
+    public void delete(Estoque m) throws SQLException {
         String sql = "delete from produto where id_e=?";
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId_e());
             stmt.execute();
         }
     }
 
-    //metodo para retornar a qtd de sócios no banco
-    public int GetQtdProdutos() throws SQLException {
+    public int getAmountProducts() throws SQLException {
         String sql = "SELECT COUNT(*) FROM estoque;";
-        int qtd;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        int amount;
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
-            qtd = 0;
+            amount = 0;
             while (rs.next()) {
-                qtd = rs.getInt("COUNT(*)");
+                amount = rs.getInt("COUNT(*)");
             }
         }
 
-        return qtd;
+        return amount;
     }
 
-    //retorna o produto com o id pesquisado
-    public Estoque GetEstoque(int id_produto) throws SQLException {
+    public Estoque getStock(int id_produto) throws SQLException {
         String sql = "select * from estoque where id_p=?";
         Estoque m;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, id_produto);
 
             ResultSet rs = stmt.executeQuery();
@@ -192,12 +178,11 @@ public class EstoqueDao {
         return m;
     }
 
-    //metodo para retornar o produto pesquisado pelo nome
-    public Produto GetProduto(String nome) throws SQLException {
+    public Produto getProduct(String name) throws SQLException {
         String sql = "select * from produto where nome=?;";
         Produto m;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
-            stmt.setString(1, nome);
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+            stmt.setString(1, name);
 
             ResultSet rs = stmt.executeQuery();
             m = new Produto();
@@ -212,13 +197,13 @@ public class EstoqueDao {
         return m;
     }
 
-    public int GetQtdEstEnt(String d1, String d2, String produto) throws SQLException {
+    public int getAmountStock(String d1, String d2, String product) throws SQLException {
         String sql = "select sum(qtd) from estoque_entrada, produto WHERE estoque_entrada.data between '?' and '?' and produto.nome_p LIKE '%?%' and produto.id_p = estoque_entrada.id_p;";
         int qtd;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, d1);
             stmt.setString(2, d2);
-            stmt.setString(3, produto);
+            stmt.setString(3, product);
 
             ResultSet rs = stmt.executeQuery();
             qtd = 0;

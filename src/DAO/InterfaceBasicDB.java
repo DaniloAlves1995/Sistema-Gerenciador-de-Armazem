@@ -12,7 +12,7 @@ import java.util.List;
  * @author danil
  */
 public interface InterfaceBasicDB <T>{
-    public void adicionar(T value);
-    public void alterar(T value);
-    public void Excluir(T value);
+    public void add(T value);
+    public void update(T value);
+    public void delete(T value);
 }

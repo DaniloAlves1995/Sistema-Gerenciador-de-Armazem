@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import DAO.VendedorDao;
+import DAO.SalesmanDao;
 import Entidades.Vendedor;
 import Utils.ManageFields;
 import java.awt.Color;
@@ -254,9 +254,9 @@ public class Cad_Vendedor extends javax.swing.JFrame {
 
             try {
                 //Cria um objeto DAO para inserir o novo Vendedor no banco
-                VendedorDao d = new VendedorDao();
+                SalesmanDao d = new SalesmanDao();
                 //Adiciona o novo Vendedor no banco
-                d.adiciona(s);
+                d.add(s);
                 JOptionPane.showMessageDialog(null, "Vendedor cadastrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
 
                 //fecha a janela

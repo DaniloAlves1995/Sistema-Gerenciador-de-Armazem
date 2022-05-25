@@ -6,8 +6,8 @@
 package Forms;
 
 import Conexao.ConectionReport;
-import DAO.EstoqueDao;
-import DAO.ProdutoDao;
+import DAO.StockDao;
+import DAO.ProductDao;
 import Entidades.Estoque;
 import java.awt.HeadlessException;
 import java.io.File;
@@ -343,11 +343,11 @@ public class PesquisarEntEstoque extends javax.swing.JFrame {
         if (estoques.size() > 0) {
             if (jRadioButton1.isSelected()) {
                 try {
-                    EstoqueDao edao = new EstoqueDao();
-                    int qtd = edao.GetQtdEstEnt(d1, d2, jTProduto.getText());
-                    edao.adicionaTotal(qtd);
+                    StockDao edao = new StockDao();
+                    int qtd = edao.getAmountStock(d1, d2, jTProduto.getText());
+                    edao.addTotal(qtd);
                     relatorio();
-                    edao.LimparTotal();
+                    edao.cleanTotal();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "ERRO: " + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                 }
@@ -390,8 +390,8 @@ public class PesquisarEntEstoque extends javax.swing.JFrame {
             if (jRadioButton1.isSelected()) {
                 try {
                     //caso seja produto especifico
-                    EstoqueDao sdao = new EstoqueDao();
-                    estoques = sdao.getListaEstEntrada(d1, d2, 0, jTProduto.getText());
+                    StockDao sdao = new StockDao();
+                    estoques = sdao.getListStockIn(d1, d2, 0, jTProduto.getText());
                     mostrarSaidas(estoques);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
@@ -399,8 +399,8 @@ public class PesquisarEntEstoque extends javax.swing.JFrame {
             } else {
                 try {
                     //caso sejam todos os produtos
-                    EstoqueDao sdao = new EstoqueDao();
-                    estoques = sdao.getListaEstEntrada(d1, d2, 1, jTProduto.getText());
+                    StockDao sdao = new StockDao();
+                    estoques = sdao.getListStockIn(d1, d2, 1, jTProduto.getText());
                     mostrarSaidas(estoques);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
@@ -424,9 +424,9 @@ public class PesquisarEntEstoque extends javax.swing.JFrame {
             for (int i = 0; i < estoques.size(); i++) {
                 try {
                     tmEstoque.addRow(linha);
-                    ProdutoDao pdao = new ProdutoDao();
+                    ProductDao pdao = new ProductDao();
                     tmEstoque.setValueAt(estoques.get(i).getId_p(), i, 0);
-                    tmEstoque.setValueAt(pdao.GetProduto(estoques.get(i).getId_p()).getProduto(), i, 1);
+                    tmEstoque.setValueAt(pdao.getProduct(estoques.get(i).getId_p()).getProduto(), i, 1);
                     tmEstoque.setValueAt(estoques.get(i).getQtd(), i, 2);
                     d = df.parse(estoques.get(i).getData());
                     tmEstoque.setValueAt(df2.format(d), i, 3);

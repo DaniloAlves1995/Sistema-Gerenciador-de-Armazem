@@ -5,8 +5,8 @@
  */
 package Forms;
 
-import DAO.EstoqueDao;
-import DAO.ProdutoDao;
+import DAO.StockDao;
+import DAO.ProductDao;
 import Entidades.Estoque;
 import Entidades.Produto;
 import Utils.ManageFields;
@@ -430,18 +430,18 @@ public class CadastroProduto extends javax.swing.JFrame {
 
                 try {
                     //Cria um objeto DAO para inserir o novo produto no banco
-                    ProdutoDao d = new ProdutoDao();
+                    ProductDao d = new ProductDao();
                     //Adiciona o novo produto no banco
-                    d.adiciona(s);
+                    d.add(s);
                     JOptionPane.showMessageDialog(null, "Produto Cadastrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                     //Cria o estoque desse produto
-                    int idp = d.getIdUltimoProduto();
+                    int idp = d.getLastId();
                     Estoque e = new Estoque();
-                    EstoqueDao edao = new EstoqueDao();
+                    StockDao edao = new StockDao();
 
                     e.setId_p(idp);
                     e.setQtd(0);
-                    edao.adiciona(e);
+                    edao.add(e);
                     
                     //Limpa os TextFilds depois do Cadastro
                     Limpar();
@@ -490,8 +490,8 @@ public class CadastroProduto extends javax.swing.JFrame {
     }
 
     protected void listarProduto() throws SQLException {
-        ProdutoDao me = new ProdutoDao();
-        produto = me.getLista(jTPesquisar.getText());
+        ProductDao me = new ProductDao();
+        produto = me.getList(jTPesquisar.getText());
 
         mostraPesquisa(produto);
     }
@@ -589,13 +589,13 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         if (this.manageFields.checkFields()) {
             Produto m = new Produto();
-            ProdutoDao dao = new ProdutoDao();
+            ProductDao dao = new ProductDao();
             m.setId(produto.get(jTProdutos.getSelectedRow()).getId());
             m.setProduto(jTProduto.getText());
             m.setPreco(Double.parseDouble(jTPreco.getText()));
             m.setObs(jTObs.getText());
 
-            dao.altera(m);
+            dao.update(m);
             JOptionPane.showMessageDialog(null, "Produto Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
             Desabilitar();
@@ -607,8 +607,8 @@ public class CadastroProduto extends javax.swing.JFrame {
         int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente excluir o Produto " + jTProduto.getText().toUpperCase(), "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
-                ProdutoDao m = new ProdutoDao();
-                m.Excluir(produto.get(jTProdutos.getSelectedRow()));
+                ProductDao m = new ProductDao();
+                m.delete(produto.get(jTProdutos.getSelectedRow()));
                 JOptionPane.showMessageDialog(null, "Produto excluido(a) com sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                 jTPesquisar.setText("");
                 listarProduto();
@@ -673,8 +673,8 @@ public class CadastroProduto extends javax.swing.JFrame {
     public final void MostrarQtdProdutos() {
         try {
             //pega a qtd de sócios cadastrados no banco
-            ProdutoDao dao = new ProdutoDao();
-            jTTotal.setText(String.valueOf(dao.GetQtdProdutos()));
+            ProductDao dao = new ProductDao();
+            jTTotal.setText(String.valueOf(dao.getAmountProducts()));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de produtos!", "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }

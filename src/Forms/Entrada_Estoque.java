@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import DAO.EstoqueDao;
+import DAO.StockDao;
 import Entidades.Estoque;
 import Entidades.Produto;
 import java.awt.event.KeyEvent;
@@ -326,15 +326,15 @@ public class Entrada_Estoque extends javax.swing.JFrame {
         jTQtd_ent.setText("");
         try {
             //busca a qtd desse produto em estoque
-            EstoqueDao edao = new EstoqueDao();
-            this.estoque = edao.GetEstoque(produto.getId());
+            StockDao edao = new StockDao();
+            this.estoque = edao.getStock(produto.getId());
             if (estoque == null) {
                 Estoque e = new Estoque();
                 e.setId_p(produto.getId());
                 e.setQtd(0);
-                edao.adiciona(e);
+                edao.add(e);
 
-                this.estoque = edao.GetEstoque(produto.getId());
+                this.estoque = edao.getStock(produto.getId());
             }
             jTQtd_es.setText(estoque.getQtd() + "");
         } catch (SQLException ex) {
@@ -350,18 +350,18 @@ public class Entrada_Estoque extends javax.swing.JFrame {
                 try {
                     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
                     //editar na tabela do estoque corrente
-                    EstoqueDao edao = new EstoqueDao();
+                    StockDao edao = new StockDao();
                     Estoque e = new Estoque();
                     e.setId_e(estoque.getId_e());
                     e.setId_p(estoque.getId_p());
                     int qtd = Integer.parseInt(jTQtd_es.getText()) + Integer.parseInt(jTQtd_ent.getText());
                     e.setQtd(qtd);
-                    edao.altera(e);
+                    edao.update(e);
 
                     //adiciona na tabela do histórico de entradas
                     e.setQtd(Integer.parseInt(jTQtd_ent.getText()));
                     e.setData(sf.format(new Date()));
-                    edao.adicionaEstEntrada(e);
+                    edao.addStockIn(e);
 
                     jTQtd_es.setText(qtd + "");
                     jTQtd_ent.setText("");

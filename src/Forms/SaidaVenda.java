@@ -6,11 +6,11 @@
 package Forms;
 
 import Conexao.ConectionReport;
-import DAO.EstoqueDao;
-import DAO.ProdutoDao;
-import DAO.SaidaDao;
-import DAO.VendaDao;
-import DAO.VendedorDao;
+import DAO.StockDao;
+import DAO.ProductDao;
+import DAO.OutStockDao;
+import DAO.SaleDao;
+import DAO.SalesmanDao;
 import Entidades.Cliente;
 import Entidades.Estoque;
 
@@ -105,8 +105,8 @@ public class SaidaVenda extends javax.swing.JFrame {
         jLQtd.setVisible(false);
         try {
             //Para mostrar o id dessa nova nota
-            SaidaDao ndao = new SaidaDao();
-            idnota = ndao.getIdUltimaNota();
+            OutStockDao ndao = new OutStockDao();
+            idnota = ndao.getLastInvoiceId();
             idnota++;
             jLNVenda.setText("Venda Nº:" + idnota);
         } catch (SQLException ex) {
@@ -842,8 +842,8 @@ public class SaidaVenda extends javax.swing.JFrame {
             try {
 
                 //Para mostrar o id dessa nova nota
-                SaidaDao ndao = new SaidaDao();
-                idnota = ndao.getIdUltimaNota();
+                OutStockDao ndao = new OutStockDao();
+                idnota = ndao.getLastInvoiceId();
                 idnota++;
                 jLNVenda.setText("Venda Nº:" + idnota);
             } catch (SQLException ex) {
@@ -908,15 +908,15 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         try {
             //busca a qtd desse produto em estoque
-            EstoqueDao edao = new EstoqueDao();
-            Estoque estoque = edao.GetEstoque(produto.getId());
+            StockDao edao = new StockDao();
+            Estoque estoque = edao.getStock(produto.getId());
             if (estoque == null) {
                 Estoque e = new Estoque();
                 e.setId_p(produto.getId());
                 e.setQtd(0);
-                edao.adiciona(e);
+                edao.add(e);
 
-                estoque = edao.GetEstoque(produto.getId());
+                estoque = edao.getStock(produto.getId());
             }
             jTQtd_est.setText(estoque.getQtd() + "");
         } catch (SQLException ex) {
@@ -1015,8 +1015,8 @@ public class SaidaVenda extends javax.swing.JFrame {
             String produto_local = "";
             try {
                 //Pega o produto com o id na lista da venda
-                ProdutoDao dao = new ProdutoDao();
-                Produto p = dao.GetProduto(venda.get(i).getId_p());
+                ProductDao dao = new ProductDao();
+                Produto p = dao.getProduct(venda.get(i).getId_p());
                 produto_local = p.getProduto();
 
             } catch (SQLException ex) {
@@ -1045,8 +1045,8 @@ public class SaidaVenda extends javax.swing.JFrame {
     //metodo para preencher o combobox dos vendedores
     public final void PreencherVendedores() {
         try {
-            VendedorDao a = new VendedorDao();
-            vendedores = a.getLista("");
+            SalesmanDao a = new SalesmanDao();
+            vendedores = a.getList("");
             for (int y = 0; y < vendedores.size(); y++) {
                 jComboBox2.addItem(vendedores.get(y).getNome());
             }
@@ -1145,7 +1145,7 @@ public class SaidaVenda extends javax.swing.JFrame {
             try {
 
                 SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd");
-                SaidaDao dao = new SaidaDao();
+                OutStockDao dao = new OutStockDao();
                 Saida n = new Saida();
 
                 Date d = new Date();
@@ -1155,8 +1155,8 @@ public class SaidaVenda extends javax.swing.JFrame {
                 n.setData(fo.format(d));
                 n.setId_fun(vendedores.get(jComboBox2.getSelectedIndex()).getId_vendedor());
 
-                dao.adiciona(n);
-                int idnota = dao.getIdUltimaNota();
+                dao.add(n);
+                int idnota = dao.getLastInvoiceId();
 
                 //adiciona o id da nota para as vendas
                 for (int i = 0; i < venda.size(); i++) {
@@ -1164,20 +1164,20 @@ public class SaidaVenda extends javax.swing.JFrame {
                 }
 
                 //inicia o cadastro as vendas
-                VendaDao vd = new VendaDao();
+                SaleDao vd = new SaleDao();
                 for (int i = 0; i < venda.size(); i++) {
-                    vd.adiciona(venda.get(i));
+                    vd.add(venda.get(i));
                 }
 
-                ProdutoDao pdao = new ProdutoDao();
-                EstoqueDao edao = new EstoqueDao();
+                ProductDao pdao = new ProductDao();
+                StockDao edao = new StockDao();
                 for (int i = 0; i < venda.size(); i++) {
-                    Produto p = pdao.GetProduto(venda.get(i).getId_p());
-                    Estoque e = edao.GetEstoque(p.getId());
+                    Produto p = pdao.getProduct(venda.get(i).getId_p());
+                    Estoque e = edao.getStock(p.getId());
 
                     int sub = e.getQtd() - venda.get(i).getQtd();
                     e.setQtd(sub);
-                    edao.altera(e);
+                    edao.update(e);
                     venda.remove(venda.get(i));
                     i = i - 1;
                 }
@@ -1193,11 +1193,11 @@ public class SaidaVenda extends javax.swing.JFrame {
     public boolean VerificaEstoque() {
         boolean r = true;
         try {
-            ProdutoDao pdao = new ProdutoDao();
-            EstoqueDao edao = new EstoqueDao();
+            ProductDao pdao = new ProductDao();
+            StockDao edao = new StockDao();
             for (int i = 0; i < venda.size(); i++) {
-                Produto p = pdao.GetProduto(venda.get(i).getId_p());
-                Estoque e = edao.GetEstoque(p.getId());
+                Produto p = pdao.getProduct(venda.get(i).getId_p());
+                Estoque e = edao.getStock(p.getId());
 
                 int sub = e.getQtd() - venda.get(i).getQtd();
                 if (sub < 0) {

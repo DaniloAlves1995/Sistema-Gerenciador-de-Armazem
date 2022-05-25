@@ -6,10 +6,10 @@
 package Forms;
 
 import Conexao.ConectionReport;
-import DAO.ClienteDao;
-import DAO.ProdutoDao;
-import DAO.SaidaDao;
-import DAO.VendaDao;
+import DAO.CustomerDao;
+import DAO.ProductDao;
+import DAO.OutStockDao;
+import DAO.SaleDao;
 import Entidades.Cliente;
 import Entidades.Estoque;
 import Entidades.Saida;
@@ -341,11 +341,11 @@ public class PesquisarVendas extends javax.swing.JFrame {
                 if (op == 0) {
                     //Caso seja sim
                     Saida a = saidas.get(jTNota.getSelectedRow());
-                    SaidaDao ndao = new SaidaDao();
-                    ndao.Excluir(a);
+                    OutStockDao ndao = new OutStockDao();
+                    ndao.delete(a);
 
-                    VendaDao vdao = new VendaDao();
-                    vdao.ExcluirVendas(a.getId_s());
+                    SaleDao vdao = new SaleDao();
+                    vdao.deleteByOut(a.getId_s());
                     JOptionPane.showMessageDialog(null, "Venda excluida com sucesso!", "..: SGE :..", JOptionPane.QUESTION_MESSAGE);
                     pesquisar();
                 }
@@ -380,7 +380,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
     private void jBGerarN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarN1ActionPerformed
         if (saidas.size() > 0) {
             try {
-                VendaDao vdao = new VendaDao();
+                SaleDao vdao = new SaleDao();
                 vdao.adicionaPDF(d1, d2);
 
                 relatorio();
@@ -400,9 +400,9 @@ public class PesquisarVendas extends javax.swing.JFrame {
                 int qtd_total = 0;
                 double preco_total = 0;
                 String idss_s = "";
-                VendaDao vdao = new VendaDao();
+                SaleDao vdao = new SaleDao();
 
-                ProdutoDao pdao = new ProdutoDao();
+                ProductDao pdao = new ProductDao();
                 List<Saida> listas = new ArrayList<>();
                 List<Venda> listav = new ArrayList<>();
                 List<Estoque> listae = new ArrayList<>();
@@ -423,10 +423,10 @@ public class PesquisarVendas extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Para gerar o Romaneio você precisa selecionar pelo menos uma venda.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     //retorna a lista de ids de produtos de todas as saidas sem repetir
-                    listav = vdao.getIdsProdSaida(listas);
-                    SaidaDao sdao = new SaidaDao();
+                    listav = vdao.getProductsOut(listas);
+                    OutStockDao sdao = new OutStockDao();
                     for (int i = 0; i < listav.size(); i++) {
-                        int qtd = vdao.getQTDProdSaida(listas, listav.get(i).getId_p());
+                        int qtd = vdao.getAmountProductsOut(listas, listav.get(i).getId_p());
                         Estoque p = new Estoque();
                         p.setId_p(listav.get(i).getId_p());
                         p.setQtd(qtd);
@@ -453,8 +453,8 @@ public class PesquisarVendas extends javax.swing.JFrame {
             d2 = sd.format(jDateChooser2.getDate());
 
             try {
-                SaidaDao sdao = new SaidaDao();
-                saidas = sdao.getLista(d1, d2, 8);
+                OutStockDao sdao = new OutStockDao();
+                saidas = sdao.getList(d1, d2, 8);
                 mostrarSaidas(saidas);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
@@ -480,8 +480,8 @@ public class PesquisarVendas extends javax.swing.JFrame {
                     tmNota.setValueAt(saidas.get(i).getId_s(), i, 1);
                     Cliente c = new Cliente();
                     try {
-                        ClienteDao cdao = new ClienteDao();
-                        c = cdao.GetCliente(saidas.get(i).getId_c());
+                        CustomerDao cdao = new CustomerDao();
+                        c = cdao.getCustumer(saidas.get(i).getId_c());
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                     }

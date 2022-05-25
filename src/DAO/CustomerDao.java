@@ -18,31 +18,26 @@ import java.util.logging.Logger;
  * ------------- ..::Danilo Alves Oliveira::.. ------------- *
  * ***********************************************************
  * 
- *@Desenvolvedor Danilo Alves
+ *@Developer Danilo Alves
  * 
  */
 
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
-//</editor-fold>
+public class CustomerDao implements InterfaceBasicDB<Cliente>{
 
-public class ClienteDao implements InterfaceBasicDB<Cliente>{
+  
+    private final Connection connection;
 
-    //Variavel que recebe a conexão da classe CreateConnection
-    private final Connection conexao;
-
-    //Método Principal da Classe que serve para toda vez que tiver uma instância da classe abrir uma nova conexão 
-    public ClienteDao() throws SQLException {
-        this.conexao = (Connection) CreateConnection.getConnection();
+    
+    public CustomerDao() throws SQLException {
+        this.connection = (Connection) CreateConnection.getConnection();
     }
 
-    //método para adicionar o cliente
+
     @Override
-    public void adicionar(Cliente m1) {
+    public void add(Cliente m1) {
         String sql = "insert into cliente(nome, endereco, cpf, contato1, contato2) "
                 + "values(?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, m1.getNome().toUpperCase());
             stmt.setString(2, m1.getEndereco().toUpperCase());
             stmt.setString(3, m1.getCpf());
@@ -51,16 +46,15 @@ public class ClienteDao implements InterfaceBasicDB<Cliente>{
 
             stmt.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    //método para pegar uma lista de socios no banco
-    public List<Cliente> getLista(String dado) {
+    public List<Cliente> getList(String dado) {
         String sql = "select * from cliente WHERE nome LIKE ?";
         ResultSet rs;
         List<Cliente> ma = null;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, "%"+dado+"%");
 
             rs = stmt.executeQuery();
@@ -80,19 +74,18 @@ public class ClienteDao implements InterfaceBasicDB<Cliente>{
             
             rs.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
        
         return ma;
     }
 
-    //metodo que retorna uma lista de clientes pelo endereço
-    public List<Cliente> getListE(String endereco) throws SQLException {
+    public List<Cliente> getListByAddress(String address) throws SQLException {
         String sql = "select * from cliente WHERE endereco LIKE ?";
         ResultSet rs;
         List<Cliente> ma;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
-            stmt.setString(1, "%"+endereco+"%");
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+            stmt.setString(1, "%"+address+"%");
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
@@ -114,12 +107,11 @@ public class ClienteDao implements InterfaceBasicDB<Cliente>{
         return ma;
     }
 
-    //método para alterar o cliente no banco
     @Override
-    public void alterar(Cliente m)  {
+    public void update(Cliente m)  {
         String sql = "update cliente set nome=?, endereco=?, cpf=?, contato1=?, contato2=?"
                 + " where id_c=?";
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, m.getNome().toUpperCase());
             stmt.setString(2, m.getEndereco().toUpperCase());
             stmt.setString(3, m.getCpf());
@@ -129,42 +121,40 @@ public class ClienteDao implements InterfaceBasicDB<Cliente>{
 
             stmt.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    //método para excluir um cliente do banco
     @Override
-    public void Excluir(Cliente m)  {
+    public void delete(Cliente m)  {
         String sql = "delete from cliente where id_c=?";
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId());
             stmt.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    //metodo para retornar a qtd de sócios no banco
-    public int GetQtdClientes() throws SQLException {
+    public int getAmountCustumers() throws SQLException {
         String sql = "SELECT COUNT(*) FROM cliente;";
-        int qtd;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        int amount;
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
-            qtd = 0;
+            amount = 0;
             while (rs.next()) {
-                qtd = rs.getInt("COUNT(*)");
+                amount = rs.getInt("COUNT(*)");
             }
         }
 
-        return qtd;
+        return amount;
     }
 
-    public Cliente GetCliente(int id) throws SQLException {
+    public Cliente getCustumer(int id) throws SQLException {
         String sql = "select * from cliente WHERE id_c=?";
         ResultSet rs;
         Cliente m;
-        try (PreparedStatement stmt = this.conexao.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
 
             rs = stmt.executeQuery();

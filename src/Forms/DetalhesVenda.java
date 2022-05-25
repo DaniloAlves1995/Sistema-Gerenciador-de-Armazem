@@ -5,11 +5,11 @@
  */
 package Forms;
 
-import DAO.ClienteDao;
-import DAO.ProdutoDao;
-import DAO.SaidaDao;
-import DAO.VendaDao;
-import DAO.VendedorDao;
+import DAO.CustomerDao;
+import DAO.ProductDao;
+import DAO.OutStockDao;
+import DAO.SaleDao;
+import DAO.SalesmanDao;
 import Entidades.Cliente;
 import Entidades.Produto;
 import Entidades.Saida;
@@ -96,23 +96,23 @@ public class DetalhesVenda extends javax.swing.JFrame {
             SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
             Date d;
 
-            SaidaDao da = new SaidaDao();
-            List<Saida> notas = da.getLista(id + "", "", 1);
+            OutStockDao da = new OutStockDao();
+            List<Saida> notas = da.getList(id + "", "", 1);
             nota = notas.get(0);
             jTNVenda.setText(notas.get(0).getId_s() + "");
             jTTotal.setText(notas.get(0).getTotal() + "");
             d = df.parse(notas.get(0).getData());
             jTData.setText(df2.format(d));
-            ClienteDao cdao = new ClienteDao();
+            CustomerDao cdao = new CustomerDao();
             idcliente = notas.get(0).getId_c();
-            Cliente c = cdao.GetCliente(notas.get(0).getId_c());
+            Cliente c = cdao.getCustumer(notas.get(0).getId_c());
             jTCliente.setText(c.getNome());
             jTEndereco.setText(c.getEndereco());
             jTCpf.setText(c.getCpf());
             jTContato1.setText(c.getContato1());
             jTContato2.setText(c.getContato2());
-            VendedorDao vdao = new VendedorDao();
-            Vendedor v = vdao.GetVendedor(notas.get(0).getId_fun());
+            SalesmanDao vdao = new SalesmanDao();
+            Vendedor v = vdao.getSelesman(notas.get(0).getId_fun());
             jComboBox2.setSelectedItem(v.getNome());
 
             listarVendas();
@@ -124,8 +124,8 @@ public class DetalhesVenda extends javax.swing.JFrame {
     }
 
     protected void listarVendas() throws SQLException {
-        VendaDao me = new VendaDao();
-        vendas = me.getLista(id);
+        SaleDao me = new SaleDao();
+        vendas = me.getList(id);
 
         mostraPesquisaVenda(vendas);
     }
@@ -140,8 +140,8 @@ public class DetalhesVenda extends javax.swing.JFrame {
         for (int i = 0; i < vendas.size(); i++) {
             try {
                 tmVendas.addRow(linha);
-                ProdutoDao pdao = new ProdutoDao();
-                Produto p = pdao.GetProduto(vendas.get(i).getId_p());
+                ProductDao pdao = new ProductDao();
+                Produto p = pdao.getProduct(vendas.get(i).getId_p());
                 tmVendas.setValueAt(p.getProduto(), i, 0);
                 tmVendas.setValueAt(vendas.get(i).getQtd(), i, 1);
                 tmVendas.setValueAt(vendas.get(i).getPreco(), i, 2);
@@ -812,8 +812,8 @@ public class DetalhesVenda extends javax.swing.JFrame {
     public void ClicarTabela() {
         if (jTVendas.getSelectedRow() != -1) {
             try {
-                ProdutoDao pdao = new ProdutoDao();
-                Produto p = pdao.GetProduto(vendas.get(jTVendas.getSelectedRow()).getId_p());
+                ProductDao pdao = new ProductDao();
+                Produto p = pdao.getProduct(vendas.get(jTVendas.getSelectedRow()).getId_p());
                 jTProduto.setText(p.getProduto());
                 jTPreco.setText(vendas.get(jTVendas.getSelectedRow()).getValor_p() + "");
                 jTQtd.setText(vendas.get(jTVendas.getSelectedRow()).getQtd() + "");
@@ -846,8 +846,8 @@ public class DetalhesVenda extends javax.swing.JFrame {
             String preco = "";
             try {
                 //Pega o produto com o id na lista da venda
-                ProdutoDao dao = new ProdutoDao();
-                Produto p = dao.GetProduto(venda.get(i).getId_p());
+                ProductDao dao = new ProductDao();
+                Produto p = dao.getProduct(venda.get(i).getId_p());
                 produto = p.getProduto();
                 preco = String.valueOf(p.getPreco());
             } catch (SQLException ex) {
@@ -864,8 +864,8 @@ public class DetalhesVenda extends javax.swing.JFrame {
     //metodo para preencher o combobox dos vendedores
     public final void PreencherVendedores() {
         try {
-            VendedorDao a = new VendedorDao();
-            vendedores = a.getLista("");
+            SalesmanDao a = new SalesmanDao();
+            vendedores = a.getList("");
             for (int y = 0; y < vendedores.size(); y++) {
                 jComboBox2.addItem(vendedores.get(y).getNome());
             }

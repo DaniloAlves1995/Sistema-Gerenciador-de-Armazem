@@ -5,7 +5,7 @@
  */
 package Forms;
 
-import DAO.CaminhaoDao;
+import DAO.TruckDao;
 import Entidades.Caminhao;
 import Utils.ManageFields;
 import java.sql.SQLException;
@@ -230,13 +230,13 @@ public class Cad_Caminhao extends javax.swing.JFrame {
             s.setData(df.format(new Date()));
             try {
                 //Cria um objeto DAO para inserir o novo produto no banco
-                CaminhaoDao d = new CaminhaoDao();
+                TruckDao d = new TruckDao();
                 
                 //Adiciona o novo produto no banco
-                d.adicionar(s);
-                int id = d.getIdUltimoCam();
+                d.add(s);
+                int id = d.getLastId();
                 s.setId(id);
-                d.adicionaCamCarga(s);
+                d.addTruckLoad(s);
                 JOptionPane.showMessageDialog(null, "Caminhão registrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                 
                 //Limpa os TextFilds depois do Cadastro
