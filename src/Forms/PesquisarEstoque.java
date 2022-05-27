@@ -5,11 +5,11 @@
  */
 package Forms;
 
-import Conexao.ConectionReport;
+import Connection.ConectionReport;
 import DAO.StockDao;
 import DAO.ProductDao;
-import Entidades.Stock;
-import Entidades.Product;
+import Entities.Stock;
+import Entities.Product;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.io.File;

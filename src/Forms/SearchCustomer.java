@@ -6,7 +6,7 @@
 package Forms;
 
 import DAO.CustomerDao;
-import Entidades.Customer;
+import Entities.Customer;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
@@ -30,29 +30,29 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
-public class BuscarCliente extends javax.swing.JFrame {
+public class SearchCustomer extends javax.swing.JFrame {
 
-    private final DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Telefone"});
+    private final DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Name", "Address", "Telephone"});
     private ListSelectionModel lsmCliente;
     private List<Customer> cliente;
     private char l;
     private SaidaVenda svenda;
-    private int tipo = 0;//para separar, tipo=0 adionar a venda;
+    private int tipo = 0;
 
     /**
      * Creates new form PesquisarSocio
      */
-    public BuscarCliente() {
+    public SearchCustomer() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Buscar Cliente - SGA");
+        this.setTitle("Search Customer - WMS");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         this.setIconImage(imagemTituloJanela.getImage());
 
-        //Desabilita os TextFilds
-        jTNome.setEditable(false);
-        jTEndereco.setEditable(false);
-        jTTelefone.setEditable(false);
+        //Disable TextFilds
+        jTName.setEditable(false);
+        jTAddress.setEditable(false);
+        jTTelephone.setEditable(false);
         jTCpf.setEditable(false);
         
     }
@@ -70,45 +70,45 @@ public class BuscarCliente extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTPesquisar = new javax.swing.JTextField();
+        jTSearch = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTNome = new javax.swing.JTextField();
-        jTEndereco = new javax.swing.JTextField();
-        jTTelefone = new javax.swing.JTextField();
+        jTName = new javax.swing.JTextField();
+        jTAddress = new javax.swing.JTextField();
+        jTTelephone = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jTCpf = new javax.swing.JTextField();
         jBOk = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTCliente = new javax.swing.JTable();
+        jTCustomer = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial", 0, 24))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search Customer", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial", 0, 24))); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(0, 131, 73));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Pesquisar por:");
+        jLabel1.setText("Search by:");
 
-        jTPesquisar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTSearch.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyReleased(evt);
+                jTSearchKeyReleased(evt);
             }
         });
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Nome:");
+        jLabel10.setText("Name:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -123,7 +123,7 @@ public class BuscarCliente extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -133,7 +133,7 @@ public class BuscarCliente extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -144,21 +144,21 @@ public class BuscarCliente extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Nome:");
+        jLabel3.setText("Name:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Endereço:");
+        jLabel5.setText("Address:");
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Contato 1:");
+        jLabel8.setText("Phone:");
 
-        jTNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        jTEndereco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTAddress.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        jTTelefone.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTTelephone.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -179,14 +179,14 @@ public class BuscarCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTNome)
-                    .addComponent(jTEndereco))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(jTName)
+                    .addComponent(jTAddress))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,25 +194,25 @@ public class BuscarCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel11))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jBOk.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jBOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/add.png"))); // NOI18N
-        jBOk.setText("Adicionar");
+        jBOk.setText("Add");
         jBOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBOkActionPerformed(evt);
@@ -221,26 +221,26 @@ public class BuscarCliente extends javax.swing.JFrame {
 
         jBCancelar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancel.png"))); // NOI18N
-        jBCancelar.setText("Cancelar");
+        jBCancelar.setText("Cancel");
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBCancelarActionPerformed(evt);
             }
         });
 
-        jTCliente.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTCliente.setModel(tmCliente);
-        jTCliente.setSelectionBackground(new java.awt.Color(0, 131, 73));
-        jTCliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lsmCliente = jTCliente.getSelectionModel();
-        lsmCliente.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTCliente); } }
+        jTCustomer.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTCustomer.setModel(tmCliente);
+        jTCustomer.setSelectionBackground(new java.awt.Color(0, 131, 73));
+        jTCustomer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lsmCliente = jTCustomer.getSelectionModel();
+        lsmCliente.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTableRowSelected(jTCustomer); } }
         });
-        jTCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTCustomer.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTClienteKeyPressed(evt);
+                jTCustomerKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTCliente);
+        jScrollPane1.setViewportView(jTCustomer);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -249,12 +249,12 @@ public class BuscarCliente extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(179, 179, 179)
                 .addComponent(jBOk)
                 .addGap(18, 18, 18)
                 .addComponent(jBCancelar)
-                .addGap(128, 128, 128))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,24 +290,24 @@ public class BuscarCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyReleased
+    private void jTSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSearchKeyReleased
         l = evt.getKeyChar();
 
         if (evt.getKeyCode() == 40)
-            jTCliente.requestFocus();
+            jTCustomer.requestFocus();
         
         try {
-            listarCliente();
+            listCustomer();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jTPesquisarKeyReleased
+    }//GEN-LAST:event_jTSearchKeyReleased
 
     private void jBOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOkActionPerformed
         switch (tipo) {
             case 0:
-                if (jTCliente.getSelectedRow() != -1) {
-                    svenda.SetCliente(cliente.get(jTCliente.getSelectedRow()));
+                if (jTCustomer.getSelectedRow() != -1) {
+                    svenda.SetCliente(cliente.get(jTCustomer.getSelectedRow()));
                     this.dispose();
                 }
                 break;
@@ -318,18 +318,18 @@ public class BuscarCliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jBCancelarActionPerformed
 
-    private void jTClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClienteKeyPressed
+    private void jTCustomerKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCustomerKeyPressed
         if (evt.getKeyCode() == 10) {
             switch (tipo) {
                 case 0:
-                    if (jTCliente.getSelectedRow() != -1) {
-                        svenda.SetCliente(cliente.get(jTCliente.getSelectedRow()));
+                    if (jTCustomer.getSelectedRow() != -1) {
+                        svenda.SetCliente(cliente.get(jTCustomer.getSelectedRow()));
                         this.dispose();
                     }
                     break;
             }
         }
-    }//GEN-LAST:event_jTClienteKeyPressed
+    }//GEN-LAST:event_jTCustomerKeyPressed
 
     public void SetVenda(SaidaVenda svenda) {
         this.svenda = svenda;
@@ -356,23 +356,71 @@ public class BuscarCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarCliente().setVisible(true);
+                new SearchCustomer().setVisible(true);
             }
         });
+    }
+    
+    protected void listCustomer() throws SQLException {
+        CustomerDao me = new CustomerDao();
+        cliente = me.getList("%" + jTSearch.getText() + "%");
+        showSearch(cliente);
+    }
+
+    //Show search in table
+    private void showSearch(List<Customer> client) {
+
+        while (tmCliente.getRowCount() > 0) {
+            tmCliente.removeRow(0);
+        }
+
+        if (((client.isEmpty())) && (l == ' ')) {
+            JOptionPane.showMessageDialog(null, "There is no customer with Name " + jTSearch.getText().toUpperCase() + " in database.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+
+            if (client.isEmpty() == false) {
+                String[] linha = new String[]{null, null, null, null};
+                for (int i = 0; i < client.size(); i++) {
+                    tmCliente.addRow(linha);
+                    tmCliente.setValueAt(client.get(i).getId(), i, 0);
+                    tmCliente.setValueAt(client.get(i).getName(), i, 1);
+                    tmCliente.setValueAt(client.get(i).getAddress(), i, 2);
+                    tmCliente.setValueAt(client.get(i).getContact1(), i, 3);
+
+                }
+            }
+
+        }
+    }
+
+    //Metohod to get values from table row selected
+    private void jTTableRowSelected(JTable table) {
+        try {
+            if (jTCustomer.getSelectedRow() != -1) {
+                jTName.setText(cliente.get(table.getSelectedRow()).getName());
+                jTAddress.setText(cliente.get(table.getSelectedRow()).getAddress());
+                jTTelephone.setText(cliente.get(table.getSelectedRow()).getContact1());
+                jTCpf.setText(cliente.get(table.getSelectedRow()).getCpf());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error to get values from table! \n\r ERROR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -389,58 +437,11 @@ public class BuscarCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTCliente;
+    private javax.swing.JTextField jTAddress;
     private javax.swing.JTextField jTCpf;
-    private javax.swing.JTextField jTEndereco;
-    private javax.swing.JTextField jTNome;
-    private javax.swing.JTextField jTPesquisar;
-    private javax.swing.JTextField jTTelefone;
+    private javax.swing.JTable jTCustomer;
+    private javax.swing.JTextField jTName;
+    private javax.swing.JTextField jTSearch;
+    private javax.swing.JTextField jTTelephone;
     // End of variables declaration//GEN-END:variables
-
-    //Realiza a pesquisa do valor digitado no banco
-    protected void listarCliente() throws SQLException {
-        CustomerDao me = new CustomerDao();
-        cliente = me.getList("%" + jTPesquisar.getText() + "%");
-        mostraPesquisa(cliente);
-    }
-
-    //Mostra a pesquisa na tabela
-    private void mostraPesquisa(List<Customer> cliente) {
-
-        while (tmCliente.getRowCount() > 0) {
-            tmCliente.removeRow(0);
-        }
-
-        if (((cliente.isEmpty())) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Cliente com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-
-            if (cliente.isEmpty() == false) {
-                String[] linha = new String[]{null, null, null, null};
-                for (int i = 0; i < cliente.size(); i++) {
-                    tmCliente.addRow(linha);
-                    tmCliente.setValueAt(cliente.get(i).getId(), i, 0);
-                    tmCliente.setValueAt(cliente.get(i).getName(), i, 1);
-                    tmCliente.setValueAt(cliente.get(i).getAddress(), i, 2);
-                    tmCliente.setValueAt(cliente.get(i).getContact1(), i, 3);
-
-                }
-            }
-
-        }
-    }
-
-    //Metodo para pagar o valor da linha selecionada
-    private void jTTabelaLinhaSelecionada(JTable tabela) {
-        try {
-            if (jTCliente.getSelectedRow() != -1) {
-                jTNome.setText(cliente.get(tabela.getSelectedRow()).getName());
-                jTEndereco.setText(cliente.get(tabela.getSelectedRow()).getAddress());
-                jTTelefone.setText(cliente.get(tabela.getSelectedRow()).getContact1());
-                jTCpf.setText(cliente.get(tabela.getSelectedRow()).getCpf());
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGA", JOptionPane.ERROR_MESSAGE);
-        }
-    }
 }

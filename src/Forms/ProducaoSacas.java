@@ -8,10 +8,10 @@ package Forms;
 import DAO.TruckDao;
 import DAO.StockDao;
 import DAO.SackDao;
-import Entidades.Truck;
-import Entidades.Stock;
-import Entidades.Product;
-import Entidades.Sack;
+import Entities.Truck;
+import Entities.Stock;
+import Entities.Product;
+import Entities.Sack;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -289,7 +289,7 @@ public class ProducaoSacas extends javax.swing.JFrame {
     }//GEN-LAST:event_jTProdutoFocusLost
 
     private void jTProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutoMouseClicked
-        BuscarProduto b = new BuscarProduto();
+        SearchProduct b = new SearchProduct();
         b.SetProducaoSacas(this);
         b.SetTipo(2);
         b.show();

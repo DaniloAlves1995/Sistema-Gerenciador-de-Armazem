@@ -6,7 +6,7 @@
 package Forms;
 
 import DAO.SalesmanDao;
-import Entidades.Salesman;
+import Entities.Salesman;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.awt.event.KeyEvent;

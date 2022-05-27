@@ -389,7 +389,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        new Cad_Caminhao().show();
+        new RegisterTruck().show();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -409,7 +409,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        new Cad_Caminhao().show();
+        new RegisterTruck().show();
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed

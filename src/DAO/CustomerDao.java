@@ -2,8 +2,8 @@ package DAO;
 
 import java.sql.Connection;
 
-import Conexao.CreateConnection;
-import Entidades.Customer;
+import Connection.CreateConnection;
+import Entities.Customer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

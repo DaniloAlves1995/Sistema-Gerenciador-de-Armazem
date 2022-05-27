@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entidades;
+package Entities;
 
-import Conexao.ConectionReport;
+import Connection.ConectionReport;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;

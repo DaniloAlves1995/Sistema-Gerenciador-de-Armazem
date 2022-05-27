@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entidades;
+
+package Entities;
 
 /**
  *
@@ -15,20 +16,18 @@ package Entidades;
  * 
  */
 
-public class Truck {
+public class Customer extends Person{
     private int Id;
-    private String Name;
-    private int TrackLoad;
-    private String Date;
-
-    public String getDate() {
-        return Date;
+    private String Cpf;
+   
+    public String getCpf() {
+        return Cpf;
     }
 
-    public void setData(String Data) {
-        this.Date = Data;
+    public void setCpf(String Cpf) {
+        this.Cpf = Cpf;
     }
-
+    
     public int getId() {
         return Id;
     }
@@ -36,22 +35,5 @@ public class Truck {
     public void setId(int Id) {
         this.Id = Id;
     }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String Nome) {
-        this.Name = Nome;
-    }
-
-    public int getTruckLoad() {
-        return TrackLoad;
-    }
-
-    public void setTruckLoad(int Carga) {
-        this.TrackLoad = Carga;
-    }
-    
     
 }

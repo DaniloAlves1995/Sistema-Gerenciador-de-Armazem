@@ -6,8 +6,8 @@
 package Forms;
 
 import DAO.StockDao;
-import Entidades.Stock;
-import Entidades.Product;
+import Entities.Stock;
+import Entities.Product;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -283,7 +283,7 @@ public class Entrada_Estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jTProdutoFocusLost
 
     private void jTProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutoMouseClicked
-        BuscarProduto b = new BuscarProduto();
+        SearchProduct b = new SearchProduct();
         b.SetEntradaEstoque(this);
         b.SetTipo(0);
         b.show();
@@ -428,7 +428,7 @@ public class Entrada_Estoque extends javax.swing.JFrame {
         }
         if (evt.getKeyCode() == 80 && la == 1) {
             la = 0;
-            BuscarProduto b = new BuscarProduto();
+            SearchProduct b = new SearchProduct();
             b.SetEntradaEstoque(this);
             b.SetTipo(0);
             b.show();

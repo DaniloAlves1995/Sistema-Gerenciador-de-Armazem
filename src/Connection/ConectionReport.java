@@ -1,4 +1,4 @@
-package Conexao;
+package Connection;
 
 import java.sql.*;
 import javax.swing.*;

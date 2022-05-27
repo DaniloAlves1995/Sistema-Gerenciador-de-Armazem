@@ -10,11 +10,11 @@ import DAO.ProductDao;
 import DAO.OutStockDao;
 import DAO.SaleDao;
 import DAO.SalesmanDao;
-import Entidades.Customer;
-import Entidades.Product;
-import Entidades.OutStock;
-import Entidades.Sale;
-import Entidades.Salesman;
+import Entities.Customer;
+import Entities.Product;
+import Entities.OutStock;
+import Entities.Sale;
+import Entities.Salesman;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -833,7 +833,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
         jTValor.setText("");
     }
 
-    private void atualizarTabela(List<Entidades.Sale> venda) {
+    private void atualizarTabela(List<Entities.Sale> venda) {
 
         while (tmVendas.getRowCount() > 0) {
             tmVendas.removeRow(0);

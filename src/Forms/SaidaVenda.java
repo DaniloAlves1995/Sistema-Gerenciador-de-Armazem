@@ -5,19 +5,18 @@
  */
 package Forms;
 
-import Conexao.ConectionReport;
+import Connection.ConectionReport;
 import DAO.StockDao;
 import DAO.ProductDao;
 import DAO.OutStockDao;
 import DAO.SaleDao;
 import DAO.SalesmanDao;
-import Entidades.Customer;
-import Entidades.Stock;
-
-import Entidades.Product;
-import Entidades.OutStock;
-import Entidades.Sale;
-import Entidades.Salesman;
+import Entities.Customer;
+import Entities.Stock;
+import Entities.Product;
+import Entities.OutStock;
+import Entities.Sale;
+import Entities.Salesman;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.awt.HeadlessException;
@@ -767,7 +766,7 @@ public class SaidaVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTClienteMouseClicked
-        BuscarCliente b = new BuscarCliente();
+        SearchCustomer b = new SearchCustomer();
         b.SetVenda(this);
         b.SetTipo(0);
         b.show();
@@ -779,7 +778,7 @@ public class SaidaVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTProdutoActionPerformed
 
     private void jTProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutoMouseClicked
-        BuscarProduto b = new BuscarProduto();
+        SearchProduct b = new SearchProduct();
         b.SetSaidaVenda(this);
         b.SetTipo(1);
         b.show();
@@ -1002,7 +1001,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         });
     }
 
-    private void atualizarTabela(List<Entidades.Sale> venda) {
+    private void atualizarTabela(List<Entities.Sale> venda) {
 
         while (tmVenda.getRowCount() > 0) {
             tmVenda.removeRow(0);
@@ -1219,7 +1218,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         //Para adicionar um cliente
         if (evt.getKeyCode() == 67 && la == 1) {
             la = 0;
-            BuscarCliente b = new BuscarCliente();
+            SearchCustomer b = new SearchCustomer();
             b.SetVenda(this);
             b.SetTipo(0);
             b.show();
@@ -1228,7 +1227,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         //Para adicionar um produto
         if (evt.getKeyCode() == 80 && la == 1) {
             la = 0;
-            BuscarProduto b = new BuscarProduto();
+            SearchProduct b = new SearchProduct();
             b.SetTipo(1);
             b.SetSaidaVenda(this);
             b.show();

@@ -5,9 +5,9 @@
  */
 package Forms;
 
-import Conexao.ConectionReport;
+import Connection.ConectionReport;
 import DAO.TruckDao;
-import Entidades.Truck;
+import Entities.Truck;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;

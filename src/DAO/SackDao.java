@@ -5,8 +5,8 @@
  */
 package DAO;
 
-import Conexao.CreateConnection;
-import Entidades.Sack;
+import Connection.CreateConnection;
+import Entities.Sack;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

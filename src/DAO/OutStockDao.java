@@ -2,9 +2,9 @@ package DAO;
 
 import java.sql.Connection;
 
-import Conexao.CreateConnection;
-import Entidades.Stock;
-import Entidades.OutStock;
+import Connection.CreateConnection;
+import Entities.Stock;
+import Entities.OutStock;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

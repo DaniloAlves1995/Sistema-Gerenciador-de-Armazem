@@ -7,8 +7,8 @@ package Forms;
 
 import DAO.StockDao;
 import DAO.ProductDao;
-import Entidades.Stock;
-import Entidades.Product;
+import Entities.Stock;
+import Entities.Product;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;

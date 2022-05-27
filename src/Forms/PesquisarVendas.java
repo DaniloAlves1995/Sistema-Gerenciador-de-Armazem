@@ -5,15 +5,15 @@
  */
 package Forms;
 
-import Conexao.ConectionReport;
+import Connection.ConectionReport;
 import DAO.CustomerDao;
 import DAO.ProductDao;
 import DAO.OutStockDao;
 import DAO.SaleDao;
-import Entidades.Customer;
-import Entidades.Stock;
-import Entidades.OutStock;
-import Entidades.Sale;
+import Entities.Customer;
+import Entities.Stock;
+import Entities.OutStock;
+import Entities.Sale;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;

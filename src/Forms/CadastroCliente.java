@@ -6,7 +6,7 @@
 package Forms;
 
 import DAO.CustomerDao;
-import Entidades.Customer;
+import Entities.Customer;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -35,7 +35,7 @@ import javax.swing.table.DefaultTableModel;
 public class CadastroCliente extends javax.swing.JFrame {
 
     private final ManageFields manageFields;
-    private final DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato"});
+    private final DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Name", "Address", "Phone 1"});
     private ListSelectionModel lsmCliente;
     private List<Customer> cliente;
     private char l;
@@ -114,7 +114,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Pesquisar Clientes:");
+        jLabel1.setText("Search customer:");
 
         jTPesquisar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -128,7 +128,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Total de Clientes:");
+        jLabel12.setText("Total of Customers:");
 
         jTTotal.setEditable(false);
         jTTotal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -161,22 +161,22 @@ public class CadastroCliente extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Cadastro de Clientes");
+        jLabel2.setText("Manage Customer");
 
         jPanel3.setBackground(new java.awt.Color(0, 131, 73));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Nome:");
+        jLabel3.setText("Name:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Endereço:");
+        jLabel5.setText("Address:");
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Contato 1:");
+        jLabel8.setText("Phone 1:");
 
         jTNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -240,7 +240,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Contato 2:");
+        jLabel10.setText("Phone 2:");
 
         try{
             try {
@@ -284,7 +284,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                             .addComponent(jTEndereco)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -325,40 +325,36 @@ public class CadastroCliente extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 131, 73));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/disk.png"))); // NOI18N
-        jButton1.setText("Salvar");
+        jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/page_white.png"))); // NOI18N
-        jButton2.setText("Novo");
+        jButton2.setText("New");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/table_edit.png"))); // NOI18N
-        jButton3.setText("Editar");
+        jButton3.setText("Edit");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/delete.png"))); // NOI18N
-        jButton4.setText("Excluir");
+        jButton4.setText("Delet");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -369,8 +365,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(142, 142, 142)
                 .addComponent(jButton1)
                 .addGap(37, 37, 37)
                 .addComponent(jButton2)
@@ -378,7 +374,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addGap(37, 37, 37)
                 .addComponent(jButton4)
-                .addGap(88, 88, 88))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton2, jButton3, jButton4});
@@ -435,7 +431,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(251, 251, 251)
+                .addGap(242, 242, 242)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -489,11 +485,11 @@ public class CadastroCliente extends javax.swing.JFrame {
                     CustomerDao d = new CustomerDao();
                     //Adiciona o novo Sócio no banco
                     d.add(s);
-                    JOptionPane.showMessageDialog(null, "Cliente Cadastrado com Sucesso!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Cliente registered with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                     //Limpa os TextFilds depois do Cadastro
                     Limpar();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -506,7 +502,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                         listarSocio();
                         Limpar();
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                     }
 
                 }
@@ -555,7 +551,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
 
         if ((cliente.isEmpty()) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Cliente com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "There is no Customer with name " + jTPesquisar.getText().toUpperCase() + " registered in database.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
 
         String[] linha = new String[]{null, null, null, null, null};
@@ -571,7 +567,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     public boolean Everificar() {
         if ((cliente.get(jTClientes.getSelectedRow()).getName().equals(jTNome.getText())) && (cliente.get(jTClientes.getSelectedRow()).getAddress().equals(jTEndereco.getText())) && (cliente.get(jTClientes.getSelectedRow()).getContact1().equals(jTTelefone.getText())) && (cliente.get(jTClientes.getSelectedRow()).getContact2().equals(jTTelefone1.getText())) && (cliente.get(jTClientes.getSelectedRow()).getCpf().equals(jTCpf.getText()))) {
-            JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No data was modified!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
             return true;
@@ -588,7 +584,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         try {
             listarSocio();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTPesquisarKeyTyped
 
@@ -602,7 +598,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             Habilitar();
             salvar = 1;
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Cliente na tabela para poder Editar!", "..: SGA :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You need to select a customer in the table to edit!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -610,7 +606,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (jTClientes.getSelectedRow() != -1) {
             Excluir();
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Cliente na Tabela para poder Excluir!", "..: SGA :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You need to select a customer in the table to delete!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
         MostrarQtdClientes();
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -664,7 +660,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             m.setCpf(jTCpf.getText());
 
             dao.update(m);
-            JOptionPane.showMessageDialog(null, "Cliente Alterado com SUCESSO!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Customer edited with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
             Desabilitar();
 
@@ -673,16 +669,16 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     //Metodo para excluir o sócio 
     public void Excluir() {
-        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente excluir o Cliente " + jTNome.getText().toUpperCase(), "..: SGA :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int a = JOptionPane.showConfirmDialog(null, "Do you really want to delete the customer " + jTNome.getText().toUpperCase()+"?", "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
                 CustomerDao m = new CustomerDao();
                 m.delete(cliente.get(jTClientes.getSelectedRow()));
-                JOptionPane.showMessageDialog(null, "Cliente excluido(a) com sucesso!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Customer deleted with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                 jTPesquisar.setText("");
                 listarSocio();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -734,7 +730,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 Desabilitar();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGA", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro to get values from table! \n\r ERROR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -745,7 +741,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             CustomerDao dao = new CustomerDao();
             jTTotal.setText(String.valueOf(dao.getAmountCustumers()));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de clientes!", "..: SGA :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro to count clients total!", "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 

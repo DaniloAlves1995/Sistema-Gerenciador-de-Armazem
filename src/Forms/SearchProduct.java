@@ -6,8 +6,7 @@
 package Forms;
 
 import DAO.ProductDao;
-import Entidades.Product;
-import java.awt.Color;
+import Entities.Product;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -30,9 +29,9 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
-public class BuscarProduto extends javax.swing.JFrame {
+public class SearchProduct extends javax.swing.JFrame {
 
-    private final DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço"});
+    private final DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Name", "Price"});
     private ListSelectionModel lsmProduto;
     private List<Product> produtos;
     private char l;
@@ -44,16 +43,16 @@ public class BuscarProduto extends javax.swing.JFrame {
     /**
      * Creates new form PesquisarSocio
      */
-    public BuscarProduto() {
+    public SearchProduct() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Buscar Produto - SGE");
+        this.setTitle("Search Product - WMS");
         ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
         this.setIconImage(imagemTituloJanela.getImage());
 
-        //Desabilita os TextFilds
-        jTNome.setEditable(false);
-        jTPreco.setEditable(false);
+        //Disable TextFilds
+        jTName.setEditable(false);
+        jTPrice.setEditable(false);
     }
 
     /**
@@ -69,41 +68,41 @@ public class BuscarProduto extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTPesquisar = new javax.swing.JTextField();
+        jTSearch = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTNome = new javax.swing.JTextField();
-        jTPreco = new javax.swing.JTextField();
+        jTName = new javax.swing.JTextField();
+        jTPrice = new javax.swing.JTextField();
         jBOk = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTProduto = new javax.swing.JTable();
+        jTProduct = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Produto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial", 0, 24))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search Product", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Arial", 0, 24))); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(0, 131, 73));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Pesquisar por:");
+        jLabel1.setText("Search by:");
 
-        jTPesquisar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTSearch.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyReleased(evt);
+                jTSearchKeyReleased(evt);
             }
         });
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Nome:");
+        jLabel10.setText("Name:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -118,7 +117,7 @@ public class BuscarProduto extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -128,7 +127,7 @@ public class BuscarProduto extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -139,15 +138,15 @@ public class BuscarProduto extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Nome:");
+        jLabel3.setText("Name:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Preço(R$):");
+        jLabel5.setText("Price(R$):");
 
-        jTNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        jTPreco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTPrice.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -164,8 +163,8 @@ public class BuscarProduto extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTName, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
         jPanel4Layout.setVerticalGroup(
@@ -174,17 +173,17 @@ public class BuscarProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jBOk.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jBOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/add.png"))); // NOI18N
-        jBOk.setText("Adicionar");
+        jBOk.setText("Add");
         jBOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBOkActionPerformed(evt);
@@ -193,26 +192,26 @@ public class BuscarProduto extends javax.swing.JFrame {
 
         jBCancelar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jBCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancel.png"))); // NOI18N
-        jBCancelar.setText("Cancelar");
+        jBCancelar.setText("Cancel");
         jBCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBCancelarActionPerformed(evt);
             }
         });
 
-        jTProduto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTProduto.setModel(tmProduto);
-        jTProduto.setSelectionBackground(new java.awt.Color(0, 131, 73));
-        jTProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lsmProduto = jTProduto.getSelectionModel();
-        lsmProduto.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTProduto); } }
+        jTProduct.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTProduct.setModel(tmProduto);
+        jTProduct.setSelectionBackground(new java.awt.Color(0, 131, 73));
+        jTProduct.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lsmProduto = jTProduct.getSelectionModel();
+        lsmProduto.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTProduct); } }
         });
-        jTProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyPressed(evt);
+                jTProductKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTProduto);
+        jScrollPane1.setViewportView(jTProduct);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -221,12 +220,12 @@ public class BuscarProduto extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(156, 156, 156)
                 .addComponent(jBOk)
                 .addGap(29, 29, 29)
                 .addComponent(jBCancelar)
-                .addGap(115, 115, 115))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,16 +261,16 @@ public class BuscarProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyReleased
+    private void jTSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSearchKeyReleased
         this.l = evt.getKeyChar();
         if (evt.getKeyCode() == 40)
-            jTProduto.requestFocus();
+            jTProduct.requestFocus();
         try {
             listarProduto();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "SGE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "WMS", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jTPesquisarKeyReleased
+    }//GEN-LAST:event_jTSearchKeyReleased
 
     private void jBOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOkActionPerformed
         this.confirmButton();
@@ -281,23 +280,23 @@ public class BuscarProduto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jBCancelarActionPerformed
 
-    private void jTProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyPressed
+    private void jTProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyPressed
         if (evt.getKeyCode() == 10)
             this.confirmButton();
-    }//GEN-LAST:event_jTProdutoKeyPressed
+    }//GEN-LAST:event_jTProductKeyPressed
 
     //press ok button
     private void confirmButton(){
-        if (jTProduto.getSelectedRow() != -1) {
+        if (jTProduct.getSelectedRow() != -1) {
             switch(tipo){
                 case 0:
-                    entradae.SetProduto(produtos.get(jTProduto.getSelectedRow()));
+                    entradae.SetProduto(produtos.get(jTProduct.getSelectedRow()));
                     break;
                 case 1:
-                    svenda.SetProduto(produtos.get(jTProduto.getSelectedRow()));
+                    svenda.SetProduto(produtos.get(jTProduct.getSelectedRow()));
                     break;
                 case 2:
-                    producao.SetProduto(produtos.get(jTProduto.getSelectedRow()));
+                    producao.SetProduto(produtos.get(jTProduct.getSelectedRow()));
                     break;       
             }
             this.dispose();
@@ -338,23 +337,22 @@ public class BuscarProduto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+     
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarProduto().setVisible(true);
+                new SearchProduct().setVisible(true);
             }
         });
     }
@@ -371,16 +369,16 @@ public class BuscarProduto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTNome;
-    private javax.swing.JTextField jTPesquisar;
-    private javax.swing.JTextField jTPreco;
-    private javax.swing.JTable jTProduto;
+    private javax.swing.JTextField jTName;
+    private javax.swing.JTextField jTPrice;
+    private javax.swing.JTable jTProduct;
+    private javax.swing.JTextField jTSearch;
     // End of variables declaration//GEN-END:variables
 
     //Realiza a pesquisa do valor digitado no banco
     protected void listarProduto() throws SQLException {
         ProductDao me = new ProductDao();
-        produtos = me.getList("%" + jTPesquisar.getText() + "%");
+        produtos = me.getList("%" + jTSearch.getText() + "%");
         mostraPesquisa(produtos);
     }
 
@@ -393,7 +391,7 @@ public class BuscarProduto extends javax.swing.JFrame {
         int a = 1;
 
         if (((produtos.isEmpty())) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Produto com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "The is no product with name " + jTSearch.getText().toUpperCase() + " in the database.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         } else {
 
             if (produtos.isEmpty() == false) {
@@ -412,12 +410,12 @@ public class BuscarProduto extends javax.swing.JFrame {
     //Metodo para pagar o valor da linha selecionada
     private void jTTabelaLinhaSelecionada(JTable tabela) {
         try {
-            if (jTProduto.getSelectedRow() != -1) {
-                jTNome.setText(produtos.get(tabela.getSelectedRow()).getProduct());
-                jTPreco.setText(produtos.get(tabela.getSelectedRow()).getPrice() + "");
+            if (jTProduct.getSelectedRow() != -1) {
+                jTName.setText(produtos.get(tabela.getSelectedRow()).getProduct());
+                jTPrice.setText(produtos.get(tabela.getSelectedRow()).getPrice() + "");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro to get values from the table! \n\r ERROR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

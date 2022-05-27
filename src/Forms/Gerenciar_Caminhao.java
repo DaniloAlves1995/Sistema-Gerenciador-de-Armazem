@@ -6,7 +6,7 @@
 package Forms;
 
 import DAO.TruckDao;
-import Entidades.Truck;
+import Entities.Truck;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;

@@ -5,8 +5,8 @@
  */
 package DAO;
 
-import Conexao.CreateConnection;
-import Entidades.Truck;
+import Connection.CreateConnection;
+import Entities.Truck;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
