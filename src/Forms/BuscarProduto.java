@@ -6,7 +6,7 @@
 package Forms;
 
 import DAO.ProductDao;
-import Entidades.Produto;
+import Entidades.Product;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
@@ -34,7 +34,7 @@ public class BuscarProduto extends javax.swing.JFrame {
 
     private final DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço"});
     private ListSelectionModel lsmProduto;
-    private List<Produto> produtos;
+    private List<Product> produtos;
     private char l;
     private Entrada_Estoque entradae;
     private SaidaVenda svenda;
@@ -385,7 +385,7 @@ public class BuscarProduto extends javax.swing.JFrame {
     }
 
     //Mostra a pesquisa na tabela
-    private void mostraPesquisa(List<Produto> produto) {
+    private void mostraPesquisa(List<Product> produto) {
 
         while (tmProduto.getRowCount() > 0) {
             tmProduto.removeRow(0);
@@ -401,8 +401,8 @@ public class BuscarProduto extends javax.swing.JFrame {
                 for (int i = 0; i < produtos.size(); i++) {
                     tmProduto.addRow(linha);
                     tmProduto.setValueAt(produtos.get(i).getId(), i, 0);
-                    tmProduto.setValueAt(produtos.get(i).getProduto(), i, 1);
-                    tmProduto.setValueAt(produtos.get(i).getPreco(), i, 2);
+                    tmProduto.setValueAt(produtos.get(i).getProduct(), i, 1);
+                    tmProduto.setValueAt(produtos.get(i).getPrice(), i, 2);
                 }
             }
 
@@ -413,8 +413,8 @@ public class BuscarProduto extends javax.swing.JFrame {
     private void jTTabelaLinhaSelecionada(JTable tabela) {
         try {
             if (jTProduto.getSelectedRow() != -1) {
-                jTNome.setText(produtos.get(tabela.getSelectedRow()).getProduto());
-                jTPreco.setText(produtos.get(tabela.getSelectedRow()).getPreco() + "");
+                jTNome.setText(produtos.get(tabela.getSelectedRow()).getProduct());
+                jTPreco.setText(produtos.get(tabela.getSelectedRow()).getPrice() + "");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);

@@ -3,8 +3,8 @@ package DAO;
 import java.sql.Connection;
 
 import Conexao.CreateConnection;
-import Entidades.Saida;
-import Entidades.Venda;
+import Entidades.OutStock;
+import Entidades.Sale;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,24 +29,24 @@ public class SaleDao {
         this.connection = (Connection) CreateConnection.getConnection();
     }
 
-    public void add(Venda m1) throws SQLException {
+    public void add(Sale m1) throws SQLException {
         String sql = "insert into venda(id_s, id_p, preco, qtd, valor_p) "
                 + "values(?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, m1.getId_s());
-            stmt.setInt(2, m1.getId_p());
-            stmt.setDouble(3, m1.getPreco());
-            stmt.setInt(4, m1.getQtd());
-            stmt.setDouble(5, m1.getValor_p());
+            stmt.setInt(1, m1.getId_outStock());
+            stmt.setInt(2, m1.getId_prod());
+            stmt.setDouble(3, m1.getPrice());
+            stmt.setInt(4, m1.getAmount());
+            stmt.setDouble(5, m1.getValueProduct());
 
             stmt.execute();
         }
     }
 
-    public List<Venda> getList(int id_s) throws SQLException {
+    public List<Sale> getList(int id_s) throws SQLException {
         String sql = "select * from venda WHERE id_s=?";
         ResultSet rs;
-        List<Venda> ma;
+        List<Sale> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
 
             stmt.setInt(1, id_s);
@@ -54,14 +54,14 @@ public class SaleDao {
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
-                Venda m = new Venda();
+                Sale m = new Sale();
 
-                m.setId_v(rs.getInt("id_v"));
-                m.setId_p(rs.getInt("id_p"));
-                m.setId_s(rs.getInt("id_s"));
-                m.setPreco(rs.getDouble("preco"));
-                m.setQtd(rs.getInt("qtd"));
-                m.setValor_p(rs.getDouble("valor_p"));
+                m.setId_sale(rs.getInt("id_v"));
+                m.setId_prod(rs.getInt("id_p"));
+                m.setId_outStock(rs.getInt("id_s"));
+                m.setPrice(rs.getDouble("preco"));
+                m.setAmount(rs.getInt("qtd"));
+                m.setValueProduct(rs.getDouble("valor_p"));
 
                 ma.add(m);
             }
@@ -71,24 +71,24 @@ public class SaleDao {
         return ma;
     }
 
-    public void update(Venda m) throws SQLException {
+    public void update(Sale m) throws SQLException {
         String sql = "update venda set id_p=?, preco=?, qtd=?, valor_p=?"
                 + " where id_v=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setInt(1, m.getId_p());
-            stmt.setDouble(2, m.getPreco());
-            stmt.setInt(3, m.getQtd());
-            stmt.setDouble(4, m.getValor_p());
-            stmt.setInt(5, m.getId_v());
+            stmt.setInt(1, m.getId_prod());
+            stmt.setDouble(2, m.getPrice());
+            stmt.setInt(3, m.getAmount());
+            stmt.setDouble(4, m.getValueProduct());
+            stmt.setInt(5, m.getId_sale());
 
             stmt.execute();
         }
     }
 
-    public void deleteBySale(Venda m) throws SQLException {
+    public void deleteBySale(Sale m) throws SQLException {
         String sql = "delete from venda where id_v=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setInt(1, m.getId_v());
+            stmt.setInt(1, m.getId_sale());
             stmt.execute();
         }
     }
@@ -138,12 +138,12 @@ public class SaleDao {
         return qtd;
     }
 
-    public int getAmountProductsOut(List<Saida> lists, int id_p) throws SQLException {
+    public int getAmountProductsOut(List<OutStock> lists, int id_p) throws SQLException {
 
         //montando String SQL dinamicamente
         String sql = "select SUM(qtd) from venda WHERE id_p=" + id_p + " and (";
         for (int i = 0; i < lists.size(); i++)
-            sql = (i == 0) ? sql + "id_s=" + lists.get(i).getId_s() : sql + " or id_s=" + lists.get(i).getId_s();
+            sql = (i == 0) ? sql + "id_s=" + lists.get(i).getId_outStock() : sql + " or id_s=" + lists.get(i).getId_outStock();
 
         sql += ");";
 
@@ -161,18 +161,18 @@ public class SaleDao {
         return qtd;
     }
 
-    public List<Venda> getProductsOut(List<Saida> listas) throws SQLException {
+    public List<Sale> getProductsOut(List<OutStock> listas) throws SQLException {
         String sql = "select distinct id_p from venda WHERE ";
         for (int i = 0; i < listas.size(); i++)
-            sql += (i == 0) ? "id_s=" + listas.get(i).getId_s() : " or id_s=" + listas.get(i).getId_s();
+            sql += (i == 0) ? "id_s=" + listas.get(i).getId_outStock() : " or id_s=" + listas.get(i).getId_outStock();
         ResultSet rs;
-        List<Venda> lista;
+        List<Sale> lista;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             rs = stmt.executeQuery();
             lista = new ArrayList<>();
             while (rs.next()) {
-                Venda v = new Venda();
-                v.setId_p(rs.getInt("id_p"));
+                Sale v = new Sale();
+                v.setId_prod(rs.getInt("id_p"));
 
                 lista.add(v);
             }

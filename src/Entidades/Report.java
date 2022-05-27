@@ -29,24 +29,25 @@ import net.sf.jasperreports.view.JasperViewer;
  * ------------- ..::Danilo Alves Oliveira::.. ------------- *
  * ***********************************************************
  * 
- *@Desenvolvedor Danilo Alves
+ *@Developer Danilo Alves
  * 
  */
-public class Relatorio {
+
+public class Report {
     private String sql;
-    private String nome;
+    private String name;
     private String local;
-    private String tipo;
-    private String titulo;
+    private String type;
+    private String title;
     private ConectionReport con;
     
-    public Relatorio(){
+    public Report(){
         //diretorio para salvar
-        File dir = new File("c:/SGA");
+        File dir = new File("c:/WMS");
         if (!dir.exists()) {
             dir.mkdir();
         }
-        File l = new File("c:/SGA/Relatorios");
+        File l = new File("c:/WMS/Reports");
         if (!l.exists()) {
             l.mkdir();
         }
@@ -63,80 +64,80 @@ public class Relatorio {
         this.sql = sql;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getType() {
+        return type;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipo(String type) {
+        this.type = type;
     }
     
-    public String getTitulo() {
-        return titulo;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTitle(String title) {
+        this.title = title;
     }
     
-    public void gerarRelatorio(){
-        File li = new File("c:/SGA/Relatorios/"+this.tipo);
+    public void generateReport(){
+        File li = new File("c:/WMS/Reports/"+this.type);
         if (!li.exists()) {
             li.mkdir();
         }
 
-        String MostrarRelatorio;
-        String path = "c:/SGA/Relatorios/"+this.tipo+"/";
+        String showReport;
+        String path = "c:/WMS/Reports/"+this.type+"/";
         try {
             con.connect();
             con.executeSQL(this.sql);
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
-            //referencia o jasper
-            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/"+this.tipo+".jasper"), new HashMap(), jrRS);
+            //reference the jasper
+            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/"+this.type+".jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle(this.titulo+" - .: SGA :.");
+            jv.setTitle(this.title+" - .: WMS :.");
             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             
-            File arq = new File(path + this.nome + ".pdf");
-            boolean salvarPdf = false;
+            File arq = new File(path + this.name + ".pdf");
+            boolean savePDF = false;
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + this.nome + ".pdf já existe.\n Dezeja substitui-lo?", "SGA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "The Report " + this.name + ".pdf already exists.\n Do you want to replace?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION)
-                    salvarPdf = true; 
+                    savePDF = true; 
             } else
-                salvarPdf = true;
+                savePDF = true;
             
-            if (salvarPdf){
-                JasperExportManager.exportReportToPdfFile(jp, path + this.nome + ".pdf");
-                MostrarRelatorio = path + this.nome + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + this.nome + ".pdf", "SGA", JOptionPane.INFORMATION_MESSAGE);
+            if (savePDF){
+                JasperExportManager.exportReportToPdfFile(jp, path + this.name + ".pdf");
+                showReport = path + this.name + ".pdf";
+                JOptionPane.showMessageDialog(null, "Operation complete with success!\n Save at: " + path + this.name + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + Arrays.toString(e.getStackTrace()), "SGA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error to access the file! \n\r ERRO:" + Arrays.toString(e.getStackTrace()), "WMS", JOptionPane.ERROR_MESSAGE);
                 }
             }  
         } catch (HeadlessException | JRException erro) {
-            JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGA", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error!" + erro, "WMS", JOptionPane.INFORMATION_MESSAGE);
         }
     
     }
     
-    public String getData(){
-        Date data = new Date();
+    public String getDate(){
+        Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
-        return df.format(data);
+        return df.format(date);
     }
 }

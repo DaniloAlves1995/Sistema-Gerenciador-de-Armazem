@@ -3,7 +3,7 @@ package DAO;
 import java.sql.Connection;
 
 import Conexao.CreateConnection;
-import Entidades.Cliente;
+import Entidades.Customer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * 
  */
 
-public class CustomerDao implements InterfaceBasicDB<Cliente>{
+public class CustomerDao implements InterfaceBasicDB<Customer>{
 
   
     private final Connection connection;
@@ -34,15 +34,15 @@ public class CustomerDao implements InterfaceBasicDB<Cliente>{
 
 
     @Override
-    public void add(Cliente m1) {
+    public void add(Customer m1) {
         String sql = "insert into cliente(nome, endereco, cpf, contato1, contato2) "
                 + "values(?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, m1.getNome().toUpperCase());
-            stmt.setString(2, m1.getEndereco().toUpperCase());
+            stmt.setString(1, m1.getName().toUpperCase());
+            stmt.setString(2, m1.getAddress().toUpperCase());
             stmt.setString(3, m1.getCpf());
-            stmt.setString(4, m1.getContato1());
-            stmt.setString(5, m1.getContato2());
+            stmt.setString(4, m1.getContact1());
+            stmt.setString(5, m1.getContact2());
 
             stmt.execute();
         } catch (SQLException ex) {
@@ -50,23 +50,23 @@ public class CustomerDao implements InterfaceBasicDB<Cliente>{
         }
     }
 
-    public List<Cliente> getList(String dado) {
+    public List<Customer> getList(String dado) {
         String sql = "select * from cliente WHERE nome LIKE ?";
         ResultSet rs;
-        List<Cliente> ma = null;
+        List<Customer> ma = null;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, "%"+dado+"%");
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
-                Cliente m = new Cliente();
+                Customer m = new Customer();
 
                 m.setId(rs.getInt("id_c"));
-                m.setNome(rs.getString("nome"));
-                m.setEndereco(rs.getString("endereco"));
+                m.setName(rs.getString("nome"));
+                m.setAddress(rs.getString("endereco"));
                 m.setContato1(rs.getString("contato1"));
-                m.setContato2(rs.getString("contato2"));
+                m.setContact2(rs.getString("contato2"));
                 m.setCpf(rs.getString("cpf"));
 
                 ma.add(m);
@@ -80,23 +80,23 @@ public class CustomerDao implements InterfaceBasicDB<Cliente>{
         return ma;
     }
 
-    public List<Cliente> getListByAddress(String address) throws SQLException {
+    public List<Customer> getListByAddress(String address) throws SQLException {
         String sql = "select * from cliente WHERE endereco LIKE ?";
         ResultSet rs;
-        List<Cliente> ma;
+        List<Customer> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, "%"+address+"%");
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
-                Cliente m = new Cliente();
+                Customer m = new Customer();
 
                 m.setId(rs.getInt("id_c"));
-                m.setNome(rs.getString("nome"));
-                m.setEndereco(rs.getString("endereco"));
+                m.setName(rs.getString("nome"));
+                m.setAddress(rs.getString("endereco"));
                 m.setContato1(rs.getString("contato1"));
-                m.setContato2(rs.getString("contato2"));
+                m.setContact2(rs.getString("contato2"));
                 m.setCpf(rs.getString("cpf"));
 
                 ma.add(m);
@@ -108,15 +108,15 @@ public class CustomerDao implements InterfaceBasicDB<Cliente>{
     }
 
     @Override
-    public void update(Cliente m)  {
+    public void update(Customer m)  {
         String sql = "update cliente set nome=?, endereco=?, cpf=?, contato1=?, contato2=?"
                 + " where id_c=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setString(1, m.getNome().toUpperCase());
-            stmt.setString(2, m.getEndereco().toUpperCase());
+            stmt.setString(1, m.getName().toUpperCase());
+            stmt.setString(2, m.getAddress().toUpperCase());
             stmt.setString(3, m.getCpf());
-            stmt.setString(4, m.getContato1());
-            stmt.setString(5, m.getContato2());
+            stmt.setString(4, m.getContact1());
+            stmt.setString(5, m.getContact2());
             stmt.setInt(6, m.getId());
 
             stmt.execute();
@@ -126,7 +126,7 @@ public class CustomerDao implements InterfaceBasicDB<Cliente>{
     }
 
     @Override
-    public void delete(Cliente m)  {
+    public void delete(Customer m)  {
         String sql = "delete from cliente where id_c=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId());
@@ -150,21 +150,21 @@ public class CustomerDao implements InterfaceBasicDB<Cliente>{
         return amount;
     }
 
-    public Cliente getCustumer(int id) throws SQLException {
+    public Customer getCustumer(int id) throws SQLException {
         String sql = "select * from cliente WHERE id_c=?";
         ResultSet rs;
-        Cliente m;
+        Customer m;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
 
             rs = stmt.executeQuery();
-            m = new Cliente();
+            m = new Customer();
             while (rs.next()) {
                 m.setId(rs.getInt("id_c"));
-                m.setNome(rs.getString("nome"));
-                m.setEndereco(rs.getString("endereco"));
+                m.setName(rs.getString("nome"));
+                m.setAddress(rs.getString("endereco"));
                 m.setContato1(rs.getString("contato1"));
-                m.setContato2(rs.getString("contato2"));
+                m.setContact2(rs.getString("contato2"));
                 m.setCpf(rs.getString("cpf"));
             }
         }

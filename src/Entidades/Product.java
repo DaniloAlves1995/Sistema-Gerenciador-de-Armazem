@@ -12,31 +12,46 @@ package Entidades;
  * ------------- ..::Danilo Alves Oliveira::.. ------------- *
  * ***********************************************************
  * 
- *@Desenvolvedor Danilo Alves
+ *@Developer Danilo Alves
  * 
  */
-           //<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-           //</editor-fold>
-                  //<editor-fold defaultstate="collapsed" desc="Tecnology Java SE">
-                  //</editor-fold>
-public class Cliente extends Pessoa{
+
+public class Product {
     private int Id;
-    private String Cpf;
-   
-    public String getCpf() {
-        return Cpf;
+    private String product;
+    private double price;
+    private String note;
+
+    public String getNote() {
+        return note;
     }
 
-    public void setCpf(String Cpf) {
-        this.Cpf = Cpf;
+    public void setNote(String obs) {
+        this.note = obs;
     }
-    
+
     public int getId() {
         return Id;
     }
 
     public void setId(int Id) {
         this.Id = Id;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String Produto) {
+        this.product = Produto;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double Price) {
+        this.price = Price;
     }
     
 }

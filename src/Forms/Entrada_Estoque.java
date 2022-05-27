@@ -6,8 +6,8 @@
 package Forms;
 
 import DAO.StockDao;
-import Entidades.Estoque;
-import Entidades.Produto;
+import Entidades.Stock;
+import Entidades.Product;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -34,8 +34,8 @@ public class Entrada_Estoque extends javax.swing.JFrame {
      * Creates new form Entrada_Estoque
      */
     //Produto que está entrando em estoque
-    private Produto produto;
-    private Estoque estoque;
+    private Product produto;
+    private Stock estoque;
     private int la;
 
     public Entrada_Estoque() {
@@ -319,24 +319,24 @@ public class Entrada_Estoque extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTQtd_entKeyPressed
     //metodo para adicionar o produto
-    public void SetProduto(Produto p) {
+    public void SetProduto(Product p) {
         this.produto = p;
         //preenche os campos do produto
-        jTProduto.setText(produto.getProduto());
+        jTProduto.setText(produto.getProduct());
         jTQtd_ent.setText("");
         try {
             //busca a qtd desse produto em estoque
             StockDao edao = new StockDao();
             this.estoque = edao.getStock(produto.getId());
             if (estoque == null) {
-                Estoque e = new Estoque();
+                Stock e = new Stock();
                 e.setId_p(produto.getId());
-                e.setQtd(0);
+                e.setAmount(0);
                 edao.add(e);
 
                 this.estoque = edao.getStock(produto.getId());
             }
-            jTQtd_es.setText(estoque.getQtd() + "");
+            jTQtd_es.setText(estoque.getAmount() + "");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
@@ -351,16 +351,16 @@ public class Entrada_Estoque extends javax.swing.JFrame {
                     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
                     //editar na tabela do estoque corrente
                     StockDao edao = new StockDao();
-                    Estoque e = new Estoque();
-                    e.setId_e(estoque.getId_e());
+                    Stock e = new Stock();
+                    e.setId_stock(estoque.getId_stock());
                     e.setId_p(estoque.getId_p());
                     int qtd = Integer.parseInt(jTQtd_es.getText()) + Integer.parseInt(jTQtd_ent.getText());
-                    e.setQtd(qtd);
+                    e.setAmount(qtd);
                     edao.update(e);
 
                     //adiciona na tabela do histórico de entradas
-                    e.setQtd(Integer.parseInt(jTQtd_ent.getText()));
-                    e.setData(sf.format(new Date()));
+                    e.setAmount(Integer.parseInt(jTQtd_ent.getText()));
+                    e.setDate(sf.format(new Date()));
                     edao.addStockIn(e);
 
                     jTQtd_es.setText(qtd + "");

@@ -10,11 +10,11 @@ import DAO.ProductDao;
 import DAO.OutStockDao;
 import DAO.SaleDao;
 import DAO.SalesmanDao;
-import Entidades.Cliente;
-import Entidades.Produto;
-import Entidades.Saida;
-import Entidades.Venda;
-import Entidades.Vendedor;
+import Entidades.Customer;
+import Entidades.Product;
+import Entidades.OutStock;
+import Entidades.Sale;
+import Entidades.Salesman;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,13 +40,13 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class DetalhesVenda extends javax.swing.JFrame {
 
-    private List<Venda> venda, vendas;//lista utilizada para armazenar as vendas da tabela
+    private List<Sale> venda, vendas;//lista utilizada para armazenar as vendas da tabela
     private DefaultListModel dlista, dlistam;
     private DefaultTableModel tmVendas = new DefaultTableModel(null, new String[]{"Produto", "Quantidade", "Preço(R$)"});
-    private Produto produto = null;
-    private List<Vendedor> vendedores;
+    private Product produto = null;
+    private List<Salesman> vendedores;
     private int idcliente;
-    private Saida nota;
+    private OutStock nota;
     private boolean veri = false;
     
     public int id;
@@ -73,7 +73,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
         jComboBox2.setEnabled(false);
 
         //inicializa a lista vendas
-        venda = new ArrayList<Venda>();
+        venda = new ArrayList<Sale>();
 
         //inicializa os DefaultListModels para ser utilizado no esfeito da pesquisa dinâmic do produto
         dlista = new DefaultListModel();
@@ -97,23 +97,23 @@ public class DetalhesVenda extends javax.swing.JFrame {
             Date d;
 
             OutStockDao da = new OutStockDao();
-            List<Saida> notas = da.getList(id + "", "", 1);
+            List<OutStock> notas = da.getList(id + "", "", 1);
             nota = notas.get(0);
-            jTNVenda.setText(notas.get(0).getId_s() + "");
+            jTNVenda.setText(notas.get(0).getId_outStock() + "");
             jTTotal.setText(notas.get(0).getTotal() + "");
-            d = df.parse(notas.get(0).getData());
+            d = df.parse(notas.get(0).getDate());
             jTData.setText(df2.format(d));
             CustomerDao cdao = new CustomerDao();
-            idcliente = notas.get(0).getId_c();
-            Cliente c = cdao.getCustumer(notas.get(0).getId_c());
-            jTCliente.setText(c.getNome());
-            jTEndereco.setText(c.getEndereco());
+            idcliente = notas.get(0).getId_customer();
+            Customer c = cdao.getCustumer(notas.get(0).getId_customer());
+            jTCliente.setText(c.getName());
+            jTEndereco.setText(c.getAddress());
             jTCpf.setText(c.getCpf());
-            jTContato1.setText(c.getContato1());
-            jTContato2.setText(c.getContato2());
+            jTContato1.setText(c.getContact1());
+            jTContato2.setText(c.getContact2());
             SalesmanDao vdao = new SalesmanDao();
-            Vendedor v = vdao.getSelesman(notas.get(0).getId_fun());
-            jComboBox2.setSelectedItem(v.getNome());
+            Salesman v = vdao.getSelesman(notas.get(0).getId_salesman());
+            jComboBox2.setSelectedItem(v.getName());
 
             listarVendas();
         } catch (SQLException ex) {
@@ -130,7 +130,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
         mostraPesquisaVenda(vendas);
     }
 
-    private void mostraPesquisaVenda(List<Venda> vendas) {
+    private void mostraPesquisaVenda(List<Sale> vendas) {
 
         while (tmVendas.getRowCount() > 0) {
             tmVendas.removeRow(0);
@@ -141,10 +141,10 @@ public class DetalhesVenda extends javax.swing.JFrame {
             try {
                 tmVendas.addRow(linha);
                 ProductDao pdao = new ProductDao();
-                Produto p = pdao.getProduct(vendas.get(i).getId_p());
-                tmVendas.setValueAt(p.getProduto(), i, 0);
-                tmVendas.setValueAt(vendas.get(i).getQtd(), i, 1);
-                tmVendas.setValueAt(vendas.get(i).getPreco(), i, 2);
+                Product p = pdao.getProduct(vendas.get(i).getId_prod());
+                tmVendas.setValueAt(p.getProduct(), i, 0);
+                tmVendas.setValueAt(vendas.get(i).getAmount(), i, 1);
+                tmVendas.setValueAt(vendas.get(i).getPrice(), i, 2);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
@@ -813,11 +813,11 @@ public class DetalhesVenda extends javax.swing.JFrame {
         if (jTVendas.getSelectedRow() != -1) {
             try {
                 ProductDao pdao = new ProductDao();
-                Produto p = pdao.getProduct(vendas.get(jTVendas.getSelectedRow()).getId_p());
-                jTProduto.setText(p.getProduto());
-                jTPreco.setText(vendas.get(jTVendas.getSelectedRow()).getValor_p() + "");
-                jTQtd.setText(vendas.get(jTVendas.getSelectedRow()).getQtd() + "");
-                jTValor.setText(vendas.get(jTVendas.getSelectedRow()).getPreco() + "");
+                Product p = pdao.getProduct(vendas.get(jTVendas.getSelectedRow()).getId_prod());
+                jTProduto.setText(p.getProduct());
+                jTPreco.setText(vendas.get(jTVendas.getSelectedRow()).getValueProduct() + "");
+                jTQtd.setText(vendas.get(jTVendas.getSelectedRow()).getAmount() + "");
+                jTValor.setText(vendas.get(jTVendas.getSelectedRow()).getPrice() + "");
 
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
@@ -833,7 +833,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
         jTValor.setText("");
     }
 
-    private void atualizarTabela(List<Entidades.Venda> venda) {
+    private void atualizarTabela(List<Entidades.Sale> venda) {
 
         while (tmVendas.getRowCount() > 0) {
             tmVendas.removeRow(0);
@@ -847,16 +847,16 @@ public class DetalhesVenda extends javax.swing.JFrame {
             try {
                 //Pega o produto com o id na lista da venda
                 ProductDao dao = new ProductDao();
-                Produto p = dao.getProduct(venda.get(i).getId_p());
-                produto = p.getProduto();
-                preco = String.valueOf(p.getPreco());
+                Product p = dao.getProduct(venda.get(i).getId_prod());
+                produto = p.getProduct();
+                preco = String.valueOf(p.getPrice());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
             }
 
             tmVendas.setValueAt(produto, i, 0);
-            tmVendas.setValueAt(venda.get(i).getQtd(), i, 1);
-            tmVendas.setValueAt(venda.get(i).getPreco(), i, 2);
+            tmVendas.setValueAt(venda.get(i).getAmount(), i, 1);
+            tmVendas.setValueAt(venda.get(i).getPrice(), i, 2);
 
         }
     }
@@ -867,7 +867,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
             SalesmanDao a = new SalesmanDao();
             vendedores = a.getList("");
             for (int y = 0; y < vendedores.size(); y++) {
-                jComboBox2.addItem(vendedores.get(y).getNome());
+                jComboBox2.addItem(vendedores.get(y).getName());
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "SysGEM'S", JOptionPane.ERROR_MESSAGE);

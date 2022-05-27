@@ -10,10 +10,10 @@ import DAO.CustomerDao;
 import DAO.ProductDao;
 import DAO.OutStockDao;
 import DAO.SaleDao;
-import Entidades.Cliente;
-import Entidades.Estoque;
-import Entidades.Saida;
-import Entidades.Venda;
+import Entidades.Customer;
+import Entidades.Stock;
+import Entidades.OutStock;
+import Entidades.Sale;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
@@ -51,7 +51,7 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 public class PesquisarVendas extends javax.swing.JFrame {
 
-    private List<Saida> saidas;
+    private List<OutStock> saidas;
     private String d1, d2;
     private DefaultTableModel tmNota = new DefaultTableModel(null, new String[]{"Selecionar", "Nº", "Cliente", "Valor(R$)", "Data"}) {
         Class[] types = new Class[]{
@@ -325,7 +325,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTNota.getSelectedRow() != -1) {
             DetalhesVenda e = new DetalhesVenda();
-            e.SetId(saidas.get(jTNota.getSelectedRow()).getId_s());
+            e.SetId(saidas.get(jTNota.getSelectedRow()).getId_outStock());
             e.SetPesquisarVendas(this);
             e.Iniciar();
             e.show();
@@ -340,12 +340,12 @@ public class PesquisarVendas extends javax.swing.JFrame {
                 int op = JOptionPane.showConfirmDialog(null, "Você deseja excluir essa venda?", "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
                 if (op == 0) {
                     //Caso seja sim
-                    Saida a = saidas.get(jTNota.getSelectedRow());
+                    OutStock a = saidas.get(jTNota.getSelectedRow());
                     OutStockDao ndao = new OutStockDao();
                     ndao.delete(a);
 
                     SaleDao vdao = new SaleDao();
-                    vdao.deleteByOut(a.getId_s());
+                    vdao.deleteByOut(a.getId_outStock());
                     JOptionPane.showMessageDialog(null, "Venda excluida com sucesso!", "..: SGE :..", JOptionPane.QUESTION_MESSAGE);
                     pesquisar();
                 }
@@ -403,9 +403,9 @@ public class PesquisarVendas extends javax.swing.JFrame {
                 SaleDao vdao = new SaleDao();
 
                 ProductDao pdao = new ProductDao();
-                List<Saida> listas = new ArrayList<>();
-                List<Venda> listav = new ArrayList<>();
-                List<Estoque> listae = new ArrayList<>();
+                List<OutStock> listas = new ArrayList<>();
+                List<Sale> listav = new ArrayList<>();
+                List<Stock> listae = new ArrayList<>();
 
                 //fica somente com os ids das saidas selecionados
                 for (int i = 0; i < saidas.size(); i++) {
@@ -413,8 +413,8 @@ public class PesquisarVendas extends javax.swing.JFrame {
                         if (verificar == 0) {
                             verificar = 1;
                         }
-                        Saida s = new Saida();
-                        s.setId_s(saidas.get(i).getId_s());
+                        OutStock s = new OutStock();
+                        s.setId_outStock(saidas.get(i).getId_outStock());
                         listas.add(s);
                     }
                 }
@@ -426,10 +426,10 @@ public class PesquisarVendas extends javax.swing.JFrame {
                     listav = vdao.getProductsOut(listas);
                     OutStockDao sdao = new OutStockDao();
                     for (int i = 0; i < listav.size(); i++) {
-                        int qtd = vdao.getAmountProductsOut(listas, listav.get(i).getId_p());
-                        Estoque p = new Estoque();
-                        p.setId_p(listav.get(i).getId_p());
-                        p.setQtd(qtd);
+                        int qtd = vdao.getAmountProductsOut(listas, listav.get(i).getId_prod());
+                        Stock p = new Stock();
+                        p.setId_p(listav.get(i).getId_prod());
+                        p.setAmount(qtd);
 
                         //adiciona na tabela os valores para o resumo
                         sdao.adicionaPDFResumo(p);
@@ -463,7 +463,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
     }
 
     //Mostra a pesquisa na tabela de notas
-    private void mostrarSaidas(List<Saida> saidas) {
+    private void mostrarSaidas(List<OutStock> saidas) {
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
@@ -477,17 +477,17 @@ public class PesquisarVendas extends javax.swing.JFrame {
             for (int i = 0; i < saidas.size(); i++) {
                 try {
                     tmNota.addRow(linha);
-                    tmNota.setValueAt(saidas.get(i).getId_s(), i, 1);
-                    Cliente c = new Cliente();
+                    tmNota.setValueAt(saidas.get(i).getId_outStock(), i, 1);
+                    Customer c = new Customer();
                     try {
                         CustomerDao cdao = new CustomerDao();
-                        c = cdao.getCustumer(saidas.get(i).getId_c());
+                        c = cdao.getCustumer(saidas.get(i).getId_customer());
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
                     }
-                    tmNota.setValueAt(c.getNome(), i, 2);
+                    tmNota.setValueAt(c.getName(), i, 2);
                     tmNota.setValueAt(saidas.get(i).getTotal() + "", i, 3);
-                    d = df.parse(saidas.get(i).getData());
+                    d = df.parse(saidas.get(i).getDate());
                     tmNota.setValueAt(df2.format(d), i, 4);
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
@@ -646,7 +646,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
         } else {
             mess = "" + mes;
         }
-        String nome = "NOTA_VENDA_N_" + saidas.get(jTNota.getSelectedRow()).getId_s();
+        String nome = "NOTA_VENDA_N_" + saidas.get(jTNota.getSelectedRow()).getId_outStock();
         String arquivo = nome;
 
         ConectionReport con = new ConectionReport();
@@ -669,7 +669,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
         String path = "c:/SGE/Relatorios/NotasVendas/";
         try {
             con.connect();
-            con.executeSQL("select saida.*, produto.*, venda.*, cliente.*, funcionario.nome_fun from  saida, produto, venda, cliente, funcionario where saida.id_s=" + saidas.get(jTNota.getSelectedRow()).getId_s() + " and saida.id_s=venda.id_s and venda.id_p=produto.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
+            con.executeSQL("select saida.*, produto.*, venda.*, cliente.*, funcionario.nome_fun from  saida, produto, venda, cliente, funcionario where saida.id_s=" + saidas.get(jTNota.getSelectedRow()).getId_outStock() + " and saida.id_s=venda.id_s and venda.id_p=produto.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper

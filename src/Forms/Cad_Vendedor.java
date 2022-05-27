@@ -6,7 +6,7 @@
 package Forms;
 
 import DAO.SalesmanDao;
-import Entidades.Vendedor;
+import Entidades.Salesman;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -244,18 +244,18 @@ public class Cad_Vendedor extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //Verifica se ha algum campo vazio
         if (this.manageFields.checkFields()) {
-            //Cria um objeto Vendedor para setar os valores dos TextFilds
-            Vendedor s = new Vendedor();
+            //Cria um objeto Salesman para setar os valores dos TextFilds
+            Salesman s = new Salesman();
             //Seta os valores dos TextFilds
-            s.setNome(jTNome.getText());
-            s.setEndereco(jTEndereco.getText());
+            s.setName(jTNome.getText());
+            s.setAddress(jTEndereco.getText());
             s.setContato1(jTTelefone.getText());
-            s.setContato2(jTTelefone2.getText());
+            s.setContact2(jTTelefone2.getText());
 
             try {
-                //Cria um objeto DAO para inserir o novo Vendedor no banco
+                //Cria um objeto DAO para inserir o novo Salesman no banco
                 SalesmanDao d = new SalesmanDao();
-                //Adiciona o novo Vendedor no banco
+                //Adiciona o novo Salesman no banco
                 d.add(s);
                 JOptionPane.showMessageDialog(null, "Vendedor cadastrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
 

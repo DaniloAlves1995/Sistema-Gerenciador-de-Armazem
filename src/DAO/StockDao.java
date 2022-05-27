@@ -3,8 +3,8 @@ package DAO;
 import java.sql.Connection;
 
 import Conexao.CreateConnection;
-import Entidades.Estoque;
-import Entidades.Produto;
+import Entidades.Stock;
+import Entidades.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,11 +29,11 @@ public class StockDao {
         this.connection = (Connection) CreateConnection.getConnection();
     }
 
-    public void add(Estoque m1) throws SQLException {
+    public void add(Stock m1) throws SQLException {
         String sql = "insert into estoque(id_p, qtd) values(?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, m1.getId_p());
-            stmt.setInt(2, m1.getQtd());
+            stmt.setInt(2, m1.getAmount());
 
             stmt.execute();
         }
@@ -55,32 +55,32 @@ public class StockDao {
         }
     }
 
-    public void addStockIn(Estoque m1) throws SQLException {
+    public void addStockIn(Stock m1) throws SQLException {
         String sql = "insert into estoque_entrada(id_p, qtd, data) values(?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, m1.getId_p());
-            stmt.setInt(2, m1.getQtd());
-            stmt.setString(3, m1.getData());
+            stmt.setInt(2, m1.getAmount());
+            stmt.setString(3, m1.getDate());
 
             stmt.execute();
         }
     }
 
-    public List<Estoque> getList(String data) throws SQLException {
+    public List<Stock> getList(String data) throws SQLException {
         String sql = "select * from estoque WHERE id_p=?";
         ResultSet rs;
-        List<Estoque> ma;
+        List<Stock> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, data);
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
-                Estoque m = new Estoque();
+                Stock m = new Stock();
 
-                m.setId_e(rs.getInt("id_e"));
+                m.setId_stock(rs.getInt("id_e"));
                 m.setId_p(rs.getInt("id_p"));
-                m.setQtd(rs.getInt("qtd"));
+                m.setAmount(rs.getInt("qtd"));
 
                 ma.add(m);
             }
@@ -90,7 +90,7 @@ public class StockDao {
         return ma;
     }
 
-    public List<Estoque> getListStockIn(String data, String date, int tipo, String produto) throws SQLException {
+    public List<Stock> getListStockIn(String data, String date, int tipo, String produto) throws SQLException {
         String sql = "";
         if (tipo == 0)
             //seja produto especifico
@@ -100,7 +100,7 @@ public class StockDao {
         
 
         ResultSet rs;
-        List<Estoque> ma;
+        List<Stock> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, data);
             stmt.setString(2, date);
@@ -111,12 +111,12 @@ public class StockDao {
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
-                Estoque m = new Estoque();
+                Stock m = new Stock();
 
-                m.setId_e(rs.getInt("id_ee"));
+                m.setId_stock(rs.getInt("id_ee"));
                 m.setId_p(rs.getInt("id_p"));
-                m.setQtd(rs.getInt("qtd"));
-                m.setData(rs.getString("data"));
+                m.setAmount(rs.getInt("qtd"));
+                m.setDate(rs.getString("data"));
 
                 ma.add(m);
             }
@@ -126,20 +126,20 @@ public class StockDao {
         return ma;
     }
 
-    public void update(Estoque m) throws SQLException {
+    public void update(Stock m) throws SQLException {
         String sql = "update estoque set qtd=? where id_e=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setInt(1, m.getQtd());
-            stmt.setInt(2, m.getId_e());
+            stmt.setInt(1, m.getAmount());
+            stmt.setInt(2, m.getId_stock());
 
             stmt.execute();
         }
     }
 
-    public void delete(Estoque m) throws SQLException {
+    public void delete(Stock m) throws SQLException {
         String sql = "delete from produto where id_e=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setInt(1, m.getId_e());
+            stmt.setInt(1, m.getId_stock());
             stmt.execute();
         }
     }
@@ -158,39 +158,39 @@ public class StockDao {
         return amount;
     }
 
-    public Estoque getStock(int id_produto) throws SQLException {
+    public Stock getStock(int id_produto) throws SQLException {
         String sql = "select * from estoque where id_p=?";
-        Estoque m;
+        Stock m;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, id_produto);
 
             ResultSet rs = stmt.executeQuery();
-            m = new Estoque();
+            m = new Stock();
             while (rs.next()) {
-                m.setId_e(rs.getInt("id_e"));
+                m.setId_stock(rs.getInt("id_e"));
                 m.setId_p(rs.getInt("id_p"));
-                m.setQtd(rs.getInt("qtd"));
+                m.setAmount(rs.getInt("qtd"));
             }
-            if (m.getId_e() == 0) {
+            if (m.getId_stock() == 0) {
                 m = null;
             }
         }
         return m;
     }
 
-    public Produto getProduct(String name) throws SQLException {
+    public Product getProduct(String name) throws SQLException {
         String sql = "select * from produto where nome=?;";
-        Produto m;
+        Product m;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, name);
 
             ResultSet rs = stmt.executeQuery();
-            m = new Produto();
+            m = new Product();
             while (rs.next()) {
                 m.setId(rs.getInt("id_p"));
-                m.setProduto(rs.getString("nome"));
-                m.setPreco(rs.getDouble("preco"));
-                m.setObs(rs.getString("obs"));
+                m.setProduct(rs.getString("nome"));
+                m.setPrice(rs.getDouble("preco"));
+                m.setNote(rs.getString("obs"));
             }
         }
 

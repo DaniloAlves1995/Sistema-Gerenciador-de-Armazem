@@ -8,7 +8,7 @@ package Forms;
 import Conexao.ConectionReport;
 import DAO.StockDao;
 import DAO.ProductDao;
-import Entidades.Produto;
+import Entidades.Product;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +56,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
         }
     };
 
-    private List<Produto> produtos;
+    private List<Product> produtos;
 
     public RelatorioBranco() {
         initComponents();
@@ -76,7 +76,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
 
     }
 
-    public final void adicionarTabela(List<Produto> produtos) {
+    public final void adicionarTabela(List<Product> produtos) {
         try {
             while (tmProdutos.getRowCount() > 0) {
                 tmProdutos.removeRow(0);
@@ -89,8 +89,8 @@ public class RelatorioBranco extends javax.swing.JFrame {
                 tmProdutos.addRow(linha);
                 tmProdutos.setValueAt(Boolean.FALSE, i, 0);
                 tmProdutos.setValueAt(produtos.get(i).getId(), i, 1);
-                tmProdutos.setValueAt(produtos.get(i).getProduto(), i, 2);
-                tmProdutos.setValueAt(edao.getStock(produtos.get(i).getId()).getQtd(), i, 3);
+                tmProdutos.setValueAt(produtos.get(i).getProduct(), i, 2);
+                tmProdutos.setValueAt(edao.getStock(produtos.get(i).getId()).getAmount(), i, 3);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
@@ -211,7 +211,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int verificar = 0;
-        List<Produto> lista = new ArrayList<>();
+        List<Product> lista = new ArrayList<>();
         for (int i = 0; i < produtos.size(); i++) {
             if (Boolean.parseBoolean(tmProdutos.getValueAt(i, 0).toString()) == true) {
                 if (verificar == 0) {
@@ -278,7 +278,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     //Cria o relatorio em branco
-    private void relatorio(List<Produto> lista) {
+    private void relatorio(List<Product> lista) {
         Date data = new Date();
 
         int ano = data.getYear() + 1900;

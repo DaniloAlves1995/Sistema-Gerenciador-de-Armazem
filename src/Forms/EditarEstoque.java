@@ -7,8 +7,8 @@ package Forms;
 
 import DAO.StockDao;
 import DAO.ProductDao;
-import Entidades.Estoque;
-import Entidades.Produto;
+import Entidades.Stock;
+import Entidades.Product;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
@@ -36,7 +36,7 @@ public class EditarEstoque extends javax.swing.JFrame {
 
     private DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)", "Qtd estoque"});
     private ListSelectionModel lsmProduto;
-    private List<Produto> produto;
+    private List<Product> produto;
     private char l;
     private int salvar = 0;
 
@@ -406,8 +406,8 @@ public class EditarEstoque extends javax.swing.JFrame {
             if (verificar()) {
                 try {
                     StockDao edao = new StockDao();
-                    Estoque e = edao.getStock(produto.get(jTProdutos.getSelectedRow()).getId());
-                    e.setQtd(Integer.parseInt(jTQtd.getText()));
+                    Stock e = edao.getStock(produto.get(jTProdutos.getSelectedRow()).getId());
+                    e.setAmount(Integer.parseInt(jTQtd.getText()));
 
                     edao.update(e);
                     JOptionPane.showMessageDialog(null, "Estoque atualizado com sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
@@ -495,7 +495,7 @@ public class EditarEstoque extends javax.swing.JFrame {
         mostraPesquisa(produto);
     }
 
-    private void mostraPesquisa(List<Produto> produto) {
+    private void mostraPesquisa(List<Product> produto) {
 
         while (tmProduto.getRowCount() > 0) {
             tmProduto.removeRow(0);
@@ -509,8 +509,8 @@ public class EditarEstoque extends javax.swing.JFrame {
         for (int i = 0; i < produto.size(); i++) {
             tmProduto.addRow(linha);
             tmProduto.setValueAt(produto.get(i).getId(), i, 0);
-            tmProduto.setValueAt(produto.get(i).getProduto(), i, 1);
-            tmProduto.setValueAt(produto.get(i).getPreco(), i, 2);
+            tmProduto.setValueAt(produto.get(i).getProduct(), i, 1);
+            tmProduto.setValueAt(produto.get(i).getPrice(), i, 2);
             tmProduto.setValueAt(getqtdEstoque(produto.get(i).getId()) + "", i, 3);
         }
     }
@@ -518,8 +518,8 @@ public class EditarEstoque extends javax.swing.JFrame {
     private void jTTabelaLinhaSelecionada(JTable tabela) {
         try {
             if (jTProdutos.getSelectedRow() != -1) {
-                jTProduto.setText(produto.get(tabela.getSelectedRow()).getProduto());
-                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPreco() + "");
+                jTProduto.setText(produto.get(tabela.getSelectedRow()).getProduct());
+                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPrice() + "");
                 jTId.setText(produto.get(tabela.getSelectedRow()).getId() + "");
                 //busca a qtd desse produto em estoque
                 jTQtd.setText(getqtdEstoque(produto.get(tabela.getSelectedRow()).getId()) + "");
@@ -531,15 +531,15 @@ public class EditarEstoque extends javax.swing.JFrame {
 
     //pega a qtd de estoque de determinado produto
     public int getqtdEstoque(int id_prod) {
-        Estoque estoque = null;
+        Stock estoque = null;
         try {
             //busca a qtd desse produto em estoque
             StockDao edao = new StockDao();
             estoque = edao.getStock(id_prod);
             if (estoque == null) {
-                Estoque e = new Estoque();
+                Stock e = new Stock();
                 e.setId_p(id_prod);
-                e.setQtd(0);
+                e.setAmount(0);
                 edao.add(e);
                 estoque = edao.getStock(id_prod);
             }
@@ -547,7 +547,7 @@ public class EditarEstoque extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
         }
 
-        return estoque.getQtd();
+        return estoque.getAmount();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

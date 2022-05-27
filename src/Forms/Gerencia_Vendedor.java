@@ -6,7 +6,7 @@
 package Forms;
 
 import DAO.SalesmanDao;
-import Entidades.Vendedor;
+import Entidades.Salesman;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -40,7 +40,7 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
     private final ManageFields manageFields;
     private DefaultTableModel tmVendedor = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato 1"});
     private ListSelectionModel lsmVendedor;
-    private List<Vendedor> vendedor;
+    private List<Salesman> vendedor;
     private char l;
 
     public Gerencia_Vendedor() {
@@ -507,13 +507,13 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
     //Esse metodo serve para Alterar os valores do vendedor no banco
     private void alteraVendedor() throws SQLException {
         if (this.manageFields.checkFields()) {
-            Vendedor m = new Vendedor();
+            Salesman m = new Salesman();
             SalesmanDao dao = new SalesmanDao();
-            m.setId_vendedor(vendedor.get(jTVendedores.getSelectedRow()).getId_vendedor());
-            m.setNome(jTNome.getText());
-            m.setEndereco(jTEndereco.getText());
+            m.setId_salesman(vendedor.get(jTVendedores.getSelectedRow()).getId_salesman());
+            m.setName(jTNome.getText());
+            m.setAddress(jTEndereco.getText());
             m.setContato1(jTTelefone.getText());
-            m.setContato2(jTTelefone2.getText());
+            m.setContact2(jTTelefone2.getText());
 
             dao.update(m);
             JOptionPane.showMessageDialog(null, "Vendedor Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
@@ -522,7 +522,7 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
     }
 
     public boolean Everificar() {
-        if ((vendedor.get(jTVendedores.getSelectedRow()).getNome().equals(jTNome.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getEndereco().equals(jTEndereco.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getContato1().equals(jTTelefone.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getContato2().equals(jTTelefone2.getText()))) {
+        if ((vendedor.get(jTVendedores.getSelectedRow()).getName().equals(jTNome.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getAddress().equals(jTEndereco.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getContact1().equals(jTTelefone.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getContact2().equals(jTTelefone2.getText()))) {
             JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
@@ -609,7 +609,7 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         mostraPesquisa(vendedor);
     }
 
-    private void mostraPesquisa(List<Vendedor> vendedor) {
+    private void mostraPesquisa(List<Salesman> vendedor) {
 
         while (tmVendedor.getRowCount() > 0) {
             tmVendedor.removeRow(0);
@@ -622,10 +622,10 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         String[] linha = new String[]{null, null, null, null, null};
         for (int i = 0; i < vendedor.size(); i++) {
             tmVendedor.addRow(linha);
-            tmVendedor.setValueAt(vendedor.get(i).getId_vendedor(), i, 0);
-            tmVendedor.setValueAt(vendedor.get(i).getNome(), i, 1);
-            tmVendedor.setValueAt(vendedor.get(i).getEndereco(), i, 2);
-            tmVendedor.setValueAt(vendedor.get(i).getContato1(), i, 3);
+            tmVendedor.setValueAt(vendedor.get(i).getId_salesman(), i, 0);
+            tmVendedor.setValueAt(vendedor.get(i).getName(), i, 1);
+            tmVendedor.setValueAt(vendedor.get(i).getAddress(), i, 2);
+            tmVendedor.setValueAt(vendedor.get(i).getContact1(), i, 3);
 
         }
     }
@@ -634,11 +634,11 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         try {
             if (jTVendedores.getSelectedRow() != -1) {
                 Limpar();
-                jTNome.setText(vendedor.get(tabela.getSelectedRow()).getNome());
-                jTEndereco.setText(vendedor.get(tabela.getSelectedRow()).getEndereco());
-                jTTelefone.setText(vendedor.get(tabela.getSelectedRow()).getContato1());
-                jTTelefone2.setText(vendedor.get(tabela.getSelectedRow()).getContato2());
-                jTId.setText(vendedor.get(tabela.getSelectedRow()).getId_vendedor() + "");
+                jTNome.setText(vendedor.get(tabela.getSelectedRow()).getName());
+                jTEndereco.setText(vendedor.get(tabela.getSelectedRow()).getAddress());
+                jTTelefone.setText(vendedor.get(tabela.getSelectedRow()).getContact1());
+                jTTelefone2.setText(vendedor.get(tabela.getSelectedRow()).getContact2());
+                jTId.setText(vendedor.get(tabela.getSelectedRow()).getId_salesman() + "");
 
                 Desabilitar();
             }

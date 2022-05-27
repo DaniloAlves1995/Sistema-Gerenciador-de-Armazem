@@ -6,7 +6,7 @@
 package Forms;
 
 import DAO.CustomerDao;
-import Entidades.Cliente;
+import Entidades.Customer;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
@@ -34,7 +34,7 @@ public class BuscarCliente extends javax.swing.JFrame {
 
     private final DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Telefone"});
     private ListSelectionModel lsmCliente;
-    private List<Cliente> cliente;
+    private List<Customer> cliente;
     private char l;
     private SaidaVenda svenda;
     private int tipo = 0;//para separar, tipo=0 adionar a venda;
@@ -405,7 +405,7 @@ public class BuscarCliente extends javax.swing.JFrame {
     }
 
     //Mostra a pesquisa na tabela
-    private void mostraPesquisa(List<Cliente> cliente) {
+    private void mostraPesquisa(List<Customer> cliente) {
 
         while (tmCliente.getRowCount() > 0) {
             tmCliente.removeRow(0);
@@ -420,9 +420,9 @@ public class BuscarCliente extends javax.swing.JFrame {
                 for (int i = 0; i < cliente.size(); i++) {
                     tmCliente.addRow(linha);
                     tmCliente.setValueAt(cliente.get(i).getId(), i, 0);
-                    tmCliente.setValueAt(cliente.get(i).getNome(), i, 1);
-                    tmCliente.setValueAt(cliente.get(i).getEndereco(), i, 2);
-                    tmCliente.setValueAt(cliente.get(i).getContato1(), i, 3);
+                    tmCliente.setValueAt(cliente.get(i).getName(), i, 1);
+                    tmCliente.setValueAt(cliente.get(i).getAddress(), i, 2);
+                    tmCliente.setValueAt(cliente.get(i).getContact1(), i, 3);
 
                 }
             }
@@ -434,9 +434,9 @@ public class BuscarCliente extends javax.swing.JFrame {
     private void jTTabelaLinhaSelecionada(JTable tabela) {
         try {
             if (jTCliente.getSelectedRow() != -1) {
-                jTNome.setText(cliente.get(tabela.getSelectedRow()).getNome());
-                jTEndereco.setText(cliente.get(tabela.getSelectedRow()).getEndereco());
-                jTTelefone.setText(cliente.get(tabela.getSelectedRow()).getContato1());
+                jTNome.setText(cliente.get(tabela.getSelectedRow()).getName());
+                jTEndereco.setText(cliente.get(tabela.getSelectedRow()).getAddress());
+                jTTelefone.setText(cliente.get(tabela.getSelectedRow()).getContact1());
                 jTCpf.setText(cliente.get(tabela.getSelectedRow()).getCpf());
             }
         } catch (Exception e) {

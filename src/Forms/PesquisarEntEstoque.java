@@ -8,7 +8,7 @@ package Forms;
 import Conexao.ConectionReport;
 import DAO.StockDao;
 import DAO.ProductDao;
-import Entidades.Estoque;
+import Entidades.Stock;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +45,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class PesquisarEntEstoque extends javax.swing.JFrame {
 
     private DefaultTableModel tmEstoque = new DefaultTableModel(null, new String[]{"Id_prod", "Produto", "Qtd", "Data"});
-    private List<Estoque> estoques;
+    private List<Stock> estoques;
     private String d1, d2;
 
     public PesquisarEntEstoque() {
@@ -411,7 +411,7 @@ public class PesquisarEntEstoque extends javax.swing.JFrame {
     }
 
     //Mostra a pesquisa na tabela de notas
-    private void mostrarSaidas(List<Estoque> estoques) {
+    private void mostrarSaidas(List<Stock> estoques) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
         Date d;
@@ -426,9 +426,9 @@ public class PesquisarEntEstoque extends javax.swing.JFrame {
                     tmEstoque.addRow(linha);
                     ProductDao pdao = new ProductDao();
                     tmEstoque.setValueAt(estoques.get(i).getId_p(), i, 0);
-                    tmEstoque.setValueAt(pdao.getProduct(estoques.get(i).getId_p()).getProduto(), i, 1);
-                    tmEstoque.setValueAt(estoques.get(i).getQtd(), i, 2);
-                    d = df.parse(estoques.get(i).getData());
+                    tmEstoque.setValueAt(pdao.getProduct(estoques.get(i).getId_p()).getProduct(), i, 1);
+                    tmEstoque.setValueAt(estoques.get(i).getAmount(), i, 2);
+                    d = df.parse(estoques.get(i).getDate());
                     tmEstoque.setValueAt(df2.format(d), i, 3);
                 } catch (SQLException | ParseException ex) {
                     JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);

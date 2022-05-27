@@ -6,7 +6,7 @@
 package Forms;
 
 import DAO.TruckDao;
-import Entidades.Caminhao;
+import Entidades.Truck;
 import Utils.ManageFields;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -222,11 +222,11 @@ public class Cad_Caminhao extends javax.swing.JFrame {
         if (this.manageFields.checkFields()) {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             //Cria um objeto produto para setar os valores dos TextFilds
-            Caminhao s = new Caminhao();
+            Truck s = new Truck();
             
             //Seta os valores dos TextFilds
-            s.setNome(jTNome.getText());
-            s.setCarga(Integer.parseInt(jTPreCarga.getText()));
+            s.setName(jTNome.getText());
+            s.setTruckLoad(Integer.parseInt(jTPreCarga.getText()));
             s.setData(df.format(new Date()));
             try {
                 //Cria um objeto DAO para inserir o novo produto no banco

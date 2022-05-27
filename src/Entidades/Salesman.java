@@ -12,19 +12,19 @@ package Entidades;
  * ------------- ..::Danilo Alves Oliveira::.. ------------- *
  * ***********************************************************
  * 
- *@Desenvolvedor Danilo Alves
+ *@Developer Danilo Alves
  * 
  */
 
-public class Vendedor extends Pessoa{
-    private int Id_vendedor;
+public class Salesman extends Person{
+    private int Id_salesman;
     
-    public int getId_vendedor() {
-        return Id_vendedor;
+    public int getId_salesman() {
+        return Id_salesman;
     }
 
-    public void setId_vendedor(int Id_vendedor) {
-        this.Id_vendedor = Id_vendedor;
+    public void setId_salesman(int Id_salesman) {
+        this.Id_salesman = Id_salesman;
     } 
     
 }

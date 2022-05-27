@@ -5,12 +5,16 @@
  */
 package DAO;
 
-import java.util.List;
-
 /**
  *
- * @author danil
+ *************************************************************
+ * ------------- ..::Danilo Alves Oliveira::.. ------------- *
+ * ***********************************************************
+ * 
+ *@Developer Danilo Alves
+ * 
  */
+
 public interface InterfaceBasicDB <T>{
     public void add(T value);
     public void update(T value);

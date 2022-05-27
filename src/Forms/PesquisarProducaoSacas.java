@@ -10,7 +10,7 @@ import DAO.TruckDao;
 import DAO.StockDao;
 import DAO.ProductDao;
 import DAO.SackDao;
-import Entidades.Saca;
+import Entidades.Sack;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +47,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class PesquisarProducaoSacas extends javax.swing.JFrame {
 
     private DefaultTableModel tmSacas = new DefaultTableModel(null, new String[]{"Produto", "Qtd", "Caminhão", "Data"});
-    private List<Saca> sacas;
+    private List<Sack> sacas;
     private String d1, d2;
 
     public PesquisarProducaoSacas() {
@@ -411,7 +411,7 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
     }
 
     //Mostra a pesquisa na tabela de notas
-    private void mostrarSaidas(List<Saca> sacas) {
+    private void mostrarSaidas(List<Sack> sacas) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
         Date d;
@@ -425,10 +425,10 @@ public class PesquisarProducaoSacas extends javax.swing.JFrame {
                     tmSacas.addRow(linha);
                     ProductDao pdao = new ProductDao();
                     TruckDao cdao = new TruckDao();
-                    tmSacas.setValueAt(pdao.getProduct(sacas.get(i).getId_p()).getProduto(), i, 0);
-                    tmSacas.setValueAt(sacas.get(i).getQtd(), i, 1);
-                    tmSacas.setValueAt(cdao.getTruck(sacas.get(i).getId_ca()).getNome(), i, 2);
-                    d = df.parse(sacas.get(i).getData());
+                    tmSacas.setValueAt(pdao.getProduct(sacas.get(i).getId_prod()).getProduct(), i, 0);
+                    tmSacas.setValueAt(sacas.get(i).getAmount(), i, 1);
+                    tmSacas.setValueAt(cdao.getTruck(sacas.get(i).getId_truck()).getName(), i, 2);
+                    d = df.parse(sacas.get(i).getDate());
                     tmSacas.setValueAt(df2.format(d), i, 3);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);

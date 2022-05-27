@@ -3,7 +3,7 @@ package DAO;
 import java.sql.Connection;
 
 import Conexao.CreateConnection;
-import Entidades.Produto;
+import Entidades.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,33 +28,33 @@ public class ProductDao {
         this.connection = (Connection) CreateConnection.getConnection();
     }
 
-    public void add(Produto m1) throws SQLException {
+    public void add(Product m1) throws SQLException {
         String sql = "insert into produto(nome_p, preco_p, obs) values(?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, m1.getProduto().toUpperCase());
-            stmt.setDouble(2, m1.getPreco());
-            stmt.setString(3, m1.getObs().toUpperCase());
+            stmt.setString(1, m1.getProduct().toUpperCase());
+            stmt.setDouble(2, m1.getPrice());
+            stmt.setString(3, m1.getNote().toUpperCase());
 
             stmt.execute();
         }
     }
 
-    public List<Produto> getList(String data) throws SQLException {
+    public List<Product> getList(String data) throws SQLException {
         String sql = "select * from produto WHERE nome_p LIKE ?";
         ResultSet rs;
-        List<Produto> ma;
+        List<Product> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, "%"+data+"%");
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
-                Produto m = new Produto();
+                Product m = new Product();
 
                 m.setId(rs.getInt("id_p"));
-                m.setProduto(rs.getString("nome_p"));
-                m.setPreco(rs.getDouble("preco_p"));
-                m.setObs(rs.getString("obs"));
+                m.setProduct(rs.getString("nome_p"));
+                m.setPrice(rs.getDouble("preco_p"));
+                m.setNote(rs.getString("obs"));
 
                 ma.add(m);
             }
@@ -64,20 +64,20 @@ public class ProductDao {
         return ma;
     }
 
-    public List<Produto> getListAll() throws SQLException {
+    public List<Product> getListAll() throws SQLException {
         String sql = "select * from produto";
         ResultSet rs;
-        List<Produto> ma;
+        List<Product> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
-                Produto m = new Produto();
+                Product m = new Product();
 
                 m.setId(rs.getInt("id_p"));
-                m.setProduto(rs.getString("nome_p"));
-                m.setPreco(rs.getDouble("preco_p"));
-                m.setObs(rs.getString("obs"));
+                m.setProduct(rs.getString("nome_p"));
+                m.setPrice(rs.getDouble("preco_p"));
+                m.setNote(rs.getString("obs"));
 
                 ma.add(m);
             }
@@ -87,19 +87,19 @@ public class ProductDao {
         return ma;
     }
 
-    public void update(Produto m) throws SQLException {
+    public void update(Product m) throws SQLException {
         String sql = "update produto set nome_p=?, preco_p=?, obs=? where id_p=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setString(1, m.getProduto().toUpperCase());
-            stmt.setDouble(2, m.getPreco());
-            stmt.setString(3, m.getObs().toUpperCase());
+            stmt.setString(1, m.getProduct().toUpperCase());
+            stmt.setDouble(2, m.getPrice());
+            stmt.setString(3, m.getNote().toUpperCase());
             stmt.setInt(4, m.getId());
 
             stmt.execute();
         }
     }
 
-    public void delete(Produto m) throws SQLException {
+    public void delete(Product m) throws SQLException {
         String sql = "delete from produto where id_p=?";
 
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
@@ -122,53 +122,53 @@ public class ProductDao {
         return amount;
     }
 
-    public Produto getProduct(int id) throws SQLException {
+    public Product getProduct(int id) throws SQLException {
         String sql = "select * from produto where id_p=?";
-        Produto m;
+        Product m;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
 
             ResultSet rs = stmt.executeQuery();
-            m = new Produto();
+            m = new Product();
             while (rs.next()) {
                 m.setId(rs.getInt("id_p"));
-                m.setProduto(rs.getString("nome_p"));
-                m.setPreco(rs.getDouble("preco_p"));
-                m.setObs(rs.getString("obs"));
+                m.setProduct(rs.getString("nome_p"));
+                m.setPrice(rs.getDouble("preco_p"));
+                m.setNote(rs.getString("obs"));
             }
         }
 
         return m;
     }
 
-    public Produto getProduct(String name) throws SQLException {
+    public Product getProduct(String name) throws SQLException {
         String sql = "select * from produto where nome_p='?';";
-        Produto m;
+        Product m;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, name);
 
             ResultSet rs = stmt.executeQuery();
-            m = new Produto();
+            m = new Product();
             while (rs.next()) {
                 m.setId(rs.getInt("id_p"));
-                m.setProduto(rs.getString("nome_p"));
-                m.setPreco(rs.getDouble("preco_p"));
-                m.setObs(rs.getString("obs"));
+                m.setProduct(rs.getString("nome_p"));
+                m.setPrice(rs.getDouble("preco_p"));
+                m.setNote(rs.getString("obs"));
             }
         }
 
         return m;
     }
 
-    public void AddPDF_RelatorioE(List<Produto> lista) throws SQLException {
+    public void AddPDF_RelatorioE(List<Product> lista) throws SQLException {
         String sql = "insert into pdf_relatorioe(id_p, produto, qtd_e) values(?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             StockDao edao = new StockDao();
 
             for (int i = 0; i < lista.size(); i++) {
                 stmt.setInt(1, lista.get(i).getId());
-                stmt.setString(2, lista.get(i).getProduto().toUpperCase());
-                stmt.setInt(3, edao.getStock(lista.get(i).getId()).getQtd());
+                stmt.setString(2, lista.get(i).getProduct().toUpperCase());
+                stmt.setInt(3, edao.getStock(lista.get(i).getId()).getAmount());
 
                 stmt.execute();
             }

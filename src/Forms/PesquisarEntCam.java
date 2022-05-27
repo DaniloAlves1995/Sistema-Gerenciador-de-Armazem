@@ -7,7 +7,7 @@ package Forms;
 
 import Conexao.ConectionReport;
 import DAO.TruckDao;
-import Entidades.Caminhao;
+import Entidades.Truck;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +45,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class PesquisarEntCam extends javax.swing.JFrame {
 
     private DefaultTableModel tmCaminhoes = new DefaultTableModel(null, new String[]{"Id", "Nome", "Previsão de carga", "Data"});
-    private List<Caminhao> caminhoes;
+    private List<Truck> caminhoes;
 
     public PesquisarEntCam() {
         initComponents();
@@ -289,7 +289,7 @@ public class PesquisarEntCam extends javax.swing.JFrame {
     }
 
     //Mostra a pesquisa na tabela de notas
-    private void mostrarSaidas(List<Caminhao> caminhao) {
+    private void mostrarSaidas(List<Truck> caminhao) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
         Date d;
@@ -302,9 +302,9 @@ public class PesquisarEntCam extends javax.swing.JFrame {
                 try {
                     tmCaminhoes.addRow(linha);
                     tmCaminhoes.setValueAt(caminhao.get(i).getId(), i, 0);
-                    tmCaminhoes.setValueAt(caminhao.get(i).getNome(), i, 1);
-                    tmCaminhoes.setValueAt(caminhao.get(i).getCarga() + "", i, 2);
-                    d = df.parse(caminhao.get(i).getData());
+                    tmCaminhoes.setValueAt(caminhao.get(i).getName(), i, 1);
+                    tmCaminhoes.setValueAt(caminhao.get(i).getTruckLoad() + "", i, 2);
+                    d = df.parse(caminhao.get(i).getDate());
                     tmCaminhoes.setValueAt(df2.format(d), i, 3);
                 } catch (ParseException ex) {
                     JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);

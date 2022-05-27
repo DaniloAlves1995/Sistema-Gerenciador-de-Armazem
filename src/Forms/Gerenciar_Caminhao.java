@@ -6,7 +6,7 @@
 package Forms;
 
 import DAO.TruckDao;
-import Entidades.Caminhao;
+import Entidades.Truck;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -37,7 +37,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     private final ManageFields manageFields;
     private DefaultTableModel tmCaminhao = new DefaultTableModel(null, new String[]{"Id", "Nome", "Sacas Restantes."});
     private ListSelectionModel lsmCaminhao;
-    private List<Caminhao> caminhoes;
+    private List<Truck> caminhoes;
     private int salvar = 0;
     private char l;
 
@@ -515,7 +515,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         mostraPesquisa(caminhoes);
     }
 
-    private void mostraPesquisa(List<Caminhao> caminhoes) {
+    private void mostraPesquisa(List<Truck> caminhoes) {
 
         while (tmCaminhao.getRowCount() > 0) {
             tmCaminhao.removeRow(0);
@@ -529,8 +529,8 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         for (int i = 0; i < caminhoes.size(); i++) {
             tmCaminhao.addRow(linha);
             tmCaminhao.setValueAt(caminhoes.get(i).getId(), i, 0);
-            tmCaminhao.setValueAt(caminhoes.get(i).getNome(), i, 1);
-            tmCaminhao.setValueAt(caminhoes.get(i).getCarga(), i, 2);
+            tmCaminhao.setValueAt(caminhoes.get(i).getName(), i, 1);
+            tmCaminhao.setValueAt(caminhoes.get(i).getTruckLoad(), i, 2);
 
         }
     }
@@ -558,14 +558,14 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     private void alteraCaminhao() throws SQLException {
 
         if (this.manageFields.checkFields()) {
-            Caminhao m = new Caminhao();
+            Truck m = new Truck();
             TruckDao dao = new TruckDao();
             m.setId(caminhoes.get(jTCaminhoes.getSelectedRow()).getId());
-            m.setNome(jTNome.getText());
-            m.setCarga(Integer.parseInt(jTPreCarga.getText()));
+            m.setName(jTNome.getText());
+            m.setTruckLoad(Integer.parseInt(jTPreCarga.getText()));
 
             dao.update(m);
-            m.setCarga(Integer.parseInt(jTSacRest.getText()));
+            m.setTruckLoad(Integer.parseInt(jTSacRest.getText()));
             dao.updateTruckLoad(m);
             JOptionPane.showMessageDialog(null, "Caminhão Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
@@ -576,8 +576,8 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     public boolean Everificar() {
         try {
             TruckDao cdao = new TruckDao();
-            String carga_prev = String.valueOf(cdao.getTruck(caminhoes.get(jTCaminhoes.getSelectedRow()).getId()).getCarga());
-            if ((caminhoes.get(jTCaminhoes.getSelectedRow()).getNome().equals(jTNome.getText())) && (String.valueOf(caminhoes.get(jTCaminhoes.getSelectedRow()).getCarga()).equals(jTPreCarga.getText())) && jTSacRest.getText().equals(carga_prev)) {
+            String carga_prev = String.valueOf(cdao.getTruck(caminhoes.get(jTCaminhoes.getSelectedRow()).getId()).getTruckLoad());
+            if ((caminhoes.get(jTCaminhoes.getSelectedRow()).getName().equals(jTNome.getText())) && (String.valueOf(caminhoes.get(jTCaminhoes.getSelectedRow()).getTruckLoad()).equals(jTPreCarga.getText())) && jTSacRest.getText().equals(carga_prev)) {
                 JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                 return false;
             } else {
@@ -620,11 +620,11 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     private void jTTabelaLinhaSelecionada(JTable tabela) {
         try {
             if (jTCaminhoes.getSelectedRow() != -1) {
-                jTNome.setText(caminhoes.get(tabela.getSelectedRow()).getNome());
-                jTSacRest.setText(caminhoes.get(tabela.getSelectedRow()).getCarga() + "");
+                jTNome.setText(caminhoes.get(tabela.getSelectedRow()).getName());
+                jTSacRest.setText(caminhoes.get(tabela.getSelectedRow()).getTruckLoad() + "");
                 jTId.setText(caminhoes.get(tabela.getSelectedRow()).getId() + "");
                 TruckDao cdao = new TruckDao();
-                jTPreCarga.setText("" + cdao.getTruck(caminhoes.get(tabela.getSelectedRow()).getId()).getCarga());
+                jTPreCarga.setText("" + cdao.getTruck(caminhoes.get(tabela.getSelectedRow()).getId()).getTruckLoad());
 
                 Desabilitar();
             }

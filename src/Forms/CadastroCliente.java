@@ -6,7 +6,7 @@
 package Forms;
 
 import DAO.CustomerDao;
-import Entidades.Cliente;
+import Entidades.Customer;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -37,7 +37,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private final ManageFields manageFields;
     private final DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato"});
     private ListSelectionModel lsmCliente;
-    private List<Cliente> cliente;
+    private List<Customer> cliente;
     private char l;
     public int habilit;
     public int salvar = 0;
@@ -476,12 +476,12 @@ public class CadastroCliente extends javax.swing.JFrame {
             //Verifica se ha algum campo vazio
             if (this.manageFields.checkFields()) {
                 //Cria um objeto Sócio para setar os valores dos TextFilds
-                Cliente s = new Cliente();
+                Customer s = new Customer();
                 //Seta os valores dos TextFilds
-                s.setNome(jTNome.getText());
-                s.setEndereco(jTEndereco.getText());
+                s.setName(jTNome.getText());
+                s.setAddress(jTEndereco.getText());
                 s.setContato1(jTTelefone.getText());
-                s.setContato2(jTTelefone1.getText());
+                s.setContact2(jTTelefone1.getText());
                 s.setCpf(jTCpf.getText());
 
                 try {
@@ -548,7 +548,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         mostraPesquisa(cliente);
     }
 
-    private void mostraPesquisa(List<Cliente> cliente) {
+    private void mostraPesquisa(List<Customer> cliente) {
 
         while (tmCliente.getRowCount() > 0) {
             tmCliente.removeRow(0);
@@ -562,15 +562,15 @@ public class CadastroCliente extends javax.swing.JFrame {
         for (int i = 0; i < cliente.size(); i++) {
             tmCliente.addRow(linha);
             tmCliente.setValueAt(cliente.get(i).getId(), i, 0);
-            tmCliente.setValueAt(cliente.get(i).getNome(), i, 1);
-            tmCliente.setValueAt(cliente.get(i).getEndereco(), i, 2);
-            tmCliente.setValueAt(cliente.get(i).getContato1(), i, 3);
+            tmCliente.setValueAt(cliente.get(i).getName(), i, 1);
+            tmCliente.setValueAt(cliente.get(i).getAddress(), i, 2);
+            tmCliente.setValueAt(cliente.get(i).getContact1(), i, 3);
 
         }
     }
 
     public boolean Everificar() {
-        if ((cliente.get(jTClientes.getSelectedRow()).getNome().equals(jTNome.getText())) && (cliente.get(jTClientes.getSelectedRow()).getEndereco().equals(jTEndereco.getText())) && (cliente.get(jTClientes.getSelectedRow()).getContato1().equals(jTTelefone.getText())) && (cliente.get(jTClientes.getSelectedRow()).getContato2().equals(jTTelefone1.getText())) && (cliente.get(jTClientes.getSelectedRow()).getCpf().equals(jTCpf.getText()))) {
+        if ((cliente.get(jTClientes.getSelectedRow()).getName().equals(jTNome.getText())) && (cliente.get(jTClientes.getSelectedRow()).getAddress().equals(jTEndereco.getText())) && (cliente.get(jTClientes.getSelectedRow()).getContact1().equals(jTTelefone.getText())) && (cliente.get(jTClientes.getSelectedRow()).getContact2().equals(jTTelefone1.getText())) && (cliente.get(jTClientes.getSelectedRow()).getCpf().equals(jTCpf.getText()))) {
             JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGA :..", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
@@ -654,13 +654,13 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void alteraSocio() throws SQLException {
 
         if (this.manageFields.checkFields()) {
-            Cliente m = new Cliente();
+            Customer m = new Customer();
             CustomerDao dao = new CustomerDao();
             m.setId(cliente.get(jTClientes.getSelectedRow()).getId());
-            m.setNome(jTNome.getText());
-            m.setEndereco(jTEndereco.getText());
+            m.setName(jTNome.getText());
+            m.setAddress(jTEndereco.getText());
             m.setContato1(jTTelefone.getText());
-            m.setContato2(jTTelefone1.getText());
+            m.setContact2(jTTelefone1.getText());
             m.setCpf(jTCpf.getText());
 
             dao.update(m);
@@ -724,10 +724,10 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void jTTabelaLinhaSelecionada(JTable tabela) {
         try {
             if (jTClientes.getSelectedRow() != -1) {
-                jTNome.setText(cliente.get(tabela.getSelectedRow()).getNome());
-                jTEndereco.setText(cliente.get(tabela.getSelectedRow()).getEndereco());
-                jTTelefone.setText(cliente.get(tabela.getSelectedRow()).getContato1());
-                jTTelefone1.setText(cliente.get(tabela.getSelectedRow()).getContato2());
+                jTNome.setText(cliente.get(tabela.getSelectedRow()).getName());
+                jTEndereco.setText(cliente.get(tabela.getSelectedRow()).getAddress());
+                jTTelefone.setText(cliente.get(tabela.getSelectedRow()).getContact1());
+                jTTelefone1.setText(cliente.get(tabela.getSelectedRow()).getContact2());
                 jTId.setText(cliente.get(tabela.getSelectedRow()).getId() + "");
                 jTCpf.setText(cliente.get(tabela.getSelectedRow()).getCpf());
 

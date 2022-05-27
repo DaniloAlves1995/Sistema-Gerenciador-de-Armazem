@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Entidades;
 
 /**
@@ -11,23 +12,22 @@ package Entidades;
  * ------------- ..::Danilo Alves Oliveira::.. ------------- *
  * ***********************************************************
  * 
- *@Desenvolvedor Danilo Alves
+ *@Developer Danilo Alves
  * 
  */
-public class Caminhao {
+
+public class Customer extends Person{
     private int Id;
-    private String Nome;
-    private int Carga;
-    private String Data;
-
-    public String getData() {
-        return Data;
+    private String Cpf;
+   
+    public String getCpf() {
+        return Cpf;
     }
 
-    public void setData(String Data) {
-        this.Data = Data;
+    public void setCpf(String Cpf) {
+        this.Cpf = Cpf;
     }
-
+    
     public int getId() {
         return Id;
     }
@@ -35,22 +35,5 @@ public class Caminhao {
     public void setId(int Id) {
         this.Id = Id;
     }
-
-    public String getNome() {
-        return Nome;
-    }
-
-    public void setNome(String Nome) {
-        this.Nome = Nome;
-    }
-
-    public int getCarga() {
-        return Carga;
-    }
-
-    public void setCarga(int Carga) {
-        this.Carga = Carga;
-    }
-    
     
 }

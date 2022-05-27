@@ -6,7 +6,7 @@
 package DAO;
 
 import Conexao.CreateConnection;
-import Entidades.Saca;
+import Entidades.Sack;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,19 +32,19 @@ public class SackDao {
         this.connection = (Connection) CreateConnection.getConnection();
     }
 
-    public void add(Saca m1) throws SQLException {
+    public void add(Sack m1) throws SQLException {
         String sql = "insert into sacas(id_p, id_ca, qtd, data) values(?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, m1.getId_p());
-            stmt.setInt(2, m1.getId_ca());
-            stmt.setInt(3, m1.getQtd());
-            stmt.setString(4, m1.getData());
+            stmt.setInt(1, m1.getId_prod());
+            stmt.setInt(2, m1.getId_truck());
+            stmt.setInt(3, m1.getAmount());
+            stmt.setString(4, m1.getDate());
 
             stmt.execute();
         }
     }
 
-    public List<Saca> getList(String data, String date, int tipo, String product) throws SQLException {
+    public List<Sack> getList(String data, String date, int tipo, String product) throws SQLException {
 
         String sql = (tipo == 0) ? "select produto.nome_p, caminhao.nome_ca, sacas.* from sacas, produto, caminhao"
                 +" WHERE sacas.data between '?' and '?' and produto.nome_p LIKE '%?%' and produto.id_p = sacas.id_p"
@@ -53,7 +53,7 @@ public class SackDao {
                 +" and caminhao.id_ca = sacas.id_ca;";
 
         ResultSet rs;
-        List<Saca> ma;
+        List<Sack> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, data);
             stmt.setString(2, date);
@@ -64,13 +64,13 @@ public class SackDao {
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
-                Saca m = new Saca();
+                Sack m = new Sack();
 
-                m.setId_sa(rs.getInt("id_sa"));
-                m.setId_p(rs.getInt("id_p"));
-                m.setId_ca(rs.getInt("id_ca"));
-                m.setQtd(rs.getInt("qtd"));
-                m.setData(rs.getString("data"));
+                m.setId_sack(rs.getInt("id_sa"));
+                m.setId_prod(rs.getInt("id_p"));
+                m.setId_truck(rs.getInt("id_ca"));
+                m.setAmount(rs.getInt("qtd"));
+                m.setDate(rs.getString("data"));
 
                 ma.add(m);
             }

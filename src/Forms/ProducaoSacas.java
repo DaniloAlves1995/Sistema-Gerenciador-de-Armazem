@@ -8,10 +8,10 @@ package Forms;
 import DAO.TruckDao;
 import DAO.StockDao;
 import DAO.SackDao;
-import Entidades.Caminhao;
-import Entidades.Estoque;
-import Entidades.Produto;
-import Entidades.Saca;
+import Entidades.Truck;
+import Entidades.Stock;
+import Entidades.Product;
+import Entidades.Sack;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -43,8 +43,8 @@ public class ProducaoSacas extends javax.swing.JFrame {
     private final ManageFields manageFields;
     private DefaultTableModel tmCaminhao = new DefaultTableModel(null, new String[]{"Id", "Nome", "Sacas Previstas"});
     private ListSelectionModel lsmCaminhao;
-    private List<Caminhao> caminhoes;
-    private Produto produto;
+    private List<Truck> caminhoes;
+    private Product produto;
     
     public ProducaoSacas() {
         initComponents();
@@ -316,30 +316,30 @@ public class ProducaoSacas extends javax.swing.JFrame {
         
             if (this.manageFields.checkFields()) {
                 if(jTCaminhoes.getSelectedRow() != -1){
-                    if (Integer.parseInt(jTQtd.getText()) <= caminhoes.get(jTCaminhoes.getSelectedRow()).getCarga()) {
-                        Caminhao c = caminhoes.get(jTCaminhoes.getSelectedRow());
-                        c.setCarga(c.getCarga()-Integer.parseInt(jTQtd.getText()));
+                    if (Integer.parseInt(jTQtd.getText()) <= caminhoes.get(jTCaminhoes.getSelectedRow()).getTruckLoad()) {
+                        Truck c = caminhoes.get(jTCaminhoes.getSelectedRow());
+                        c.setTruckLoad(c.getTruckLoad()-Integer.parseInt(jTQtd.getText()));
                         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
                         
                         try { 
-                            Saca s = new Saca();
-                            s.setId_p(produto.getId());
-                            s.setId_ca(c.getId());
-                            s.setQtd(Integer.parseInt(jTQtd.getText()));
-                            s.setData(sf.format(new Date()));
+                            Sack s = new Sack();
+                            s.setId_prod(produto.getId());
+                            s.setId_truck(c.getId());
+                            s.setAmount(Integer.parseInt(jTQtd.getText()));
+                            s.setDate(sf.format(new Date()));
                             
                             SackDao sdao = new SackDao();
                             sdao.add(s);
                             
                             //altera o estoque corrente
                             StockDao edao = new StockDao();
-                            Estoque e = edao.getStock(produto.getId());
-                            e.setQtd(e.getQtd()+Integer.parseInt(jTQtd.getText()));
+                            Stock e = edao.getStock(produto.getId());
+                            e.setAmount(e.getAmount()+Integer.parseInt(jTQtd.getText()));
                             edao.update(e);
                             
                             //adiciona ao histórico de entradas do estoque
-                            e.setQtd(Integer.parseInt(jTQtd.getText()));
-                            e.setData(sf.format(new Date()));
+                            e.setAmount(Integer.parseInt(jTQtd.getText()));
+                            e.setDate(sf.format(new Date()));
                             edao.addStockIn(e);
                                 
                             TruckDao cdao = new TruckDao();
@@ -347,7 +347,7 @@ public class ProducaoSacas extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "A produção de "+jTQtd.getText()+" sacas de "+jTProduto.getText()+"\n\r foi retirada do caminhão e adicionada ao estoque.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                             listarCaminhoes();
                             Limpar();
-                            if(c.getCarga()==0){
+                            if(c.getTruckLoad()==0){
                                 cdao.deleteTruckLoad(c);
                             }
                         } catch (SQLException ex) {
@@ -407,7 +407,7 @@ public class ProducaoSacas extends javax.swing.JFrame {
         mostraPesquisa(caminhoes);
     }
 
-    private void mostraPesquisa(List<Caminhao> caminhoes) {
+    private void mostraPesquisa(List<Truck> caminhoes) {
 
         while (tmCaminhao.getRowCount() > 0) {
             tmCaminhao.removeRow(0);
@@ -417,8 +417,8 @@ public class ProducaoSacas extends javax.swing.JFrame {
         for (int i = 0; i < caminhoes.size(); i++) {
             tmCaminhao.addRow(linha);
             tmCaminhao.setValueAt(caminhoes.get(i).getId(), i, 0);
-            tmCaminhao.setValueAt(caminhoes.get(i).getNome(), i, 1);
-            tmCaminhao.setValueAt(caminhoes.get(i).getCarga(), i, 2);
+            tmCaminhao.setValueAt(caminhoes.get(i).getName(), i, 1);
+            tmCaminhao.setValueAt(caminhoes.get(i).getTruckLoad(), i, 2);
         }
     }
     
@@ -428,8 +428,8 @@ public class ProducaoSacas extends javax.swing.JFrame {
     }
     
     //metodo para setar o produto que foi escolhido
-    public void SetProduto(Produto produto) {
-        jTProduto.setText(produto.getProduto());
+    public void SetProduto(Product produto) {
+        jTProduto.setText(produto.getProduct());
         this.produto = produto;
     }
  

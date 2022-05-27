@@ -3,8 +3,8 @@ package DAO;
 import java.sql.Connection;
 
 import Conexao.CreateConnection;
-import Entidades.Estoque;
-import Entidades.Saida;
+import Entidades.Stock;
+import Entidades.OutStock;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,22 +29,22 @@ public class OutStockDao {
         this.connection = (Connection) CreateConnection.getConnection();
     }
 
-    public void add(Saida m1) throws SQLException {
+    public void add(OutStock m1) throws SQLException {
         String sql = "insert into saida(id_c, id_fun, total, data) "
                 + "values(?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
 
-        stmt.setInt(1, m1.getId_c());
-        stmt.setInt(2, m1.getId_fun());
+        stmt.setInt(1, m1.getId_customer());
+        stmt.setInt(2, m1.getId_salesman());
         stmt.setDouble(3, m1.getTotal());
-        stmt.setString(4, m1.getData());
+        stmt.setString(4, m1.getDate());
 
         stmt.execute();
         stmt.close();
 
     }
 
-    public List<Saida> getList(String data, String date, int type) throws SQLException {
+    public List<OutStock> getList(String data, String date, int type) throws SQLException {
         String sql = "";
         switch (type) {
             case 0:
@@ -71,7 +71,7 @@ public class OutStockDao {
         }
 
         ResultSet rs;
-        List<Saida> ma;
+        List<OutStock> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
 
             if (type == 1 || type == 6 || type == 7)
@@ -85,13 +85,13 @@ public class OutStockDao {
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
-                Saida m = new Saida();
+                OutStock m = new OutStock();
 
-                m.setId_s(rs.getInt("id_s"));
-                m.setId_c(rs.getInt("id_c"));
-                m.setId_fun(rs.getInt("id_fun"));
+                m.setId_outStock(rs.getInt("id_s"));
+                m.setId_customer(rs.getInt("id_c"));
+                m.setId_salesman(rs.getInt("id_fun"));
                 m.setTotal(rs.getDouble("total"));
-                m.setData(rs.getString("data"));
+                m.setDate(rs.getString("data"));
 
                 ma.add(m);
 
@@ -102,10 +102,10 @@ public class OutStockDao {
         return ma;
     }
 
-    public List<Saida> getInvoiceNotPaid(int id_customer) throws SQLException {
+    public List<OutStock> getInvoiceNotPaid(int id_customer) throws SQLException {
         String sql = "select * from saida WHERE id_c=? and pg=0";
         ResultSet rs;
-        List<Saida> ma;
+        List<OutStock> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
 
             stmt.setInt(1, id_customer);
@@ -113,13 +113,13 @@ public class OutStockDao {
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
-                Saida m = new Saida();
+                OutStock m = new OutStock();
 
-                m.setId_s(rs.getInt("id_s"));
-                m.setId_c(rs.getInt("id_c"));
-                m.setId_fun(rs.getInt("id_fun"));
+                m.setId_outStock(rs.getInt("id_s"));
+                m.setId_customer(rs.getInt("id_c"));
+                m.setId_salesman(rs.getInt("id_fun"));
                 m.setTotal(rs.getDouble("total"));
-                m.setData(rs.getString("data"));
+                m.setDate(rs.getString("data"));
 
                 ma.add(m);
 
@@ -130,10 +130,10 @@ public class OutStockDao {
         return ma;
     }
 
-    public void delete(Saida m) throws SQLException {
+    public void delete(OutStock m) throws SQLException {
         String sql = "delete from saida where id_s=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setInt(1, m.getId_s());
+            stmt.setInt(1, m.getId_outStock());
             stmt.execute();
         }
     }
@@ -152,20 +152,20 @@ public class OutStockDao {
         return id;
     }
 
-    public void updateInvoice(Saida n) throws SQLException {
+    public void updateInvoice(OutStock n) throws SQLException {
         String sql = "update saida set total=? where id_s=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setDouble(1, n.getTotal());
-            stmt.setInt(2, n.getId_s());
+            stmt.setInt(2, n.getId_outStock());
 
             stmt.execute();
         }
     }
 
-    public void adicionaPDFResumo(Estoque e) throws SQLException {
+    public void adicionaPDFResumo(Stock e) throws SQLException {
         String sql = "insert into pdf_resumon(qtd_total, id_p) values(?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, e.getQtd());
+            stmt.setInt(1, e.getAmount());
             stmt.setDouble(2, e.getId_p());
 
             stmt.execute();

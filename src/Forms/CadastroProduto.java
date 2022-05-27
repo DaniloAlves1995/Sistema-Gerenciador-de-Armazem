@@ -7,8 +7,8 @@ package Forms;
 
 import DAO.StockDao;
 import DAO.ProductDao;
-import Entidades.Estoque;
-import Entidades.Produto;
+import Entidades.Stock;
+import Entidades.Product;
 import Utils.ManageFields;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -39,7 +39,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     private final ManageFields manageFields;
     private final DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)"});
     private ListSelectionModel lsmProduto;
-    private List<Produto> produto;
+    private List<Product> produto;
     private char l;
     public int habilit;
     public int salvar = 0;
@@ -421,12 +421,12 @@ public class CadastroProduto extends javax.swing.JFrame {
             //Verifica se ha algum campo vazio
             if (this.manageFields.checkFields()) {
                 //Cria um objeto produto para setar os valores dos TextFilds
-                Produto s = new Produto();
+                Product s = new Product();
                 //Seta os valores dos TextFilds
-                s.setProduto(jTProduto.getText());
-                s.setPreco(Double.parseDouble(jTPreco.getText().replace(",", ".")));
+                s.setProduct(jTProduto.getText());
+                s.setPrice(Double.parseDouble(jTPreco.getText().replace(",", ".")));
 
-                s.setObs(jTObs.getText());
+                s.setNote(jTObs.getText());
 
                 try {
                     //Cria um objeto DAO para inserir o novo produto no banco
@@ -436,11 +436,11 @@ public class CadastroProduto extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Produto Cadastrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
                     //Cria o estoque desse produto
                     int idp = d.getLastId();
-                    Estoque e = new Estoque();
+                    Stock e = new Stock();
                     StockDao edao = new StockDao();
 
                     e.setId_p(idp);
-                    e.setQtd(0);
+                    e.setAmount(0);
                     edao.add(e);
                     
                     //Limpa os TextFilds depois do Cadastro
@@ -496,7 +496,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         mostraPesquisa(produto);
     }
 
-    private void mostraPesquisa(List<Produto> produto) {
+    private void mostraPesquisa(List<Product> produto) {
 
         while (tmProduto.getRowCount() > 0) {
             tmProduto.removeRow(0);
@@ -510,14 +510,14 @@ public class CadastroProduto extends javax.swing.JFrame {
         for (int i = 0; i < produto.size(); i++) {
             tmProduto.addRow(linha);
             tmProduto.setValueAt(produto.get(i).getId(), i, 0);
-            tmProduto.setValueAt(produto.get(i).getProduto(), i, 1);
-            tmProduto.setValueAt(produto.get(i).getPreco(), i, 2);
+            tmProduto.setValueAt(produto.get(i).getProduct(), i, 1);
+            tmProduto.setValueAt(produto.get(i).getPrice(), i, 2);
 
         }
     }
 
     public boolean Everificar() {
-        if ((produto.get(jTProdutos.getSelectedRow()).getProduto().equals(jTProduto.getText())) && (String.valueOf(produto.get(jTProdutos.getSelectedRow()).getPreco()).equals(jTPreco.getText())) && (produto.get(jTProdutos.getSelectedRow()).getObs().equals(jTObs.getText()))) {
+        if ((produto.get(jTProdutos.getSelectedRow()).getProduct().equals(jTProduto.getText())) && (String.valueOf(produto.get(jTProdutos.getSelectedRow()).getPrice()).equals(jTPreco.getText())) && (produto.get(jTProdutos.getSelectedRow()).getNote().equals(jTObs.getText()))) {
             JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
@@ -588,12 +588,12 @@ public class CadastroProduto extends javax.swing.JFrame {
     private void alteraProduto() throws SQLException {
 
         if (this.manageFields.checkFields()) {
-            Produto m = new Produto();
+            Product m = new Product();
             ProductDao dao = new ProductDao();
             m.setId(produto.get(jTProdutos.getSelectedRow()).getId());
-            m.setProduto(jTProduto.getText());
-            m.setPreco(Double.parseDouble(jTPreco.getText()));
-            m.setObs(jTObs.getText());
+            m.setProduct(jTProduto.getText());
+            m.setPrice(Double.parseDouble(jTPreco.getText()));
+            m.setNote(jTObs.getText());
 
             dao.update(m);
             JOptionPane.showMessageDialog(null, "Produto Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
@@ -657,10 +657,10 @@ public class CadastroProduto extends javax.swing.JFrame {
     private void jTTabelaLinhaSelecionada(JTable tabela) {
         try {
             if (jTProdutos.getSelectedRow() != -1) {
-                jTProduto.setText(produto.get(tabela.getSelectedRow()).getProduto());
-                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPreco() + "");
+                jTProduto.setText(produto.get(tabela.getSelectedRow()).getProduct());
+                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPrice() + "");
                 jTId.setText(produto.get(tabela.getSelectedRow()).getId() + "");
-                jTObs.setText(produto.get(tabela.getSelectedRow()).getObs() + "");
+                jTObs.setText(produto.get(tabela.getSelectedRow()).getNote() + "");
 
                 Desabilitar();
             }
