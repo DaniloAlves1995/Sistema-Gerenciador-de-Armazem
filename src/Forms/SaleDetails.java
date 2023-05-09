@@ -38,7 +38,7 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
-public class DetalhesVenda extends javax.swing.JFrame {
+public class SaleDetails extends javax.swing.JFrame {
 
     private List<Sale> venda, vendas;//lista utilizada para armazenar as vendas da tabela
     private DefaultListModel dlista, dlistam;
@@ -61,7 +61,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
     int contfocus = 0;
     int controlefocus2 = 0;//para controlar se está passando pelos campos para cadastrar ou editar
 
-    public DetalhesVenda() {
+    public SaleDetails() {
         initComponents();
 
         this.setLocationRelativeTo(null);
@@ -208,7 +208,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("N° da Venda:");
+        jLabel3.setText("N° of Sale:");
 
         jTNVenda.setEditable(false);
         jTNVenda.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -242,7 +242,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Data:");
+        jLabel6.setText("Date:");
 
         jTData.setEditable(false);
         jTData.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -259,7 +259,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
 
         jLabel17.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Vendedor:");
+        jLabel17.setText("Salesman:");
 
         jComboBox2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -307,18 +307,18 @@ public class DetalhesVenda extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Detalhes da Venda");
+        jLabel2.setText("Sale details");
 
         jPanel3.setBackground(new java.awt.Color(0, 131, 73));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Dados do cliente:");
+        jLabel1.setText("Customer data:");
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Produto:");
+        jLabel7.setText("Product:");
 
         jTProduto.setEditable(false);
         jTProduto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -346,7 +346,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Valor (R$):");
+        jLabel9.setText("Value (R$):");
 
         jTValor.setEditable(false);
         jTValor.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -358,7 +358,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Preço(R$):");
+        jLabel10.setText("Price(R$):");
 
         jTPreco.setEditable(false);
         jTPreco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -366,11 +366,11 @@ public class DetalhesVenda extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Dados da venda:");
+        jLabel11.setText("Sale data:");
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Cliente:");
+        jLabel12.setText("Customer:");
 
         jTCliente.setEditable(false);
         jTCliente.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -393,7 +393,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Endereço:");
+        jLabel13.setText("Address:");
 
         jTEndereco.setEditable(false);
         jTEndereco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -411,7 +411,7 @@ public class DetalhesVenda extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Quant.:");
+        jLabel16.setText("Amount.:");
 
         jTQtd.setEditable(false);
         jTQtd.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -479,11 +479,11 @@ public class DetalhesVenda extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Contato 1:");
+        jLabel15.setText("Phone 1:");
 
         jLabel18.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Contato 2:");
+        jLabel18.setText("Phone 2:");
 
         jTContato2.setEditable(false);
         jTContato2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -539,20 +539,16 @@ public class DetalhesVenda extends javax.swing.JFrame {
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel13))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTEndereco))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel14))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jTEndereco)
+                                    .addComponent(jTCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                                    .addComponent(jTCpf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -891,21 +887,23 @@ public class DetalhesVenda extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DetalhesVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaleDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DetalhesVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaleDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DetalhesVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaleDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DetalhesVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaleDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DetalhesVenda().setVisible(true);
+                new SaleDetails().setVisible(true);
             }
         });
     }

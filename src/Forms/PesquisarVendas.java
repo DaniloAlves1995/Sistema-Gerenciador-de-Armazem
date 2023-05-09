@@ -324,7 +324,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTNota.getSelectedRow() != -1) {
-            DetalhesVenda e = new DetalhesVenda();
+            SaleDetails e = new SaleDetails();
             e.SetId(saidas.get(jTNota.getSelectedRow()).getId_outStock());
             e.SetPesquisarVendas(this);
             e.Iniciar();
