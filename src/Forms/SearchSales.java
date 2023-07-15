@@ -49,7 +49,7 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
-public class SearchVendas extends javax.swing.JFrame {
+public class SearchSales extends javax.swing.JFrame {
 
     private List<OutStock> exits;
     private String d1, d2;
@@ -65,7 +65,7 @@ public class SearchVendas extends javax.swing.JFrame {
     };
     
 
-    public SearchVendas() {
+    public SearchSales() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Search Vendas - WMS");
@@ -113,11 +113,11 @@ public class SearchVendas extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Data inicial:");
+        jLabel11.setText("Initial date:");
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Data final:");
+        jLabel12.setText("Final date:");
 
         jDateChooser1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jDateChooser1.setPreferredSize(new java.awt.Dimension(87, 28));
@@ -174,7 +174,7 @@ public class SearchVendas extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Search Vendas");
+        jLabel2.setText("Search sales");
 
         jPanel4.setBackground(new java.awt.Color(0, 131, 73));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -193,11 +193,11 @@ public class SearchVendas extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Vendas:");
+        jLabel6.setText("Sales:");
 
         jButton2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/table.png"))); // NOI18N
-        jButton2.setText("Detalhes");
+        jButton2.setText("Details");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -206,7 +206,7 @@ public class SearchVendas extends javax.swing.JFrame {
 
         jBDelete.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jBDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cart_delete.png"))); // NOI18N
-        jBDelete.setText("Delete Venda");
+        jBDelete.setText("Delete sale");
         jBDelete.setEnabled(false);
         jBDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,7 +216,7 @@ public class SearchVendas extends javax.swing.JFrame {
 
         jBGerarN.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jBGerarN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/acroread.png"))); // NOI18N
-        jBGerarN.setText("Gerar Nota");
+        jBGerarN.setText("Invoice");
         jBGerarN.setEnabled(false);
         jBGerarN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,7 +226,7 @@ public class SearchVendas extends javax.swing.JFrame {
 
         jBGerarN1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jBGerarN1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/acroread.png"))); // NOI18N
-        jBGerarN1.setText("Relatório");
+        jBGerarN1.setText("Report");
         jBGerarN1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBGerarN1ActionPerformed(evt);
@@ -235,7 +235,7 @@ public class SearchVendas extends javax.swing.JFrame {
 
         jBGerarN2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jBGerarN2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/acroread.png"))); // NOI18N
-        jBGerarN2.setText("ROMANEIO");
+        jBGerarN2.setText("Packing list");
         jBGerarN2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBGerarN2ActionPerformed(evt);
@@ -249,9 +249,12 @@ public class SearchVendas extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jLabel6)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBDelete)
@@ -260,7 +263,8 @@ public class SearchVendas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBGerarN1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBGerarN2)))
+                        .addComponent(jBGerarN2)
+                        .addGap(41, 41, 41)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -285,11 +289,11 @@ public class SearchVendas extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(274, 274, 274))
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(332, 332, 332)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -513,19 +517,20 @@ public class SearchVendas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SearchVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchSales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SearchVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchSales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SearchVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchSales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SearchVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchSales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new SearchVendas().setVisible(true);
+            new SearchSales().setVisible(true);
         });
     }
 
@@ -547,7 +552,7 @@ public class SearchVendas extends javax.swing.JFrame {
             } else {
                 months = "" + month;
             }
-            String Name = "Relatório_Vendas_DATA_" + days + "-" + months + "-" + year;
+            String Name = "Report_Vendas_DATA_" + days + "-" + months + "-" + year;
             String file = Name;
             ConectionReport con = new ConectionReport();
             //diretorio que vai salvar
@@ -572,7 +577,7 @@ public class SearchVendas extends javax.swing.JFrame {
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/ReportExits.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle("Relatório de Estoque - .: WMS :.");
+            jv.setTitle("Report de Estoque - .: WMS :.");
             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);
@@ -603,7 +608,7 @@ public class SearchVendas extends javax.swing.JFrame {
             }
 
         } catch (JRException ex) {
-            Logger.getLogger(SearchVendas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchSales.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

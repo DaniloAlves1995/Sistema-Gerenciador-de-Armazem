@@ -365,8 +365,8 @@ public class ManageCustomer extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(142, 142, 142)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(37, 37, 37)
                 .addComponent(jButton2)
@@ -374,7 +374,7 @@ public class ManageCustomer extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addGap(37, 37, 37)
                 .addComponent(jButton4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(90, 90, 90))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton2, jButton3, jButton4});
@@ -767,14 +767,14 @@ public class ManageCustomer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTAddress;
     private javax.swing.JTable jTClientes;
     private javax.swing.JTextField jTCpf;
-    private javax.swing.JTextField jTAddress;
     private javax.swing.JTextField jTId;
     public javax.swing.JTextField jTName;
-    private javax.swing.JTextField jTSearch;
     private javax.swing.JFormattedTextField jTPhone;
     private javax.swing.JFormattedTextField jTPhone1;
+    private javax.swing.JTextField jTSearch;
     private javax.swing.JTextField jTTotal;
     // End of variables declaration//GEN-END:variables
 }

@@ -219,7 +219,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Salesman:"/>
+                <Property name="text" type="java.lang.String" value="Saller:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox2">
@@ -276,7 +276,7 @@
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jTTotal" min="-2" pref="78" max="-2" attributes="0"/>
+                                              <Component id="jTTotal1" min="-2" pref="78" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="jTProduct" max="32767" attributes="0"/>
                                       </Group>
@@ -366,7 +366,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTTotal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTTotal1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTValor" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -531,7 +531,7 @@
                 <Property name="text" type="java.lang.String" value="Amount.:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTTotal">
+            <Component class="javax.swing.JTextField" name="jTTotal1">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">

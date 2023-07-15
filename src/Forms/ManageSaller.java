@@ -470,7 +470,7 @@ public final class ManageSaller extends javax.swing.JFrame {
         if (jTSallers.getSelectedRow() != -1) {
             Enable();
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Vendedor na tabela para poder Editar!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Vendedor na tabela para poder Edit!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 

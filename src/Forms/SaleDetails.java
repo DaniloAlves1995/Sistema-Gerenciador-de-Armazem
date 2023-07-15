@@ -50,7 +50,7 @@ public class SaleDetails extends javax.swing.JFrame {
     private boolean veri = false;
     
     public int id;
-    public SearchVendas pesqvenda;
+    public SearchSales pesqvenda;
 
     char l;
     int mais = -1;//para check se já clicou na seta para baixo
@@ -188,7 +188,7 @@ public class SaleDetails extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jTAddress = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTTotal = new javax.swing.JTextField();
+        jTTotal1 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jTCpf = new javax.swing.JTextField();
         jTContato1 = new javax.swing.JTextField();
@@ -259,7 +259,7 @@ public class SaleDetails extends javax.swing.JFrame {
 
         jLabel17.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Salesman:");
+        jLabel17.setText("Saller:");
 
         jComboBox2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -413,20 +413,20 @@ public class SaleDetails extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Amount.:");
 
-        jTTotal.setEditable(false);
-        jTTotal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTTotal.setText("1");
-        jTTotal.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTTotal1.setEditable(false);
+        jTTotal1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTTotal1.setText("1");
+        jTTotal1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTTotalFocusLost(evt);
             }
         });
-        jTTotal.addActionListener(new java.awt.event.ActionListener() {
+        jTTotal1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTTotalActionPerformed(evt);
             }
         });
-        jTTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTTotal1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTTotalKeyPressed(evt);
             }
@@ -526,7 +526,7 @@ public class SaleDetails extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jLabel16)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jTProduct))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -596,7 +596,7 @@ public class SaleDetails extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(jLabel9)
                     .addComponent(jTValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -667,9 +667,9 @@ public class SaleDetails extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTTotalMouseClicked
 
-    private void jTTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTotalKeyPressed
+    private void jTTotalKeyPressed(java.awt.event.KeyEvent evt) {                                   
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTTotalKeyPressed
+    }                                  
 
     private void jTDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDataMouseClicked
         // TODO add your handling code here:
@@ -800,7 +800,7 @@ public class SaleDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_jTContato2KeyTyped
 
     //metodo que recebe a instância do Form SearchVenda
-    public void SetSearchVendas(SearchVendas pesqvenda) {
+    public void SetSearchVendas(SearchSales pesqvenda) {
         this.pesqvenda = pesqvenda;
     }
 
@@ -932,17 +932,17 @@ public class SaleDetails extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jTAddress;
     private javax.swing.JTextField jTCliente;
     private javax.swing.JTextField jTContato1;
     private javax.swing.JTextField jTContato2;
     private javax.swing.JTextField jTCpf;
     private javax.swing.JTextField jTData;
-    private javax.swing.JTextField jTAddress;
     private javax.swing.JTextField jTNVenda;
     private javax.swing.JTextField jTPreco;
     private javax.swing.JTextField jTProduct;
     private javax.swing.JTextField jTTotal;
-    private javax.swing.JTextField jTTotal;
+    private javax.swing.JTextField jTTotal1;
     private javax.swing.JTextField jTValor;
     private javax.swing.JTable jTVendas;
     // End of variables declaration//GEN-END:variables

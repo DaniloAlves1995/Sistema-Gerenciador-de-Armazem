@@ -32,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
-public class Gerenciar_Truck extends javax.swing.JFrame {
+public class ManageTruck extends javax.swing.JFrame {
 
     private final ManageFields manageFields;
     private DefaultTableModel tmTruck = new DefaultTableModel(null, new String[]{"Id", "Name", "Sacas Restantes."});
@@ -41,7 +41,7 @@ public class Gerenciar_Truck extends javax.swing.JFrame {
     private int salvar = 0;
     private char l;
 
-    public Gerenciar_Truck() {
+    public ManageTruck() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Gerenciar Caminhão - WMS");
@@ -100,7 +100,7 @@ public class Gerenciar_Truck extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Search Caminhão:");
+        jLabel1.setText("Search truck:");
 
         jTSearch.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -152,18 +152,18 @@ public class Gerenciar_Truck extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Gerenciar Caminhões");
+        jLabel2.setText("Manage Truck");
 
         jPanel3.setBackground(new java.awt.Color(0, 131, 73));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Sac. restantes:");
+        jLabel3.setText("Remaining sackss:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Previ. de sacas:");
+        jLabel5.setText("Expected sackss:");
 
         jTName.setEditable(false);
         jTName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -267,27 +267,24 @@ public class Gerenciar_Truck extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 131, 73));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/disk.png"))); // NOI18N
-        jButton1.setText("Salvar");
+        jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/table_edit.png"))); // NOI18N
-        jButton3.setText("Editar");
+        jButton3.setText("Edit");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/delete.png"))); // NOI18N
         jButton4.setText("Delete");
@@ -362,10 +359,10 @@ public class Gerenciar_Truck extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(275, 275, 275)
                 .addComponent(jLabel2)
-                .addGap(258, 258, 258))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,9 +383,7 @@ public class Gerenciar_Truck extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -455,7 +450,7 @@ public class Gerenciar_Truck extends javax.swing.JFrame {
             Enable();
             salvar = 1;
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Caminhão na tabela para poder Editar!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Caminhão na tabela para poder Edit!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -494,8 +489,9 @@ public class Gerenciar_Truck extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gerenciar_Truck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageTruck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
         
         //</editor-fold>
@@ -503,7 +499,7 @@ public class Gerenciar_Truck extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Gerenciar_Truck().setVisible(true);
+                new ManageTruck().setVisible(true);
             }
         });
     }
@@ -652,12 +648,12 @@ public class Gerenciar_Truck extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTTruck;
     private javax.swing.JTextField jTId;
     public javax.swing.JTextField jTName;
-    private javax.swing.JTextField jTSearch;
     private javax.swing.JTextField jTPreCarga;
     private javax.swing.JTextField jTSacRest;
+    private javax.swing.JTextField jTSearch;
     private javax.swing.JTextField jTTotal;
+    private javax.swing.JTable jTTruck;
     // End of variables declaration//GEN-END:variables
 }

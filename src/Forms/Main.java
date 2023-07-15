@@ -24,14 +24,14 @@ import javax.swing.JOptionPane;
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
-public class Principal extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame {
 
     /**
-     * Creates new form Principal
+     * Creates new form Main
      */
     public static boolean flag = false;
 
-    public Principal() {
+    public Main() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Sistema SGA ..:: Especializado para Empresa X ::..");
@@ -134,15 +134,13 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(864, Short.MAX_VALUE))
         );
 
-        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
-
         jMenu1.setForeground(new java.awt.Color(0, 131, 73));
-        jMenu1.setText("Cadastro");
+        jMenu1.setText("Register");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/user_add.png"))); // NOI18N
-        jMenuItem1.setText("Cliente");
+        jMenuItem1.setText("Customer");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -162,7 +160,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/lorry_add.png"))); // NOI18N
-        jMenuItem13.setText("Caminhão");
+        jMenuItem13.setText("Truck");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem13ActionPerformed(evt);
@@ -172,7 +170,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/user_gray_add.png"))); // NOI18N
-        jMenuItem12.setText("Vendedor");
+        jMenuItem12.setText("Saller");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem12ActionPerformed(evt);
@@ -183,12 +181,12 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setForeground(new java.awt.Color(0, 131, 73));
-        jMenu2.setText("Saida");
+        jMenu2.setText("Sales");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
 
         jMenuItem3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cart_add.png"))); // NOI18N
-        jMenuItem3.setText("Realizar Saida");
+        jMenuItem3.setText("Register sale");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -198,7 +196,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/zoom.png"))); // NOI18N
-        jMenuItem4.setText("Search Exits");
+        jMenuItem4.setText("Search sales");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -209,12 +207,12 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setForeground(new java.awt.Color(0, 131, 73));
-        jMenu3.setText("Estoque");
+        jMenu3.setText("Stock");
         jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
 
         jMenuItem14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/package_add.png"))); // NOI18N
-        jMenuItem14.setText("Entrada de Products");
+        jMenuItem14.setText("Product Entry");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem14ActionPerformed(evt);
@@ -224,7 +222,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/zoom.png"))); // NOI18N
-        jMenuItem15.setText("Search Estoque");
+        jMenuItem15.setText("Search Stock");
         jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem15ActionPerformed(evt);
@@ -234,7 +232,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/package.png"))); // NOI18N
-        jMenuItem16.setText("Gerenciar Estoque");
+        jMenuItem16.setText("Manage Stock");
         jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem16ActionPerformed(evt);
@@ -244,7 +242,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/page_white.png"))); // NOI18N
-        jMenuItem7.setText("Relatório Avulso");
+        jMenuItem7.setText("Separate report");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
@@ -254,7 +252,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/zoom.png"))); // NOI18N
-        jMenuItem8.setText("Search Entradas");
+        jMenuItem8.setText("Search Entries");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem8ActionPerformed(evt);
@@ -265,7 +263,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setForeground(new java.awt.Color(0, 131, 73));
-        jMenu4.setText("Produção");
+        jMenu4.setText("Production");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jMenu4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,7 +273,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/lorry_add.png"))); // NOI18N
-        jMenuItem6.setText("Cadastrar Caminhão");
+        jMenuItem6.setText("Register truck");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -285,7 +283,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/lorry.png"))); // NOI18N
-        jMenuItem5.setText("Gerenciar Caminhão");
+        jMenuItem5.setText("Manage truck");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -295,7 +293,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/bank.png"))); // NOI18N
-        jMenuItem9.setText("Produção de Sacas");
+        jMenuItem9.setText("Production of sacks");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem9ActionPerformed(evt);
@@ -305,7 +303,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/zoom.png"))); // NOI18N
-        jMenuItem17.setText("Pesq. Entradas de Caminhões");
+        jMenuItem17.setText("Search truck entries");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem17ActionPerformed(evt);
@@ -315,7 +313,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/zoom.png"))); // NOI18N
-        jMenuItem18.setText("Pesq. Produção");
+        jMenuItem18.setText("Search production");
         jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem18ActionPerformed(evt);
@@ -326,12 +324,12 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu6.setForeground(new java.awt.Color(0, 131, 73));
-        jMenu6.setText("Vendedor");
+        jMenu6.setText("Saller");
         jMenu6.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
 
         jMenuItem10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/user_gray_add.png"))); // NOI18N
-        jMenuItem10.setText("Cadastrar Vendedor");
+        jMenuItem10.setText("Register saller");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem10ActionPerformed(evt);
@@ -341,7 +339,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/user_gray.png"))); // NOI18N
-        jMenuItem11.setText("Gerenciar Vendedor");
+        jMenuItem11.setText("Manage saller");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem11ActionPerformed(evt);
@@ -376,12 +374,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        SaidaVenda v = new SaidaVenda();
+        RegisterSale v = new RegisterSale();
         v.show();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        new SearchVendas().show();
+        new SearchSales().show();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
@@ -397,7 +395,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        new RegisterSalesman().show();
+        new RegisterSaller().show();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
@@ -413,7 +411,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        new RegisterSalesman().show();
+        new RegisterSaller().show();
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
@@ -421,7 +419,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-        new SearchEstoque().show();
+        new SearchStock().show();
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
@@ -429,15 +427,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        new Gerenciar_Truck().show();
+        new ManageTruck().show();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        new ProducaoSacas().show();
+        new SacksProduction().show();
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        new ReportBranco().show();
+        new BlankReport().show();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
@@ -445,7 +443,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-        new SearchProducaoSacas().show();
+        new SearchSacksProduction().show();
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -469,20 +467,22 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Principal().setVisible(true);
+            new Main().setVisible(true);
         });
     }
 

@@ -57,11 +57,8 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  *
  */
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
-//</editor-fold>
-public class SaidaVenda extends javax.swing.JFrame {
+
+public class RegisterSale extends javax.swing.JFrame {
 
     private final ManageFields manageFields;
     private List<Sale> venda;
@@ -85,7 +82,7 @@ public class SaidaVenda extends javax.swing.JFrame {
     boolean orcamento = false;
     int la = 0;//para check se clicou no Ctrl
 
-    public SaidaVenda() {
+    public RegisterSale() {
         initComponents();
 
         this.setLocationRelativeTo(null);
@@ -173,14 +170,14 @@ public class SaidaVenda extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Realizar Venda");
+        jLabel2.setText("Register sale");
 
         jPanel2.setBackground(new java.awt.Color(0, 131, 73));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Dados do cliente:");
+        jLabel1.setText("Customer data:");
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -217,11 +214,11 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jLNVenda.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLNVenda.setForeground(new java.awt.Color(255, 255, 255));
-        jLNVenda.setText("Venda Nº:33333");
+        jLNVenda.setText("Sale Nº:33333");
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Valor (R$):");
+        jLabel6.setText("Value (R$):");
 
         jTValor.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTValor.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -240,18 +237,18 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Preço(R$):");
+        jLabel7.setText("Price(R$):");
 
         jTPreco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTPreco.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Dados da venda:");
+        jLabel5.setText("Sale data:");
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Cliente:");
+        jLabel8.setText("Customer:");
 
         jTCliente.setEditable(false);
         jTCliente.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -274,7 +271,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Endereço:");
+        jLabel9.setText("Address:");
 
         jTAddress.setEditable(false);
         jTAddress.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -317,7 +314,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Vendedor:");
+        jLabel16.setText("Saller:");
 
         jComboBox2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jComboBox2.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -328,7 +325,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Quant. em stock:");
+        jLabel15.setText("Amount in stock:");
 
         jTTotal_est.setEditable(false);
         jTTotal_est.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -450,7 +447,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/disk.png"))); // NOI18N
-        jButton1.setText("Salvar");
+        jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -464,7 +461,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancel.png"))); // NOI18N
-        jButton2.setText("Cancelar");
+        jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -511,7 +508,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/chec2.png"))); // NOI18N
-        jButton3.setText("Finalizar");
+        jButton3.setText("Finish");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -525,7 +522,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/delete.png"))); // NOI18N
-        jButton4.setText("Remover");
+        jButton4.setText("Remove");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -543,7 +540,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Total Geral...:");
+        jLabel14.setText("General total.:");
 
         jTTotalg.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -551,7 +548,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         jCheckBox1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Gerar Nota");
+        jCheckBox1.setText("Generate invoice");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -596,13 +593,13 @@ public class SaidaVenda extends javax.swing.JFrame {
         );
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel4.setText("Ctrl+C = adicionar um Cliente.");
+        jLabel4.setText("Ctrl+C = add a custom.");
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel10.setText("Ctrl+F = Finalizar a Venda.");
+        jLabel10.setText("Ctrl+F = Finish sale.");
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel11.setText("Ctrl+P = adicionar um product.");
+        jLabel11.setText("Ctrl+P = add a product.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -615,14 +612,15 @@ public class SaidaVenda extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(24, 24, 24)
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel10)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(366, 366, 366)
+                .addGap(380, 380, 380)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -982,14 +980,18 @@ public class SaidaVenda extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SaidaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Sale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SaidaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Sale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SaidaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Sale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SaidaVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Sale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -997,7 +999,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new SaidaVenda().setVisible(true);
+            new Sale().setVisible(true);
         });
     }
 
@@ -1272,8 +1274,8 @@ public class SaidaVenda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTCliente;
     private javax.swing.JTextField jTAddress;
+    private javax.swing.JTextField jTCliente;
     private javax.swing.JTextField jTPreco;
     private javax.swing.JTextField jTProduct;
     private javax.swing.JTextField jTTotal;

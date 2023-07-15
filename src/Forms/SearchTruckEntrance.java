@@ -375,7 +375,7 @@ public class SearchTruckEntrance extends javax.swing.JFrame {
         } else {
             months = "" + month;
         }
-        String Name = "Relatório_Entrada_Caminhão_DATA_" + days + "-" + months + "-" + year;
+        String Name = "Report_Entrada_Caminhão_DATA_" + days + "-" + months + "-" + year;
         String file = Name;
 
         ConectionReport con = new ConectionReport();

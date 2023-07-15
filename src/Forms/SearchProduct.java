@@ -36,9 +36,9 @@ public class SearchProduct extends javax.swing.JFrame {
     private List<Product> products;
     private char l;
     private StockInput entradae;
-    private SaidaVenda svenda;
-    private ProducaoSacas producao;
-    private int tipo;// 0 = EntradaEstoque; 1 = SaidaVenda; 2 = ProducaoSacas
+    private RegisterSale svenda;
+    private SacksProduction producao;
+    private int tipo;// 0 = EntradaEstoque; 1 = RegisterSale; 2 = SacksProduction
 
     /**
      * Creates new form SearchSocio
@@ -221,9 +221,9 @@ public class SearchProduct extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(156, 156, 156)
+                .addGap(167, 167, 167)
                 .addComponent(jBOk)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(jBCancelar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -307,11 +307,11 @@ public class SearchProduct extends javax.swing.JFrame {
         this.entradae = entradae;
     }
 
-    public void SetSaidaVenda(SaidaVenda svenda) {
+    public void SetSaidaVenda(RegisterSale svenda) {
         this.svenda = svenda;
     }
 
-    public void SetProducaoSacas(ProducaoSacas producao) {
+    public void SetProducaoSacas(SacksProduction producao) {
         this.producao = producao;
     }
 
