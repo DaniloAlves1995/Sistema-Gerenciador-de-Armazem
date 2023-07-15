@@ -92,7 +92,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTPesquisar" max="32767" attributes="0"/>
+                      <Component id="jTSearch" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -103,7 +103,7 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -111,16 +111,16 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="jTPesquisar">
+            <Component class="javax.swing.JTextField" name="jTSearch">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTPesquisarKeyPressed"/>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTPesquisarKeyReleased"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTPesquisarKeyTyped"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTSearchKeyPressed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTSearchKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTSearchKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
@@ -168,7 +168,7 @@
                                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jTProduto" max="32767" attributes="0"/>
+                                      <Component id="jTProduct" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -177,7 +177,7 @@
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jTQtd" min="-2" pref="155" max="-2" attributes="0"/>
+                                      <Component id="jTTotal" min="-2" pref="155" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -198,14 +198,14 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTProduct" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jTPreco" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTQtd" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -239,7 +239,7 @@
                 <Property name="text" type="java.lang.String" value="Price (R$):"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTProduto">
+            <Component class="javax.swing.JTextField" name="jTProduct">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -247,7 +247,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTProdutoKeyPressed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTProductKeyPressed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -287,7 +287,7 @@
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/estoque.png"/>
+                  <Image iconType="3" name="/Imagens/stock.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -302,7 +302,7 @@
                 <Property name="text" type="java.lang.String" value="Amount in stock:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTQtd">
+            <Component class="javax.swing.JTextField" name="jTTotal">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -310,8 +310,8 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTQtdActionPerformed"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTQtdKeyPressed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTTotalActionPerformed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTTotalKeyPressed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -432,20 +432,20 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTProdutos">
+                <Component class="javax.swing.JTable" name="jTProducts">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="18" style="0"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="tmProduto" type="code"/>
+                      <Connection code="tmProduct" type="code"/>
                     </Property>
                     <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="49" green="83" red="0" type="rgb"/>
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;lsmProduto = jTProdutos.getSelectionModel();&#xd;&#xa;lsmProduto.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTProdutos); } }&#xd;&#xa;});"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTProducts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;lsmProduct = jTProducts.getSelectionModel();&#xd;&#xa;lsmProduct.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTSelectedRowTable(jTProducts); } }&#xd;&#xa;});"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

@@ -41,27 +41,27 @@ import javax.swing.table.DefaultTableModel;
 public class ProducaoSacas extends javax.swing.JFrame {
 
     private final ManageFields manageFields;
-    private DefaultTableModel tmCaminhao = new DefaultTableModel(null, new String[]{"Id", "Nome", "Sacas Previstas"});
-    private ListSelectionModel lsmCaminhao;
-    private List<Truck> caminhoes;
-    private Product produto;
+    private DefaultTableModel tmTruck = new DefaultTableModel(null, new String[]{"Id", "Name", "Sacas Previstas"});
+    private ListSelectionModel lsmTruck;
+    private List<Truck> truck;
+    private Product product;
     
     public ProducaoSacas() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Produção de Sacas - SGE");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        this.setTitle("Produção de Sacas - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
         
         try {
-            listarCaminhoes();
+            listTruck();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
         
         //setup manage class
         this.manageFields = new ManageFields();
-        this.manageFields.setFields(Arrays.asList(jTProduto, jTQtd));
+        this.manageFields.setFields(Arrays.asList(jTProduct, jTTotal));
         this.manageFields.setEvent();
     }
 
@@ -78,13 +78,13 @@ public class ProducaoSacas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTCaminhoes = new javax.swing.JTable();
+        jTTruck = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTProduto = new javax.swing.JTextField();
+        jTProduct = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTQtd = new javax.swing.JTextField();
+        jTTotal = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -100,14 +100,14 @@ public class ProducaoSacas extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(0, 131, 73));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTCaminhoes.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTCaminhoes.setModel(tmCaminhao);
-        jTCaminhoes.setSelectionBackground(new java.awt.Color(0, 131, 73));
-        jTCaminhoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lsmCaminhao = jTCaminhoes.getSelectionModel();
-        lsmCaminhao.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){  } }
+        jTTruck.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTTruck.setModel(tmTruck);
+        jTTruck.setSelectionBackground(new java.awt.Color(0, 131, 73));
+        jTTruck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lsmTruck = jTTruck.getSelectionModel();
+        lsmTruck.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){  } }
         });
-        jScrollPane1.setViewportView(jTCaminhoes);
+        jScrollPane1.setViewportView(jTTruck);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,45 +139,45 @@ public class ProducaoSacas extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 131, 73));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTProduto.setEditable(false);
-        jTProduto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTProduct.setEditable(false);
+        jTProduct.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTProduct.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTProdutoFocusLost(evt);
+                jTProductFocusLost(evt);
             }
         });
-        jTProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTProdutoMouseClicked(evt);
+                jTProductMouseClicked(evt);
             }
         });
-        jTProduto.addActionListener(new java.awt.event.ActionListener() {
+        jTProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTProdutoActionPerformed(evt);
+                jTProductActionPerformed(evt);
             }
         });
-        jTProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyPressed(evt);
+                jTProductKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyReleased(evt);
+                jTProductKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyTyped(evt);
+                jTProductKeyTyped(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Produto:");
+        jLabel3.setText("Product:");
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Qtd Produzida:");
+        jLabel8.setText("Total Produzida:");
 
-        jTQtd.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTQtd.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTTotal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/sacas.png"))); // NOI18N
 
@@ -196,8 +196,8 @@ public class ProducaoSacas extends javax.swing.JFrame {
                         .addGap(293, 293, 293)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
         jPanel2Layout.setVerticalGroup(
@@ -206,11 +206,11 @@ public class ProducaoSacas extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -284,80 +284,80 @@ public class ProducaoSacas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTProdutoFocusLost
+    private void jTProductFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTProductFocusLost
 
-    }//GEN-LAST:event_jTProdutoFocusLost
+    }//GEN-LAST:event_jTProductFocusLost
 
-    private void jTProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutoMouseClicked
+    private void jTProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProductMouseClicked
         SearchProduct b = new SearchProduct();
         b.SetProducaoSacas(this);
         b.SetTipo(2);
         b.show();
-        jTProduto.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jTProdutoMouseClicked
+        jTProduct.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jTProductMouseClicked
 
-    private void jTProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTProdutoActionPerformed
+    private void jTProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTProductActionPerformed
 
-    }//GEN-LAST:event_jTProdutoActionPerformed
+    }//GEN-LAST:event_jTProductActionPerformed
 
-    private void jTProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyPressed
+    private void jTProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyPressed
 
-    }//GEN-LAST:event_jTProdutoKeyPressed
+    }//GEN-LAST:event_jTProductKeyPressed
 
-    private void jTProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyReleased
+    private void jTProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyReleased
 
-    }//GEN-LAST:event_jTProdutoKeyReleased
+    }//GEN-LAST:event_jTProductKeyReleased
 
-    private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
+    private void jTProductKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyTyped
 
-    }//GEN-LAST:event_jTProdutoKeyTyped
+    }//GEN-LAST:event_jTProductKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
             if (this.manageFields.checkFields()) {
-                if(jTCaminhoes.getSelectedRow() != -1){
-                    if (Integer.parseInt(jTQtd.getText()) <= caminhoes.get(jTCaminhoes.getSelectedRow()).getTruckLoad()) {
-                        Truck c = caminhoes.get(jTCaminhoes.getSelectedRow());
-                        c.setTruckLoad(c.getTruckLoad()-Integer.parseInt(jTQtd.getText()));
+                if(jTTruck.getSelectedRow() != -1){
+                    if (Integer.parseInt(jTTotal.getText()) <= truck.get(jTTruck.getSelectedRow()).getTruckLoad()) {
+                        Truck c = truck.get(jTTruck.getSelectedRow());
+                        c.setTruckLoad(c.getTruckLoad()-Integer.parseInt(jTTotal.getText()));
                         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
                         
                         try { 
                             Sack s = new Sack();
-                            s.setId_prod(produto.getId());
+                            s.setId_prod(product.getId());
                             s.setId_truck(c.getId());
-                            s.setAmount(Integer.parseInt(jTQtd.getText()));
+                            s.setAmount(Integer.parseInt(jTTotal.getText()));
                             s.setDate(sf.format(new Date()));
                             
                             SackDao sdao = new SackDao();
                             sdao.add(s);
                             
-                            //altera o estoque corrente
+                            //altera o stock corrente
                             StockDao edao = new StockDao();
-                            Stock e = edao.getStock(produto.getId());
-                            e.setAmount(e.getAmount()+Integer.parseInt(jTQtd.getText()));
+                            Stock e = edao.getStock(product.getId());
+                            e.setAmount(e.getAmount()+Integer.parseInt(jTTotal.getText()));
                             edao.update(e);
                             
-                            //adiciona ao histórico de entradas do estoque
-                            e.setAmount(Integer.parseInt(jTQtd.getText()));
+                            //adiciona ao histórico de entradas do stock
+                            e.setAmount(Integer.parseInt(jTTotal.getText()));
                             e.setDate(sf.format(new Date()));
                             edao.addStockIn(e);
                                 
                             TruckDao cdao = new TruckDao();
                             cdao.updateTruckLoad(c);
-                            JOptionPane.showMessageDialog(null, "A produção de "+jTQtd.getText()+" sacas de "+jTProduto.getText()+"\n\r foi retirada do caminhão e adicionada ao estoque.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-                            listarCaminhoes();
-                            Limpar();
+                            JOptionPane.showMessageDialog(null, "A produção de "+jTTotal.getText()+" sacas de "+jTProduct.getText()+"\n\r foi retirada do caminhão e adicionada ao stock.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                            listTruck();
+                            Clear();
                             if(c.getTruckLoad()==0){
                                 cdao.deleteTruckLoad(c);
                             }
                         } catch (SQLException ex) {
-                            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "A quantidade informada não pode ser maior que a prevista no caminhão.", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "A quantidade informada não pode ser maior que a prevista no caminhão.", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
                     }
                 }else{
-                        JOptionPane.showMessageDialog(null, "Você precisa selecionar um caminhão na tabela.", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Você precisa selecionar um caminhão na tabela.", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
                 }
             }
         
@@ -400,37 +400,37 @@ public class ProducaoSacas extends javax.swing.JFrame {
         });
     }
     
-    protected final void listarCaminhoes() throws SQLException {
+    protected final void listTruck() throws SQLException {
         TruckDao me = new TruckDao();
-        caminhoes = me.getList("", 1);
+        truck = me.getList("", 1);
 
-        mostraPesquisa(caminhoes);
+        showSearch(truck);
     }
 
-    private void mostraPesquisa(List<Truck> caminhoes) {
+    private void showSearch(List<Truck> truck) {
 
-        while (tmCaminhao.getRowCount() > 0) {
-            tmCaminhao.removeRow(0);
+        while (tmTruck.getRowCount() > 0) {
+            tmTruck.removeRow(0);
         }
        
         String[] linha = new String[]{null, null, null};
-        for (int i = 0; i < caminhoes.size(); i++) {
-            tmCaminhao.addRow(linha);
-            tmCaminhao.setValueAt(caminhoes.get(i).getId(), i, 0);
-            tmCaminhao.setValueAt(caminhoes.get(i).getName(), i, 1);
-            tmCaminhao.setValueAt(caminhoes.get(i).getTruckLoad(), i, 2);
+        for (int i = 0; i < truck.size(); i++) {
+            tmTruck.addRow(linha);
+            tmTruck.setValueAt(truck.get(i).getId(), i, 0);
+            tmTruck.setValueAt(truck.get(i).getName(), i, 1);
+            tmTruck.setValueAt(truck.get(i).getTruckLoad(), i, 2);
         }
     }
     
-    public void Limpar(){
-        jTProduto.setText("");
-        jTQtd.setText("");
+    public void Clear(){
+        jTProduct.setText("");
+        jTTotal.setText("");
     }
     
-    //metodo para setar o produto que foi escolhido
-    public void SetProduto(Product produto) {
-        jTProduto.setText(produto.getProduct());
-        this.produto = produto;
+    //metodo para setar o product que foi escolhido
+    public void SetProduct(Product product) {
+        jTProduct.setText(product.getProduct());
+        this.product = product;
     }
  
 
@@ -446,8 +446,8 @@ public class ProducaoSacas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTCaminhoes;
-    private javax.swing.JTextField jTProduto;
-    private javax.swing.JTextField jTQtd;
+    private javax.swing.JTable jTTruck;
+    private javax.swing.JTextField jTProduct;
+    private javax.swing.JTextField jTTotal;
     // End of variables declaration//GEN-END:variables
 }

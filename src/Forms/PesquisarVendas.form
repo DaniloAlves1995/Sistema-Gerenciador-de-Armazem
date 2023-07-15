@@ -178,7 +178,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="24" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pesquisar Vendas"/>
+            <Property name="text" type="java.lang.String" value="Search Vendas"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel4">
@@ -207,7 +207,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jBExcluir" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBDelete" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBGerarN" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -230,7 +230,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBDelete" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBGerarN" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBGerarN1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBGerarN2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -294,7 +294,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jBExcluir">
+            <Component class="javax.swing.JButton" name="jBDelete">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="18" style="1"/>
@@ -302,11 +302,11 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagens/cart_delete.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Excluir Venda"/>
+                <Property name="text" type="java.lang.String" value="Delete Venda"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBExcluirActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBDeleteActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jBGerarN">

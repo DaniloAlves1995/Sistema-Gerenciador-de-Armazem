@@ -47,19 +47,19 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
-public class PesquisarEstoque extends javax.swing.JFrame {
+public class SearchEstoque extends javax.swing.JFrame {
 
-    private DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)", "Qtd estoque"});
-    private ListSelectionModel lsmProduto;
-    private List<Product> produto = new ArrayList<>();
+    private DefaultTableModel tmProduct = new DefaultTableModel(null, new String[]{"Id", "Name", "Preço (R$)", "Total stock"});
+    private ListSelectionModel lsmProduct;
+    private List<Product> product = new ArrayList<>();
     private char l;
 
-    public PesquisarEstoque() {
+    public SearchEstoque() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Pesquisar Estoque - SGE");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        this.setTitle("Search Estoque - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
     }
 
     /**
@@ -73,22 +73,22 @@ public class PesquisarEstoque extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTPesquisar = new javax.swing.JTextField();
+        jTSearch = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTProduto = new javax.swing.JTextField();
+        jTProduct = new javax.swing.JTextField();
         jTPreco = new javax.swing.JTextField();
         jTId = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTQtd = new javax.swing.JTextField();
+        jTTotal = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTProdutos = new javax.swing.JTable();
+        jTProducts = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -99,22 +99,22 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 131, 73));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTPesquisar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTSearch.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyPressed(evt);
+                jTSearchKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyReleased(evt);
+                jTSearchKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyTyped(evt);
+                jTSearchKeyTyped(evt);
             }
         });
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Pesquisar produto:");
+        jLabel10.setText("Search product:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -124,7 +124,7 @@ public class PesquisarEstoque extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTPesquisar)
+                .addComponent(jTSearch)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -133,29 +133,29 @@ public class PesquisarEstoque extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Pesquisar Estoque");
+        jLabel2.setText("Search Estoque");
 
         jPanel3.setBackground(new java.awt.Color(0, 131, 73));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Nome:");
+        jLabel3.setText("Name:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Preço (R$):");
 
-        jTProduto.setEditable(false);
-        jTProduto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTProduct.setEditable(false);
+        jTProduct.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyPressed(evt);
+                jTProductKeyPressed(evt);
             }
         });
 
@@ -179,22 +179,22 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Id:");
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/estoque_p.png"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/stock_p.png"))); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Qtd em estoque:");
+        jLabel6.setText("Total em stock:");
 
-        jTQtd.setEditable(false);
-        jTQtd.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTQtd.addActionListener(new java.awt.event.ActionListener() {
+        jTTotal.setEditable(false);
+        jTTotal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTQtdActionPerformed(evt);
+                jTTotalActionPerformed(evt);
             }
         });
-        jTQtd.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTTotal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTQtdKeyPressed(evt);
+                jTTotalKeyPressed(evt);
             }
         });
 
@@ -218,7 +218,7 @@ public class PesquisarEstoque extends javax.swing.JFrame {
                                 .addGap(40, 40, 40)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTProduto))
+                                .addComponent(jTProduct))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -226,7 +226,7 @@ public class PesquisarEstoque extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -240,13 +240,13 @@ public class PesquisarEstoque extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(jTQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)))
                     .addComponent(jLabel11))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -255,14 +255,14 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(0, 131, 73));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTProdutos.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTProdutos.setModel(tmProduto);
-        jTProdutos.setSelectionBackground(new java.awt.Color(0, 131, 73));
-        jTProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lsmProduto = jTProdutos.getSelectionModel();
-        lsmProduto.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTProdutos); } }
+        jTProducts.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTProducts.setModel(tmProduct);
+        jTProducts.setSelectionBackground(new java.awt.Color(0, 131, 73));
+        jTProducts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lsmProduct = jTProducts.getSelectionModel();
+        lsmProduct.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTSelectedRowTable(jTProducts); } }
         });
-        jScrollPane1.setViewportView(jTProdutos);
+        jScrollPane1.setViewportView(jTProducts);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -336,31 +336,31 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyPressed
+    private void jTSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSearchKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTPesquisarKeyPressed
+    }//GEN-LAST:event_jTSearchKeyPressed
 
-    private void jTPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyReleased
+    private void jTSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSearchKeyReleased
         l = evt.getKeyChar();
         if (evt.getKeyCode() == 40) {
-            jTProduto.requestFocus();
+            jTProduct.requestFocus();
         }
         try {
-            listarProduto();
+            listProduct();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "SGE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "WMS", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jTPesquisarKeyReleased
+    }//GEN-LAST:event_jTSearchKeyReleased
 
-    private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
+    private void jTSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSearchKeyTyped
 
-    }//GEN-LAST:event_jTPesquisarKeyTyped
+    }//GEN-LAST:event_jTSearchKeyTyped
 
-    private void jTProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyPressed
-        if (jTProduto.getBackground() != Color.WHITE) {
-            jTProduto.setBackground(Color.WHITE);
+    private void jTProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyPressed
+        if (jTProduct.getBackground() != Color.WHITE) {
+            jTProduct.setBackground(Color.WHITE);
         }
-    }//GEN-LAST:event_jTProdutoKeyPressed
+    }//GEN-LAST:event_jTProductKeyPressed
 
     private void jTPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPrecoActionPerformed
         // TODO add your handling code here:
@@ -372,19 +372,19 @@ public class PesquisarEstoque extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTPrecoKeyPressed
 
-    private void jTQtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTQtdActionPerformed
+    private void jTTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTQtdActionPerformed
+    }//GEN-LAST:event_jTTotalActionPerformed
 
-    private void jTQtdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTQtdKeyPressed
+    private void jTTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTotalKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTQtdKeyPressed
+    }//GEN-LAST:event_jTTotalKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (produto.size() > 0) {
-            relatorio();
+        if (product.size() > 0) {
+            report();
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhum produto para listar.", "SGE", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nenhum product para list.", "WMS", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -405,82 +405,82 @@ public class PesquisarEstoque extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PesquisarEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PesquisarEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PesquisarEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PesquisarEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new PesquisarEstoque().setVisible(true);
+            new SearchEstoque().setVisible(true);
         });
     }
 
-    protected void listarProduto() throws SQLException {
+    protected void listProduct() throws SQLException {
         ProductDao me = new ProductDao();
-        produto = me.getList("%" + jTPesquisar.getText() + "%");
+        product = me.getList("%" + jTSearch.getText() + "%");
 
-        mostraPesquisa(produto);
+        showSearch(product);
     }
 
-    private void mostraPesquisa(List<Product> produto) {
+    private void showSearch(List<Product> product) {
 
-        while (tmProduto.getRowCount() > 0) {
-            tmProduto.removeRow(0);
+        while (tmProduct.getRowCount() > 0) {
+            tmProduct.removeRow(0);
         }
 
-        if ((produto.isEmpty()) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Produto com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+        if ((product.isEmpty()) && (l == ' ')) {
+            JOptionPane.showMessageDialog(null, "Nenhum Product com o Name " + jTSearch.getText().toUpperCase() + " cadastrado.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
 
         String[] linha = new String[]{null, null, null, null};
-        for (int i = 0; i < produto.size(); i++) {
-            tmProduto.addRow(linha);
-            tmProduto.setValueAt(produto.get(i).getId(), i, 0);
-            tmProduto.setValueAt(produto.get(i).getProduct(), i, 1);
-            tmProduto.setValueAt(produto.get(i).getPrice(), i, 2);
-            tmProduto.setValueAt(getqtdEstoque(produto.get(i).getId()) + "", i, 3);
+        for (int i = 0; i < product.size(); i++) {
+            tmProduct.addRow(linha);
+            tmProduct.setValueAt(product.get(i).getId(), i, 0);
+            tmProduct.setValueAt(product.get(i).getProduct(), i, 1);
+            tmProduct.setValueAt(product.get(i).getPrice(), i, 2);
+            tmProduct.setValueAt(getqtdEstoque(product.get(i).getId()) + "", i, 3);
         }
     }
 
-    private void jTTabelaLinhaSelecionada(JTable tabela) {
+    private void jTSelectedRowTable(JTable tabela) {
         try {
-            if (jTProdutos.getSelectedRow() != -1) {
-                jTProduto.setText(produto.get(tabela.getSelectedRow()).getProduct());
-                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPrice() + "");
-                jTId.setText(produto.get(tabela.getSelectedRow()).getId() + "");
-                //busca a qtd desse produto em estoque
-                jTQtd.setText(getqtdEstoque(produto.get(tabela.getSelectedRow()).getId()) + "");
+            if (jTProducts.getSelectedRow() != -1) {
+                jTProduct.setText(product.get(tabela.getSelectedRow()).getProduct());
+                jTPreco.setText(product.get(tabela.getSelectedRow()).getPrice() + "");
+                jTId.setText(product.get(tabela.getSelectedRow()).getId() + "");
+                //busca a qtd desse product em stock
+                jTTotal.setText(getqtdEstoque(product.get(tabela.getSelectedRow()).getId()) + "");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    //pega a qtd de estoque de determinado produto
+    //pega a qtd de stock de determinado product
     public int getqtdEstoque(int id_prod) {
-        Stock estoque = null;
+        Stock stock = null;
         try {
-            //busca a qtd desse produto em estoque
+            //busca a qtd desse product em stock
             StockDao edao = new StockDao();
-            estoque = edao.getStock(id_prod);
-            if (estoque == null) {
+            stock = edao.getStock(id_prod);
+            if (stock == null) {
                 Stock e = new Stock();
                 e.setId_p(id_prod);
                 e.setAmount(0);
                 edao.add(e);
-                estoque = edao.getStock(id_prod);
+                stock = edao.getStock(id_prod);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
 
-        return estoque.getAmount();
+        return stock.getAmount();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -497,91 +497,91 @@ public class PesquisarEstoque extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTId;
-    private javax.swing.JTextField jTPesquisar;
+    private javax.swing.JTextField jTSearch;
     private javax.swing.JTextField jTPreco;
-    public javax.swing.JTextField jTProduto;
-    private javax.swing.JTable jTProdutos;
-    private javax.swing.JTextField jTQtd;
+    public javax.swing.JTextField jTProduct;
+    private javax.swing.JTable jTProducts;
+    private javax.swing.JTextField jTTotal;
     // End of variables declaration//GEN-END:variables
 
-//Cria o relatorio da nota
-    private void relatorio() {
+//Cria o report da nota
+    private void report() {
         Date data = new Date();
 
-        int ano = data.getYear() + 1900;
-        int dia = data.getDate();
-        int mes = data.getMonth() + 1;
-        String dias = null, mess = null;
-        if (dia < 10) {
-            dias = "0" + dia;
+        int year = data.getYear() + 1900;
+        int day = data.getDate();
+        int month = data.getMonth() + 1;
+        String days = null, months = null;
+        if (day < 10) {
+            days = "0" + day;
         } else {
-            dias = "" + dia;
+            days = "" + day;
         }
-        if (mes < 10) {
-            mess = "0" + mes;
+        if (month < 10) {
+            months = "0" + month;
         } else {
-            mess = "" + mes;
+            months = "" + month;
         }
-        String nome = "Relatório_Estoque_DATA_" + dias + "-" + mess + "-" + ano;
-        String arquivo = nome;
+        String Name = "Relatório_Estoque_DATA_" + days + "-" + months + "-" + year;
+        String file = Name;
 
         ConectionReport con = new ConectionReport();
 
 //diretorio que vai salvar
-        File dir = new File("c:/SGE");
+        File dir = new File("c:/WMS");
         if (!dir.exists()) {
             dir.mkdir();
         }
-        File l = new File("c:/SGE/Relatorios");
+        File l = new File("c:/WMS/Reports");
         if (!l.exists()) {
             l.mkdir();
         }
-        File li = new File("c:/SGE/Relatorios/Estoque");
+        File li = new File("c:/WMS/Reports/Estoque");
         if (!li.exists()) {
             li.mkdir();
         }
 
-        String MostrarRelatorio;
-        String path = "c:/SGE/Relatorios/Estoque/";
+        String showReport;
+        String path = "c:/WMS/Reports/Estoque/";
         try {
             con.connect();
-            con.executeSQL("select produto.*, estoque.qtd from produto, estoque where produto.id_p=estoque.id_p and produto.nome_p LIKE '%" + jTPesquisar.getText() + "%';");
+            con.executeSQL("select product.*, stock.qtd from product, stock where product.id_p=stock.id_p and product.Name_p LIKE '%" + jTSearch.getText() + "%';");
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
 
             //referencia o jasper
-            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/QtdEstoque.jasper"), new HashMap(), jrRS);
+            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/TotalEstoque.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle("Relatório de Estoque - .: SGE :.");
+            jv.setTitle("Relatório de Estoque - .: WMS :.");
             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);
-            File arq = new File(path + arquivo + ".pdf");
+            File arq = new File(path + file + ".pdf");
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + arquivo + ".pdf já existe.\n Dezeja substitui-lo?", "SGE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "O relatório " + file + ".pdf já existe.\n Dezeja substitui-lo?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION) {
-                    JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                    MostrarRelatorio = path + arquivo + ".pdf";
-                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                    JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                    showReport = path + file + ".pdf";
+                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                     try {
-                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                     } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + Arrays.toString(e.getStackTrace()), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + Arrays.toString(e.getStackTrace()), "WMS", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
-                JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                MostrarRelatorio = path + arquivo + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                showReport = path + file + ".pdf";
+                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } catch (HeadlessException | JRException erro) {
-            JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + erro, "WMS", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

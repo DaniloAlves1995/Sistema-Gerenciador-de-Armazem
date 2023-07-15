@@ -40,14 +40,14 @@ public class SearchCustomer extends javax.swing.JFrame {
     private int tipo = 0;
 
     /**
-     * Creates new form PesquisarSocio
+     * Creates new form SearchSocio
      */
     public SearchCustomer() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Search Customer - WMS");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
 
         //Disable TextFilds
         jTName.setEditable(false);

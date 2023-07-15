@@ -68,7 +68,7 @@ public class ManageFields {
         this.value = true;
         this.fields.forEach((t) -> {
             if ((t.getText().trim().equals("") || t.getText().equals("(  )    -    ")) && this.value == true) {
-                JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
                 t.setBackground(new Color(255, 51, 51));
                 t.requestFocus();
                 this.value = false;

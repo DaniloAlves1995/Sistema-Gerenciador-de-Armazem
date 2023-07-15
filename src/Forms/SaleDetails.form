@@ -276,9 +276,9 @@
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jTQtd" min="-2" pref="78" max="-2" attributes="0"/>
+                                              <Component id="jTTotal" min="-2" pref="78" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jTProduto" max="32767" attributes="0"/>
+                                          <Component id="jTProduct" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -302,7 +302,7 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jTEndereco" max="32767" attributes="0"/>
+                                          <Component id="jTAddress" max="32767" attributes="0"/>
                                           <Component id="jTCliente" alignment="1" pref="555" max="32767" attributes="0"/>
                                           <Component id="jTCpf" alignment="0" min="-2" pref="251" max="-2" attributes="0"/>
                                       </Group>
@@ -344,7 +344,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTAddress" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTContato2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -359,14 +359,14 @@
                       <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTProduct" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTPreco" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTQtd" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTValor" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -399,7 +399,7 @@
                 <Property name="text" type="java.lang.String" value="Product:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTProduto">
+            <Component class="javax.swing.JTextField" name="jTProduct">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -407,11 +407,11 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTProdutoFocusLost"/>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTProdutoMouseClicked"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTProdutoKeyPressed"/>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTProdutoKeyReleased"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTProdutoKeyTyped"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTProductFocusLost"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTProductMouseClicked"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTProductKeyPressed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTProductKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTProductKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
@@ -507,7 +507,7 @@
                 <Property name="text" type="java.lang.String" value="Address:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTEndereco">
+            <Component class="javax.swing.JTextField" name="jTAddress">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -515,9 +515,9 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTEnderecoKeyPressed"/>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTEnderecoKeyReleased"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTEnderecoKeyTyped"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTAddressKeyPressed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTAddressKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTAddressKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel16">
@@ -531,7 +531,7 @@
                 <Property name="text" type="java.lang.String" value="Amount.:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTQtd">
+            <Component class="javax.swing.JTextField" name="jTTotal">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -540,10 +540,10 @@
                 <Property name="text" type="java.lang.String" value="1"/>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTQtdFocusLost"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTQtdActionPerformed"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTQtdKeyPressed"/>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTQtdKeyReleased"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTTotalFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTTotalActionPerformed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTTotalKeyPressed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTTotalKeyReleased"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel14">

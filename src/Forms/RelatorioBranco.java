@@ -43,9 +43,9 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
-public class RelatorioBranco extends javax.swing.JFrame {
+public class ReportBranco extends javax.swing.JFrame {
 
-    private DefaultTableModel tmProdutos = new DefaultTableModel(new Object[][]{}, new String[]{"Selecionar", "Id", "Produto", "Quantidade"}) {
+    private DefaultTableModel tmProducts = new DefaultTableModel(new Object[][]{}, new String[]{"Selecionar", "Id", "Product", "Quantidade"}) {
         Class[] types = new Class[]{
             Boolean.class, Object.class, Object.class, Object.class
         };
@@ -56,44 +56,44 @@ public class RelatorioBranco extends javax.swing.JFrame {
         }
     };
 
-    private List<Product> produtos;
+    private List<Product> products;
 
-    public RelatorioBranco() {
+    public ReportBranco() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Relatório para entrada em estoque - SGE");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        setIconImage(imagemTituloJanela.getImage());
+        this.setTitle("Relatório para entrada em stock - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        setIconImage(iconWindow.getImage());
 
         try {
             ProductDao pdao = new ProductDao();
-            produtos = pdao.getListAll();
-            this.adicionarTabela(produtos);
+            products = pdao.getListAll();
+            this.adicionarTabela(products);
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
 
     }
 
-    public final void adicionarTabela(List<Product> produtos) {
+    public final void adicionarTabela(List<Product> products) {
         try {
-            while (tmProdutos.getRowCount() > 0) {
-                tmProdutos.removeRow(0);
+            while (tmProducts.getRowCount() > 0) {
+                tmProducts.removeRow(0);
             }
 
             StockDao edao = new StockDao();
 
             Object[] linha = new Object[]{null, null, null, null};
-            for (int i = 0; i < produtos.size(); i++) {
-                tmProdutos.addRow(linha);
-                tmProdutos.setValueAt(Boolean.FALSE, i, 0);
-                tmProdutos.setValueAt(produtos.get(i).getId(), i, 1);
-                tmProdutos.setValueAt(produtos.get(i).getProduct(), i, 2);
-                tmProdutos.setValueAt(edao.getStock(produtos.get(i).getId()).getAmount(), i, 3);
+            for (int i = 0; i < products.size(); i++) {
+                tmProducts.addRow(linha);
+                tmProducts.setValueAt(Boolean.FALSE, i, 0);
+                tmProducts.setValueAt(products.get(i).getId(), i, 1);
+                tmProducts.setValueAt(products.get(i).getProduct(), i, 2);
+                tmProducts.setValueAt(edao.getStock(products.get(i).getId()).getAmount(), i, 3);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -110,7 +110,7 @@ public class RelatorioBranco extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTProdutos = new javax.swing.JTable();
+        jTProducts = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
@@ -126,14 +126,14 @@ public class RelatorioBranco extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 131, 73));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTProdutos.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTProdutos.setModel(tmProdutos);
-        jTProdutos.setSelectionBackground(new java.awt.Color(0, 131, 73));
-        jScrollPane1.setViewportView(jTProdutos);
+        jTProducts.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTProducts.setModel(tmProducts);
+        jTProducts.setSelectionBackground(new java.awt.Color(0, 131, 73));
+        jScrollPane1.setViewportView(jTProducts);
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Selecione os produtos que serão adicionados no relatório para o resumo de entradas.");
+        jLabel9.setText("Selecione os products que serão adicionados no relatório para o resumo de entradas.");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -210,25 +210,25 @@ public class RelatorioBranco extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int verificar = 0;
+        int check = 0;
         List<Product> lista = new ArrayList<>();
-        for (int i = 0; i < produtos.size(); i++) {
-            if (Boolean.parseBoolean(tmProdutos.getValueAt(i, 0).toString()) == true) {
-                if (verificar == 0) {
-                    verificar = 1;
+        for (int i = 0; i < products.size(); i++) {
+            if (Boolean.parseBoolean(tmProducts.getValueAt(i, 0).toString()) == true) {
+                if (check == 0) {
+                    check = 1;
                 }
-                lista.add(produtos.get(i));
+                lista.add(products.get(i));
             }
         }
-        if (verificar == 0) {
-            JOptionPane.showMessageDialog(null, "Para gerar o relatório você precisa selecionar pelo menos um produto.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+        if (check == 0) {
+            JOptionPane.showMessageDialog(null, "Para gerar o relatório você precisa selecionar pelo menos um product.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         } else {
             ProductDao pdao;
           
                 //pdao = new ProductDao();
-                //pdao.AddPDF_RelatorioE(lista);
-                relatorio(lista);
-                //pdao.LimparPDF_RelatorioE();
+                //pdao.AddPDF_ReportE(lista);
+                report(lista);
+                //pdao.ClearPDF_ReportE();
             
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -250,19 +250,19 @@ public class RelatorioBranco extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RelatorioBranco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportBranco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RelatorioBranco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportBranco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RelatorioBranco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportBranco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RelatorioBranco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportBranco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new RelatorioBranco().setVisible(true);
+            new ReportBranco().setVisible(true);
         });
     }
 
@@ -274,96 +274,96 @@ public class RelatorioBranco extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTProdutos;
+    private javax.swing.JTable jTProducts;
     // End of variables declaration//GEN-END:variables
 
-    //Cria o relatorio em branco
-    private void relatorio(List<Product> lista) {
+    //Cria o report em branco
+    private void report(List<Product> lista) {
         Date data = new Date();
 
-        int ano = data.getYear() + 1900;
-        int dia = data.getDate();
-        int mes = data.getMonth() + 1;
-        String dias = null, mess = null;
-        if (dia < 10) {
-            dias = "0" + dia;
+        int year = data.getYear() + 1900;
+        int day = data.getDate();
+        int month = data.getMonth() + 1;
+        String days = null, months = null;
+        if (day < 10) {
+            days = "0" + day;
         } else {
-            dias = "" + dia;
+            days = "" + day;
         }
-        if (mes < 10) {
-            mess = "0" + mes;
+        if (month < 10) {
+            months = "0" + month;
         } else {
-            mess = "" + mes;
+            months = "" + month;
         }
-        String nome = "Relatorio_Entrada_data_" + dias + "-" + mess + "-" + ano;
-        String arquivo = nome;
+        String Name = "Report_Entrada_data_" + days + "-" + months + "-" + year;
+        String file = Name;
 
         ConectionReport con = new ConectionReport();
 
         //diretorio para salvar
-        File dir = new File("c:/SGE");
+        File dir = new File("c:/WMS");
         if (!dir.exists()) {
             dir.mkdir();
         }
-        File l = new File("c:/SGE/Relatorios");
+        File l = new File("c:/WMS/Reports");
         if (!l.exists()) {
             l.mkdir();
         }
-        File li = new File("c:/SGE/Relatorios/Entrada");
+        File li = new File("c:/WMS/Reports/Entrada");
         if (!li.exists()) {
             li.mkdir();
         }
 
-        String MostrarRelatorio;
-        String path = "c:/SGE/Relatorios/Entrada/";
+        String showReport;
+        String path = "c:/WMS/Reports/Entrada/";
         try {
             con.connect();
-            String sql = "select row_number() over (order by produto.id_p) as id_ree, produto.id_p, produto.nome_p as produto, estoque.qtd as qtd_e from produto, estoque where \n" +
-"produto.id_p=estoque.id_p and (";
+            String sql = "select row_number() over (order by product.id_p) as id_ree, product.id_p, product.Name_p as product, stock.qtd as qtd_e from product, stock where \n" +
+"product.id_p=stock.id_p and (";
             for (int i=0; i<lista.size(); i++){
                 if (i == 0)
-                    sql += "produto.id_p="+lista.get(i).getId();
+                    sql += "product.id_p="+lista.get(i).getId();
                 else
-                    sql += " and produto.id_p="+lista.get(i).getId();
+                    sql += " and product.id_p="+lista.get(i).getId();
             }
             sql += ")";
             con.executeSQL(sql);
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
-            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/RelatorioEntrada.jasper"), new HashMap(), jrRS);
+            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/ReportEntrada.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle("Nota de Venda - .: SGE :.");
+            jv.setTitle("Nota de Venda - .: WMS :.");
             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);
-            File arq = new File(path + arquivo + ".pdf");
+            File arq = new File(path + file + ".pdf");
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + arquivo + ".pdf já existe.\n Dezeja substitui-lo?", "SGE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "O relatório " + file + ".pdf já existe.\n Dezeja substitui-lo?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION) {
-                    JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                    MostrarRelatorio = path + arquivo + ".pdf";
-                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                    JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                    showReport = path + file + ".pdf";
+                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                     try {
-                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                     } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getStackTrace(), "WMS", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
 
-                JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                MostrarRelatorio = path + arquivo + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                showReport = path + file + ".pdf";
+                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } catch (HeadlessException | JRException erro) {
-            JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + erro, "WMS", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

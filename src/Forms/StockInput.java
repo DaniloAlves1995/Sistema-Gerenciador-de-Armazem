@@ -28,22 +28,22 @@ import javax.swing.JTextField;
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
-public class Entrada_Estoque extends javax.swing.JFrame {
+public class StockInput extends javax.swing.JFrame {
 
     /**
-     * Creates new form Entrada_Estoque
+     * Creates new form StockInput
      */
-    //Produto que está entrando em estoque
-    private Product produto;
-    private Stock estoque;
+    //Product que está entrando em stock
+    private Product product;
+    private Stock stock;
     private int la;
 
-    public Entrada_Estoque() {
+    public StockInput() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Entrada em Estoque - SGE");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        this.setTitle("Entrada em Estoque - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
     }
 
     /**
@@ -59,11 +59,11 @@ public class Entrada_Estoque extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTProduto = new javax.swing.JTextField();
+        jTProduct = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTQtd_es = new javax.swing.JTextField();
+        jTTotal_es = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTQtd_ent = new javax.swing.JTextField();
+        jTTotal_ent = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -84,56 +84,56 @@ public class Entrada_Estoque extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Produto:");
+        jLabel3.setText("Product:");
 
-        jTProduto.setEditable(false);
-        jTProduto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTProduct.setEditable(false);
+        jTProduct.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTProduct.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTProdutoFocusLost(evt);
+                jTProductFocusLost(evt);
             }
         });
-        jTProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTProdutoMouseClicked(evt);
+                jTProductMouseClicked(evt);
             }
         });
-        jTProduto.addActionListener(new java.awt.event.ActionListener() {
+        jTProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTProdutoActionPerformed(evt);
+                jTProductActionPerformed(evt);
             }
         });
-        jTProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyPressed(evt);
+                jTProductKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyReleased(evt);
+                jTProductKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyTyped(evt);
+                jTProductKeyTyped(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Quantidade em estoque:");
+        jLabel4.setText("Quantidade em stock:");
 
-        jTQtd_es.setEditable(false);
-        jTQtd_es.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTTotal_es.setEditable(false);
+        jTTotal_es.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Quantidade de entada:");
 
-        jTQtd_ent.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTQtd_ent.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTTotal_ent.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTTotal_ent.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTQtd_entKeyPressed(evt);
+                jTTotal_entKeyPressed(evt);
             }
         });
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/estoque_e.png"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/stock_e.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -142,7 +142,6 @@ public class Entrada_Estoque extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -150,18 +149,18 @@ public class Entrada_Estoque extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTQtd_ent, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTTotal_ent, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTQtd_es, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTTotal_es, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -173,17 +172,17 @@ public class Entrada_Estoque extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTQtd_es, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTTotal_es, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTQtd_ent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTTotal_ent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -231,7 +230,7 @@ public class Entrada_Estoque extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel1.setText("Pressione Ctrl+P para adicionar um produto.");
+        jLabel1.setText("Pressione Ctrl+P para adicionar um product.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -278,32 +277,32 @@ public class Entrada_Estoque extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTProdutoFocusLost
+    private void jTProductFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTProductFocusLost
 
-    }//GEN-LAST:event_jTProdutoFocusLost
+    }//GEN-LAST:event_jTProductFocusLost
 
-    private void jTProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutoMouseClicked
+    private void jTProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProductMouseClicked
         SearchProduct b = new SearchProduct();
         b.SetEntradaEstoque(this);
         b.SetTipo(0);
         b.show();
-    }//GEN-LAST:event_jTProdutoMouseClicked
+    }//GEN-LAST:event_jTProductMouseClicked
 
-    private void jTProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTProdutoActionPerformed
+    private void jTProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTProductActionPerformed
 
-    }//GEN-LAST:event_jTProdutoActionPerformed
+    }//GEN-LAST:event_jTProductActionPerformed
 
-    private void jTProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyPressed
+    private void jTProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyPressed
         EventoChamarPoduto(evt);
-    }//GEN-LAST:event_jTProdutoKeyPressed
+    }//GEN-LAST:event_jTProductKeyPressed
 
-    private void jTProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyReleased
+    private void jTProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyReleased
 
-    }//GEN-LAST:event_jTProdutoKeyReleased
+    }//GEN-LAST:event_jTProductKeyReleased
 
-    private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
+    private void jTProductKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyTyped
 
-    }//GEN-LAST:event_jTProdutoKeyTyped
+    }//GEN-LAST:event_jTProductKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         SalvarEstoque();
@@ -313,71 +312,71 @@ public class Entrada_Estoque extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTQtd_entKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTQtd_entKeyPressed
+    private void jTTotal_entKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTotal_entKeyPressed
         if (evt.getKeyCode() == 10) {
             SalvarEstoque();
         }
-    }//GEN-LAST:event_jTQtd_entKeyPressed
-    //metodo para adicionar o produto
-    public void SetProduto(Product p) {
-        this.produto = p;
-        //preenche os campos do produto
-        jTProduto.setText(produto.getProduct());
-        jTQtd_ent.setText("");
+    }//GEN-LAST:event_jTTotal_entKeyPressed
+    //metodo para adicionar o product
+    public void SetProduct(Product p) {
+        this.product = p;
+        //preenche os campos do product
+        jTProduct.setText(product.getProduct());
+        jTTotal_ent.setText("");
         try {
-            //busca a qtd desse produto em estoque
+            //busca a qtd desse product em stock
             StockDao edao = new StockDao();
-            this.estoque = edao.getStock(produto.getId());
-            if (estoque == null) {
+            this.stock = edao.getStock(product.getId());
+            if (stock == null) {
                 Stock e = new Stock();
-                e.setId_p(produto.getId());
+                e.setId_p(product.getId());
                 e.setAmount(0);
                 edao.add(e);
 
-                this.estoque = edao.getStock(produto.getId());
+                this.stock = edao.getStock(product.getId());
             }
-            jTQtd_es.setText(estoque.getAmount() + "");
+            jTTotal_es.setText(stock.getAmount() + "");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
 
     }
 
-    //metodo para atualizar o valor de estoque
+    //metodo para atualizar o valor de stock
     public void SalvarEstoque() {
-        if (!jTQtd_ent.getText().equals("")) {
-            if (isInteger(jTQtd_ent)) {
+        if (!jTTotal_ent.getText().equals("")) {
+            if (isInteger(jTTotal_ent)) {
                 try {
                     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-                    //editar na tabela do estoque corrente
+                    //editar na tabela do stock corrente
                     StockDao edao = new StockDao();
                     Stock e = new Stock();
-                    e.setId_stock(estoque.getId_stock());
-                    e.setId_p(estoque.getId_p());
-                    int qtd = Integer.parseInt(jTQtd_es.getText()) + Integer.parseInt(jTQtd_ent.getText());
+                    e.setId_stock(stock.getId_stock());
+                    e.setId_p(stock.getId_p());
+                    int qtd = Integer.parseInt(jTTotal_es.getText()) + Integer.parseInt(jTTotal_ent.getText());
                     e.setAmount(qtd);
                     edao.update(e);
 
                     //adiciona na tabela do histórico de entradas
-                    e.setAmount(Integer.parseInt(jTQtd_ent.getText()));
+                    e.setAmount(Integer.parseInt(jTTotal_ent.getText()));
                     e.setDate(sf.format(new Date()));
                     edao.addStockIn(e);
 
-                    jTQtd_es.setText(qtd + "");
-                    jTQtd_ent.setText("");
-                    JOptionPane.showMessageDialog(null, "Entrada adicionada ao estoque!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+                    jTTotal_es.setText(qtd + "");
+                    jTTotal_ent.setText("");
+                    JOptionPane.showMessageDialog(null, "Entrada adicionada ao stock!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "O campo Quantidade de entrada deve ser um número inteiro.", "SGE", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "O campo Quantidade de entrada deve ser um número inteiro.", "WMS", JOptionPane.WARNING_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "O campo Quantidade de entrada não pode ser vazio.", "SGE", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "O campo Quantidade de entrada não pode ser vazio.", "WMS", JOptionPane.WARNING_MESSAGE);
         }
     }
 
-    //metodo para verificar se é inteiro
+    //metodo para check se é inteiro
     public boolean isInteger(JTextField campo) {
         try {
             int d = Integer.parseInt(campo.getText());
@@ -404,20 +403,21 @@ public class Entrada_Estoque extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Entrada_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StockInput.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Entrada_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StockInput.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Entrada_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StockInput.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Entrada_Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StockInput.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Entrada_Estoque().setVisible(true);
+                new StockInput().setVisible(true);
             }
         });
     }
@@ -449,8 +449,8 @@ public class Entrada_Estoque extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTProduto;
-    private javax.swing.JTextField jTQtd_ent;
-    private javax.swing.JTextField jTQtd_es;
+    private javax.swing.JTextField jTProduct;
+    private javax.swing.JTextField jTTotal_ent;
+    private javax.swing.JTextField jTTotal_es;
     // End of variables declaration//GEN-END:variables
 }

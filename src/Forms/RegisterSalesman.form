@@ -113,12 +113,12 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTEndereco" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jTNome" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jTAddress" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jTName" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jTTelefone2" pref="192" max="32767" attributes="0"/>
-                                  <Component id="jTTelefone" max="32767" attributes="0"/>
+                                  <Component id="jTPhone2" pref="192" max="32767" attributes="0"/>
+                                  <Component id="jTPhone" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -136,22 +136,22 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTName" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTAddress" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTPhone" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTTelefone2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTPhone2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -172,7 +172,7 @@
                 <Property name="text" type="java.lang.String" value="Name:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTNome">
+            <Component class="javax.swing.JTextField" name="jTName">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="18" style="0"/>
@@ -190,7 +190,7 @@
                 <Property name="text" type="java.lang.String" value="Phone 1:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTEndereco">
+            <Component class="javax.swing.JTextField" name="jTAddress">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="18" style="0"/>
@@ -226,7 +226,7 @@
                 <Property name="text" type="java.lang.String" value="Phone 2:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="jTTelefone">
+            <Component class="javax.swing.JFormattedTextField" name="jTPhone">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                   <Format format="(##)####-####" subtype="-1" type="5"/>
@@ -240,7 +240,7 @@
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try{"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="jTTelefone2">
+            <Component class="javax.swing.JFormattedTextField" name="jTPhone2">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                   <Format format="(##)####-####" subtype="-1" type="5"/>

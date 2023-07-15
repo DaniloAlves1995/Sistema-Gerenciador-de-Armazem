@@ -37,9 +37,9 @@ import javax.swing.table.DefaultTableModel;
 public class ManageProduct extends javax.swing.JFrame {
 
     private final ManageFields manageFields;
-    private final DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Nome", "Preço (R$)"});
-    private ListSelectionModel lsmProduto;
-    private List<Product> produto;
+    private final DefaultTableModel tmProduct = new DefaultTableModel(null, new String[]{"Id", "Name", "Preço (R$)"});
+    private ListSelectionModel lsmProduct;
+    private List<Product> product;
     private char l;
     public int habilit;
     public int salvar = 0;
@@ -50,18 +50,18 @@ public class ManageProduct extends javax.swing.JFrame {
     public ManageProduct() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Cadastrar Produto - SGE");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        this.setTitle("Cadastrar Product - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
 
         //Desabilita os campos
-        Desabilitar();
-        //mostrar qtd de produtos
-        MostrarQtdProdutos();
+        Disable();
+        //show qtd de products
+        showTotalProducts();
         
         //setup manage class
         this.manageFields = new ManageFields();
-        this.manageFields.setFields(Arrays.asList(jTProduto, jTPreco));
+        this.manageFields.setFields(Arrays.asList(jTProduct, jTPreco));
         this.manageFields.setEvent();
     }
 
@@ -78,14 +78,14 @@ public class ManageProduct extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTPesquisar = new javax.swing.JTextField();
+        jTSearch = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jTTotal = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTProduto = new javax.swing.JTextField();
+        jTProduct = new javax.swing.JTextField();
         jTPreco = new javax.swing.JTextField();
         jTId = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -100,7 +100,7 @@ public class ManageProduct extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTProdutos = new javax.swing.JTable();
+        jTProducts = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -114,13 +114,13 @@ public class ManageProduct extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Search by name:");
 
-        jTPesquisar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTSearch.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyPressed(evt);
+                jTSearchKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyTyped(evt);
+                jTSearchKeyTyped(evt);
             }
         });
 
@@ -144,7 +144,7 @@ public class ManageProduct extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -157,7 +157,7 @@ public class ManageProduct extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -177,10 +177,10 @@ public class ManageProduct extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Price (R$):");
 
-        jTProduto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTProduct.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyPressed(evt);
+                jTProductKeyPressed(evt);
             }
         });
 
@@ -203,7 +203,7 @@ public class ManageProduct extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Id:");
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/produto.png"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/product.png"))); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -234,7 +234,7 @@ public class ManageProduct extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTProduto)
+                            .addComponent(jTProduct)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jTPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -253,7 +253,7 @@ public class ManageProduct extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -340,14 +340,14 @@ public class ManageProduct extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(0, 131, 73));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTProdutos.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTProdutos.setModel(tmProduto);
-        jTProdutos.setSelectionBackground(new java.awt.Color(0, 131, 73));
-        jTProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lsmProduto = jTProdutos.getSelectionModel();
-        lsmProduto.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTProdutos); } }
+        jTProducts.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTProducts.setModel(tmProduct);
+        jTProducts.setSelectionBackground(new java.awt.Color(0, 131, 73));
+        jTProducts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lsmProduct = jTProducts.getSelectionModel();
+        lsmProduct.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTSelectedRowTable(jTProducts); } }
         });
-        jScrollPane1.setViewportView(jTProdutos);
+        jScrollPane1.setViewportView(jTProducts);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -413,21 +413,21 @@ public class ManageProduct extends javax.swing.JFrame {
         if (salvar == 0) {
             //Verifica se ha algum campo vazio
             if (this.manageFields.checkFields()) {
-                //Cria um objeto produto para setar os valores dos TextFilds
+                //Cria um objeto product para setar os valores dos TextFilds
                 Product s = new Product();
                 //Seta os valores dos TextFilds
-                s.setProduct(jTProduto.getText());
+                s.setProduct(jTProduct.getText());
                 s.setPrice(Double.parseDouble(jTPreco.getText().replace(",", ".")));
 
                 s.setNote(jTObs.getText());
 
                 try {
-                    //Cria um objeto DAO para inserir o novo produto no banco
+                    //Cria um objeto DAO para inserir o novo product no banco
                     ProductDao d = new ProductDao();
-                    //Adiciona o novo produto no banco
+                    //Adiciona o novo product no banco
                     d.add(s);
-                    JOptionPane.showMessageDialog(null, "Produto Cadastrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-                    //Cria o estoque desse produto
+                    JOptionPane.showMessageDialog(null, "Product Cadastrado com Sucesso!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                    //Cria o stock desse product
                     int idp = d.getLastId();
                     Stock e = new Stock();
                     StockDao edao = new StockDao();
@@ -437,122 +437,122 @@ public class ManageProduct extends javax.swing.JFrame {
                     edao.add(e);
                     
                     //Limpa os TextFilds depois do Cadastro
-                    Limpar();
+                    Clear();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
         } else {
             if (this.manageFields.checkFields()) {
-                if (Everificar()) {
+                if (Echeck()) {
                     try {
-                        alteraProduto();
-                        jTPesquisar.setText("");
-                        listarProduto();
-                        Limpar();
+                        alteraProduct();
+                        jTSearch.setText("");
+                        listProduct();
+                        Clear();
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                     }
 
                 }
             }
         }
-        MostrarQtdProdutos();
+        showTotalProducts();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    //Método para limpar os TextFilds
-    public void Limpar() {
+    //Método para Clear os TextFilds
+    public void Clear() {
         this.manageFields.clearFields();
         jTId.setText("");
         jTObs.setText("");
     }
 
-    //Método para Desabilitar os TextFilds
-    public final void Desabilitar() {
-        jTProduto.setEditable(false);
+    //Método para Disable os TextFilds
+    public final void Disable() {
+        jTProduct.setEditable(false);
         jTPreco.setEditable(false);
         jTObs.setEditable(false);
     }
 
-    //Método para Habilitar os TextFilds
-    public void Habilitar() {
-        jTProduto.setEditable(true);
+    //Método para Enable os TextFilds
+    public void Enable() {
+        jTProduct.setEditable(true);
         jTPreco.setEditable(true);
         jTObs.setEditable(true);
     }
 
-    protected void listarProduto() throws SQLException {
+    protected void listProduct() throws SQLException {
         ProductDao me = new ProductDao();
-        produto = me.getList(jTPesquisar.getText());
+        product = me.getList(jTSearch.getText());
 
-        mostraPesquisa(produto);
+        showSearch(product);
     }
 
-    private void mostraPesquisa(List<Product> produto) {
+    private void showSearch(List<Product> product) {
 
-        while (tmProduto.getRowCount() > 0) {
-            tmProduto.removeRow(0);
+        while (tmProduct.getRowCount() > 0) {
+            tmProduct.removeRow(0);
         }
 
-        if ((produto.isEmpty()) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Produto com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+        if ((product.isEmpty()) && (l == ' ')) {
+            JOptionPane.showMessageDialog(null, "Nenhum Product com o Name " + jTSearch.getText().toUpperCase() + " cadastrado.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
 
         String[] linha = new String[]{null, null, null};
-        for (int i = 0; i < produto.size(); i++) {
-            tmProduto.addRow(linha);
-            tmProduto.setValueAt(produto.get(i).getId(), i, 0);
-            tmProduto.setValueAt(produto.get(i).getProduct(), i, 1);
-            tmProduto.setValueAt(produto.get(i).getPrice(), i, 2);
+        for (int i = 0; i < product.size(); i++) {
+            tmProduct.addRow(linha);
+            tmProduct.setValueAt(product.get(i).getId(), i, 0);
+            tmProduct.setValueAt(product.get(i).getProduct(), i, 1);
+            tmProduct.setValueAt(product.get(i).getPrice(), i, 2);
 
         }
     }
 
-    public boolean Everificar() {
-        if ((produto.get(jTProdutos.getSelectedRow()).getProduct().equals(jTProduto.getText())) && (String.valueOf(produto.get(jTProdutos.getSelectedRow()).getPrice()).equals(jTPreco.getText())) && (produto.get(jTProdutos.getSelectedRow()).getNote().equals(jTObs.getText()))) {
-            JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+    public boolean Echeck() {
+        if ((product.get(jTProducts.getSelectedRow()).getProduct().equals(jTProduct.getText())) && (String.valueOf(product.get(jTProducts.getSelectedRow()).getPrice()).equals(jTPreco.getText())) && (product.get(jTProducts.getSelectedRow()).getNote().equals(jTObs.getText()))) {
+            JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
             return true;
         }
     }
 
-    private void jTPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyPressed
+    private void jTSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSearchKeyPressed
 
-    }//GEN-LAST:event_jTPesquisarKeyPressed
+    }//GEN-LAST:event_jTSearchKeyPressed
 
-    private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
+    private void jTSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSearchKeyTyped
         l = evt.getKeyChar();
 
         try {
-            listarProduto();
+            listProduct();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jTPesquisarKeyTyped
+    }//GEN-LAST:event_jTSearchKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Habilitar();
-        Limpar();
+        Enable();
+        Clear();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (jTProdutos.getSelectedRow() != -1) {
-            Habilitar();
+        if (jTProducts.getSelectedRow() != -1) {
+            Enable();
             salvar = 1;
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Produto na tabela para poder Editar!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Product na tabela para poder Editar!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (jTProdutos.getSelectedRow() != -1) {
-            Excluir();
+        if (jTProducts.getSelectedRow() != -1) {
+            Delete();
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Produto na Tabela para poder Excluir!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Product na Tabela para poder Delete!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
-        MostrarQtdProdutos();
+        showTotalProducts();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPrecoKeyPressed
@@ -561,12 +561,12 @@ public class ManageProduct extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTPrecoKeyPressed
 
-    private void jTProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyPressed
-        if (jTProduto.getBackground() != Color.WHITE) {
-            jTProduto.setBackground(Color.WHITE);
+    private void jTProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyPressed
+        if (jTProduct.getBackground() != Color.WHITE) {
+            jTProduct.setBackground(Color.WHITE);
         }
 
-    }//GEN-LAST:event_jTProdutoKeyPressed
+    }//GEN-LAST:event_jTProductKeyPressed
 
     private void jTPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPrecoActionPerformed
         // TODO add your handling code here:
@@ -577,36 +577,36 @@ public class ManageProduct extends javax.swing.JFrame {
     }//GEN-LAST:event_jTTotalActionPerformed
 
 
-    //Esse metodo serve para Alterar os valores do produto no banco
-    private void alteraProduto() throws SQLException {
+    //Esse metodo serve para Alterar os valores do product no banco
+    private void alteraProduct() throws SQLException {
 
         if (this.manageFields.checkFields()) {
             Product m = new Product();
             ProductDao dao = new ProductDao();
-            m.setId(produto.get(jTProdutos.getSelectedRow()).getId());
-            m.setProduct(jTProduto.getText());
+            m.setId(product.get(jTProducts.getSelectedRow()).getId());
+            m.setProduct(jTProduct.getText());
             m.setPrice(Double.parseDouble(jTPreco.getText()));
             m.setNote(jTObs.getText());
 
             dao.update(m);
-            JOptionPane.showMessageDialog(null, "Produto Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Product Alterado com SUCESSO!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
-            Desabilitar();
+            Disable();
         }
     }
 
-    //Metodo para excluir o produto
-    public void Excluir() {
-        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente excluir o Produto " + jTProduto.getText().toUpperCase(), "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    //Metodo para Delete o product
+    public void Delete() {
+        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente Delete o Product " + jTProduct.getText().toUpperCase(), "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
                 ProductDao m = new ProductDao();
-                m.delete(produto.get(jTProdutos.getSelectedRow()));
-                JOptionPane.showMessageDialog(null, "Produto excluido(a) com sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-                jTPesquisar.setText("");
-                listarProduto();
+                m.delete(product.get(jTProducts.getSelectedRow()));
+                JOptionPane.showMessageDialog(null, "Product excluido(a) com sucesso!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                jTSearch.setText("");
+                listProduct();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -649,29 +649,29 @@ public class ManageProduct extends javax.swing.JFrame {
         });
     }
 
-    private void jTTabelaLinhaSelecionada(JTable tabela) {
+    private void jTSelectedRowTable(JTable tabela) {
         try {
-            if (jTProdutos.getSelectedRow() != -1) {
-                jTProduto.setText(produto.get(tabela.getSelectedRow()).getProduct());
-                jTPreco.setText(produto.get(tabela.getSelectedRow()).getPrice() + "");
-                jTId.setText(produto.get(tabela.getSelectedRow()).getId() + "");
-                jTObs.setText(produto.get(tabela.getSelectedRow()).getNote() + "");
+            if (jTProducts.getSelectedRow() != -1) {
+                jTProduct.setText(product.get(tabela.getSelectedRow()).getProduct());
+                jTPreco.setText(product.get(tabela.getSelectedRow()).getPrice() + "");
+                jTId.setText(product.get(tabela.getSelectedRow()).getId() + "");
+                jTObs.setText(product.get(tabela.getSelectedRow()).getNote() + "");
 
-                Desabilitar();
+                Disable();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    //metodo para mostrar a qtd de sócios
-    public final void MostrarQtdProdutos() {
+    //metodo para show a qtd de sócios
+    public final void showTotalProducts() {
         try {
             //pega a qtd de sócios cadastrados no banco
             ProductDao dao = new ProductDao();
             jTTotal.setText(String.valueOf(dao.getAmountProducts()));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de produtos!", "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de products!", "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -698,10 +698,10 @@ public class ManageProduct extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTId;
     private javax.swing.JTextArea jTObs;
-    private javax.swing.JTextField jTPesquisar;
+    private javax.swing.JTextField jTSearch;
     private javax.swing.JTextField jTPreco;
-    public javax.swing.JTextField jTProduto;
-    private javax.swing.JTable jTProdutos;
+    public javax.swing.JTextField jTProduct;
+    private javax.swing.JTable jTProducts;
     private javax.swing.JTextField jTTotal;
     // End of variables declaration//GEN-END:variables
 }

@@ -38,22 +38,18 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  *
  */
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
-//</editor-fold>
-public class PesquisarEntCam extends javax.swing.JFrame {
+public class SearchTruckEntrance extends javax.swing.JFrame {
 
-    private DefaultTableModel tmCaminhoes = new DefaultTableModel(null, new String[]{"Id", "Nome", "Previsão de carga", "Data"});
-    private List<Truck> caminhoes;
+    private DefaultTableModel tmTruck = new DefaultTableModel(null, new String[]{"Id", "Name", "Load forecast", "Date"});
+    private List<Truck> truck;
 
-    public PesquisarEntCam() {
+    public SearchTruckEntrance() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Pesquisar entrada de caminhões - SGE");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
-        caminhoes = new ArrayList<>();
+        this.setTitle("Search for truck entrance - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
+        truck = new ArrayList<>();
     }
 
     /**
@@ -88,11 +84,11 @@ public class PesquisarEntCam extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Data inicial:");
+        jLabel11.setText("Initial date:");
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Data final:");
+        jLabel12.setText("Final date:");
 
         jDateChooser1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jDateChooser1.setPreferredSize(new java.awt.Dimension(87, 28));
@@ -129,7 +125,7 @@ public class PesquisarEntCam extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,14 +145,14 @@ public class PesquisarEntCam extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Pesquisar entradas de Caminhões");
+        jLabel2.setText("Search for truck entrance");
 
         jPanel4.setBackground(new java.awt.Color(0, 131, 73));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel4.setForeground(new java.awt.Color(255, 255, 255));
 
         jTNota.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTNota.setModel(tmCaminhoes);
+        jTNota.setModel(tmTruck);
         jTNota.setGridColor(new java.awt.Color(255, 255, 255));
         jTNota.setSelectionBackground(new java.awt.Color(0, 131, 73));
         jTNota.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,11 +164,11 @@ public class PesquisarEntCam extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Entrada de caminões:");
+        jLabel6.setText("Truck entrance:");
 
         jBGerarN1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jBGerarN1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/acroread.png"))); // NOI18N
-        jBGerarN1.setText("Relatório");
+        jBGerarN1.setText("Report");
         jBGerarN1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBGerarN1ActionPerformed(evt);
@@ -213,10 +209,10 @@ public class PesquisarEntCam extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(228, 228, 228)
                 .addComponent(jLabel2)
-                .addGap(196, 196, 196))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +243,7 @@ public class PesquisarEntCam extends javax.swing.JFrame {
     }//GEN-LAST:event_jDateChooser1MouseClicked
 
     private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser1PropertyChange
-        pesquisar();
+        Search();
     }//GEN-LAST:event_jDateChooser1PropertyChange
 
     private void jDateChooser1VetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jDateChooser1VetoableChange
@@ -255,7 +251,7 @@ public class PesquisarEntCam extends javax.swing.JFrame {
     }//GEN-LAST:event_jDateChooser1VetoableChange
 
     private void jDateChooser2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser2PropertyChange
-        pesquisar();
+        Search();
     }//GEN-LAST:event_jDateChooser2PropertyChange
 
     private void jTNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTNotaMouseClicked
@@ -263,16 +259,16 @@ public class PesquisarEntCam extends javax.swing.JFrame {
     }//GEN-LAST:event_jTNotaMouseClicked
 
     private void jBGerarN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarN1ActionPerformed
-        if (caminhoes.size() > 0) {
-            relatorio();
+        if (truck.size() > 0) {
+            report();
         } else {
-            JOptionPane.showMessageDialog(null, "Não houve nenhuma entrada de caminhão no período informado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Não houve nenhuma entrada de caminhão no período informado!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBGerarN1ActionPerformed
 
     String d1, d2;
 
-    public void pesquisar() {
+    public void Search() {
         if (jDateChooser1.getDate() != null && jDateChooser2.getDate() != null) {
             SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
             d1 = sd.format(jDateChooser1.getDate());
@@ -280,34 +276,33 @@ public class PesquisarEntCam extends javax.swing.JFrame {
 
             try {
                 TruckDao sdao = new TruckDao();
-                caminhoes = sdao.getTruckDates(d1, d2);
-                mostrarSaidas(caminhoes);
+                truck = sdao.getTruckDates(d1, d2);
+                showExits(truck);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
-    //Mostra a pesquisa na tabela de notas
-    private void mostrarSaidas(List<Truck> caminhao) {
+    private void showExits(List<Truck> truck) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
         Date d;
-        while (tmCaminhoes.getRowCount() > 0) {
-            tmCaminhoes.removeRow(0);
+        while (tmTruck.getRowCount() > 0) {
+            tmTruck.removeRow(0);
         }
-        if (!caminhao.isEmpty()) {
+        if (!truck.isEmpty()) {
             Object[] linha = new Object[]{null, null, null, null};
-            for (int i = 0; i < caminhao.size(); i++) {
+            for (int i = 0; i < truck.size(); i++) {
                 try {
-                    tmCaminhoes.addRow(linha);
-                    tmCaminhoes.setValueAt(caminhao.get(i).getId(), i, 0);
-                    tmCaminhoes.setValueAt(caminhao.get(i).getName(), i, 1);
-                    tmCaminhoes.setValueAt(caminhao.get(i).getTruckLoad() + "", i, 2);
-                    d = df.parse(caminhao.get(i).getDate());
-                    tmCaminhoes.setValueAt(df2.format(d), i, 3);
+                    tmTruck.addRow(linha);
+                    tmTruck.setValueAt(truck.get(i).getId(), i, 0);
+                    tmTruck.setValueAt(truck.get(i).getName(), i, 1);
+                    tmTruck.setValueAt(truck.get(i).getTruckLoad() + "", i, 2);
+                    d = df.parse(truck.get(i).getDate());
+                    tmTruck.setValueAt(df2.format(d), i, 3);
                 } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -330,19 +325,20 @@ public class PesquisarEntCam extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PesquisarEntCam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchTruckEntrance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PesquisarEntCam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchTruckEntrance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PesquisarEntCam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchTruckEntrance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PesquisarEntCam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchTruckEntrance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new PesquisarEntCam().setVisible(true);
+            new SearchTruckEntrance().setVisible(true);
         });
     }
 
@@ -361,84 +357,84 @@ public class PesquisarEntCam extends javax.swing.JFrame {
     private javax.swing.JTable jTNota;
     // End of variables declaration//GEN-END:variables
 
-    //Cria o relatorio da lista de vendas
-    private void relatorio() {
+    //Create report
+    private void report() {
         Date data = new Date();
 
-        int ano = data.getYear() + 1900;
-        int dia = data.getDate();
-        int mes = data.getMonth() + 1;
-        String dias = null, mess = null;
-        if (dia < 10) {
-            dias = "0" + dia;
+        int year = data.getYear() + 1900;
+        int day = data.getDate();
+        int month = data.getMonth() + 1;
+        String days = null, months = null;
+        if (day < 10) {
+            days = "0" + day;
         } else {
-            dias = "" + dia;
+            days = "" + day;
         }
-        if (mes < 10) {
-            mess = "0" + mes;
+        if (month < 10) {
+            months = "0" + month;
         } else {
-            mess = "" + mes;
+            months = "" + month;
         }
-        String nome = "Relatório_Entrada_Caminhão_DATA_" + dias + "-" + mess + "-" + ano;
-        String arquivo = nome;
+        String Name = "Relatório_Entrada_Caminhão_DATA_" + days + "-" + months + "-" + year;
+        String file = Name;
 
         ConectionReport con = new ConectionReport();
 
-        //diretorio que vai salvar
-        File dir = new File("c:/SGE");
+        //directory to save
+        File dir = new File("c:/WMS");
         if (!dir.exists()) {
             dir.mkdir();
         }
-        File l = new File("c:/SGE/Relatorios");
+        File l = new File("c:/WMS/Reports");
         if (!l.exists()) {
             l.mkdir();
         }
-        File li = new File("c:/SGE/Relatorios/Entrada");
+        File li = new File("c:/WMS/Reports/Entrada");
         if (!li.exists()) {
             li.mkdir();
         }
 
-        String MostrarRelatorio;
-        String path = "c:/SGE/Relatorios/Entrada/";
+        String showReport;
+        String path = "c:/WMS/Reports/Entrada/";
         try {
             con.connect();
-            con.executeSQL("select * from caminhao WHERE data between '" + d1 + "' and '" + d2 + "'");
+            con.executeSQL("select * from truck WHERE data between '" + d1 + "' and '" + d2 + "'");
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
 
-            //referencia o jasper
-            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/RelatorioeEntradaCaminhoes.jasper"), new HashMap(), jrRS);
+            //reference the jasper file
+            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/ReporteEntradaTruck.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle("Pesquisar entrada de caminhões - .: SGE :.");
+            jv.setTitle("Search for truck entrance - .: WMS :.");
             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-            File arq = new File(path + arquivo + ".pdf");
+            File arq = new File(path + file + ".pdf");
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + arquivo + ".pdf já existe.\n Dezeja substitui-lo?", "SGE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "O relatório " + file + ".pdf já existe.\n Dezeja substitui-lo?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION) {
-                    JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                    MostrarRelatorio = path + arquivo + ".pdf";
-                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                    JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                    showReport = path + file + ".pdf";
+                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                     try {
-                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                     } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + Arrays.toString(e.getStackTrace()), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + Arrays.toString(e.getStackTrace()), "WMS", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
-                JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                MostrarRelatorio = path + arquivo + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                showReport = path + file + ".pdf";
+                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } catch (HeadlessException | JRException erro) {
-            JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + erro, "WMS", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

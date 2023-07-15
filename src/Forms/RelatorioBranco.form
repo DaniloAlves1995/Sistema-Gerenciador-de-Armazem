@@ -130,13 +130,13 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTProdutos">
+                <Component class="javax.swing.JTable" name="jTProducts">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="18" style="0"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="tmProdutos" type="code"/>
+                      <Connection code="tmProducts" type="code"/>
                     </Property>
                     <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="49" green="83" red="0" type="rgb"/>
@@ -153,7 +153,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Selecione os produtos que ser&#xe3;o adicionados no relat&#xf3;rio para o resumo de entradas."/>
+                <Property name="text" type="java.lang.String" value="Selecione os products que ser&#xe3;o adicionados no relat&#xf3;rio para o resumo de entradas."/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator1">

@@ -42,21 +42,21 @@ public class SaleDetails extends javax.swing.JFrame {
 
     private List<Sale> venda, vendas;//lista utilizada para armazenar as vendas da tabela
     private DefaultListModel dlista, dlistam;
-    private DefaultTableModel tmVendas = new DefaultTableModel(null, new String[]{"Produto", "Quantidade", "Preço(R$)"});
-    private Product produto = null;
-    private List<Salesman> vendedores;
+    private DefaultTableModel tmVendas = new DefaultTableModel(null, new String[]{"Product", "Quantidade", "Preço(R$)"});
+    private Product product = null;
+    private List<Salesman> Sallers;
     private int idcliente;
     private OutStock nota;
     private boolean veri = false;
     
     public int id;
-    public PesquisarVendas pesqvenda;
+    public SearchVendas pesqvenda;
 
     char l;
-    int mais = -1;//para verificar se já clicou na seta para baixo
-    int contr = 1;//para controlar quando o usuário percorre o produto na lista
-    int ilistp = -1;//índice para referenciar a posição selecionada da lista com a lista <produto> 
-    int qtd = 0;//para contar a quantidade de produtos vendidos
+    int mais = -1;//para check se já clicou na seta para baixo
+    int contr = 1;//para controlar quando o usuário percorre o product na lista
+    int ilistp = -1;//índice para referenciar a posição selecionada da lista com a lista <product> 
+    int qtd = 0;//para contar a quantidade de products vendidos
     int contrenter = 0;
     int contfocus = 0;
     int controlefocus2 = 0;//para controlar se está passando pelos campos para cadastrar ou editar
@@ -65,9 +65,9 @@ public class SaleDetails extends javax.swing.JFrame {
         initComponents();
 
         this.setLocationRelativeTo(null);
-        this.setTitle("Detalhes da venda - SGE");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        this.setTitle("Detalhes da venda - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
 
         //desabilitar os vendadores
         jComboBox2.setEnabled(false);
@@ -75,15 +75,15 @@ public class SaleDetails extends javax.swing.JFrame {
         //inicializa a lista vendas
         venda = new ArrayList<Sale>();
 
-        //inicializa os DefaultListModels para ser utilizado no esfeito da pesquisa dinâmic do produto
+        //inicializa os DefaultListModels para ser utilizado no esfeito da pesquisa dinâmic do product
         dlista = new DefaultListModel();
         dlistam = new DefaultListModel();
 
         jTValor.setEditable(false);
         jTPreco.setEditable(false);
-        jTEndereco.setEditable(false);
+        jTAddress.setEditable(false);
 
-        PreencherVendedores();
+        PreencherSallers();
     }
 
     public void SetId(int id) {
@@ -107,7 +107,7 @@ public class SaleDetails extends javax.swing.JFrame {
             idcliente = notas.get(0).getId_customer();
             Customer c = cdao.getCustumer(notas.get(0).getId_customer());
             jTCliente.setText(c.getName());
-            jTEndereco.setText(c.getAddress());
+            jTAddress.setText(c.getAddress());
             jTCpf.setText(c.getCpf());
             jTContato1.setText(c.getContact1());
             jTContato2.setText(c.getContact2());
@@ -115,22 +115,22 @@ public class SaleDetails extends javax.swing.JFrame {
             Salesman v = vdao.getSelesman(notas.get(0).getId_salesman());
             jComboBox2.setSelectedItem(v.getName());
 
-            listarVendas();
+            listVendas();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(null, "ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    protected void listarVendas() throws SQLException {
+    protected void listVendas() throws SQLException {
         SaleDao me = new SaleDao();
         vendas = me.getList(id);
 
-        mostraPesquisaVenda(vendas);
+        showSearchVenda(vendas);
     }
 
-    private void mostraPesquisaVenda(List<Sale> vendas) {
+    private void showSearchVenda(List<Sale> vendas) {
 
         while (tmVendas.getRowCount() > 0) {
             tmVendas.removeRow(0);
@@ -146,7 +146,7 @@ public class SaleDetails extends javax.swing.JFrame {
                 tmVendas.setValueAt(vendas.get(i).getAmount(), i, 1);
                 tmVendas.setValueAt(vendas.get(i).getPrice(), i, 2);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -175,7 +175,7 @@ public class SaleDetails extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTProduto = new javax.swing.JTextField();
+        jTProduct = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTValor = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -186,9 +186,9 @@ public class SaleDetails extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jTCliente = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTEndereco = new javax.swing.JTextField();
+        jTAddress = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTQtd = new javax.swing.JTextField();
+        jTTotal = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jTCpf = new javax.swing.JTextField();
         jTContato1 = new javax.swing.JTextField();
@@ -320,27 +320,27 @@ public class SaleDetails extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Product:");
 
-        jTProduto.setEditable(false);
-        jTProduto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTProduct.setEditable(false);
+        jTProduct.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTProduct.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTProdutoFocusLost(evt);
+                jTProductFocusLost(evt);
             }
         });
-        jTProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTProdutoMouseClicked(evt);
+                jTProductMouseClicked(evt);
             }
         });
-        jTProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyPressed(evt);
+                jTProductKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyReleased(evt);
+                jTProductKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyTyped(evt);
+                jTProductKeyTyped(evt);
             }
         });
 
@@ -395,17 +395,17 @@ public class SaleDetails extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Address:");
 
-        jTEndereco.setEditable(false);
-        jTEndereco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTAddress.setEditable(false);
+        jTAddress.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTAddress.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTEnderecoKeyPressed(evt);
+                jTAddressKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTEnderecoKeyReleased(evt);
+                jTAddressKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTEnderecoKeyTyped(evt);
+                jTAddressKeyTyped(evt);
             }
         });
 
@@ -413,25 +413,25 @@ public class SaleDetails extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Amount.:");
 
-        jTQtd.setEditable(false);
-        jTQtd.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTQtd.setText("1");
-        jTQtd.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTTotal.setEditable(false);
+        jTTotal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTTotal.setText("1");
+        jTTotal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTQtdFocusLost(evt);
+                jTTotalFocusLost(evt);
             }
         });
-        jTQtd.addActionListener(new java.awt.event.ActionListener() {
+        jTTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTQtdActionPerformed(evt);
+                jTTotalActionPerformed(evt);
             }
         });
-        jTQtd.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTTotal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTQtdKeyPressed(evt);
+                jTTotalKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTQtdKeyReleased(evt);
+                jTTotalKeyReleased(evt);
             }
         });
 
@@ -526,8 +526,8 @@ public class SaleDetails extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jLabel16)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jTProduto))
+                                        .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTProduct))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
@@ -546,7 +546,7 @@ public class SaleDetails extends javax.swing.JFrame {
                                     .addComponent(jLabel13))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTEndereco)
+                                    .addComponent(jTAddress)
                                     .addComponent(jTCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
                                     .addComponent(jTCpf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -577,7 +577,7 @@ public class SaleDetails extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18)
                     .addComponent(jTContato2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
@@ -590,13 +590,13 @@ public class SaleDetails extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jTPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(jLabel9)
                     .addComponent(jTValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -679,21 +679,21 @@ public class SaleDetails extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTDataKeyPressed
 
-    private void jTProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTProdutoFocusLost
+    private void jTProductFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTProductFocusLost
 
-    }//GEN-LAST:event_jTProdutoFocusLost
+    }//GEN-LAST:event_jTProductFocusLost
 
-    private void jTProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyPressed
+    private void jTProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyPressed
 
-    }//GEN-LAST:event_jTProdutoKeyPressed
+    }//GEN-LAST:event_jTProductKeyPressed
 
-    private void jTProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyReleased
+    private void jTProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyReleased
 
-    }//GEN-LAST:event_jTProdutoKeyReleased
+    }//GEN-LAST:event_jTProductKeyReleased
 
-    private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
+    private void jTProductKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyTyped
 
-    }//GEN-LAST:event_jTProdutoKeyTyped
+    }//GEN-LAST:event_jTProductKeyTyped
 
     private void jTValorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTValorKeyReleased
         // TODO add your handling code here:
@@ -715,41 +715,41 @@ public class SaleDetails extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTClienteKeyTyped
 
-    private void jTEnderecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEnderecoKeyPressed
+    private void jTAddressKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTAddressKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTEnderecoKeyPressed
+    }//GEN-LAST:event_jTAddressKeyPressed
 
-    private void jTEnderecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEnderecoKeyReleased
+    private void jTAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTAddressKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTEnderecoKeyReleased
+    }//GEN-LAST:event_jTAddressKeyReleased
 
-    private void jTEnderecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEnderecoKeyTyped
+    private void jTAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTAddressKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTEnderecoKeyTyped
+    }//GEN-LAST:event_jTAddressKeyTyped
 
-    private void jTQtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTQtdActionPerformed
+    private void jTTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTQtdActionPerformed
+    }//GEN-LAST:event_jTTotalActionPerformed
 
-    private void jTQtdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTQtdFocusLost
+    private void jTTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTTotalFocusLost
 
-    }//GEN-LAST:event_jTQtdFocusLost
+    }//GEN-LAST:event_jTTotalFocusLost
 
-    private void jTQtdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTQtdKeyPressed
+    private void jTTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTotalKeyPressed
 
-    }//GEN-LAST:event_jTQtdKeyPressed
+    }//GEN-LAST:event_jTTotalKeyPressed
 
-    private void jTQtdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTQtdKeyReleased
+    private void jTTotalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTotalKeyReleased
 
-    }//GEN-LAST:event_jTQtdKeyReleased
+    }//GEN-LAST:event_jTTotalKeyReleased
 
     private void jTVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTVendasMouseClicked
         ClicarTabela();
     }//GEN-LAST:event_jTVendasMouseClicked
 
-    private void jTProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutoMouseClicked
+    private void jTProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProductMouseClicked
 
-    }//GEN-LAST:event_jTProdutoMouseClicked
+    }//GEN-LAST:event_jTProductMouseClicked
 
     private void jTCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCpfMouseClicked
         // TODO add your handling code here:
@@ -799,33 +799,33 @@ public class SaleDetails extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTContato2KeyTyped
 
-    //metodo que recebe a instância do Form PesquisarVenda
-    public void SetPesquisarVendas(PesquisarVendas pesqvenda) {
+    //metodo que recebe a instância do Form SearchVenda
+    public void SetSearchVendas(SearchVendas pesqvenda) {
         this.pesqvenda = pesqvenda;
     }
 
-    //metodo para mostrar os valores nos campos quando clicar na tabela
+    //metodo para show os valores nos campos quando clicar na tabela
     public void ClicarTabela() {
         if (jTVendas.getSelectedRow() != -1) {
             try {
                 ProductDao pdao = new ProductDao();
                 Product p = pdao.getProduct(vendas.get(jTVendas.getSelectedRow()).getId_prod());
-                jTProduto.setText(p.getProduct());
+                jTProduct.setText(p.getProduct());
                 jTPreco.setText(vendas.get(jTVendas.getSelectedRow()).getValueProduct() + "");
-                jTQtd.setText(vendas.get(jTVendas.getSelectedRow()).getAmount() + "");
+                jTTotal.setText(vendas.get(jTVendas.getSelectedRow()).getAmount() + "");
                 jTValor.setText(vendas.get(jTVendas.getSelectedRow()).getPrice() + "");
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
-    //método que limpa os campos para a venda de outro produto
-    public void Limpar() {
+    //método que limpa os campos para a venda de outro product
+    public void Clear() {
         jTPreco.setText("");
-        jTProduto.setText("");
-        jTQtd.setText("1");
+        jTProduct.setText("");
+        jTTotal.setText("1");
         jTValor.setText("");
     }
 
@@ -838,35 +838,35 @@ public class SaleDetails extends javax.swing.JFrame {
         String[] linha = new String[]{null, null, null, null};
         for (int i = 0; i < venda.size(); i++) {
             tmVendas.addRow(linha);
-            String produto = "";
+            String product = "";
             String preco = "";
             try {
-                //Pega o produto com o id na lista da venda
+                //Pega o product com o id na lista da venda
                 ProductDao dao = new ProductDao();
                 Product p = dao.getProduct(venda.get(i).getId_prod());
-                produto = p.getProduct();
+                product = p.getProduct();
                 preco = String.valueOf(p.getPrice());
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
 
-            tmVendas.setValueAt(produto, i, 0);
+            tmVendas.setValueAt(product, i, 0);
             tmVendas.setValueAt(venda.get(i).getAmount(), i, 1);
             tmVendas.setValueAt(venda.get(i).getPrice(), i, 2);
 
         }
     }
 
-    //metodo para preencher o combobox dos vendedores
-    public final void PreencherVendedores() {
+    //metodo para preencher o combobox dos Sallers
+    public final void PreencherSallers() {
         try {
             SalesmanDao a = new SalesmanDao();
-            vendedores = a.getList("");
-            for (int y = 0; y < vendedores.size(); y++) {
-                jComboBox2.addItem(vendedores.get(y).getName());
+            Sallers = a.getList("");
+            for (int y = 0; y < Sallers.size(); y++) {
+                jComboBox2.addItem(Sallers.get(y).getName());
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "SysGEM'S", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "SyWMSM'S", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -937,11 +937,11 @@ public class SaleDetails extends javax.swing.JFrame {
     private javax.swing.JTextField jTContato2;
     private javax.swing.JTextField jTCpf;
     private javax.swing.JTextField jTData;
-    private javax.swing.JTextField jTEndereco;
+    private javax.swing.JTextField jTAddress;
     private javax.swing.JTextField jTNVenda;
     private javax.swing.JTextField jTPreco;
-    private javax.swing.JTextField jTProduto;
-    private javax.swing.JTextField jTQtd;
+    private javax.swing.JTextField jTProduct;
+    private javax.swing.JTextField jTTotal;
     private javax.swing.JTextField jTTotal;
     private javax.swing.JTextField jTValor;
     private javax.swing.JTable jTVendas;

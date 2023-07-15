@@ -31,24 +31,24 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 public class SearchProduct extends javax.swing.JFrame {
 
-    private final DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Id", "Name", "Price"});
-    private ListSelectionModel lsmProduto;
-    private List<Product> produtos;
+    private final DefaultTableModel tmProduct = new DefaultTableModel(null, new String[]{"Id", "Name", "Price"});
+    private ListSelectionModel lsmProduct;
+    private List<Product> products;
     private char l;
-    private Entrada_Estoque entradae;
+    private StockInput entradae;
     private SaidaVenda svenda;
     private ProducaoSacas producao;
     private int tipo;// 0 = EntradaEstoque; 1 = SaidaVenda; 2 = ProducaoSacas
 
     /**
-     * Creates new form PesquisarSocio
+     * Creates new form SearchSocio
      */
     public SearchProduct() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Search Product - WMS");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
 
         //Disable TextFilds
         jTName.setEditable(false);
@@ -200,11 +200,11 @@ public class SearchProduct extends javax.swing.JFrame {
         });
 
         jTProduct.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTProduct.setModel(tmProduto);
+        jTProduct.setModel(tmProduct);
         jTProduct.setSelectionBackground(new java.awt.Color(0, 131, 73));
         jTProduct.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lsmProduto = jTProduct.getSelectionModel();
-        lsmProduto.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTProduct); } }
+        lsmProduct = jTProduct.getSelectionModel();
+        lsmProduct.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTSelectedRowTable(jTProduct); } }
         });
         jTProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -266,7 +266,7 @@ public class SearchProduct extends javax.swing.JFrame {
         if (evt.getKeyCode() == 40)
             jTProduct.requestFocus();
         try {
-            listarProduto();
+            listProduct();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "WMS", JOptionPane.ERROR_MESSAGE);
         }
@@ -290,20 +290,20 @@ public class SearchProduct extends javax.swing.JFrame {
         if (jTProduct.getSelectedRow() != -1) {
             switch(tipo){
                 case 0:
-                    entradae.SetProduto(produtos.get(jTProduct.getSelectedRow()));
+                    entradae.SetProduct(products.get(jTProduct.getSelectedRow()));
                     break;
                 case 1:
-                    svenda.SetProduto(produtos.get(jTProduct.getSelectedRow()));
+                    svenda.SetProduct(products.get(jTProduct.getSelectedRow()));
                     break;
                 case 2:
-                    producao.SetProduto(produtos.get(jTProduct.getSelectedRow()));
+                    producao.SetProduct(products.get(jTProduct.getSelectedRow()));
                     break;       
             }
             this.dispose();
         }
     }
 
-    public void SetEntradaEstoque(Entrada_Estoque entradae) {
+    public void SetEntradaEstoque(StockInput entradae) {
         this.entradae = entradae;
     }
 
@@ -376,31 +376,31 @@ public class SearchProduct extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     //Realiza a pesquisa do valor digitado no banco
-    protected void listarProduto() throws SQLException {
+    protected void listProduct() throws SQLException {
         ProductDao me = new ProductDao();
-        produtos = me.getList("%" + jTSearch.getText() + "%");
-        mostraPesquisa(produtos);
+        products = me.getList("%" + jTSearch.getText() + "%");
+        showSearch(products);
     }
 
     //Mostra a pesquisa na tabela
-    private void mostraPesquisa(List<Product> produto) {
+    private void showSearch(List<Product> product) {
 
-        while (tmProduto.getRowCount() > 0) {
-            tmProduto.removeRow(0);
+        while (tmProduct.getRowCount() > 0) {
+            tmProduct.removeRow(0);
         }
         int a = 1;
 
-        if (((produtos.isEmpty())) && (l == ' ')) {
+        if (((products.isEmpty())) && (l == ' ')) {
             JOptionPane.showMessageDialog(null, "The is no product with name " + jTSearch.getText().toUpperCase() + " in the database.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         } else {
 
-            if (produtos.isEmpty() == false) {
+            if (products.isEmpty() == false) {
                 String[] linha = new String[]{null, null, null};
-                for (int i = 0; i < produtos.size(); i++) {
-                    tmProduto.addRow(linha);
-                    tmProduto.setValueAt(produtos.get(i).getId(), i, 0);
-                    tmProduto.setValueAt(produtos.get(i).getProduct(), i, 1);
-                    tmProduto.setValueAt(produtos.get(i).getPrice(), i, 2);
+                for (int i = 0; i < products.size(); i++) {
+                    tmProduct.addRow(linha);
+                    tmProduct.setValueAt(products.get(i).getId(), i, 0);
+                    tmProduct.setValueAt(products.get(i).getProduct(), i, 1);
+                    tmProduct.setValueAt(products.get(i).getPrice(), i, 2);
                 }
             }
 
@@ -408,11 +408,11 @@ public class SearchProduct extends javax.swing.JFrame {
     }
 
     //Metodo para pagar o valor da linha selecionada
-    private void jTTabelaLinhaSelecionada(JTable tabela) {
+    private void jTSelectedRowTable(JTable tabela) {
         try {
             if (jTProduct.getSelectedRow() != -1) {
-                jTName.setText(produtos.get(tabela.getSelectedRow()).getProduct());
-                jTPrice.setText(produtos.get(tabela.getSelectedRow()).getPrice() + "");
+                jTName.setText(products.get(tabela.getSelectedRow()).getProduct());
+                jTPrice.setText(products.get(tabela.getSelectedRow()).getPrice() + "");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro to get values from the table! \n\r ERROR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);

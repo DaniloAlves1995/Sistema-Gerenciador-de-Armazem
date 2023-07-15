@@ -32,27 +32,27 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
-public class Gerenciar_Caminhao extends javax.swing.JFrame {
+public class Gerenciar_Truck extends javax.swing.JFrame {
 
     private final ManageFields manageFields;
-    private DefaultTableModel tmCaminhao = new DefaultTableModel(null, new String[]{"Id", "Nome", "Sacas Restantes."});
-    private ListSelectionModel lsmCaminhao;
-    private List<Truck> caminhoes;
+    private DefaultTableModel tmTruck = new DefaultTableModel(null, new String[]{"Id", "Name", "Sacas Restantes."});
+    private ListSelectionModel lsmTruck;
+    private List<Truck> truck;
     private int salvar = 0;
     private char l;
 
-    public Gerenciar_Caminhao() {
+    public Gerenciar_Truck() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Gerenciar Caminhão - SGE");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        this.setTitle("Gerenciar Caminhão - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
 
-        this.MostrarQtdCaminhoes();
+        this.showTotalTruck();
         
          //setup manage class
         this.manageFields = new ManageFields();
-        this.manageFields.setFields(Arrays.asList(jTNome, jTSacRest, jTPreCarga));
+        this.manageFields.setFields(Arrays.asList(jTName, jTSacRest, jTPreCarga));
         this.manageFields.setEvent();
     }
 
@@ -68,14 +68,14 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTPesquisar = new javax.swing.JTextField();
+        jTSearch = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jTTotal = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTNome = new javax.swing.JTextField();
+        jTName = new javax.swing.JTextField();
         jTId = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -88,7 +88,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTCaminhoes = new javax.swing.JTable();
+        jTTruck = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -100,15 +100,15 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Pesquisar Caminhão:");
+        jLabel1.setText("Search Caminhão:");
 
-        jTPesquisar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTSearch.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyPressed(evt);
+                jTSearchKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyTyped(evt);
+                jTSearchKeyTyped(evt);
             }
         });
 
@@ -132,7 +132,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -145,7 +145,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -165,11 +165,11 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Previ. de sacas:");
 
-        jTNome.setEditable(false);
-        jTNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTName.setEditable(false);
+        jTName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTNomeKeyPressed(evt);
+                jTNameKeyPressed(evt);
             }
         });
 
@@ -184,7 +184,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Nome:");
+        jLabel4.setText("Name:");
 
         jTSacRest.setEditable(false);
         jTSacRest.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -238,7 +238,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTPreCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTNome))))
+                            .addComponent(jTName))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -252,7 +252,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addGap(8, 8, 8)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -290,7 +290,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/delete.png"))); // NOI18N
-        jButton4.setText("Excluir");
+        jButton4.setText("Delete");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -326,14 +326,14 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(0, 131, 73));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTCaminhoes.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTCaminhoes.setModel(tmCaminhao);
-        jTCaminhoes.setSelectionBackground(new java.awt.Color(0, 131, 73));
-        jTCaminhoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lsmCaminhao = jTCaminhoes.getSelectionModel();
-        lsmCaminhao.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTCaminhoes); } }
+        jTTruck.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTTruck.setModel(tmTruck);
+        jTTruck.setSelectionBackground(new java.awt.Color(0, 131, 73));
+        jTTruck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lsmTruck = jTTruck.getSelectionModel();
+        lsmTruck.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTSelectedRowTable(jTTruck); } }
         });
-        jScrollPane1.setViewportView(jTCaminhoes);
+        jScrollPane1.setViewportView(jTTruck);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -398,29 +398,29 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyPressed
+    private void jTSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSearchKeyPressed
 
-    }//GEN-LAST:event_jTPesquisarKeyPressed
+    }//GEN-LAST:event_jTSearchKeyPressed
 
-    private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
+    private void jTSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSearchKeyTyped
         l = evt.getKeyChar();
 
         try {
-            listarCaminhoes();
+            listTruck();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jTPesquisarKeyTyped
+    }//GEN-LAST:event_jTSearchKeyTyped
 
     private void jTTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTTotalActionPerformed
 
-    private void jTNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyPressed
-        if (jTNome.getBackground() != Color.WHITE) {
-            jTNome.setBackground(Color.WHITE);
+    private void jTNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNameKeyPressed
+        if (jTName.getBackground() != Color.WHITE) {
+            jTName.setBackground(Color.WHITE);
         }
-    }//GEN-LAST:event_jTNomeKeyPressed
+    }//GEN-LAST:event_jTNameKeyPressed
 
     private void jTPreCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPreCargaActionPerformed
         // TODO add your handling code here:
@@ -434,39 +434,39 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (this.manageFields.checkFields()) {
-            if (Everificar()) {
+            if (Echeck()) {
                 try {
-                    alteraCaminhao();
-                    jTPesquisar.setText("");
-                    listarCaminhoes();
-                    Limpar();
+                    alteraTruck();
+                    jTSearch.setText("");
+                    listTruck();
+                    Clear();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
         }
 
-        MostrarQtdCaminhoes();
+        showTotalTruck();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (jTCaminhoes.getSelectedRow() != -1) {
-            Habilitar();
+        if (jTTruck.getSelectedRow() != -1) {
+            Enable();
             salvar = 1;
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Caminhão na tabela para poder Editar!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Caminhão na tabela para poder Editar!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (jTCaminhoes.getSelectedRow() != -1) {
-            Excluir();
+        if (jTTruck.getSelectedRow() != -1) {
+            Delete();
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Caminhão na Tabela para poder Excluir!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Caminhão na Tabela para poder Delete!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
-        MostrarQtdCaminhoes();
+        showTotalTruck();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTSacRestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTSacRestActionPerformed
@@ -494,7 +494,7 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gerenciar_Caminhao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Gerenciar_Truck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         
@@ -503,133 +503,133 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Gerenciar_Caminhao().setVisible(true);
+                new Gerenciar_Truck().setVisible(true);
             }
         });
     }
 
-    protected void listarCaminhoes() throws SQLException {
+    protected void listTruck() throws SQLException {
         TruckDao me = new TruckDao();
-        caminhoes = me.getList("%" + jTPesquisar.getText() + "%", 0);
+        truck = me.getList("%" + jTSearch.getText() + "%", 0);
 
-        mostraPesquisa(caminhoes);
+        showSearch(truck);
     }
 
-    private void mostraPesquisa(List<Truck> caminhoes) {
+    private void showSearch(List<Truck> truck) {
 
-        while (tmCaminhao.getRowCount() > 0) {
-            tmCaminhao.removeRow(0);
+        while (tmTruck.getRowCount() > 0) {
+            tmTruck.removeRow(0);
         }
 
-        if ((caminhoes.isEmpty()) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Caminhão com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+        if ((truck.isEmpty()) && (l == ' ')) {
+            JOptionPane.showMessageDialog(null, "Nenhum Caminhão com o Name " + jTSearch.getText().toUpperCase() + " cadastrado.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
 
         String[] linha = new String[]{null, null, null};
-        for (int i = 0; i < caminhoes.size(); i++) {
-            tmCaminhao.addRow(linha);
-            tmCaminhao.setValueAt(caminhoes.get(i).getId(), i, 0);
-            tmCaminhao.setValueAt(caminhoes.get(i).getName(), i, 1);
-            tmCaminhao.setValueAt(caminhoes.get(i).getTruckLoad(), i, 2);
+        for (int i = 0; i < truck.size(); i++) {
+            tmTruck.addRow(linha);
+            tmTruck.setValueAt(truck.get(i).getId(), i, 0);
+            tmTruck.setValueAt(truck.get(i).getName(), i, 1);
+            tmTruck.setValueAt(truck.get(i).getTruckLoad(), i, 2);
 
         }
     }
 
-    public void Limpar() {
+    public void Clear() {
         this.manageFields.clearFields();
         jTId.setText("");
     }
 
-    //Método para Desabilitar os TextFilds
-    public void Desabilitar() {
-        jTNome.setEditable(false);
+    //Método para Disable os TextFilds
+    public void Disable() {
+        jTName.setEditable(false);
         jTPreCarga.setEditable(false);
         jTSacRest.setEditable(false);
     }
 
-    //Método para Habilitar os TextFilds
-    public void Habilitar() {
-        jTNome.setEditable(true);
+    //Método para Enable os TextFilds
+    public void Enable() {
+        jTName.setEditable(true);
         jTPreCarga.setEditable(true);
         jTSacRest.setEditable(true);
     }
 
-    //Esse metodo serve para Alterar os valores do produto no banco
-    private void alteraCaminhao() throws SQLException {
+    //Esse metodo serve para Alterar os valores do product no banco
+    private void alteraTruck() throws SQLException {
 
         if (this.manageFields.checkFields()) {
             Truck m = new Truck();
             TruckDao dao = new TruckDao();
-            m.setId(caminhoes.get(jTCaminhoes.getSelectedRow()).getId());
-            m.setName(jTNome.getText());
+            m.setId(truck.get(jTTruck.getSelectedRow()).getId());
+            m.setName(jTName.getText());
             m.setTruckLoad(Integer.parseInt(jTPreCarga.getText()));
 
             dao.update(m);
             m.setTruckLoad(Integer.parseInt(jTSacRest.getText()));
             dao.updateTruckLoad(m);
-            JOptionPane.showMessageDialog(null, "Caminhão Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Caminhão Alterado com SUCESSO!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
-            Desabilitar();
+            Disable();
         }
     }
 
-    public boolean Everificar() {
+    public boolean Echeck() {
         try {
             TruckDao cdao = new TruckDao();
-            String carga_prev = String.valueOf(cdao.getTruck(caminhoes.get(jTCaminhoes.getSelectedRow()).getId()).getTruckLoad());
-            if ((caminhoes.get(jTCaminhoes.getSelectedRow()).getName().equals(jTNome.getText())) && (String.valueOf(caminhoes.get(jTCaminhoes.getSelectedRow()).getTruckLoad()).equals(jTPreCarga.getText())) && jTSacRest.getText().equals(carga_prev)) {
-                JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            String carga_prev = String.valueOf(cdao.getTruck(truck.get(jTTruck.getSelectedRow()).getId()).getTruckLoad());
+            if ((truck.get(jTTruck.getSelectedRow()).getName().equals(jTName.getText())) && (String.valueOf(truck.get(jTTruck.getSelectedRow()).getTruckLoad()).equals(jTPreCarga.getText())) && jTSacRest.getText().equals(carga_prev)) {
+                JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                 return false;
             } else {
                 return true;
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERRO: " + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERRO: " + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
 
-    //Metodo para excluir o produto
-    public void Excluir() {
-        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente excluir o Caminhão " + jTNome.getText().toUpperCase(), "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    //Metodo para Delete o product
+    public void Delete() {
+        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente Delete o Caminhão " + jTName.getText().toUpperCase(), "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
                 TruckDao m = new TruckDao();
-                m.delete(caminhoes.get(jTCaminhoes.getSelectedRow()));
-                m.deleteTruckLoad(caminhoes.get(jTCaminhoes.getSelectedRow()));
-                JOptionPane.showMessageDialog(null, "Caminhão excluido(a) com sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-                jTPesquisar.setText("");
-                listarCaminhoes();
+                m.delete(truck.get(jTTruck.getSelectedRow()));
+                m.deleteTruckLoad(truck.get(jTTruck.getSelectedRow()));
+                JOptionPane.showMessageDialog(null, "Caminhão excluido(a) com sucesso!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                jTSearch.setText("");
+                listTruck();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
-    //metodo para mostrar a qtd de sócios
-    public final void MostrarQtdCaminhoes() {
+    //metodo para show a qtd de sócios
+    public final void showTotalTruck() {
         try {
             //pega a qtd de sócios cadastrados no banco
             TruckDao dao = new TruckDao();
             jTTotal.setText(String.valueOf(dao.getAmountTrucks()));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de caminhões!", "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de caminhões!", "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void jTTabelaLinhaSelecionada(JTable tabela) {
+    private void jTSelectedRowTable(JTable tabela) {
         try {
-            if (jTCaminhoes.getSelectedRow() != -1) {
-                jTNome.setText(caminhoes.get(tabela.getSelectedRow()).getName());
-                jTSacRest.setText(caminhoes.get(tabela.getSelectedRow()).getTruckLoad() + "");
-                jTId.setText(caminhoes.get(tabela.getSelectedRow()).getId() + "");
+            if (jTTruck.getSelectedRow() != -1) {
+                jTName.setText(truck.get(tabela.getSelectedRow()).getName());
+                jTSacRest.setText(truck.get(tabela.getSelectedRow()).getTruckLoad() + "");
+                jTId.setText(truck.get(tabela.getSelectedRow()).getId() + "");
                 TruckDao cdao = new TruckDao();
-                jTPreCarga.setText("" + cdao.getTruck(caminhoes.get(tabela.getSelectedRow()).getId()).getTruckLoad());
+                jTPreCarga.setText("" + cdao.getTruck(truck.get(tabela.getSelectedRow()).getId()).getTruckLoad());
 
-                Desabilitar();
+                Disable();
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -652,10 +652,10 @@ public class Gerenciar_Caminhao extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTCaminhoes;
+    private javax.swing.JTable jTTruck;
     private javax.swing.JTextField jTId;
-    public javax.swing.JTextField jTNome;
-    private javax.swing.JTextField jTPesquisar;
+    public javax.swing.JTextField jTName;
+    private javax.swing.JTextField jTSearch;
     private javax.swing.JTextField jTPreCarga;
     private javax.swing.JTextField jTSacRest;
     private javax.swing.JTextField jTTotal;

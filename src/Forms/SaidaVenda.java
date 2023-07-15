@@ -67,54 +67,54 @@ public class SaidaVenda extends javax.swing.JFrame {
     private List<Sale> venda;
     private DefaultListModel dlista, dlistam;
     
-    private DefaultTableModel tmVenda = new DefaultTableModel(null, new String[]{"Produto", "Preço (R$)", "Qtd", "Total (R$)"});
+    private DefaultTableModel tmVenda = new DefaultTableModel(null, new String[]{"Product", "Preço (R$)", "Total", "Total (R$)"});
     private ListSelectionModel lsmVenda;
-    private Product produto;
-    private List<Salesman> vendedores;
+    private Product product;
+    private List<Salesman> Sallers;
     private Customer cliente;
     
     int idcliente;
     int idnota = 0;
     char l;
-    int mais = -1;//para verificar se já clicou na seta para baixo
-    int contr = 1;//para controlar quando o usuário percorre o produto na lista
-    int ilistp = -1;//índice para referenciar a posição selecionada da lista com a lista <produto> 
-    int qtd = 0;//para contar a quantidade de produtos vendidos
+    int mais = -1;//para check se já clicou na seta para baixo
+    int contr = 1;//para controlar quando o usuário percorre o product na lista
+    int ilistp = -1;//índice para referenciar a posição selecionada da lista com a lista <product> 
+    int qtd = 0;//para contar a quantidade de products vendidos
     int contrenter = 0;
     int tipo = 0;
     boolean orcamento = false;
-    int la = 0;//para verificar se clicou no Ctrl
+    int la = 0;//para check se clicou no Ctrl
 
     public SaidaVenda() {
         initComponents();
 
         this.setLocationRelativeTo(null);
         this.setTitle("Realizar Venda - SGA");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
 
         //inicializa a lista vendas
         venda = new ArrayList<Sale>();
 
-        PreencherVendedores();
+        PreencherSallers();
 
         //impede a edição de alguns campos
         jTValor.setEditable(false);
-        jTEndereco.setEditable(false);
-        jLQtd.setVisible(false);
+        jTAddress.setEditable(false);
+        jLTotal.setVisible(false);
         try {
-            //Para mostrar o id dessa nova nota
+            //Para show o id dessa nova nota
             OutStockDao ndao = new OutStockDao();
             idnota = ndao.getLastInvoiceId();
             idnota++;
             jLNVenda.setText("Venda Nº:" + idnota);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
         
         //setup manage class
         this.manageFields = new ManageFields();
-        this.manageFields.setFields(Arrays.asList(jTCliente, jTProduto, jTQtd));
+        this.manageFields.setFields(Arrays.asList(jTCliente, jTProduct, jTTotal));
         this.manageFields.setEvent();
     }
 
@@ -132,7 +132,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTProduto = new javax.swing.JTextField();
+        jTProduct = new javax.swing.JTextField();
         jLNVenda = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTValor = new javax.swing.JTextField();
@@ -144,13 +144,13 @@ public class SaidaVenda extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTCliente = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTEndereco = new javax.swing.JTextField();
+        jTAddress = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTQtd = new javax.swing.JTextField();
+        jTTotal = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
-        jTQtd_est = new javax.swing.JTextField();
+        jTTotal_est = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -159,7 +159,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         jTVendas = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jLQtd = new javax.swing.JLabel();
+        jLTotal = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jTTotalg = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
@@ -184,34 +184,34 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Produto:");
+        jLabel3.setText("Product:");
 
-        jTProduto.setEditable(false);
-        jTProduto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTProduct.setEditable(false);
+        jTProduct.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTProduct.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTProdutoFocusLost(evt);
+                jTProductFocusLost(evt);
             }
         });
-        jTProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTProdutoMouseClicked(evt);
+                jTProductMouseClicked(evt);
             }
         });
-        jTProduto.addActionListener(new java.awt.event.ActionListener() {
+        jTProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTProdutoActionPerformed(evt);
+                jTProductActionPerformed(evt);
             }
         });
-        jTProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTProduct.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyPressed(evt);
+                jTProductKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyReleased(evt);
+                jTProductKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTProdutoKeyTyped(evt);
+                jTProductKeyTyped(evt);
             }
         });
 
@@ -276,17 +276,17 @@ public class SaidaVenda extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Endereço:");
 
-        jTEndereco.setEditable(false);
-        jTEndereco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTAddress.setEditable(false);
+        jTAddress.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTAddress.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTEnderecoKeyPressed(evt);
+                jTAddressKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTEnderecoKeyReleased(evt);
+                jTAddressKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTEnderecoKeyTyped(evt);
+                jTAddressKeyTyped(evt);
             }
         });
 
@@ -294,24 +294,24 @@ public class SaidaVenda extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Quant.:");
 
-        jTQtd.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTQtd.setText("1");
-        jTQtd.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTTotal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTTotal.setText("1");
+        jTTotal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTQtdFocusLost(evt);
+                jTTotalFocusLost(evt);
             }
         });
-        jTQtd.addActionListener(new java.awt.event.ActionListener() {
+        jTTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTQtdActionPerformed(evt);
+                jTTotalActionPerformed(evt);
             }
         });
-        jTQtd.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTTotal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTQtdKeyPressed(evt);
+                jTTotalKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTQtdKeyReleased(evt);
+                jTTotalKeyReleased(evt);
             }
         });
 
@@ -328,26 +328,26 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Quant. em estoque:");
+        jLabel15.setText("Quant. em stock:");
 
-        jTQtd_est.setEditable(false);
-        jTQtd_est.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTQtd_est.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTTotal_est.setEditable(false);
+        jTTotal_est.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTTotal_est.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTQtd_estFocusLost(evt);
+                jTTotal_estFocusLost(evt);
             }
         });
-        jTQtd_est.addActionListener(new java.awt.event.ActionListener() {
+        jTTotal_est.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTQtd_estActionPerformed(evt);
+                jTTotal_estActionPerformed(evt);
             }
         });
-        jTQtd_est.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTTotal_est.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTQtd_estKeyPressed(evt);
+                jTTotal_estKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTQtd_estKeyReleased(evt);
+                jTTotal_estKeyReleased(evt);
             }
         });
 
@@ -365,17 +365,17 @@ public class SaidaVenda extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTProduto)
+                            .addComponent(jTProduct)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jTPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTQtd_est, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTTotal_est, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -387,7 +387,7 @@ public class SaidaVenda extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTEndereco)
+                            .addComponent(jTAddress)
                             .addComponent(jTCliente)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -423,21 +423,21 @@ public class SaidaVenda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
-                    .addComponent(jTQtd_est, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTTotal_est, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jTPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
@@ -500,7 +500,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         jTVendas.setSelectionBackground(new java.awt.Color(0, 131, 73));
         jTVendas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lsmVenda = jTVendas.getSelectionModel();
-        lsmVenda.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTVendas); } }
+        lsmVenda.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTSelectedRowTable(jTVendas); } }
         });
         jTVendas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -537,9 +537,9 @@ public class SaidaVenda extends javax.swing.JFrame {
             }
         });
 
-        jLQtd.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLQtd.setForeground(new java.awt.Color(255, 255, 255));
-        jLQtd.setText("jLabel13");
+        jLTotal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLTotal.setForeground(new java.awt.Color(255, 255, 255));
+        jLTotal.setText("jLabel13");
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -561,7 +561,7 @@ public class SaidaVenda extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLQtd)
+                        .addComponent(jLTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -591,7 +591,7 @@ public class SaidaVenda extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
                         .addComponent(jTTotalg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLQtd))
+                    .addComponent(jLTotal))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -602,7 +602,7 @@ public class SaidaVenda extends javax.swing.JFrame {
         jLabel10.setText("Ctrl+F = Finalizar a Venda.");
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel11.setText("Ctrl+P = adicionar um produto.");
+        jLabel11.setText("Ctrl+P = adicionar um product.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -662,20 +662,20 @@ public class SaidaVenda extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyPressed
+    private void jTProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyPressed
         EventoChamarPoduto(evt);
-    }//GEN-LAST:event_jTProdutoKeyPressed
+    }//GEN-LAST:event_jTProductKeyPressed
 
-    private void jTProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyTyped
+    private void jTProductKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyTyped
 
-    }//GEN-LAST:event_jTProdutoKeyTyped
+    }//GEN-LAST:event_jTProductKeyTyped
 
-    private void jTProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutoKeyReleased
+    private void jTProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductKeyReleased
 
-    }//GEN-LAST:event_jTProdutoKeyReleased
+    }//GEN-LAST:event_jTProductKeyReleased
 
     public void CalcularValorUnid() {
-        double valor = Double.parseDouble(jTPreco.getText()) * Double.parseDouble(jTQtd.getText());
+        double valor = Double.parseDouble(jTPreco.getText()) * Double.parseDouble(jTTotal.getText());
         DecimalFormat num = new DecimalFormat("0.00");
         jTValor.setText((num.format(valor)) + "");
         jTValor.setText(jTValor.getText().replace(",", "."));
@@ -692,30 +692,30 @@ public class SaidaVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTClienteKeyTyped
 
-    private void jTEnderecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEnderecoKeyPressed
+    private void jTAddressKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTAddressKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTEnderecoKeyPressed
+    }//GEN-LAST:event_jTAddressKeyPressed
 
-    private void jTEnderecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEnderecoKeyReleased
+    private void jTAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTAddressKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTEnderecoKeyReleased
+    }//GEN-LAST:event_jTAddressKeyReleased
 
-    private void jTEnderecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEnderecoKeyTyped
+    private void jTAddressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTAddressKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTEnderecoKeyTyped
+    }//GEN-LAST:event_jTAddressKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         AdicionarP();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTProdutoFocusLost
+    private void jTProductFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTProductFocusLost
 
-    }//GEN-LAST:event_jTProdutoFocusLost
+    }//GEN-LAST:event_jTProductFocusLost
     int contfocus = 0;
-    private void jTQtdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTQtdFocusLost
+    private void jTTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTTotalFocusLost
 
-    }//GEN-LAST:event_jTQtdFocusLost
+    }//GEN-LAST:event_jTTotalFocusLost
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (jTVendas.getSelectedRow() != -1) {
@@ -726,9 +726,9 @@ public class SaidaVenda extends javax.swing.JFrame {
             venda.remove(jTVendas.getSelectedRow());
             atualizarTabela(venda);
             qtd--;
-            jLQtd.setText(qtd + " Inten(s)");
+            jLTotal.setText(qtd + " Inten(s)");
             if (qtd == 0) {
-                jLQtd.setVisible(false);
+                jLTotal.setVisible(false);
             }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -737,13 +737,13 @@ public class SaidaVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTValorKeyReleased
 
-    private void jTQtdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTQtdKeyReleased
+    private void jTTotalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTotalKeyReleased
         if (evt.getKeyCode() == 10) {
-            if (!jTQtd.getText().equals("")) {
+            if (!jTTotal.getText().equals("")) {
                 contrenter = 1;
 
                 //calcula o valor do prodto com essa área
-                double valor = Double.parseDouble(jTPreco.getText()) * Double.parseDouble(jTQtd.getText());
+                double valor = Double.parseDouble(jTPreco.getText()) * Double.parseDouble(jTTotal.getText());
                 DecimalFormat num = new DecimalFormat("0.00");
                 jTValor.setText(num.format(valor) + "");
                 jTValor.setText(jTValor.getText().replace(",", "."));
@@ -751,15 +751,15 @@ public class SaidaVenda extends javax.swing.JFrame {
             }
 
         }
-    }//GEN-LAST:event_jTQtdKeyReleased
+    }//GEN-LAST:event_jTTotalKeyReleased
 
-    private void jTQtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTQtdActionPerformed
+    private void jTTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTQtdActionPerformed
+    }//GEN-LAST:event_jTTotalActionPerformed
 
-    private void jTQtdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTQtdKeyPressed
+    private void jTTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTotalKeyPressed
 
-    }//GEN-LAST:event_jTQtdKeyPressed
+    }//GEN-LAST:event_jTTotalKeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         FinalizarTotal();
@@ -773,33 +773,33 @@ public class SaidaVenda extends javax.swing.JFrame {
         jTCliente.setBackground(Color.WHITE);
     }//GEN-LAST:event_jTClienteMouseClicked
 
-    private void jTProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTProdutoActionPerformed
+    private void jTProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTProductActionPerformed
 
-    }//GEN-LAST:event_jTProdutoActionPerformed
+    }//GEN-LAST:event_jTProductActionPerformed
 
-    private void jTProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutoMouseClicked
+    private void jTProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProductMouseClicked
         SearchProduct b = new SearchProduct();
         b.SetSaidaVenda(this);
         b.SetTipo(1);
         b.show();
-        jTProduto.setBackground(Color.WHITE);
-    }//GEN-LAST:event_jTProdutoMouseClicked
+        jTProduct.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jTProductMouseClicked
 
-    private void jTQtd_estFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTQtd_estFocusLost
+    private void jTTotal_estFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTTotal_estFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTQtd_estFocusLost
+    }//GEN-LAST:event_jTTotal_estFocusLost
 
-    private void jTQtd_estActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTQtd_estActionPerformed
+    private void jTTotal_estActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTotal_estActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTQtd_estActionPerformed
+    }//GEN-LAST:event_jTTotal_estActionPerformed
 
-    private void jTQtd_estKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTQtd_estKeyPressed
+    private void jTTotal_estKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTotal_estKeyPressed
         EventoChamarPoduto(evt);
-    }//GEN-LAST:event_jTQtd_estKeyPressed
+    }//GEN-LAST:event_jTTotal_estKeyPressed
 
-    private void jTQtd_estKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTQtd_estKeyReleased
+    private void jTTotal_estKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTotal_estKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTQtd_estKeyReleased
+    }//GEN-LAST:event_jTTotal_estKeyReleased
 
     private void jTValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTValorFocusGained
         CalcularValor();
@@ -833,23 +833,23 @@ public class SaidaVenda extends javax.swing.JFrame {
         if (venda.size() > 0) {
             Finalizar();
             jTTotalg.setText("");
-            jLQtd.setVisible(false);
+            jLTotal.setVisible(false);
             qtd = 0;
             if (jCheckBox1.isSelected()) {
-                relatorio();
+                report();
             }
             try {
 
-                //Para mostrar o id dessa nova nota
+                //Para show o id dessa nova nota
                 OutStockDao ndao = new OutStockDao();
                 idnota = ndao.getLastInvoiceId();
                 idnota++;
                 jLNVenda.setText("Venda Nº:" + idnota);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Você precisa realizar uma venda antes de finalizar.", "SGE", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Você precisa realizar uma venda antes de finalizar.", "WMS", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -858,13 +858,13 @@ public class SaidaVenda extends javax.swing.JFrame {
             if (this.manageFields.checkFields()) {
                 if (jComboBox2.getSelectedIndex() != -1) {
                     CalcularValor();
-                    if (Integer.parseInt(jTQtd.getText()) <= Integer.parseInt(jTQtd_est.getText())) {
+                    if (Integer.parseInt(jTTotal.getText()) <= Integer.parseInt(jTTotal_est.getText())) {
                         AdicionaVenda();
                     } else {
-                        JOptionPane.showMessageDialog(null, "A quantidade informada não pode ser maior que a de estoque.", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "A quantidade informada não pode ser maior que a de stock.", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "É preciso selecionar um vendedor.", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "É preciso selecionar um saller.", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
                 }
             }
         } else {
@@ -876,63 +876,63 @@ public class SaidaVenda extends javax.swing.JFrame {
 
     public void CalcularValor() {
         try {
-            int d = Integer.parseInt(jTQtd.getText());
-            jTQtd.setText(d + "");
+            int d = Integer.parseInt(jTTotal.getText());
+            jTTotal.setText(d + "");
 
             //calcula o valor do prodto com essa área
-            double valor = Double.parseDouble(jTPreco.getText()) * Double.parseDouble(jTQtd.getText());
+            double valor = Double.parseDouble(jTPreco.getText()) * Double.parseDouble(jTTotal.getText());
             DecimalFormat num = new DecimalFormat("0.00");
             jTValor.setText(num.format(valor) + "");
             jTValor.setText(jTValor.getText().replace(",", "."));
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "A Quantidade esta inválida.", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
-            jTQtd.setText("");
+            JOptionPane.showMessageDialog(null, "A Quantidade esta inválida.", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+            jTTotal.setText("");
             jTValor.setText("");
-            jTQtd.requestFocus();
+            jTTotal.requestFocus();
         }
     }
 
     public void SetCliente(Customer cliente) {
         this.cliente = cliente;
         jTCliente.setText(cliente.getName());
-        jTEndereco.setText(cliente.getAddress());
+        jTAddress.setText(cliente.getAddress());
         idcliente = this.cliente.getId();
     }
 
-    //metodo para setar o produto que foi escolhido
-    public void SetProduto(Product produto) {
+    //metodo para setar o product que foi escolhido
+    public void SetProduct(Product product) {
 
-        jTProduto.setText(produto.getProduct());
-        jTPreco.setText(produto.getPrice() + "");
+        jTProduct.setText(product.getProduct());
+        jTPreco.setText(product.getPrice() + "");
 
         try {
-            //busca a qtd desse produto em estoque
+            //busca a qtd desse product em stock
             StockDao edao = new StockDao();
-            Stock estoque = edao.getStock(produto.getId());
-            if (estoque == null) {
+            Stock stock = edao.getStock(product.getId());
+            if (stock == null) {
                 Stock e = new Stock();
-                e.setId_p(produto.getId());
+                e.setId_p(product.getId());
                 e.setAmount(0);
                 edao.add(e);
 
-                estoque = edao.getStock(produto.getId());
+                stock = edao.getStock(product.getId());
             }
-            jTQtd_est.setText(estoque.getAmount() + "");
+            jTTotal_est.setText(stock.getAmount() + "");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
 
-        this.produto = produto;
-        jTQtd_est.requestFocus();
+        this.product = product;
+        jTTotal_est.requestFocus();
     }
 
-    //adiciona na lista a venda do produto
+    //adiciona na lista a venda do product
     public void AdicionaVenda() {
 
         Sale v = new Sale();
-        v.setId_prod(produto.getId());
+        v.setId_prod(product.getId());
         v.setPrice(Double.parseDouble(jTValor.getText()));
-        v.setAmount(Integer.parseInt(jTQtd.getText()));
+        v.setAmount(Integer.parseInt(jTTotal.getText()));
         v.setValueProduct(Double.parseDouble(jTPreco.getText()));
 
         venda.add(v);
@@ -950,18 +950,18 @@ public class SaidaVenda extends javax.swing.JFrame {
         jTTotalg.setText((num.format(tot + tacu)) + "");
         jTTotalg.setText(jTTotalg.getText().replace(",", "."));
         qtd++;
-        jLQtd.setText(qtd + " Iten(s)");
-        jLQtd.setVisible(true);
+        jLTotal.setText(qtd + " Iten(s)");
+        jLTotal.setVisible(true);
 
-        JOptionPane.showMessageDialog(null, "Produto adicionado a venda!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-        Limpar();
+        JOptionPane.showMessageDialog(null, "Product adicionado a venda!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+        Clear();
     }
 
-    //método que limpa os campos para a venda de outro produto
-    public void Limpar() {
+    //método que limpa os campos para a venda de outro product
+    public void Clear() {
         jTPreco.setText("");
-        jTProduto.setText("");
-        jTQtd_est.setText("");
+        jTProduct.setText("");
+        jTTotal_est.setText("");
         jTValor.setText("");
     }
 
@@ -1011,25 +1011,25 @@ public class SaidaVenda extends javax.swing.JFrame {
 
         for (int i = 0; i < venda.size(); i++) {
             tmVenda.addRow(linha);
-            String produto_local = "";
+            String product_local = "";
             try {
-                //Pega o produto com o id na lista da venda
+                //Pega o product com o id na lista da venda
                 ProductDao dao = new ProductDao();
                 Product p = dao.getProduct(venda.get(i).getId_prod());
-                produto_local = p.getProduct();
+                product_local = p.getProduct();
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
 
-            tmVenda.setValueAt(produto_local, i, 0);
+            tmVenda.setValueAt(product_local, i, 0);
             tmVenda.setValueAt(venda.get(i).getValueProduct(), i, 1);
             tmVenda.setValueAt(venda.get(i).getAmount(), i, 2);
             tmVenda.setValueAt(venda.get(i).getPrice(), i, 3);
         }
     }
 
-    private void jTTabelaLinhaSelecionada(JTable tabela) {
+    private void jTSelectedRowTable(JTable tabela) {
 
     }
 
@@ -1041,45 +1041,45 @@ public class SaidaVenda extends javax.swing.JFrame {
         return h * w;
     }
 
-    //metodo para preencher o combobox dos vendedores
-    public final void PreencherVendedores() {
+    //metodo para preencher o combobox dos Sallers
+    public final void PreencherSallers() {
         try {
             SalesmanDao a = new SalesmanDao();
-            vendedores = a.getList("");
-            for (int y = 0; y < vendedores.size(); y++) {
-                jComboBox2.addItem(vendedores.get(y).getName());
+            Sallers = a.getList("");
+            for (int y = 0; y < Sallers.size(); y++) {
+                jComboBox2.addItem(Sallers.get(y).getName());
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    //Cria o relatorio da nota
-    private void relatorio(int idnota) {
+    //Cria o report da nota
+    private void report(int idnota) {
         Date data = new Date();
 
-        int ano = data.getYear() + 1900;
-        int dia = data.getDate();
-        int mes = data.getMonth() + 1;
-        String dias = null, mess = null;
-        if (dia < 10) {
-            dias = "0" + dia;
+        int year = data.getYear() + 1900;
+        int day = data.getDate();
+        int month = data.getMonth() + 1;
+        String days = null, months = null;
+        if (day < 10) {
+            days = "0" + day;
         } else {
-            dias = "" + dia;
+            days = "" + day;
         }
-        if (mes < 10) {
-            mess = "0" + mes;
+        if (month < 10) {
+            months = "0" + month;
         } else {
-            mess = "" + mes;
+            months = "" + month;
         }
-        String nome = "Orçamento" + idnota + " DATA" + dias + "-" + mess + "-" + ano;
-        String arquivo = nome;
+        String Name = "Orçamento" + idnota + " DATA" + days + "-" + months + "-" + year;
+        String file = Name;
 
         ConectionReport con = new ConectionReport();
 
 //diretorio que vai salvar
-        File dir = new File("c:/FARelatorios/Orcamento");
+        File dir = new File("c:/FAReports/Orcamento");
         if (!dir.exists()) {
             if (dir.mkdir()) {
 
@@ -1087,14 +1087,14 @@ public class SaidaVenda extends javax.swing.JFrame {
 
             }
         }
-        File l = new File("c:/FARelatorios/Orcamento/");
+        File l = new File("c:/FAReports/Orcamento/");
         l.mkdir();
 
-        String MostrarRelatorio;
-        String path = "c:/FARelatorios/Orcamento/";
+        String showReport;
+        String path = "c:/FAReports/Orcamento/";
         try {
             con.connect();
-            con.executeSQL("select nota.*, produto.*, venda.*, cliente.*, pdf.* from  nota, produto, venda, cliente, pdf where nota.id=" + idnota + " and nota.id=venda.id_n and venda.id_p=produto.id and nota.id_c=cliente.id and pdf.id_n=" + idnota + ";");
+            con.executeSQL("select nota.*, product.*, venda.*, cliente.*, pdf.* from  nota, product, venda, cliente, pdf where nota.id=" + idnota + " and nota.id=venda.id_n and venda.id_p=product.id and nota.id_c=cliente.id and pdf.id_n=" + idnota + ";");
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
@@ -1105,28 +1105,28 @@ public class SaidaVenda extends javax.swing.JFrame {
             //jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/1349387239_gems.jpg")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);
-            File arq = new File(path + arquivo + ".pdf");
+            File arq = new File(path + file + ".pdf");
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + arquivo + ".pdf já existe.\n Dezeja substitui-lo?", "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "O relatório " + file + ".pdf já existe.\n Dezeja substitui-lo?", "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION) {
-                    JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                    MostrarRelatorio = path + arquivo + ".pdf";
-                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + arquivo + ".pdf", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+                    JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                    showReport = path + file + ".pdf";
+                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + file + ".pdf", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                     try {
-                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                     } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getStackTrace(), "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
 
-                JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                MostrarRelatorio = path + arquivo + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+                JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                showReport = path + file + ".pdf";
+                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + file + ".pdf", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "..: SGA :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getMessage(), "..: SGA :..", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -1152,7 +1152,7 @@ public class SaidaVenda extends javax.swing.JFrame {
 
                 n.setTotal(Double.parseDouble(jTTotalg.getText()));
                 n.setDate(fo.format(d));
-                n.setId_salesman(vendedores.get(jComboBox2.getSelectedIndex()).getId_salesman());
+                n.setId_salesman(Sallers.get(jComboBox2.getSelectedIndex()).getId_salesman());
 
                 dao.add(n);
                 int idnota = dao.getLastInvoiceId();
@@ -1181,7 +1181,7 @@ public class SaidaVenda extends javax.swing.JFrame {
                     i = i - 1;
                 }
 
-                JOptionPane.showMessageDialog(null, "Saída de estoque cadastrada com sucesso.", "SGA", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Saída de stock cadastrada com sucesso.", "SGA", JOptionPane.INFORMATION_MESSAGE);
                 atualizarTabela(venda);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGA :..", JOptionPane.ERROR_MESSAGE);
@@ -1201,7 +1201,7 @@ public class SaidaVenda extends javax.swing.JFrame {
                 int sub = e.getAmount() - venda.get(i).getAmount();
                 if (sub < 0) {
                     r = false;
-                    JOptionPane.showMessageDialog(null, "A quantidade de " + p.getProduct().toUpperCase() + " \n\r em estoque não é suficiente.", "SGA", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "A quantidade de " + p.getProduct().toUpperCase() + " \n\r em stock não é suficiente.", "SGA", JOptionPane.WARNING_MESSAGE);
                 }
             }
         } catch (SQLException ex) {
@@ -1224,7 +1224,7 @@ public class SaidaVenda extends javax.swing.JFrame {
             b.show();
         }
 
-        //Para adicionar um produto
+        //Para adicionar um product
         if (evt.getKeyCode() == 80 && la == 1) {
             la = 0;
             SearchProduct b = new SearchProduct();
@@ -1249,7 +1249,7 @@ public class SaidaVenda extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLNVenda;
-    private javax.swing.JLabel jLQtd;
+    private javax.swing.JLabel jLTotal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1273,58 +1273,58 @@ public class SaidaVenda extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTCliente;
-    private javax.swing.JTextField jTEndereco;
+    private javax.swing.JTextField jTAddress;
     private javax.swing.JTextField jTPreco;
-    private javax.swing.JTextField jTProduto;
-    private javax.swing.JTextField jTQtd;
-    private javax.swing.JTextField jTQtd_est;
+    private javax.swing.JTextField jTProduct;
+    private javax.swing.JTextField jTTotal;
+    private javax.swing.JTextField jTTotal_est;
     private javax.swing.JTextField jTTotalg;
     private javax.swing.JTextField jTValor;
     private javax.swing.JTable jTVendas;
     // End of variables declaration//GEN-END:variables
 
-    //Cria o relatorio da nota
-    private void relatorio() {
+    //Cria o report da nota
+    private void report() {
         Date data = new Date();
 
-        int ano = data.getYear() + 1900;
-        int dia = data.getDate();
-        int mes = data.getMonth() + 1;
-        String dias = null, mess = null;
-        if (dia < 10) {
-            dias = "0" + dia;
+        int year = data.getYear() + 1900;
+        int day = data.getDate();
+        int month = data.getMonth() + 1;
+        String days = null, months = null;
+        if (day < 10) {
+            days = "0" + day;
         } else {
-            dias = "" + dia;
+            days = "" + day;
         }
-        if (mes < 10) {
-            mess = "0" + mes;
+        if (month < 10) {
+            months = "0" + month;
         } else {
-            mess = "" + mes;
+            months = "" + month;
         }
-        String nome = "NOTA_VENDA_N_" + idnota;
-        String arquivo = nome;
+        String Name = "NOTA_VENDA_N_" + idnota;
+        String file = Name;
 
         ConectionReport con = new ConectionReport();
 
         //diretorio que vai salvar
-        File dir = new File("c:/SGE");
+        File dir = new File("c:/WMS");
         if (!dir.exists()) {
             dir.mkdir();
         }
-        File l = new File("c:/SGE/Relatorios");
+        File l = new File("c:/WMS/Reports");
         if (!l.exists()) {
             l.mkdir();
         }
-        File li = new File("c:/SGE/Relatorios/NotasVendas");
+        File li = new File("c:/WMS/Reports/NotasVendas");
         if (!li.exists()) {
             li.mkdir();
         }
 
-        String MostrarRelatorio;
-        String path = "c:/SGE/Relatorios/NotasVendas/";
+        String showReport;
+        String path = "c:/WMS/Reports/NotasVendas/";
         try {
             con.connect();
-            con.executeSQL("select saida.*, produto.*, venda.*, cliente.*, funcionario.nome_fun from  saida, produto, venda, cliente, funcionario where saida.id_s=" + idnota + " and saida.id_s=venda.id_s and venda.id_p=produto.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
+            con.executeSQL("select saida.*, product.*, venda.*, cliente.*, funcionario.Name_fun from  saida, product, venda, cliente, funcionario where saida.id_s=" + idnota + " and saida.id_s=venda.id_s and venda.id_p=product.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
@@ -1335,32 +1335,32 @@ public class SaidaVenda extends javax.swing.JFrame {
             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);
-            File arq = new File(path + arquivo + ".pdf");
+            File arq = new File(path + file + ".pdf");
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + arquivo + ".pdf já existe.\n Dezeja substitui-lo?", "SGE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "O relatório " + file + ".pdf já existe.\n Dezeja substitui-lo?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION) {
-                    JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                    MostrarRelatorio = path + arquivo + ".pdf";
-                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                    JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                    showReport = path + file + ".pdf";
+                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                     try {
-                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                     } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getStackTrace(), "WMS", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
-                JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                MostrarRelatorio = path + arquivo + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                showReport = path + file + ".pdf";
+                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
         } catch (HeadlessException | JRException erro) {
-            JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + erro, "WMS", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

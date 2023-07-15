@@ -28,10 +28,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -99,11 +96,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTPesquisar" min="-2" pref="305" max="-2" attributes="0"/>
+                      <Component id="jTSearch" min="-2" pref="305" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTTotal" max="32767" attributes="0"/>
+                      <Component id="jTTotal" pref="79" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -114,7 +111,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -135,15 +132,15 @@
                 <Property name="text" type="java.lang.String" value="Search customer:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTPesquisar">
+            <Component class="javax.swing.JTextField" name="jTSearch">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTPesquisarKeyPressed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTPesquisarKeyTyped"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTSearchKeyPressed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTSearchKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
@@ -211,15 +208,15 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jTCpf" max="32767" attributes="0"/>
-                                  <Component id="jTEndereco" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jTAddress" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jTTelefone" min="-2" pref="158" max="-2" attributes="0"/>
+                                      <Component id="jTPhone" min="-2" pref="158" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jTTelefone1" min="-2" pref="158" max="-2" attributes="0"/>
+                                      <Component id="jTPhone1" min="-2" pref="158" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jTNome" max="32767" attributes="0"/>
+                                  <Component id="jTName" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -239,19 +236,19 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTName" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTAddress" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTPhone" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTTelefone1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTPhone1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -301,31 +298,31 @@
                 <Property name="text" type="java.lang.String" value="Phone 1:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTNome">
+            <Component class="javax.swing.JTextField" name="jTName">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTNomeKeyPressed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTNameKeyPressed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTEndereco">
+            <Component class="javax.swing.JTextField" name="jTAddress">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTEnderecoActionPerformed"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTEnderecoKeyPressed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTAddressActionPerformed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTAddressKeyPressed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="jTTelefone">
+            <Component class="javax.swing.JFormattedTextField" name="jTPhone">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                   <Format format="(##)####-####" subtype="-1" type="5"/>
@@ -335,7 +332,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTTelefoneKeyPressed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTPhoneKeyPressed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="}catch(Exception e){&#xa;    System.out.println(e.getStackTrace());&#xa;}"/>
@@ -401,7 +398,7 @@
                 <Property name="text" type="java.lang.String" value="Phone 2:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="jTTelefone1">
+            <Component class="javax.swing.JFormattedTextField" name="jTPhone1">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                   <Format format="(##)####-####" subtype="-1" type="5"/>
@@ -411,7 +408,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTTelefone1KeyPressed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTPhone1KeyPressed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="}catch(Exception e){&#xa;    System.out.println(e.getStackTrace());&#xa;}"/>
@@ -514,7 +511,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagens/delete.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Delet"/>
+                <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
@@ -575,7 +572,7 @@
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;lsmCliente = jTClientes.getSelectionModel();&#xd;&#xa;lsmCliente.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTClientes); } }&#xd;&#xa;});"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;lsmCliente = jTClientes.getSelectionModel();&#xd;&#xa;lsmCliente.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTSelectedRowTable(jTClientes); } }&#xd;&#xa;});"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

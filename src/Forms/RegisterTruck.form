@@ -90,7 +90,7 @@
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTNome" max="32767" attributes="0"/>
+                              <Component id="jTName" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
@@ -109,7 +109,7 @@
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTName" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -149,7 +149,7 @@
                 <Property name="text" type="java.lang.String" value="Planned sacks:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTNome">
+            <Component class="javax.swing.JTextField" name="jTName">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="18" style="0"/>

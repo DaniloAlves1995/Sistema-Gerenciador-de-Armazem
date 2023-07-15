@@ -31,31 +31,27 @@ import javax.swing.table.DefaultTableModel;
  *
  *
  */
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
-//</editor-fold>
-public final class Gerencia_Vendedor extends javax.swing.JFrame {
+public final class ManageSaller extends javax.swing.JFrame {
 
     private final ManageFields manageFields;
-    private DefaultTableModel tmVendedor = new DefaultTableModel(null, new String[]{"Id", "Nome", "Endereço", "Contato 1"});
-    private ListSelectionModel lsmVendedor;
-    private List<Salesman> vendedor;
+    private DefaultTableModel tmSaller = new DefaultTableModel(null, new String[]{"Id", "Name", "Address", "Phone"});
+    private ListSelectionModel lsmSaller;
+    private List<Salesman> saller;
     private char l;
 
-    public Gerencia_Vendedor() {
+    public ManageSaller() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Gerenciar Vendedor - SGE");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        this.setTitle("Manage Saller - WMS");
+        ImageIcon iconWind = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWind.getImage());
         //Desabilita os campos
-        this.Desabilitar();
-        this.MostrarQtdVendedores();
+        this.Disable();
+        this.showTotalSallers();
         
         //setup manage class
         this.manageFields = new ManageFields();
-        this.manageFields.setFields(Arrays.asList(jTNome, jTTelefone, jTEndereco));
+        this.manageFields.setFields(Arrays.asList(jTName, jTPhone, jTAddress));
         this.manageFields.setEvent();
     }
 
@@ -71,7 +67,7 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTPesquisar = new javax.swing.JTextField();
+        jTSearch = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jTTotal = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -79,21 +75,21 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTNome = new javax.swing.JTextField();
-        jTEndereco = new javax.swing.JTextField();
+        jTName = new javax.swing.JTextField();
+        jTAddress = new javax.swing.JTextField();
         jTId = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTTelefone = new javax.swing.JFormattedTextField();
-        jTTelefone2 = new javax.swing.JFormattedTextField();
+        jTPhone = new javax.swing.JFormattedTextField();
+        jTPhone2 = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTVendedores = new javax.swing.JTable();
+        jTSallers = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -105,21 +101,21 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Pesquisar Vendedor:");
+        jLabel1.setText("Search saller");
 
-        jTPesquisar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTSearch.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyPressed(evt);
+                jTSearchKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTPesquisarKeyTyped(evt);
+                jTSearchKeyTyped(evt);
             }
         });
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Total de Vendedor:");
+        jLabel12.setText("Total of sallers");
 
         jTTotal.setEditable(false);
         jTTotal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -132,11 +128,11 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                .addComponent(jTTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -145,46 +141,46 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Gerenciar Vendedor");
+        jLabel2.setText("Manage seller");
 
         jPanel3.setBackground(new java.awt.Color(0, 131, 73));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Nome:");
+        jLabel3.setText("Name:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Endereço:");
+        jLabel5.setText("Address:");
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Contato 1:");
+        jLabel8.setText("Phone:");
 
-        jTNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTNome.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTNomeKeyPressed(evt);
+                jTNameKeyPressed(evt);
             }
         });
 
-        jTEndereco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTEndereco.addActionListener(new java.awt.event.ActionListener() {
+        jTAddress.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTEnderecoActionPerformed(evt);
+                jTAddressActionPerformed(evt);
             }
         });
-        jTEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTAddress.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTEnderecoKeyPressed(evt);
+                jTAddressKeyPressed(evt);
             }
         });
 
@@ -204,37 +200,37 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Contato 2:");
+        jLabel10.setText("Phone 2:");
 
         try{
             try {
-                jTTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+                jTPhone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
             } catch (java.text.ParseException ex) {
                 ex.printStackTrace();
             }
-            jTTelefone.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+            jTPhone.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         }catch(Exception e){
             System.out.println(e.getStackTrace());
         }
-        jTTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTPhone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTTelefoneKeyPressed(evt);
+                jTPhoneKeyPressed(evt);
             }
         });
 
         try{
             try {
-                jTTelefone2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+                jTPhone2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
             } catch (java.text.ParseException ex) {
                 ex.printStackTrace();
             }
-            jTTelefone2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+            jTPhone2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         }catch(Exception e){
             System.out.println(e.getStackTrace());
         }
-        jTTelefone2.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTPhone2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTTelefone2KeyPressed(evt);
+                jTPhone2KeyPressed(evt);
             }
         });
 
@@ -259,14 +255,14 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTEndereco, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTAddress, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTTelefone2, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
-                            .addComponent(jTNome))))
+                                .addComponent(jTPhone2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
+                            .addComponent(jTName))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -280,18 +276,18 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(jLabel10)
-                            .addComponent(jTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel11))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -299,30 +295,27 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 131, 73));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/disk.png"))); // NOI18N
-        jButton1.setText("Salvar");
+        jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/table_edit.png"))); // NOI18N
-        jButton3.setText("Editar");
+        jButton3.setText("Edit");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/delete.png"))); // NOI18N
-        jButton4.setText("Excluir");
+        jButton4.setText("Delete");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -358,14 +351,14 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(0, 131, 73));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTVendedores.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTVendedores.setModel(tmVendedor);
-        jTVendedores.setSelectionBackground(new java.awt.Color(0, 131, 73));
-        jTVendedores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lsmVendedor = jTVendedores.getSelectionModel();
-        lsmVendedor.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTTabelaLinhaSelecionada(jTVendedores); } }
+        jTSallers.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTSallers.setModel(tmSaller);
+        jTSallers.setSelectionBackground(new java.awt.Color(0, 131, 73));
+        jTSallers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lsmSaller = jTSallers.getSelectionModel();
+        lsmSaller.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTSelectedRowTable(jTSallers); } }
         });
-        jScrollPane1.setViewportView(jTVendedores);
+        jScrollPane1.setViewportView(jTSallers);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -395,7 +388,7 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(266, 266, 266))
+                .addGap(305, 305, 305))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,104 +419,104 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyPressed
+    private void jTSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSearchKeyPressed
 
-    }//GEN-LAST:event_jTPesquisarKeyPressed
+    }//GEN-LAST:event_jTSearchKeyPressed
 
-    private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
+    private void jTSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTSearchKeyTyped
         l = evt.getKeyChar();
 
         try {
-            listarVendedor();
+            listSaller();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_jTPesquisarKeyTyped
+    }//GEN-LAST:event_jTSearchKeyTyped
 
-    private void jTNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNomeKeyPressed
-        if (jTNome.getBackground() != Color.WHITE) {
-            jTNome.setBackground(Color.WHITE);
+    private void jTNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTNameKeyPressed
+        if (jTName.getBackground() != Color.WHITE) {
+            jTName.setBackground(Color.WHITE);
         }
-    }//GEN-LAST:event_jTNomeKeyPressed
+    }//GEN-LAST:event_jTNameKeyPressed
 
-    private void jTEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTEnderecoActionPerformed
+    private void jTAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTAddressActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTEnderecoActionPerformed
+    }//GEN-LAST:event_jTAddressActionPerformed
 
-    private void jTEnderecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEnderecoKeyPressed
-        if (jTEndereco.getBackground() != Color.WHITE) {
-            jTEndereco.setBackground(Color.WHITE);
+    private void jTAddressKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTAddressKeyPressed
+        if (jTAddress.getBackground() != Color.WHITE) {
+            jTAddress.setBackground(Color.WHITE);
         }
-    }//GEN-LAST:event_jTEnderecoKeyPressed
+    }//GEN-LAST:event_jTAddressKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (jTVendedores.getSelectedRow() != -1) {
-            if (Everificar()) {
+        if (jTSallers.getSelectedRow() != -1) {
+            if (Echeck()) {
                 try {
-                    alteraVendedor();
-                    jTPesquisar.setText("");
-                    listarVendedor();
-                    Limpar();
+                    editSaller();
+                    jTSearch.setText("");
+                    listSaller();
+                    Clear();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            this.MostrarQtdVendedores();
+            this.showTotalSallers();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (jTVendedores.getSelectedRow() != -1) {
-            Habilitar();
+        if (jTSallers.getSelectedRow() != -1) {
+            Enable();
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Vendedor na tabela para poder Editar!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Vendedor na tabela para poder Editar!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (jTVendedores.getSelectedRow() != -1) {
-            Excluir();
+        if (jTSallers.getSelectedRow() != -1) {
+            Delete();
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Vendedor na Tabela para poder Excluir!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Vendedor na Tabela para poder Delete!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
-        this.MostrarQtdVendedores();
+        this.showTotalSallers();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTIdActionPerformed
 
-    private void jTTelefoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTelefoneKeyPressed
-        if (jTTelefone.getBackground() != Color.WHITE) {
-            jTTelefone.setBackground(Color.WHITE);
+    private void jTPhoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPhoneKeyPressed
+        if (jTPhone.getBackground() != Color.WHITE) {
+            jTPhone.setBackground(Color.WHITE);
         }
-    }//GEN-LAST:event_jTTelefoneKeyPressed
+    }//GEN-LAST:event_jTPhoneKeyPressed
 
-    private void jTTelefone2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTelefone2KeyPressed
+    private void jTPhone2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPhone2KeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTTelefone2KeyPressed
+    }//GEN-LAST:event_jTPhone2KeyPressed
 
-    //Esse metodo serve para Alterar os valores do vendedor no banco
-    private void alteraVendedor() throws SQLException {
+    //Esse metodo serve para Alterar os valores do saller no banco
+    private void editSaller() throws SQLException {
         if (this.manageFields.checkFields()) {
             Salesman m = new Salesman();
             SalesmanDao dao = new SalesmanDao();
-            m.setId_salesman(vendedor.get(jTVendedores.getSelectedRow()).getId_salesman());
-            m.setName(jTNome.getText());
-            m.setAddress(jTEndereco.getText());
-            m.setContato1(jTTelefone.getText());
-            m.setContact2(jTTelefone2.getText());
+            m.setId_salesman(saller.get(jTSallers.getSelectedRow()).getId_salesman());
+            m.setName(jTName.getText());
+            m.setAddress(jTAddress.getText());
+            m.setContato1(jTPhone.getText());
+            m.setContact2(jTPhone2.getText());
 
             dao.update(m);
-            JOptionPane.showMessageDialog(null, "Vendedor Alterado com SUCESSO!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-            Desabilitar();
+            JOptionPane.showMessageDialog(null, "Vendedor Alterado com SUCESSO!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            Disable();
         }
     }
 
-    public boolean Everificar() {
-        if ((vendedor.get(jTVendedores.getSelectedRow()).getName().equals(jTNome.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getAddress().equals(jTEndereco.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getContact1().equals(jTTelefone.getText())) && (vendedor.get(jTVendedores.getSelectedRow()).getContact2().equals(jTTelefone2.getText()))) {
-            JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+    public boolean Echeck() {
+        if ((saller.get(jTSallers.getSelectedRow()).getName().equals(jTName.getText())) && (saller.get(jTSallers.getSelectedRow()).getAddress().equals(jTAddress.getText())) && (saller.get(jTSallers.getSelectedRow()).getContact1().equals(jTPhone.getText())) && (saller.get(jTSallers.getSelectedRow()).getContact2().equals(jTPhone2.getText()))) {
+            JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
             return true;
@@ -532,9 +525,9 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
     }
 
     //metodo para veificar o campo se está vazio e colorir o background caso não esteja
-    public boolean VerificarCampo(final JTextField campo, String nome) {
+    public boolean checkField(final JTextField campo, String Name) {
         if (campo.getText().equals("") || campo.getText().equals("(  )    -    ")) {
-            JOptionPane.showMessageDialog(null, "O campo " + nome + " não pede ser vazio!", "..: SGE :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "O campo " + Name + " não pede ser vazio!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
             campo.setBackground(new Color(255, 51, 51));
             campo.requestFocus();
 
@@ -563,98 +556,97 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
         }
     }
 
-    //Método para limpar os TextFilds
-    public void Limpar() {
+    //Método para Clear os TextFilds
+    public void Clear() {
         this.manageFields.clearFields();
-        jTTelefone2.setText("");
+        jTPhone2.setText("");
         jTId.setText("");
     }
 
-    //Método para Desabilitar os TextFilds
-    public void Desabilitar() {
-        jTNome.setEditable(false);
-        jTEndereco.setEditable(false);
-        jTTelefone.setEditable(false);
-        jTTelefone2.setEditable(false);
+    //Método para Disable os TextFilds
+    public void Disable() {
+        jTName.setEditable(false);
+        jTAddress.setEditable(false);
+        jTPhone.setEditable(false);
+        jTPhone2.setEditable(false);
     }
 
-    //Método para Habilitar os TextFilds
-    public void Habilitar() {
-        jTNome.setEditable(true);
-        jTEndereco.setEditable(true);
-        jTTelefone.setEditable(true);
-        jTTelefone2.setEditable(true);
+    //Método para Enable os TextFilds
+    public void Enable() {
+        jTName.setEditable(true);
+        jTAddress.setEditable(true);
+        jTPhone.setEditable(true);
+        jTPhone2.setEditable(true);
     }
 
-    //Metodo para excluir o sócio 
-    public void Excluir() {
-        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente excluir o Vendedor " + jTNome.getText().toUpperCase(), "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    //Metodo para Delete o sócio 
+    public void Delete() {
+        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente Delete o Vendedor " + jTName.getText().toUpperCase(), "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
                 SalesmanDao m = new SalesmanDao();
-                m.delete(vendedor.get(jTVendedores.getSelectedRow()));
-                JOptionPane.showMessageDialog(null, "Vendedor excluido(a) com sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
-                jTPesquisar.setText("");
-                listarVendedor();
+                m.delete(saller.get(jTSallers.getSelectedRow()));
+                JOptionPane.showMessageDialog(null, "Vendedor excluido(a) com sucesso!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                jTSearch.setText("");
+                listSaller();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
-    protected void listarVendedor() throws SQLException {
+    protected void listSaller() throws SQLException {
         SalesmanDao me = new SalesmanDao();
-        vendedor = me.getList("%" + jTPesquisar.getText() + "%");
+        saller = me.getList("%" + jTSearch.getText() + "%");
 
-        mostraPesquisa(vendedor);
+        showSearch(saller);
     }
 
-    private void mostraPesquisa(List<Salesman> vendedor) {
+    private void showSearch(List<Salesman> saller) {
 
-        while (tmVendedor.getRowCount() > 0) {
-            tmVendedor.removeRow(0);
+        while (tmSaller.getRowCount() > 0) {
+            tmSaller.removeRow(0);
         }
 
-        if ((vendedor.isEmpty()) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Vendedor com o Nome " + jTPesquisar.getText().toUpperCase() + " cadastrado.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+        if ((saller.isEmpty()) && (l == ' ')) {
+            JOptionPane.showMessageDialog(null, "Nenhum Vendedor com o Name " + jTSearch.getText().toUpperCase() + " cadastrado.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
 
         String[] linha = new String[]{null, null, null, null, null};
-        for (int i = 0; i < vendedor.size(); i++) {
-            tmVendedor.addRow(linha);
-            tmVendedor.setValueAt(vendedor.get(i).getId_salesman(), i, 0);
-            tmVendedor.setValueAt(vendedor.get(i).getName(), i, 1);
-            tmVendedor.setValueAt(vendedor.get(i).getAddress(), i, 2);
-            tmVendedor.setValueAt(vendedor.get(i).getContact1(), i, 3);
+        for (int i = 0; i < saller.size(); i++) {
+            tmSaller.addRow(linha);
+            tmSaller.setValueAt(saller.get(i).getId_salesman(), i, 0);
+            tmSaller.setValueAt(saller.get(i).getName(), i, 1);
+            tmSaller.setValueAt(saller.get(i).getAddress(), i, 2);
+            tmSaller.setValueAt(saller.get(i).getContact1(), i, 3);
 
         }
     }
 
-    private void jTTabelaLinhaSelecionada(JTable tabela) {
+    private void jTSelectedRowTable(JTable tabela) {
         try {
-            if (jTVendedores.getSelectedRow() != -1) {
-                Limpar();
-                jTNome.setText(vendedor.get(tabela.getSelectedRow()).getName());
-                jTEndereco.setText(vendedor.get(tabela.getSelectedRow()).getAddress());
-                jTTelefone.setText(vendedor.get(tabela.getSelectedRow()).getContact1());
-                jTTelefone2.setText(vendedor.get(tabela.getSelectedRow()).getContact2());
-                jTId.setText(vendedor.get(tabela.getSelectedRow()).getId_salesman() + "");
+            if (jTSallers.getSelectedRow() != -1) {
+                Clear();
+                jTName.setText(saller.get(tabela.getSelectedRow()).getName());
+                jTAddress.setText(saller.get(tabela.getSelectedRow()).getAddress());
+                jTPhone.setText(saller.get(tabela.getSelectedRow()).getContact1());
+                jTPhone2.setText(saller.get(tabela.getSelectedRow()).getContact2());
+                jTId.setText(saller.get(tabela.getSelectedRow()).getId_salesman() + "");
 
-                Desabilitar();
+                Disable();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "SGE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    //metodo para mostrar a qtd de sócios
-    public void MostrarQtdVendedores() {
+    //show the total of sallers
+    public void showTotalSallers() {
         try {
-            //pega a qtd de sócios cadastrados no banco
             SalesmanDao dao = new SalesmanDao();
             jTTotal.setText(String.valueOf(dao.getAmountSelesman()));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de clientes!", "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de clientes!", "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -675,21 +667,27 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gerencia_Vendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gerencia_Vendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gerencia_Vendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gerencia_Vendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Gerencia_Vendedor().setVisible(true);
+                new ManageSaller().setVisible(true);
             }
         });
     }
@@ -713,13 +711,13 @@ public final class Gerencia_Vendedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTEndereco;
+    private javax.swing.JTextField jTAddress;
     private javax.swing.JTextField jTId;
-    public javax.swing.JTextField jTNome;
-    private javax.swing.JTextField jTPesquisar;
-    private javax.swing.JFormattedTextField jTTelefone;
-    private javax.swing.JFormattedTextField jTTelefone2;
+    public javax.swing.JTextField jTName;
+    private javax.swing.JTextField jTSearch;
+    private javax.swing.JFormattedTextField jTPhone;
+    private javax.swing.JFormattedTextField jTPhone2;
     private javax.swing.JTextField jTTotal;
-    private javax.swing.JTable jTVendedores;
+    private javax.swing.JTable jTSallers;
     // End of variables declaration//GEN-END:variables
 }

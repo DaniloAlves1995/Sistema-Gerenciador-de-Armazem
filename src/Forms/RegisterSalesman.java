@@ -40,13 +40,13 @@ public class RegisterSalesman extends javax.swing.JFrame {
 
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Cadastrar Vendedor - SGE");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        this.setTitle("Cadastrar Vendedor - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
         
         //setup manage class
         this.manageFields = new ManageFields();
-        this.manageFields.setFields(Arrays.asList(jTNome, jTEndereco, jTTelefone));
+        this.manageFields.setFields(Arrays.asList(jTName, jTAddress, jTPhone));
         this.manageFields.setEvent();
     }
 
@@ -63,14 +63,14 @@ public class RegisterSalesman extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jTNome = new javax.swing.JTextField();
+        jTName = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTEndereco = new javax.swing.JTextField();
+        jTAddress = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTTelefone = new javax.swing.JFormattedTextField();
-        jTTelefone2 = new javax.swing.JFormattedTextField();
+        jTPhone = new javax.swing.JFormattedTextField();
+        jTPhone2 = new javax.swing.JFormattedTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -89,13 +89,13 @@ public class RegisterSalesman extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Name:");
 
-        jTNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Phone 1:");
 
-        jTEndereco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTAddress.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -109,22 +109,22 @@ public class RegisterSalesman extends javax.swing.JFrame {
 
         try{
             try {
-                jTTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+                jTPhone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
             } catch (java.text.ParseException ex) {
                 ex.printStackTrace();
             }
-            jTTelefone.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+            jTPhone.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         }catch(Exception e){
             System.out.println(e.getStackTrace());
         }
 
         try{
             try {
-                jTTelefone2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+                jTPhone2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
             } catch (java.text.ParseException ex) {
                 ex.printStackTrace();
             }
-            jTTelefone2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+            jTPhone2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         }catch(Exception e){
             System.out.println(e.getStackTrace());
         }
@@ -145,12 +145,12 @@ public class RegisterSalesman extends javax.swing.JFrame {
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTEndereco, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTNome, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTAddress, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTName, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTTelefone2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                            .addComponent(jTTelefone))
+                            .addComponent(jTPhone2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                            .addComponent(jTPhone))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -163,19 +163,19 @@ public class RegisterSalesman extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(jTEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
-                            .addComponent(jTTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(14, 14, 14)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jTTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -246,23 +246,23 @@ public class RegisterSalesman extends javax.swing.JFrame {
             //Cria um objeto Salesman para setar os valores dos TextFilds
             Salesman s = new Salesman();
             //Seta os valores dos TextFilds
-            s.setName(jTNome.getText());
-            s.setAddress(jTEndereco.getText());
-            s.setContato1(jTTelefone.getText());
-            s.setContact2(jTTelefone2.getText());
+            s.setName(jTName.getText());
+            s.setAddress(jTAddress.getText());
+            s.setContato1(jTPhone.getText());
+            s.setContact2(jTPhone2.getText());
 
             try {
                 //Cria um objeto DAO para inserir o novo Salesman no banco
                 SalesmanDao d = new SalesmanDao();
                 //Adiciona o novo Salesman no banco
                 d.add(s);
-                JOptionPane.showMessageDialog(null, "Vendedor cadastrado com Sucesso!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Vendedor cadastrado com Sucesso!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
 
                 //fecha a janela
                 this.dispose();
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -321,9 +321,9 @@ public class RegisterSalesman extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTEndereco;
-    private javax.swing.JTextField jTNome;
-    private javax.swing.JFormattedTextField jTTelefone;
-    private javax.swing.JFormattedTextField jTTelefone2;
+    private javax.swing.JTextField jTAddress;
+    private javax.swing.JTextField jTName;
+    private javax.swing.JFormattedTextField jTPhone;
+    private javax.swing.JFormattedTextField jTPhone2;
     // End of variables declaration//GEN-END:variables
 }

@@ -36,12 +36,12 @@ public class RegisterTruck extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Register Truck - WMS");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
         
         //setup manage class
         this.manageFields = new ManageFields();
-        this.manageFields.setFields(Arrays.asList(jTNome, jTPreCarga));
+        this.manageFields.setFields(Arrays.asList(jTName, jTPreCarga));
         this.manageFields.setEvent();
     }
 
@@ -58,7 +58,7 @@ public class RegisterTruck extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTNome = new javax.swing.JTextField();
+        jTName = new javax.swing.JTextField();
         jTPreCarga = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -82,7 +82,7 @@ public class RegisterTruck extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Planned sacks:");
 
-        jTNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         jTPreCarga.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -100,7 +100,7 @@ public class RegisterTruck extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTNome))
+                        .addComponent(jTName))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
@@ -114,7 +114,7 @@ public class RegisterTruck extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTPreCarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,18 +212,18 @@ public class RegisterTruck extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (this.manageFields.checkFields()) {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            //Cria um objeto produto para setar os valores dos TextFilds
+            //Cria um objeto product para setar os valores dos TextFilds
             Truck s = new Truck();
             
             //Seta os valores dos TextFilds
-            s.setName(jTNome.getText());
+            s.setName(jTName.getText());
             s.setTruckLoad(Integer.parseInt(jTPreCarga.getText()));
             s.setData(df.format(new Date()));
             try {
-                //Cria um objeto DAO para inserir o novo produto no banco
+                //Cria um objeto DAO para inserir o novo product no banco
                 TruckDao d = new TruckDao();
                 
-                //Adiciona o novo produto no banco
+                //Adiciona o novo product no banco
                 d.add(s);
                 int id = d.getLastId();
                 s.setId(id);
@@ -290,7 +290,7 @@ public class RegisterTruck extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    public javax.swing.JTextField jTNome;
+    public javax.swing.JTextField jTName;
     private javax.swing.JTextField jTPreCarga;
     // End of variables declaration//GEN-END:variables
 }

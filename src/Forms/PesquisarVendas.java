@@ -49,9 +49,9 @@ import net.sf.jasperreports.view.JasperViewer;
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
 //</editor-fold>
-public class PesquisarVendas extends javax.swing.JFrame {
+public class SearchVendas extends javax.swing.JFrame {
 
-    private List<OutStock> saidas;
+    private List<OutStock> exits;
     private String d1, d2;
     private DefaultTableModel tmNota = new DefaultTableModel(null, new String[]{"Selecionar", "Nº", "Cliente", "Valor(R$)", "Data"}) {
         Class[] types = new Class[]{
@@ -65,13 +65,13 @@ public class PesquisarVendas extends javax.swing.JFrame {
     };
     
 
-    public PesquisarVendas() {
+    public SearchVendas() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Pesquisar Vendas - SGE");
-        ImageIcon imagemTituloJanela = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
-        this.setIconImage(imagemTituloJanela.getImage());
-        this.saidas = new ArrayList<>();
+        this.setTitle("Search Vendas - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setIconImage(iconWindow.getImage());
+        this.exits = new ArrayList<>();
     }
 
     /**
@@ -96,7 +96,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
         jTNota = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jBExcluir = new javax.swing.JButton();
+        jBDelete = new javax.swing.JButton();
         jBGerarN = new javax.swing.JButton();
         jBGerarN1 = new javax.swing.JButton();
         jBGerarN2 = new javax.swing.JButton();
@@ -174,7 +174,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Pesquisar Vendas");
+        jLabel2.setText("Search Vendas");
 
         jPanel4.setBackground(new java.awt.Color(0, 131, 73));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -204,13 +204,13 @@ public class PesquisarVendas extends javax.swing.JFrame {
             }
         });
 
-        jBExcluir.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jBExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cart_delete.png"))); // NOI18N
-        jBExcluir.setText("Excluir Venda");
-        jBExcluir.setEnabled(false);
-        jBExcluir.addActionListener(new java.awt.event.ActionListener() {
+        jBDelete.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jBDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cart_delete.png"))); // NOI18N
+        jBDelete.setText("Delete Venda");
+        jBDelete.setEnabled(false);
+        jBDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBExcluirActionPerformed(evt);
+                jBDeleteActionPerformed(evt);
             }
         });
 
@@ -254,7 +254,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBExcluir)
+                        .addComponent(jBDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBGerarN)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -273,7 +273,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jBExcluir)
+                    .addComponent(jBDelete)
                     .addComponent(jBGerarN)
                     .addComponent(jBGerarN1)
                     .addComponent(jBGerarN2))
@@ -317,7 +317,7 @@ public class PesquisarVendas extends javax.swing.JFrame {
 
     private void jTNotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTNotaMouseClicked
         if (jTNota.getSelectedRow() != -1) {
-            jBExcluir.setEnabled(true);
+            jBDelete.setEnabled(true);
             jBGerarN.setEnabled(true);
         }
     }//GEN-LAST:event_jTNotaMouseClicked
@@ -325,44 +325,44 @@ public class PesquisarVendas extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTNota.getSelectedRow() != -1) {
             SaleDetails e = new SaleDetails();
-            e.SetId(saidas.get(jTNota.getSelectedRow()).getId_outStock());
-            e.SetPesquisarVendas(this);
+            e.SetId(exits.get(jTNota.getSelectedRow()).getId_outStock());
+            e.SetSearchVendas(this);
             e.Iniciar();
             e.show();
         } else {
-            JOptionPane.showMessageDialog(null, "Por favor selecione uma venda na tabela.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor selecione uma venda na tabela.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+    private void jBDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDeleteActionPerformed
         if (jTNota.getSelectedRow() != -1) {
             try {
-                int op = JOptionPane.showConfirmDialog(null, "Você deseja excluir essa venda?", "..: SGE :..", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                int op = JOptionPane.showConfirmDialog(null, "Você deseja Delete essa venda?", "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
                 if (op == 0) {
                     //Caso seja sim
-                    OutStock a = saidas.get(jTNota.getSelectedRow());
+                    OutStock a = exits.get(jTNota.getSelectedRow());
                     OutStockDao ndao = new OutStockDao();
                     ndao.delete(a);
 
                     SaleDao vdao = new SaleDao();
                     vdao.deleteByOut(a.getId_outStock());
-                    JOptionPane.showMessageDialog(null, "Venda excluida com sucesso!", "..: SGE :..", JOptionPane.QUESTION_MESSAGE);
-                    pesquisar();
+                    JOptionPane.showMessageDialog(null, "Venda excluida com sucesso!", "..: WMS :..", JOptionPane.QUESTION_MESSAGE);
+                    Search();
                 }
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jBExcluirActionPerformed
+    }//GEN-LAST:event_jBDeleteActionPerformed
 
     private void jBGerarNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarNActionPerformed
         if (jTNota.getSelectedRow() != -1) {
-            relatorioNota();
+            reportNota();
         }
     }//GEN-LAST:event_jBGerarNActionPerformed
 
     private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser1PropertyChange
-        pesquisar();
+        Search();
     }//GEN-LAST:event_jDateChooser1PropertyChange
 
     private void jDateChooser1VetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jDateChooser1VetoableChange
@@ -374,29 +374,29 @@ public class PesquisarVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_jDateChooser1MouseClicked
 
     private void jDateChooser2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser2PropertyChange
-        pesquisar();
+        Search();
     }//GEN-LAST:event_jDateChooser2PropertyChange
 
     private void jBGerarN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarN1ActionPerformed
-        if (saidas.size() > 0) {
+        if (exits.size() > 0) {
             try {
                 SaleDao vdao = new SaleDao();
                 vdao.adicionaPDF(d1, d2);
 
-                relatorio();
-                vdao.LimparPDF();
+                report();
+                vdao.ClearPDF();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Não houve nenhuma venda no período informado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Não houve nenhuma venda no período informado!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBGerarN1ActionPerformed
 
     private void jBGerarN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarN2ActionPerformed
-        if (saidas.size() > 0) {
+        if (exits.size() > 0) {
             try {
-                int verificar = 0;
+                int check = 0;
                 int qtd_total = 0;
                 double preco_total = 0;
                 String idss_s = "";
@@ -407,22 +407,22 @@ public class PesquisarVendas extends javax.swing.JFrame {
                 List<Sale> listav = new ArrayList<>();
                 List<Stock> listae = new ArrayList<>();
 
-                //fica somente com os ids das saidas selecionados
-                for (int i = 0; i < saidas.size(); i++) {
+                //fica somente com os ids das exits selecionados
+                for (int i = 0; i < exits.size(); i++) {
                     if (Boolean.parseBoolean(tmNota.getValueAt(i, 0).toString()) == true) {
-                        if (verificar == 0) {
-                            verificar = 1;
+                        if (check == 0) {
+                            check = 1;
                         }
                         OutStock s = new OutStock();
-                        s.setId_outStock(saidas.get(i).getId_outStock());
+                        s.setId_outStock(exits.get(i).getId_outStock());
                         listas.add(s);
                     }
                 }
                 //verifica se tem algum valor pesquisado na tabela
-                if (verificar == 0) {
-                    JOptionPane.showMessageDialog(null, "Para gerar o Romaneio você precisa selecionar pelo menos uma venda.", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+                if (check == 0) {
+                    JOptionPane.showMessageDialog(null, "Para gerar o Romaneio você precisa selecionar pelo menos uma venda.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    //retorna a lista de ids de produtos de todas as saidas sem repetir
+                    //retorna a lista de ids de products de todas as exits sem repetir
                     listav = vdao.getProductsOut(listas);
                     OutStockDao sdao = new OutStockDao();
                     for (int i = 0; i < listav.size(); i++) {
@@ -434,19 +434,19 @@ public class PesquisarVendas extends javax.swing.JFrame {
                         //adiciona na tabela os valores para o resumo
                         sdao.adicionaPDFResumo(p);
                     }
-                    relatorioResumo();
-                    sdao.LimparPDFResumo();
+                    reportResumo();
+                    sdao.ClearPDFResumo();
                 }
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Não houve nenhuma venda no período informado!", "..: SGE :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Não houve nenhuma venda no período informado!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBGerarN2ActionPerformed
  
-    public void pesquisar() {
+    public void Search() {
         if (jDateChooser1.getDate() != null && jDateChooser2.getDate() != null) {
             SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
             d1 = sd.format(jDateChooser1.getDate());
@@ -454,16 +454,16 @@ public class PesquisarVendas extends javax.swing.JFrame {
 
             try {
                 OutStockDao sdao = new OutStockDao();
-                saidas = sdao.getList(d1, d2, 8);
-                mostrarSaidas(saidas);
+                exits = sdao.getList(d1, d2, 8);
+                showExits(exits);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
     //Mostra a pesquisa na tabela de notas
-    private void mostrarSaidas(List<OutStock> saidas) {
+    private void showExits(List<OutStock> exits) {
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
@@ -472,25 +472,25 @@ public class PesquisarVendas extends javax.swing.JFrame {
         while (tmNota.getRowCount() > 0) {
             tmNota.removeRow(0);
         }
-        if (!saidas.isEmpty()) {
+        if (!exits.isEmpty()) {
             Object[] linha = new Object[]{Boolean.FALSE, null, null, null, null};
-            for (int i = 0; i < saidas.size(); i++) {
+            for (int i = 0; i < exits.size(); i++) {
                 try {
                     tmNota.addRow(linha);
-                    tmNota.setValueAt(saidas.get(i).getId_outStock(), i, 1);
+                    tmNota.setValueAt(exits.get(i).getId_outStock(), i, 1);
                     Customer c = new Customer();
                     try {
                         CustomerDao cdao = new CustomerDao();
-                        c = cdao.getCustumer(saidas.get(i).getId_customer());
+                        c = cdao.getCustumer(exits.get(i).getId_customer());
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                     }
                     tmNota.setValueAt(c.getName(), i, 2);
-                    tmNota.setValueAt(saidas.get(i).getTotal() + "", i, 3);
-                    d = df.parse(saidas.get(i).getDate());
+                    tmNota.setValueAt(exits.get(i).getTotal() + "", i, 3);
+                    d = df.parse(exits.get(i).getDate());
                     tmNota.setValueAt(df2.format(d), i, 4);
                 } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: SGE :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -513,103 +513,103 @@ public class PesquisarVendas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PesquisarVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PesquisarVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PesquisarVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PesquisarVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new PesquisarVendas().setVisible(true);
+            new SearchVendas().setVisible(true);
         });
     }
 
-    //Cria o relatorio da lista de vendas
-    private void relatorio() {
+    //Cria o report da lista de vendas
+    private void report() {
         try {
             Date data = new Date();
-            int ano = data.getYear() + 1900;
-            int dia = data.getDate();
-            int mes = data.getMonth() + 1;
-            String dias = null, mess = null;
-            if (dia < 10) {
-                dias = "0" + dia;
+            int year = data.getYear() + 1900;
+            int day = data.getDate();
+            int month = data.getMonth() + 1;
+            String days = null, months = null;
+            if (day < 10) {
+                days = "0" + day;
             } else {
-                dias = "" + dia;
+                days = "" + day;
             }
-            if (mes < 10) {
-                mess = "0" + mes;
+            if (month < 10) {
+                months = "0" + month;
             } else {
-                mess = "" + mes;
+                months = "" + month;
             }
-            String nome = "Relatório_Vendas_DATA_" + dias + "-" + mess + "-" + ano;
-            String arquivo = nome;
+            String Name = "Relatório_Vendas_DATA_" + days + "-" + months + "-" + year;
+            String file = Name;
             ConectionReport con = new ConectionReport();
             //diretorio que vai salvar
-            File dir = new File("c:/SGE");
+            File dir = new File("c:/WMS");
             if (!dir.exists()) {
                 dir.mkdir();
             }
-            File l = new File("c:/SGE/Relatorios");
+            File l = new File("c:/WMS/Reports");
             if (!l.exists()) {
                 l.mkdir();
             }
-            File li = new File("c:/SGE/Relatorios/Vendas");
+            File li = new File("c:/WMS/Reports/Vendas");
             if (!li.exists()) {
                 li.mkdir();
             }
-            String MostrarRelatorio;
-            String path = "c:/SGE/Relatorios/Vendas";
+            String showReport;
+            String path = "c:/WMS/Reports/Vendas";
             con.connect();
-            con.executeSQL("select * from produto, venda, saida, cliente, pdf_venda where venda.id_s = saida.id_s and produto.id_p = venda.id_p and saida.id_c = cliente.id_c and saida.data between '" + d1 + "' and '" + d2 + "' order by saida.data");
+            con.executeSQL("select * from product, venda, saida, cliente, pdf_venda where venda.id_s = saida.id_s and product.id_p = venda.id_p and saida.id_c = cliente.id_c and saida.data between '" + d1 + "' and '" + d2 + "' order by saida.data");
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
-            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/RelatorioSaidas.jasper"), new HashMap(), jrRS);
+            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/ReportExits.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle("Relatório de Estoque - .: SGE :.");
+            jv.setTitle("Relatório de Estoque - .: WMS :.");
             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);
-            File arq = new File(path + arquivo + ".pdf");
+            File arq = new File(path + file + ".pdf");
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + arquivo + ".pdf já existe.\n Dezeja substitui-lo?", "SGE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "O relatório " + file + ".pdf já existe.\n Dezeja substitui-lo?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION) {
-                    JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                    MostrarRelatorio = path + arquivo + ".pdf";
-                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                    JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                    showReport = path + file + ".pdf";
+                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                     try {
-                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                     } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getStackTrace(), "WMS", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
 
-                JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                MostrarRelatorio = path + arquivo + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                showReport = path + file + ".pdf";
+                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
 
         } catch (JRException ex) {
-            Logger.getLogger(PesquisarVendas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchVendas.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBExcluir;
+    private javax.swing.JButton jBDelete;
     private javax.swing.JButton jBGerarN;
     private javax.swing.JButton jBGerarN1;
     private javax.swing.JButton jBGerarN2;
@@ -628,130 +628,130 @@ public class PesquisarVendas extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 
-    //Cria o relatorio da nota
-    private void relatorioNota() {
+    //Cria o report da nota
+    private void reportNota() {
         Date data = new Date();
 
-        int ano = data.getYear() + 1900;
-        int dia = data.getDate();
-        int mes = data.getMonth() + 1;
-        String dias = null, mess = null;
-        if (dia < 10) {
-            dias = "0" + dia;
+        int year = data.getYear() + 1900;
+        int day = data.getDate();
+        int month = data.getMonth() + 1;
+        String days = null, months = null;
+        if (day < 10) {
+            days = "0" + day;
         } else {
-            dias = "" + dia;
+            days = "" + day;
         }
-        if (mes < 10) {
-            mess = "0" + mes;
+        if (month < 10) {
+            months = "0" + month;
         } else {
-            mess = "" + mes;
+            months = "" + month;
         }
-        String nome = "NOTA_VENDA_N_" + saidas.get(jTNota.getSelectedRow()).getId_outStock();
-        String arquivo = nome;
+        String Name = "NOTA_VENDA_N_" + exits.get(jTNota.getSelectedRow()).getId_outStock();
+        String file = Name;
 
         ConectionReport con = new ConectionReport();
 
 //diretorio que vai salvar
-        File dir = new File("c:/SGE");
+        File dir = new File("c:/WMS");
         if (!dir.exists()) {
             dir.mkdir();
         }
-        File l = new File("c:/SGE/Relatorios");
+        File l = new File("c:/WMS/Reports");
         if (!l.exists()) {
             l.mkdir();
         }
-        File li = new File("c:/SGE/Relatorios/NotasVendas");
+        File li = new File("c:/WMS/Reports/NotasVendas");
         if (!li.exists()) {
             li.mkdir();
         }
 
-        String MostrarRelatorio;
-        String path = "c:/SGE/Relatorios/NotasVendas/";
+        String showReport;
+        String path = "c:/WMS/Reports/NotasVendas/";
         try {
             con.connect();
-            con.executeSQL("select saida.*, produto.*, venda.*, cliente.*, funcionario.nome_fun from  saida, produto, venda, cliente, funcionario where saida.id_s=" + saidas.get(jTNota.getSelectedRow()).getId_outStock() + " and saida.id_s=venda.id_s and venda.id_p=produto.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
+            con.executeSQL("select saida.*, product.*, venda.*, cliente.*, funcionario.Name_fun from  saida, product, venda, cliente, funcionario where saida.id_s=" + exits.get(jTNota.getSelectedRow()).getId_outStock() + " and saida.id_s=venda.id_s and venda.id_p=product.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/NotaVenda.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle("Nota de Venda - .: SGE :.");
+            jv.setTitle("Nota de Venda - .: WMS :.");
             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);
-            File arq = new File(path + arquivo + ".pdf");
+            File arq = new File(path + file + ".pdf");
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + arquivo + ".pdf já existe.\n Dezeja substitui-lo?", "SGE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "O relatório " + file + ".pdf já existe.\n Dezeja substitui-lo?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION) {
-                    JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                    MostrarRelatorio = path + arquivo + ".pdf";
-                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                    JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                    showReport = path + file + ".pdf";
+                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                     try {
-                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                     } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getStackTrace(), "WMS", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
 
-                JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                MostrarRelatorio = path + arquivo + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                showReport = path + file + ".pdf";
+                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
         } catch (HeadlessException | JRException erro) {
-            JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + erro, "WMS", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
-    //Cria o relatorio da nota
-    private void relatorioResumo() {
+    //Cria o report da nota
+    private void reportResumo() {
         Date data = new Date();
 
-        int ano = data.getYear() + 1900;
-        int dia = data.getDate();
-        int mes = data.getMonth() + 1;
-        String dias = null, mess = null;
-        if (dia < 10) {
-            dias = "0" + dia;
+        int year = data.getYear() + 1900;
+        int day = data.getDate();
+        int month = data.getMonth() + 1;
+        String days = null, months = null;
+        if (day < 10) {
+            days = "0" + day;
         } else {
-            dias = "" + dia;
+            days = "" + day;
         }
-        if (mes < 10) {
-            mess = "0" + mes;
+        if (month < 10) {
+            months = "0" + month;
         } else {
-            mess = "" + mes;
+            months = "" + month;
         }
-        String nome = "ROMANEIO_VENDA_DATA_" + dias + "-" + mess + "-" + ano;
-        String arquivo = nome;
+        String Name = "ROMANEIO_VENDA_DATA_" + days + "-" + months + "-" + year;
+        String file = Name;
 
         ConectionReport con = new ConectionReport();
 
         //gerar string sql;
-        String sql = "select produto.*, pdf_resumon.* from produto, pdf_resumon where pdf_resumon.id_p = produto.id_p;";
+        String sql = "select product.*, pdf_resumon.* from product, pdf_resumon where pdf_resumon.id_p = product.id_p;";
 
         //diretorio que vai salvar
-        File dir = new File("c:/SGE");
+        File dir = new File("c:/WMS");
         if (!dir.exists()) {
             dir.mkdir();
         }
-        File l = new File("c:/SGE/Relatorios");
+        File l = new File("c:/WMS/Reports");
         if (!l.exists()) {
             l.mkdir();
         }
-        File li = new File("c:/SGE/Relatorios/NotasVendas");
+        File li = new File("c:/WMS/Reports/NotasVendas");
         if (!li.exists()) {
             li.mkdir();
         }
 
-        String MostrarRelatorio;
-        String path = "c:/SGE/Relatorios/NotasVendas/";
+        String showReport;
+        String path = "c:/WMS/Reports/NotasVendas/";
         try {
             con.connect();
             con.executeSQL(sql);
@@ -761,37 +761,37 @@ public class PesquisarVendas extends javax.swing.JFrame {
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/ResumoVendas.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle("Nota de Venda - .: SGE :.");
+            jv.setTitle("Nota de Venda - .: WMS :.");
             jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);
-            File arq = new File(path + arquivo + ".pdf");
+            File arq = new File(path + file + ".pdf");
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + arquivo + ".pdf já existe.\n Dezeja substitui-lo?", "SGE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "O relatório " + file + ".pdf já existe.\n Dezeja substitui-lo?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION) {
-                    JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                    MostrarRelatorio = path + arquivo + ".pdf";
-                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                    JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                    showReport = path + file + ".pdf";
+                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                     try {
-                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                        Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                     } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getStackTrace(), "SGE", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getStackTrace(), "WMS", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
 
-                JasperExportManager.exportReportToPdfFile(jp, path + arquivo + ".pdf");
-                MostrarRelatorio = path + arquivo + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + arquivo + ".pdf", "SGE", JOptionPane.INFORMATION_MESSAGE);
+                JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
+                showReport = path + file + ".pdf";
+                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + MostrarRelatorio);
+                    Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar arquivo! \n\r ERRO:" + e.getMessage(), "SGE", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
         } catch (HeadlessException | JRException erro) {
-            JOptionPane.showMessageDialog(null, "Erro!" + erro, "SGE", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro!" + erro, "WMS", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
