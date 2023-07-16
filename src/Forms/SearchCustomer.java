@@ -26,13 +26,10 @@ import javax.swing.table.DefaultTableModel;
  *
  *
  */
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
-//</editor-fold>
+
 public class SearchCustomer extends javax.swing.JFrame {
 
-    private final DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Name", "Address", "Telephone"});
+    private final DefaultTableModel tmCliente = new DefaultTableModel(null, new String[]{"Id", "Name", "Address", "Phone"});
     private ListSelectionModel lsmCliente;
     private List<Customer> cliente;
     private char l;
@@ -46,7 +43,7 @@ public class SearchCustomer extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Search Customer - WMS");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
 
         //Disable TextFilds
@@ -300,7 +297,7 @@ public class SearchCustomer extends javax.swing.JFrame {
         try {
             listCustomer();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error to access database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access database! \n\r ERRORR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTSearchKeyReleased
 
@@ -420,7 +417,7 @@ public class SearchCustomer extends javax.swing.JFrame {
                 jTCpf.setText(cliente.get(table.getSelectedRow()).getCpf());
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error to get values from table! \n\r ERROR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to get values from table! \n\r ERRORR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 

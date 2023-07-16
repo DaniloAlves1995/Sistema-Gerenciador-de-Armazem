@@ -31,23 +31,23 @@ import javax.swing.table.DefaultTableModel;
  *
  *
  */
-public final class ManageSaller extends javax.swing.JFrame {
+public final class ManageSeller extends javax.swing.JFrame {
 
     private final ManageFields manageFields;
-    private DefaultTableModel tmSaller = new DefaultTableModel(null, new String[]{"Id", "Name", "Address", "Phone"});
-    private ListSelectionModel lsmSaller;
-    private List<Salesman> saller;
+    private DefaultTableModel tmSeller = new DefaultTableModel(null, new String[]{"Id", "Name", "Address", "Phone"});
+    private ListSelectionModel lsmSeller;
+    private List<Salesman> seller;
     private char l;
 
-    public ManageSaller() {
+    public ManageSeller() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Manage Saller - WMS");
-        ImageIcon iconWind = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setTitle("Manage Seller - WMS");
+        ImageIcon iconWind = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWind.getImage());
         //Desabilita os campos
         this.Disable();
-        this.showTotalSallers();
+        this.showTotalSellers();
         
         //setup manage class
         this.manageFields = new ManageFields();
@@ -89,7 +89,7 @@ public final class ManageSaller extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTSallers = new javax.swing.JTable();
+        jTSellers = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -101,7 +101,7 @@ public final class ManageSaller extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Search saller");
+        jLabel1.setText("Search seller");
 
         jTSearch.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jTSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -115,7 +115,7 @@ public final class ManageSaller extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Total of sallers");
+        jLabel12.setText("Total of sellers");
 
         jTTotal.setEditable(false);
         jTTotal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -351,14 +351,14 @@ public final class ManageSaller extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(0, 131, 73));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTSallers.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTSallers.setModel(tmSaller);
-        jTSallers.setSelectionBackground(new java.awt.Color(0, 131, 73));
-        jTSallers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lsmSaller = jTSallers.getSelectionModel();
-        lsmSaller.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTSelectedRowTable(jTSallers); } }
+        jTSellers.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTSellers.setModel(tmSeller);
+        jTSellers.setSelectionBackground(new java.awt.Color(0, 131, 73));
+        jTSellers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lsmSeller = jTSellers.getSelectionModel();
+        lsmSeller.addListSelectionListener(new ListSelectionListener() { public void valueChanged(ListSelectionEvent e) { if (! e.getValueIsAdjusting()){ jTSelectedRowTable(jTSellers); } }
         });
-        jScrollPane1.setViewportView(jTSallers);
+        jScrollPane1.setViewportView(jTSellers);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -427,9 +427,9 @@ public final class ManageSaller extends javax.swing.JFrame {
         l = evt.getKeyChar();
 
         try {
-            listSaller();
+            listSeller();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jTSearchKeyTyped
@@ -451,36 +451,36 @@ public final class ManageSaller extends javax.swing.JFrame {
     }//GEN-LAST:event_jTAddressKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (jTSallers.getSelectedRow() != -1) {
+        if (jTSellers.getSelectedRow() != -1) {
             if (Echeck()) {
                 try {
-                    editSaller();
+                    editSeller();
                     jTSearch.setText("");
-                    listSaller();
+                    listSeller();
                     Clear();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            this.showTotalSallers();
+            this.showTotalSellers();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (jTSallers.getSelectedRow() != -1) {
+        if (jTSellers.getSelectedRow() != -1) {
             Enable();
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Vendedor na tabela para poder Edit!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You need to select a Seller on the table to edit!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (jTSallers.getSelectedRow() != -1) {
+        if (jTSellers.getSelectedRow() != -1) {
             Delete();
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Vendedor na Tabela para poder Delete!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You need to select a Seller on the table to delete!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
-        this.showTotalSallers();
+        this.showTotalSellers();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTIdActionPerformed
@@ -497,26 +497,26 @@ public final class ManageSaller extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTPhone2KeyPressed
 
-    //Esse metodo serve para Alterar os valores do saller no banco
-    private void editSaller() throws SQLException {
+    //Esse metodo serve para Alterar os valores do seller no banco
+    private void editSeller() throws SQLException {
         if (this.manageFields.checkFields()) {
             Salesman m = new Salesman();
             SalesmanDao dao = new SalesmanDao();
-            m.setId_salesman(saller.get(jTSallers.getSelectedRow()).getId_salesman());
+            m.setId_salesman(seller.get(jTSellers.getSelectedRow()).getId_salesman());
             m.setName(jTName.getText());
             m.setAddress(jTAddress.getText());
             m.setContato1(jTPhone.getText());
             m.setContact2(jTPhone2.getText());
 
             dao.update(m);
-            JOptionPane.showMessageDialog(null, "Vendedor Alterado com SUCESSO!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Seller edited with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
             Disable();
         }
     }
 
     public boolean Echeck() {
-        if ((saller.get(jTSallers.getSelectedRow()).getName().equals(jTName.getText())) && (saller.get(jTSallers.getSelectedRow()).getAddress().equals(jTAddress.getText())) && (saller.get(jTSallers.getSelectedRow()).getContact1().equals(jTPhone.getText())) && (saller.get(jTSallers.getSelectedRow()).getContact2().equals(jTPhone2.getText()))) {
-            JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+        if ((seller.get(jTSellers.getSelectedRow()).getName().equals(jTName.getText())) && (seller.get(jTSellers.getSelectedRow()).getAddress().equals(jTAddress.getText())) && (seller.get(jTSellers.getSelectedRow()).getContact1().equals(jTPhone.getText())) && (seller.get(jTSellers.getSelectedRow()).getContact2().equals(jTPhone2.getText()))) {
+            JOptionPane.showMessageDialog(null, "No data has been modified!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
             return true;
@@ -527,7 +527,7 @@ public final class ManageSaller extends javax.swing.JFrame {
     //metodo para veificar o campo se está vazio e colorir o background caso não esteja
     public boolean checkField(final JTextField campo, String Name) {
         if (campo.getText().equals("") || campo.getText().equals("(  )    -    ")) {
-            JOptionPane.showMessageDialog(null, "O campo " + Name + " não pede ser vazio!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "The field" + Name + " can not be empty!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
             campo.setBackground(new Color(255, 51, 51));
             campo.requestFocus();
 
@@ -581,72 +581,72 @@ public final class ManageSaller extends javax.swing.JFrame {
 
     //Metodo para Delete o sócio 
     public void Delete() {
-        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente Delete o Vendedor " + jTName.getText().toUpperCase(), "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int a = JOptionPane.showConfirmDialog(null, "Do you really want to delete the Seller " + jTName.getText().toUpperCase(), "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
                 SalesmanDao m = new SalesmanDao();
-                m.delete(saller.get(jTSallers.getSelectedRow()));
-                JOptionPane.showMessageDialog(null, "Vendedor excluido(a) com sucesso!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                m.delete(seller.get(jTSellers.getSelectedRow()));
+                JOptionPane.showMessageDialog(null, "Seller deleted with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                 jTSearch.setText("");
-                listSaller();
+                listSeller();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
-    protected void listSaller() throws SQLException {
+    protected void listSeller() throws SQLException {
         SalesmanDao me = new SalesmanDao();
-        saller = me.getList("%" + jTSearch.getText() + "%");
+        seller = me.getList("%" + jTSearch.getText() + "%");
 
-        showSearch(saller);
+        showSearch(seller);
     }
 
-    private void showSearch(List<Salesman> saller) {
+    private void showSearch(List<Salesman> seller) {
 
-        while (tmSaller.getRowCount() > 0) {
-            tmSaller.removeRow(0);
+        while (tmSeller.getRowCount() > 0) {
+            tmSeller.removeRow(0);
         }
 
-        if ((saller.isEmpty()) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Vendedor com o Name " + jTSearch.getText().toUpperCase() + " cadastrado.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+        if ((seller.isEmpty()) && (l == ' ')) {
+            JOptionPane.showMessageDialog(null, "No Seller with the name " + jTSearch.getText().toUpperCase() + " registered.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
 
         String[] linha = new String[]{null, null, null, null, null};
-        for (int i = 0; i < saller.size(); i++) {
-            tmSaller.addRow(linha);
-            tmSaller.setValueAt(saller.get(i).getId_salesman(), i, 0);
-            tmSaller.setValueAt(saller.get(i).getName(), i, 1);
-            tmSaller.setValueAt(saller.get(i).getAddress(), i, 2);
-            tmSaller.setValueAt(saller.get(i).getContact1(), i, 3);
+        for (int i = 0; i < seller.size(); i++) {
+            tmSeller.addRow(linha);
+            tmSeller.setValueAt(seller.get(i).getId_salesman(), i, 0);
+            tmSeller.setValueAt(seller.get(i).getName(), i, 1);
+            tmSeller.setValueAt(seller.get(i).getAddress(), i, 2);
+            tmSeller.setValueAt(seller.get(i).getContact1(), i, 3);
 
         }
     }
 
     private void jTSelectedRowTable(JTable tabela) {
         try {
-            if (jTSallers.getSelectedRow() != -1) {
+            if (jTSellers.getSelectedRow() != -1) {
                 Clear();
-                jTName.setText(saller.get(tabela.getSelectedRow()).getName());
-                jTAddress.setText(saller.get(tabela.getSelectedRow()).getAddress());
-                jTPhone.setText(saller.get(tabela.getSelectedRow()).getContact1());
-                jTPhone2.setText(saller.get(tabela.getSelectedRow()).getContact2());
-                jTId.setText(saller.get(tabela.getSelectedRow()).getId_salesman() + "");
+                jTName.setText(seller.get(tabela.getSelectedRow()).getName());
+                jTAddress.setText(seller.get(tabela.getSelectedRow()).getAddress());
+                jTPhone.setText(seller.get(tabela.getSelectedRow()).getContact1());
+                jTPhone2.setText(seller.get(tabela.getSelectedRow()).getContact2());
+                jTId.setText(seller.get(tabela.getSelectedRow()).getId_salesman() + "");
 
                 Disable();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to get data from the table! \n\r ERROR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    //show the total of sallers
-    public void showTotalSallers() {
+    //show the total of sellers
+    public void showTotalSellers() {
         try {
             SalesmanDao dao = new SalesmanDao();
             jTTotal.setText(String.valueOf(dao.getAmountSelesman()));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de clientes!", "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to count the amount of sellers!", "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -667,13 +667,13 @@ public final class ManageSaller extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -687,7 +687,7 @@ public final class ManageSaller extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageSaller().setVisible(true);
+                new ManageSeller().setVisible(true);
             }
         });
     }
@@ -714,10 +714,10 @@ public final class ManageSaller extends javax.swing.JFrame {
     private javax.swing.JTextField jTAddress;
     private javax.swing.JTextField jTId;
     public javax.swing.JTextField jTName;
-    private javax.swing.JTextField jTSearch;
     private javax.swing.JFormattedTextField jTPhone;
     private javax.swing.JFormattedTextField jTPhone2;
+    private javax.swing.JTextField jTSearch;
+    private javax.swing.JTable jTSellers;
     private javax.swing.JTextField jTTotal;
-    private javax.swing.JTable jTSallers;
     // End of variables declaration//GEN-END:variables
 }

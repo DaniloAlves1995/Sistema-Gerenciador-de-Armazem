@@ -20,10 +20,7 @@ import javax.swing.JOptionPane;
  *
  *
  */
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
-//</editor-fold>
+
 public class Main extends javax.swing.JFrame {
 
     /**
@@ -34,30 +31,25 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Sistema SGA ..:: Especializado para Empresa X ::..");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setTitle("Software WMS ..:: Specialized for Warehouses ::..");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
 
         this.setExtendedState(MAXIMIZED_BOTH);
         Date d = new Date();
         int h = d.getHours();
         if (h >= 12 && h < 18)
-            jLabel1.setText("Boa Tarde!");
+            jLabel1.setText("Good afternoon!");
         else {
             if (h >= 18)
-                jLabel1.setText("Boa Noite!");
+                jLabel1.setText("Good evening!");
             else {
-                if (h >= 0 && h <= 5)
-                    jLabel1.setText("Boa Madrugada ;-)");
-                else {
-                    if (h > 5 && h < 12)
-                        jLabel1.setText("Bom day!");
-                    
-                }
+                if (h >= 0 && h <= 12)
+                    jLabel1.setText("Good morning!");
             }
         }
         //posiciona a logo no centro da janela
-        JLabel logo = new JLabel(new ImageIcon(getClass().getResource("/Imagens/LOGO_Principal.png")));
+        JLabel logo = new JLabel(new ImageIcon(getClass().getResource("/Imagens/Main_image.png")));
 
         logo.setSize(320, 236);
         logo.show();
@@ -170,7 +162,7 @@ public class Main extends javax.swing.JFrame {
 
         jMenuItem12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/user_gray_add.png"))); // NOI18N
-        jMenuItem12.setText("Saller");
+        jMenuItem12.setText("Seller");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem12ActionPerformed(evt);
@@ -324,12 +316,12 @@ public class Main extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu6.setForeground(new java.awt.Color(0, 131, 73));
-        jMenu6.setText("Saller");
+        jMenu6.setText("Seller");
         jMenu6.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
 
         jMenuItem10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/user_gray_add.png"))); // NOI18N
-        jMenuItem10.setText("Register saller");
+        jMenuItem10.setText("Register seller");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem10ActionPerformed(evt);
@@ -339,7 +331,7 @@ public class Main extends javax.swing.JFrame {
 
         jMenuItem11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/user_gray.png"))); // NOI18N
-        jMenuItem11.setText("Manage saller");
+        jMenuItem11.setText("Manage seller");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem11ActionPerformed(evt);
@@ -395,11 +387,11 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        new RegisterSaller().show();
+        new RegisterSeller().show();
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        new ManageSaller().show();
+        new ManageSeller().show();
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -411,7 +403,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        new RegisterSaller().show();
+        new RegisterSeller().show();
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
@@ -447,7 +439,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        new SearchEntEstoque().show();
+        new SearchStockEntries().show();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
@@ -487,7 +479,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void sair() {
-        int op = JOptionPane.showConfirmDialog(this, "Você deseja realmente sair?", "..: WMS :..", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int op = JOptionPane.showConfirmDialog(this, "Do you really want to leave?", "..: WMS :..", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (op == 0) {
             System.exit(0);

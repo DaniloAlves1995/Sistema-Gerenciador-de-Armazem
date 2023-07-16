@@ -64,7 +64,7 @@ public class OutStockDao {
                 break;
             case 7:
                 sql = "select * from saida WHERE id_c=?";
-                break;
+                break; 
             case 8:
                 sql = "select * from saida WHERE data between ? and ?";
                 break;

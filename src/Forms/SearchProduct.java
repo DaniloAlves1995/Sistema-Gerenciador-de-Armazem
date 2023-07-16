@@ -25,10 +25,7 @@ import javax.swing.table.DefaultTableModel;
  *
  *
  */
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
-//</editor-fold>
+
 public class SearchProduct extends javax.swing.JFrame {
 
     private final DefaultTableModel tmProduct = new DefaultTableModel(null, new String[]{"Id", "Name", "Price"});
@@ -47,7 +44,7 @@ public class SearchProduct extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Search Product - WMS");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
 
         //Disable TextFilds
@@ -268,7 +265,7 @@ public class SearchProduct extends javax.swing.JFrame {
         try {
             listProduct();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "WMS", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERRORR:" + ex, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTSearchKeyReleased
 
@@ -391,7 +388,7 @@ public class SearchProduct extends javax.swing.JFrame {
         int a = 1;
 
         if (((products.isEmpty())) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "The is no product with name " + jTSearch.getText().toUpperCase() + " in the database.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "There is no product with name " + jTSearch.getText().toUpperCase() + " in the database.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         } else {
 
             if (products.isEmpty() == false) {
@@ -415,7 +412,7 @@ public class SearchProduct extends javax.swing.JFrame {
                 jTPrice.setText(products.get(tabela.getSelectedRow()).getPrice() + "");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro to get values from the table! \n\r ERROR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro to get values from the table! \n\r ERRORR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

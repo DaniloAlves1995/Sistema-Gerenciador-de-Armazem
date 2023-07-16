@@ -100,7 +100,7 @@ public class StockDao {
         
 
         ResultSet rs;
-        List<Stock> ma;
+        List<Stock> ma; 
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, data);
             stmt.setString(2, date);

@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class EditStock extends javax.swing.JFrame {
 
-    private DefaultTableModel tmProduct = new DefaultTableModel(null, new String[]{"Id", "Name", "Preço (R$)", "Total stock"});
+    private DefaultTableModel tmProduct = new DefaultTableModel(null, new String[]{"Id", "Name", "Price (R$)", "Total stock"});
     private ListSelectionModel lsmProduct;
     private List<Product> product;
     private char l;
@@ -40,7 +40,7 @@ public class EditStock extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Edit Stock - WMS");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
     }
 
@@ -363,7 +363,7 @@ public class EditStock extends javax.swing.JFrame {
         try {
             listProduct();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "WMS", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTSearchKeyReleased
 
@@ -404,13 +404,13 @@ public class EditStock extends javax.swing.JFrame {
                     e.setAmount(Integer.parseInt(jTTotal.getText()));
 
                     edao.update(e);
-                    JOptionPane.showMessageDialog(null, "Estoque atualizado com sucesso!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Stock updated with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                     listProduct();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "A quantidade em stock preciza ser um número inteiro!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Quantity in stock must be a whole number!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -420,7 +420,7 @@ public class EditStock extends javax.swing.JFrame {
             Enable();
             save = 1;
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Cliente na tabela para poder Edit!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You need to select a customer in the table to be able to edit!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -497,7 +497,7 @@ public class EditStock extends javax.swing.JFrame {
         }
 
         if ((product.isEmpty()) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Product com o Name " + jTSearch.getText().toUpperCase() + " cadastrado.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No product with the Name " + jTSearch.getText().toUpperCase() + " registered.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
 
         String[] linha = new String[]{null, null, null, null};
@@ -520,7 +520,7 @@ public class EditStock extends javax.swing.JFrame {
                 jTTotal.setText(getTotalStock(product.get(tabela.getSelectedRow()).getId()) + "");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to get data from the table! \n\r ERROR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -537,7 +537,7 @@ public class EditStock extends javax.swing.JFrame {
                 stock = edao.getStock(id_prod);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
 
         return stock.getAmount();

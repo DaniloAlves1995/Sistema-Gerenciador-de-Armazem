@@ -22,7 +22,6 @@ import java.util.logging.Logger;
  * ------------- ..::Danilo Alves Oliveira::.. ------------- *
  * ***********************************************************
  * 
- *@Developer Danilo Alves
  * 
  */
 

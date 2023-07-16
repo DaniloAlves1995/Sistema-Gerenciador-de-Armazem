@@ -25,23 +25,20 @@ import javax.swing.JTextField;
  *
  *
  */
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
-//</editor-fold>
-public class RegisterSaller extends javax.swing.JFrame {
+
+public class RegisterSeller extends javax.swing.JFrame {
     
     private final ManageFields manageFields;
 
     /**
-     * Creates new form Cad_Vendedor
+     * Creates new form Cad_Seller
      */
-    public RegisterSaller() {
+    public RegisterSeller() {
 
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Cadastrar Vendedor - WMS");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setTitle("Register Seller - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
         
         //setup manage class
@@ -80,7 +77,7 @@ public class RegisterSaller extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Register Saller");
+        jLabel2.setText("Register Seller");
 
         jPanel2.setBackground(new java.awt.Color(0, 131, 73));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -257,13 +254,13 @@ public class RegisterSaller extends javax.swing.JFrame {
                 SalesmanDao d = new SalesmanDao();
                 //Adiciona o novo Salesman no banco
                 d.add(s);
-                JOptionPane.showMessageDialog(null, "Vendedor cadastrado com Sucesso!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Seller registered with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
 
                 //fecha a janela
                 this.dispose();
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -290,13 +287,13 @@ public class RegisterSaller extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisterSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisterSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisterSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisterSaller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisterSeller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -310,7 +307,7 @@ public class RegisterSaller extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisterSaller().setVisible(true);
+                new RegisterSeller().setVisible(true);
             }
         });
     }

@@ -35,7 +35,7 @@ import javax.swing.table.DefaultTableModel;
 public class ManageTruck extends javax.swing.JFrame {
 
     private final ManageFields manageFields;
-    private DefaultTableModel tmTruck = new DefaultTableModel(null, new String[]{"Id", "Name", "Sacas Restantes."});
+    private DefaultTableModel tmTruck = new DefaultTableModel(null, new String[]{"Id", "Name", "Remaining sacks."});
     private ListSelectionModel lsmTruck;
     private List<Truck> truck;
     private int salvar = 0;
@@ -44,8 +44,8 @@ public class ManageTruck extends javax.swing.JFrame {
     public ManageTruck() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Gerenciar Caminhão - WMS");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setTitle("Manage truck - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
 
         this.showTotalTruck();
@@ -403,7 +403,7 @@ public class ManageTruck extends javax.swing.JFrame {
         try {
             listTruck();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTSearchKeyTyped
 
@@ -436,7 +436,7 @@ public class ManageTruck extends javax.swing.JFrame {
                     listTruck();
                     Clear();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -450,7 +450,7 @@ public class ManageTruck extends javax.swing.JFrame {
             Enable();
             salvar = 1;
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Caminhão na tabela para poder Edit!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You need to select a Truck on the table to edit!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -459,7 +459,7 @@ public class ManageTruck extends javax.swing.JFrame {
         if (jTTruck.getSelectedRow() != -1) {
             Delete();
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Caminhão na Tabela para poder Delete!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You need to select a Truck on the table to delete!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
         showTotalTruck();
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -518,7 +518,7 @@ public class ManageTruck extends javax.swing.JFrame {
         }
 
         if ((truck.isEmpty()) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Caminhão com o Name " + jTSearch.getText().toUpperCase() + " cadastrado.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No Truck with the name " + jTSearch.getText().toUpperCase() + " registered.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
 
         String[] linha = new String[]{null, null, null};
@@ -563,7 +563,7 @@ public class ManageTruck extends javax.swing.JFrame {
             dao.update(m);
             m.setTruckLoad(Integer.parseInt(jTSacRest.getText()));
             dao.updateTruckLoad(m);
-            JOptionPane.showMessageDialog(null, "Caminhão Alterado com SUCESSO!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Truck edited with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
             Disable();
         }
@@ -574,30 +574,30 @@ public class ManageTruck extends javax.swing.JFrame {
             TruckDao cdao = new TruckDao();
             String carga_prev = String.valueOf(cdao.getTruck(truck.get(jTTruck.getSelectedRow()).getId()).getTruckLoad());
             if ((truck.get(jTTruck.getSelectedRow()).getName().equals(jTName.getText())) && (String.valueOf(truck.get(jTTruck.getSelectedRow()).getTruckLoad()).equals(jTPreCarga.getText())) && jTSacRest.getText().equals(carga_prev)) {
-                JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No data has been modified!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                 return false;
             } else {
                 return true;
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERRO: " + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR: " + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
 
     //Metodo para Delete o product
     public void Delete() {
-        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente Delete o Caminhão " + jTName.getText().toUpperCase(), "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int a = JOptionPane.showConfirmDialog(null, "Do you really want to delete the Truck " + jTName.getText().toUpperCase(), "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
                 TruckDao m = new TruckDao();
                 m.delete(truck.get(jTTruck.getSelectedRow()));
                 m.deleteTruckLoad(truck.get(jTTruck.getSelectedRow()));
-                JOptionPane.showMessageDialog(null, "Caminhão excluido(a) com sucesso!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Truck deleted with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                 jTSearch.setText("");
                 listTruck();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -605,11 +605,11 @@ public class ManageTruck extends javax.swing.JFrame {
     //metodo para show a qtd de sócios
     public final void showTotalTruck() {
         try {
-            //pega a qtd de sócios cadastrados no banco
+            //pega a qtd de sócios registereds no banco
             TruckDao dao = new TruckDao();
             jTTotal.setText(String.valueOf(dao.getAmountTrucks()));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de caminhões!", "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to count the amount of trucks!", "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -625,7 +625,7 @@ public class ManageTruck extends javax.swing.JFrame {
                 Disable();
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to get data from the table! \n\r ERROR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 

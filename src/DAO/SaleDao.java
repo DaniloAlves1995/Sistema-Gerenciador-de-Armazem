@@ -81,7 +81,7 @@ public class SaleDao {
             stmt.setDouble(4, m.getValueProduct());
             stmt.setInt(5, m.getId_sale());
 
-            stmt.execute();
+            stmt.execute(); 
         }
     }
 

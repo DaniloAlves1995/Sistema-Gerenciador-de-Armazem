@@ -45,15 +45,12 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  *
  */
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
-//</editor-fold>
+
 public class SearchSales extends javax.swing.JFrame {
 
     private List<OutStock> exits;
     private String d1, d2;
-    private DefaultTableModel tmNota = new DefaultTableModel(null, new String[]{"Selecionar", "Nº", "Cliente", "Valor(R$)", "Data"}) {
+    private DefaultTableModel tmNota = new DefaultTableModel(null, new String[]{"Select", "Nº", "Customer", "Value(R$)", "Date"}) {
         Class[] types = new Class[]{
             Boolean.class, Object.class, Object.class, Object.class, Object.class
         };
@@ -68,8 +65,8 @@ public class SearchSales extends javax.swing.JFrame {
     public SearchSales() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Search Vendas - WMS");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setTitle("Search sales - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
         this.exits = new ArrayList<>();
     }
@@ -334,14 +331,14 @@ public class SearchSales extends javax.swing.JFrame {
             e.Iniciar();
             e.show();
         } else {
-            JOptionPane.showMessageDialog(null, "Por favor selecione uma venda na tabela.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please select a sale on the table.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jBDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDeleteActionPerformed
         if (jTNota.getSelectedRow() != -1) {
             try {
-                int op = JOptionPane.showConfirmDialog(null, "Você deseja Delete essa venda?", "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                int op = JOptionPane.showConfirmDialog(null, "Do you want to delete this sale?", "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
                 if (op == 0) {
                     //Caso seja sim
                     OutStock a = exits.get(jTNota.getSelectedRow());
@@ -350,11 +347,11 @@ public class SearchSales extends javax.swing.JFrame {
 
                     SaleDao vdao = new SaleDao();
                     vdao.deleteByOut(a.getId_outStock());
-                    JOptionPane.showMessageDialog(null, "Venda excluida com sucesso!", "..: WMS :..", JOptionPane.QUESTION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sale deleted with success!", "..: WMS :..", JOptionPane.QUESTION_MESSAGE);
                     Search();
                 }
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jBDeleteActionPerformed
@@ -388,12 +385,12 @@ public class SearchSales extends javax.swing.JFrame {
                 vdao.adicionaPDF(d1, d2);
 
                 report();
-                vdao.ClearPDF();
+                vdao.LimparPDF();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Não houve nenhuma venda no período informado!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "There was no sale in the reported period!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBGerarN1ActionPerformed
 
@@ -424,7 +421,7 @@ public class SearchSales extends javax.swing.JFrame {
                 }
                 //verifica se tem algum valor pesquisado na tabela
                 if (check == 0) {
-                    JOptionPane.showMessageDialog(null, "Para gerar o Romaneio você precisa selecionar pelo menos uma venda.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "For generate the packing list you need to select at least a sale.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     //retorna a lista de ids de products de todas as exits sem repetir
                     listav = vdao.getProductsOut(listas);
@@ -439,14 +436,14 @@ public class SearchSales extends javax.swing.JFrame {
                         sdao.adicionaPDFResumo(p);
                     }
                     reportResumo();
-                    sdao.ClearPDFResumo();
+                    sdao.LimparPDFResumo();
                 }
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Não houve nenhuma venda no período informado!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "There was no sale in the reported period!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBGerarN2ActionPerformed
  
@@ -461,7 +458,7 @@ public class SearchSales extends javax.swing.JFrame {
                 exits = sdao.getList(d1, d2, 8);
                 showExits(exits);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -487,14 +484,14 @@ public class SearchSales extends javax.swing.JFrame {
                         CustomerDao cdao = new CustomerDao();
                         c = cdao.getCustumer(exits.get(i).getId_customer());
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Error!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                     }
                     tmNota.setValueAt(c.getName(), i, 2);
                     tmNota.setValueAt(exits.get(i).getTotal() + "", i, 3);
                     d = df.parse(exits.get(i).getDate());
                     tmNota.setValueAt(df2.format(d), i, 4);
                 } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -552,7 +549,7 @@ public class SearchSales extends javax.swing.JFrame {
             } else {
                 months = "" + month;
             }
-            String Name = "Report_Vendas_DATA_" + days + "-" + months + "-" + year;
+            String Name = "Report_Sales_DATE_" + days + "-" + months + "-" + year;
             String file = Name;
             ConectionReport con = new ConectionReport();
             //diretorio que vai salvar
@@ -564,12 +561,12 @@ public class SearchSales extends javax.swing.JFrame {
             if (!l.exists()) {
                 l.mkdir();
             }
-            File li = new File("c:/WMS/Reports/Vendas");
+            File li = new File("c:/WMS/Reports/Sales");
             if (!li.exists()) {
                 li.mkdir();
             }
             String showReport;
-            String path = "c:/WMS/Reports/Vendas";
+            String path = "c:/WMS/Reports/Sales";
             con.connect();
             con.executeSQL("select * from product, venda, saida, cliente, pdf_venda where venda.id_s = saida.id_s and product.id_p = venda.id_p and saida.id_c = cliente.id_c and saida.data between '" + d1 + "' and '" + d2 + "' order by saida.data");
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
@@ -577,32 +574,32 @@ public class SearchSales extends javax.swing.JFrame {
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/ReportExits.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle("Report de Estoque - .: WMS :.");
-            jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
+            jv.setTitle("Search sales - .: WMS :.");
+            jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/windows_icon.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);
             File arq = new File(path + file + ".pdf");
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + file + ".pdf já existe.\n Dezeja substitui-lo?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "The report" + file + ".pdf already exists\n Do you want to replace it?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION) {
                     JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
                     showReport = path + file + ".pdf";
-                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Operation finished with success!\n Saved in: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                     try {
                         Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                     } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getStackTrace(), "WMS", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Error to acces the file! \n\r ERROR:" + e.getStackTrace(), "WMS", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
 
                 JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
                 showReport = path + file + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Operation finished with success!\n Saved in: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                 try {
                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error to acces the file! \n\r ERROR:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -651,7 +648,7 @@ public class SearchSales extends javax.swing.JFrame {
         } else {
             months = "" + month;
         }
-        String Name = "NOTA_VENDA_N_" + exits.get(jTNota.getSelectedRow()).getId_outStock();
+        String Name = "INVOICE_SALE_N_" + exits.get(jTNota.getSelectedRow()).getId_outStock();
         String file = Name;
 
         ConectionReport con = new ConectionReport();
@@ -665,13 +662,13 @@ public class SearchSales extends javax.swing.JFrame {
         if (!l.exists()) {
             l.mkdir();
         }
-        File li = new File("c:/WMS/Reports/NotasVendas");
+        File li = new File("c:/WMS/Reports/Invoices");
         if (!li.exists()) {
             li.mkdir();
         }
 
         String showReport;
-        String path = "c:/WMS/Reports/NotasVendas/";
+        String path = "c:/WMS/Reports/Invoices/";
         try {
             con.connect();
             con.executeSQL("select saida.*, product.*, venda.*, cliente.*, funcionario.Name_fun from  saida, product, venda, cliente, funcionario where saida.id_s=" + exits.get(jTNota.getSelectedRow()).getId_outStock() + " and saida.id_s=venda.id_s and venda.id_p=product.id_p and saida.id_c=cliente.id_c and funcionario.id_fun=saida.id_fun;");
@@ -681,37 +678,37 @@ public class SearchSales extends javax.swing.JFrame {
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/NotaVenda.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle("Nota de Venda - .: WMS :.");
-            jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
+            jv.setTitle("Invoice - .: WMS :.");
+            jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/windows_icon.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);
             File arq = new File(path + file + ".pdf");
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + file + ".pdf já existe.\n Dezeja substitui-lo?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "The report" + file + ".pdf already exists\n Do you want to replace it?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION) {
                     JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
                     showReport = path + file + ".pdf";
-                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Operation finished with success!\n Saved in: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                     try {
                         Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                     } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getStackTrace(), "WMS", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Error to acces the file! \n\r ERROR:" + e.getStackTrace(), "WMS", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
 
                 JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
                 showReport = path + file + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Operation finished with success!\n Saved in: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                 try {
                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error to acces the file! \n\r ERROR:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
         } catch (HeadlessException | JRException erro) {
-            JOptionPane.showMessageDialog(null, "Erro!" + erro, "WMS", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error!" + erro, "WMS", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -733,7 +730,7 @@ public class SearchSales extends javax.swing.JFrame {
         } else {
             months = "" + month;
         }
-        String Name = "ROMANEIO_VENDA_DATA_" + days + "-" + months + "-" + year;
+        String Name = "PACKINGLIST_SALE_DATE_" + days + "-" + months + "-" + year;
         String file = Name;
 
         ConectionReport con = new ConectionReport();
@@ -750,13 +747,13 @@ public class SearchSales extends javax.swing.JFrame {
         if (!l.exists()) {
             l.mkdir();
         }
-        File li = new File("c:/WMS/Reports/NotasVendas");
+        File li = new File("c:/WMS/Reports/Invoices");
         if (!li.exists()) {
             li.mkdir();
         }
 
         String showReport;
-        String path = "c:/WMS/Reports/NotasVendas/";
+        String path = "c:/WMS/Reports/Invoices/";
         try {
             con.connect();
             con.executeSQL(sql);
@@ -766,37 +763,37 @@ public class SearchSales extends javax.swing.JFrame {
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/ResumoVendas.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            jv.setTitle("Nota de Venda - .: WMS :.");
-            jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png")).getImage());
+            jv.setTitle("Invoices - .: WMS :.");
+            jv.setIconImage(new ImageIcon(getClass().getResource("/Imagens/windows_icon.png")).getImage());
             jv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             // JasperViewer.viewReport(jp,true);
             File arq = new File(path + file + ".pdf");
             if (arq.exists()) {
-                int result = JOptionPane.showConfirmDialog(null, "O relatório " + file + ".pdf já existe.\n Dezeja substitui-lo?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(null, "The report" + file + ".pdf already exists\n Do you want to replace it?", "WMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_NO_OPTION) {
                     JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
                     showReport = path + file + ".pdf";
-                    JOptionPane.showMessageDialog(null, "Operação Realizada com sucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Operation finished with success!\n Saved in: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                     try {
                         Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                     } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getStackTrace(), "WMS", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Error to acces the file! \n\r ERROR:" + e.getStackTrace(), "WMS", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else {
 
                 JasperExportManager.exportReportToPdfFile(jp, path + file + ".pdf");
                 showReport = path + file + ".pdf";
-                JOptionPane.showMessageDialog(null, "Operação Realizada consucesso!\n Salvo em: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Operation finished with success!\n Saved in: " + path + file + ".pdf", "WMS", JOptionPane.INFORMATION_MESSAGE);
                 try {
                     Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + showReport);
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar file! \n\r ERRO:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error to acces the file! \n\r ERROR:" + e.getMessage(), "WMS", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
         } catch (HeadlessException | JRException erro) {
-            JOptionPane.showMessageDialog(null, "Erro!" + erro, "WMS", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error!" + erro, "WMS", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

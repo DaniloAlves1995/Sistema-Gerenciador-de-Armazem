@@ -42,9 +42,9 @@ public class SaleDetails extends javax.swing.JFrame {
 
     private List<Sale> venda, vendas;//lista utilizada para armazenar as vendas da tabela
     private DefaultListModel dlista, dlistam;
-    private DefaultTableModel tmVendas = new DefaultTableModel(null, new String[]{"Product", "Quantidade", "Preço(R$)"});
+    private DefaultTableModel tmVendas = new DefaultTableModel(null, new String[]{"Product", "Amount", "Price(R$)"});
     private Product product = null;
-    private List<Salesman> Sallers;
+    private List<Salesman> Sellers;
     private int idcliente;
     private OutStock nota;
     private boolean veri = false;
@@ -56,7 +56,7 @@ public class SaleDetails extends javax.swing.JFrame {
     int mais = -1;//para check se já clicou na seta para baixo
     int contr = 1;//para controlar quando o usuário percorre o product na lista
     int ilistp = -1;//índice para referenciar a posição selecionada da lista com a lista <product> 
-    int qtd = 0;//para contar a quantidade de products vendidos
+    int qtd = 0;//para contar The amount ofproducts vendidos
     int contrenter = 0;
     int contfocus = 0;
     int controlefocus2 = 0;//para controlar se está passando pelos campos para cadastrar ou editar
@@ -65,8 +65,8 @@ public class SaleDetails extends javax.swing.JFrame {
         initComponents();
 
         this.setLocationRelativeTo(null);
-        this.setTitle("Detalhes da venda - WMS");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setTitle("Sale detail - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
 
         //desabilitar os vendadores
@@ -83,7 +83,7 @@ public class SaleDetails extends javax.swing.JFrame {
         jTPreco.setEditable(false);
         jTAddress.setEditable(false);
 
-        PreencherSallers();
+        PreencherSellers();
     }
 
     public void SetId(int id) {
@@ -117,9 +117,9 @@ public class SaleDetails extends javax.swing.JFrame {
 
             listVendas();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(null, "ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -146,7 +146,7 @@ public class SaleDetails extends javax.swing.JFrame {
                 tmVendas.setValueAt(vendas.get(i).getAmount(), i, 1);
                 tmVendas.setValueAt(vendas.get(i).getPrice(), i, 2);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -259,7 +259,7 @@ public class SaleDetails extends javax.swing.JFrame {
 
         jLabel17.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Saller:");
+        jLabel17.setText("Seller:");
 
         jComboBox2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -626,7 +626,7 @@ public class SaleDetails extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(380, 380, 380))
+                .addGap(400, 400, 400))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -666,10 +666,8 @@ public class SaleDetails extends javax.swing.JFrame {
     private void jTTotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTTotalMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTTotalMouseClicked
+    // TODO add your handling code here:
 
-    private void jTTotalKeyPressed(java.awt.event.KeyEvent evt) {                                   
-        // TODO add your handling code here:
-    }                                  
 
     private void jTDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDataMouseClicked
         // TODO add your handling code here:
@@ -816,7 +814,7 @@ public class SaleDetails extends javax.swing.JFrame {
                 jTValor.setText(vendas.get(jTVendas.getSelectedRow()).getPrice() + "");
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -847,7 +845,7 @@ public class SaleDetails extends javax.swing.JFrame {
                 product = p.getProduct();
                 preco = String.valueOf(p.getPrice());
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
 
             tmVendas.setValueAt(product, i, 0);
@@ -857,16 +855,16 @@ public class SaleDetails extends javax.swing.JFrame {
         }
     }
 
-    //metodo para preencher o combobox dos Sallers
-    public final void PreencherSallers() {
+    //metodo para preencher o combobox dos Sellers
+    public final void PreencherSellers() {
         try {
             SalesmanDao a = new SalesmanDao();
-            Sallers = a.getList("");
-            for (int y = 0; y < Sallers.size(); y++) {
-                jComboBox2.addItem(Sallers.get(y).getName());
+            Sellers = a.getList("");
+            for (int y = 0; y < Sellers.size(); y++) {
+                jComboBox2.addItem(Sellers.get(y).getName());
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "SyWMSM'S", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "SyWMSM'S", JOptionPane.ERROR_MESSAGE);
         }
     }
 

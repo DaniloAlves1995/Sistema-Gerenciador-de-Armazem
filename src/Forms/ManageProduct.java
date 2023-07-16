@@ -30,14 +30,11 @@ import javax.swing.table.DefaultTableModel;
  *
  *
  */
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
-//</editor-fold>
+
 public class ManageProduct extends javax.swing.JFrame {
 
     private final ManageFields manageFields;
-    private final DefaultTableModel tmProduct = new DefaultTableModel(null, new String[]{"Id", "Name", "Preço (R$)"});
+    private final DefaultTableModel tmProduct = new DefaultTableModel(null, new String[]{"Id", "Name", "Price (R$)"});
     private ListSelectionModel lsmProduct;
     private List<Product> product;
     private char l;
@@ -50,8 +47,8 @@ public class ManageProduct extends javax.swing.JFrame {
     public ManageProduct() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Cadastrar Product - WMS");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setTitle("Register Product - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
 
         //Desabilita os campos
@@ -426,7 +423,7 @@ public class ManageProduct extends javax.swing.JFrame {
                     ProductDao d = new ProductDao();
                     //Adiciona o novo product no banco
                     d.add(s);
-                    JOptionPane.showMessageDialog(null, "Product Cadastrado com Sucesso!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Product registered with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                     //Cria o stock desse product
                     int idp = d.getLastId();
                     Stock e = new Stock();
@@ -439,7 +436,7 @@ public class ManageProduct extends javax.swing.JFrame {
                     //Limpa os TextFilds depois do Cadastro
                     Clear();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao acessar o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -452,7 +449,7 @@ public class ManageProduct extends javax.swing.JFrame {
                         listProduct();
                         Clear();
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                     }
 
                 }
@@ -496,7 +493,7 @@ public class ManageProduct extends javax.swing.JFrame {
         }
 
         if ((product.isEmpty()) && (l == ' ')) {
-            JOptionPane.showMessageDialog(null, "Nenhum Product com o Name " + jTSearch.getText().toUpperCase() + " cadastrado.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No product with the name " + jTSearch.getText().toUpperCase() + " registered.", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
 
         String[] linha = new String[]{null, null, null};
@@ -511,7 +508,7 @@ public class ManageProduct extends javax.swing.JFrame {
 
     public boolean Echeck() {
         if ((product.get(jTProducts.getSelectedRow()).getProduct().equals(jTProduct.getText())) && (String.valueOf(product.get(jTProducts.getSelectedRow()).getPrice()).equals(jTPreco.getText())) && (product.get(jTProducts.getSelectedRow()).getNote().equals(jTObs.getText()))) {
-            JOptionPane.showMessageDialog(null, "Nenhum dado foi modificado!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No data has been modified!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
             return true;
@@ -528,7 +525,7 @@ public class ManageProduct extends javax.swing.JFrame {
         try {
             listProduct();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTSearchKeyTyped
 
@@ -542,7 +539,7 @@ public class ManageProduct extends javax.swing.JFrame {
             Enable();
             salvar = 1;
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Product na tabela para poder Edit!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You need to select a product on the table to edit!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -550,7 +547,7 @@ public class ManageProduct extends javax.swing.JFrame {
         if (jTProducts.getSelectedRow() != -1) {
             Delete();
         } else {
-            JOptionPane.showMessageDialog(null, "Você Precisa selecionar um Product na Tabela para poder Delete!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You need to select a product on the table to delete!", "..: WMS :..", JOptionPane.WARNING_MESSAGE);
         }
         showTotalProducts();
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -589,7 +586,7 @@ public class ManageProduct extends javax.swing.JFrame {
             m.setNote(jTObs.getText());
 
             dao.update(m);
-            JOptionPane.showMessageDialog(null, "Product Alterado com SUCESSO!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Product edited with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
             salvar = 0;
             Disable();
         }
@@ -597,16 +594,16 @@ public class ManageProduct extends javax.swing.JFrame {
 
     //Metodo para Delete o product
     public void Delete() {
-        int a = JOptionPane.showConfirmDialog(null, "Você deseja realmente Delete o Product " + jTProduct.getText().toUpperCase(), "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int a = JOptionPane.showConfirmDialog(null, "Do you really want to delete the product " + jTProduct.getText().toUpperCase(), "..: WMS :..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (a == 0) {
             try {
                 ProductDao m = new ProductDao();
                 m.delete(product.get(jTProducts.getSelectedRow()));
-                JOptionPane.showMessageDialog(null, "Product excluido(a) com sucesso!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Product deleted with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                 jTSearch.setText("");
                 listProduct();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco! \n\r ERRO:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -660,18 +657,18 @@ public class ManageProduct extends javax.swing.JFrame {
                 Disable();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao obter valores da tabela! \n\r ERRO:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to get data from the table! \n\r ERROR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     //metodo para show a qtd de sócios
     public final void showTotalProducts() {
         try {
-            //pega a qtd de sócios cadastrados no banco
+            //pega a qtd de sócios registereds no banco
             ProductDao dao = new ProductDao();
             jTTotal.setText(String.valueOf(dao.getAmountProducts()));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao contar a quantidade de products!", "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to connect with the database!", "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }
 

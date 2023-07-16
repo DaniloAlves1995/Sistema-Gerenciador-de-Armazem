@@ -34,7 +34,7 @@ public class CustomerDao implements InterfaceBasicDB<Customer>{
 
 
     @Override
-    public void add(Customer m1) {
+    public void add(Customer m1) { 
         String sql = "insert into cliente(nome, endereco, cpf, contato1, contato2) "
                 + "values(?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {

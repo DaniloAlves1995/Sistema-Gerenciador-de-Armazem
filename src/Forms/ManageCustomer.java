@@ -49,8 +49,8 @@ public class ManageCustomer extends javax.swing.JFrame {
     public ManageCustomer() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Cadastrar Cliente - SGA");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setTitle("Manage Customer - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
 
         //Desabilita os campos
@@ -483,11 +483,11 @@ public class ManageCustomer extends javax.swing.JFrame {
                     CustomerDao d = new CustomerDao();
                     //Adiciona o novo Sócio no banco
                     d.add(s);
-                    JOptionPane.showMessageDialog(null, "Cliente registered with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Customer registered with success!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                     //Limpa os TextFilds depois do Cadastro
                     Clear();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERRORR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
@@ -500,7 +500,7 @@ public class ManageCustomer extends javax.swing.JFrame {
                         listSocio();
                         Clear();
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERRORR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                     }
 
                 }
@@ -582,7 +582,7 @@ public class ManageCustomer extends javax.swing.JFrame {
         try {
             listSocio();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERRORR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTSearchKeyTyped
 
@@ -676,7 +676,7 @@ public class ManageCustomer extends javax.swing.JFrame {
                 jTSearch.setText("");
                 listSocio();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERRORR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -730,14 +730,14 @@ public class ManageCustomer extends javax.swing.JFrame {
                 Disable();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro to get values from table! \n\r ERROR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro to get values from table! \n\r ERRORR:" + e, "WMS", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     //metodo para show a qtd de sócios
     public final void showTotalClientes() {
         try {
-            //pega a qtd de sócios cadastrados no banco
+            //pega a qtd de sócios registereds no banco
             CustomerDao dao = new CustomerDao();
             jTTotal.setText(String.valueOf(dao.getAmountCustumers()));
         } catch (SQLException ex) {

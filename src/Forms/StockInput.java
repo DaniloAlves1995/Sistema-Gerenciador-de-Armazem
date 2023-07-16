@@ -24,10 +24,7 @@ import javax.swing.JTextField;
  *
  *
  */
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
-//</editor-fold>
+
 public class StockInput extends javax.swing.JFrame {
 
     /**
@@ -41,8 +38,8 @@ public class StockInput extends javax.swing.JFrame {
     public StockInput() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Entrada em Estoque - WMS");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        this.setTitle("Entry into stock - WMS");
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
     }
 
@@ -338,7 +335,7 @@ public class StockInput extends javax.swing.JFrame {
             }
             jTTotal_es.setText(stock.getAmount() + "");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -365,15 +362,15 @@ public class StockInput extends javax.swing.JFrame {
 
                     jTTotal_es.setText(qtd + "");
                     jTTotal_ent.setText("");
-                    JOptionPane.showMessageDialog(null, "Entrada adicionada ao stock!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Product entry added into the stock!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Erro!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "O campo Quantidade de entrada deve ser um número inteiro.", "WMS", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "The entry amount must be a whole number.", "WMS", JOptionPane.WARNING_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "O campo Quantidade de entrada não pode ser vazio.", "WMS", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "The entry amount can not be empty.", "WMS", JOptionPane.WARNING_MESSAGE);
         }
     }
 

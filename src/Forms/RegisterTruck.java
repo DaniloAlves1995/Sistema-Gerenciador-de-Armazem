@@ -23,10 +23,7 @@ import javax.swing.JOptionPane;
  *
  *
  */
-//<editor-fold defaultstate="collapsed" desc="Departamento de Sistemas Desktop">
-//</editor-fold>
-//<editor-fold defaultstate="collapsed" desc="Tecnologia Java SE">
-//</editor-fold>
+
 public class RegisterTruck extends javax.swing.JFrame {
     
     private final ManageFields manageFields;
@@ -36,7 +33,7 @@ public class RegisterTruck extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Register Truck - WMS");
-        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/icon-controle-de-estoqu.png"));
+        ImageIcon iconWindow = new ImageIcon(getClass().getResource("/Imagens/windows_icon.png"));
         this.setIconImage(iconWindow.getImage());
         
         //setup manage class
@@ -233,7 +230,7 @@ public class RegisterTruck extends javax.swing.JFrame {
                 //Limpa os TextFilds depois do Cadastro
                 this.manageFields.clearFields();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERROR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error to access the database! \n\r ERRORR:" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
             }
 
         }

@@ -26,7 +26,7 @@ public class SalesmanDao {
 
     public SalesmanDao() throws SQLException {
         this.connection = (Connection) CreateConnection.getConnection();
-    }
+    } 
 
     public void add(Salesman m1) throws SQLException {
         String sql = "insert into funcionario(nome_fun, endereco, contato1, contato2) "

@@ -36,7 +36,7 @@ public class ProductDao {
             stmt.setString(3, m1.getNote().toUpperCase());
 
             stmt.execute();
-        }
+        } 
     }
 
     public List<Product> getList(String data) throws SQLException {
