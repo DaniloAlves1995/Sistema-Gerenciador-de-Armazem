@@ -94,9 +94,9 @@ public class StockDao {
         String sql = "";
         if (tipo == 0)
             //seja produto especifico
-            sql = "select * from estoque_entrada, produto WHERE estoque_entrada.data between '?' and '?' and produto.nome_p LIKE '%?%' and produto.id_p = estoque_entrada.id_p;";
+            sql = "select * from estoque_entrada, produto WHERE estoque_entrada.data between ? and ? and produto.nome_p LIKE '%?%' and produto.id_p = estoque_entrada.id_p;";
         else
-            sql = "select * from estoque_entrada WHERE data between '?' and '?'";
+            sql = "select * from estoque_entrada WHERE data between ? and ?";
         
 
         ResultSet rs;
@@ -198,7 +198,7 @@ public class StockDao {
     }
 
     public int getAmountStock(String d1, String d2, String product) throws SQLException {
-        String sql = "select sum(qtd) from estoque_entrada, produto WHERE estoque_entrada.data between '?' and '?' and produto.nome_p LIKE '%?%' and produto.id_p = estoque_entrada.id_p;";
+        String sql = "select sum(qtd) from estoque_entrada, produto WHERE estoque_entrada.data between ? and ? and produto.nome_p LIKE '%?%' and produto.id_p = estoque_entrada.id_p;";
         int qtd;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, d1);

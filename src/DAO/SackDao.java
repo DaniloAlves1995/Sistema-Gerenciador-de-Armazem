@@ -47,9 +47,9 @@ public class SackDao {
     public List<Sack> getList(String data, String date, int tipo, String product) throws SQLException {
 
         String sql = (tipo == 0) ? "select produto.nome_p, caminhao.nome_ca, sacas.* from sacas, produto, caminhao"
-                +" WHERE sacas.data between '?' and '?' and produto.nome_p LIKE '%?%' and produto.id_p = sacas.id_p"
+                +" WHERE sacas.data between ? and ? and produto.nome_p LIKE '%?%' and produto.id_p = sacas.id_p"
                 +" and sacas.id_ca=caminhao.id_ca;" : "select produto.nome_p, caminhao.nome_ca, sacas.* from "
-                + "produto, caminhao, sacas WHERE sacas.data between '?' and '?' and produto.id_p=sacas.id_p"
+                + "produto, caminhao, sacas WHERE sacas.data between ? and ? and produto.id_p=sacas.id_p"
                 +" and caminhao.id_ca = sacas.id_ca;";
 
         ResultSet rs;
@@ -81,7 +81,7 @@ public class SackDao {
     }
 
     public int getAmoutSacks(String d1, String d2, String product) throws SQLException {
-        String sql = "select sum(qtd) from sacas, produto WHERE sacas.data between '?' and '?' and produto.nome_p LIKE '%?%' and produto.id_p = sacas.id_p;";
+        String sql = "select sum(qtd) from sacas, produto WHERE sacas.data between ? and ? and produto.nome_p LIKE '%?%' and produto.id_p = sacas.id_p;";
         int qtd;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, d1);

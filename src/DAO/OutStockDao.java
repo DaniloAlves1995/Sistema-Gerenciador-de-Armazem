@@ -54,10 +54,10 @@ public class OutStockDao {
                 sql = "select * from saida WHERE id_s=?";
                 break;
             case 2:
-                sql = "select * from saida WHERE id_c=? and data like '?'";
+                sql = "select * from saida WHERE id_c=? and data like ?";
                 break;
             case 3:
-                sql = "select * from saida WHERE data like '?'";
+                sql = "select * from saida WHERE data like ?";
                 break;
             case 6:
                 sql = "select * from saida WHERE id_c=?";
@@ -66,7 +66,7 @@ public class OutStockDao {
                 sql = "select * from saida WHERE id_c=?";
                 break;
             case 8:
-                sql = "select * from saida WHERE data between '?' and '?'";
+                sql = "select * from saida WHERE data between ? and ?";
                 break;
         }
 

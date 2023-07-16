@@ -142,7 +142,7 @@ public class ProductDao {
     }
 
     public Product getProduct(String name) throws SQLException {
-        String sql = "select * from produto where nome_p='?';";
+        String sql = "select * from produto where nome_p=?;";
         Product m;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, name);

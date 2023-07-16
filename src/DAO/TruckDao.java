@@ -185,7 +185,7 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
     }
 
     public List<Truck> getTruckDates(String dado, String data) throws SQLException {
-        String sql = "select * from caminhao WHERE data between '?' and '?'";
+        String sql = "select * from caminhao WHERE data between ? and ?";
         ResultSet rs;
         List<Truck> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
