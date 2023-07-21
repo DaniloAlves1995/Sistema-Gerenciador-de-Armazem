@@ -162,21 +162,4 @@ public class OutStockDao {
         }
     }
 
-    public void adicionaPDFResumo(Stock e) throws SQLException {
-        String sql = "insert into pdf_resumon(qtd_total, id_p) values(?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, e.getAmount());
-            stmt.setDouble(2, e.getId_p());
-
-            stmt.execute();
-        }
-    }
-
-    public void LimparPDFResumo() throws SQLException {
-        String sql = "TRUNCATE pdf_resumon";
-        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.execute();
-        }
-    }
-
 }

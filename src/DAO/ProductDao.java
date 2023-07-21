@@ -160,21 +160,6 @@ public class ProductDao {
         return m;
     }
 
-    public void AddPDF_RelatorioE(List<Product> lista) throws SQLException {
-        String sql = "insert into pdf_relatorioe(id_p, produto, qtd_e) values(?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            StockDao edao = new StockDao();
-
-            for (int i = 0; i < lista.size(); i++) {
-                stmt.setInt(1, lista.get(i).getId());
-                stmt.setString(2, lista.get(i).getProduct().toUpperCase());
-                stmt.setInt(3, edao.getStock(lista.get(i).getId()).getAmount());
-
-                stmt.execute();
-            }
-        }
-    }
-
     public int getLastId() throws SQLException {
         String sql = "SELECT * FROM produto ORDER BY id_p DESC LIMIT 1";
         int id;
@@ -188,10 +173,4 @@ public class ProductDao {
         return id;
     }
 
-    public void LimparPDF_RelatorioE() throws SQLException {
-        String sql = "TRUNCATE pdf_relatorioe";
-        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.execute();
-        }
-    }
 }

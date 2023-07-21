@@ -342,14 +342,13 @@ public class SearchStockEntries extends javax.swing.JFrame {
                 try {
                     StockDao edao = new StockDao();
                     int qtd = edao.getAmountStock(d1, d2, jTProduct.getText());
-                    edao.addTotal(qtd);
-                    report();
-                    edao.cleanTotal();
+                    
+                    report(qtd);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "ERROR: " + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                report();
+                report(0);
             }
         } else {
             JOptionPane.showMessageDialog(null, "There was no entry of stock in the reported period!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
@@ -492,7 +491,7 @@ public class SearchStockEntries extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     //Cria o report da lista de vendas
-    private void report() {
+    private void report(int qtd) {
         Date data = new Date();
 
         int year = data.getYear() + 1900;
@@ -537,7 +536,7 @@ public class SearchStockEntries extends javax.swing.JFrame {
             String jasper = "";
             if (jRadioButton1.isSelected()) {
                 //seja product especifico
-                sql = "select * from pdf_total, stock_entrada, product WHERE stock_entrada.data between '" + d1 + "' and '" + d2 + "' and product.Name_p LIKE '%" + jTProduct.getText() + "%' and product.id_p = stock_entrada.id_p;";
+                sql = "select * from stock_entrada, product WHERE stock_entrada.data between '" + d1 + "' and '" + d2 + "' and product.Name_p LIKE '%" + jTProduct.getText() + "%' and product.id_p = stock_entrada.id_p;";
                 jasper = "/Jasper/ReportEntradaEstoque_i.jasper";
             } else {
                 sql = "select product.Name_p, product.id_p, stock_entrada.* from product, stock_entrada WHERE stock_entrada.data between '" + d1 + "' and '" + d2 + "' and product.id_p=stock_entrada.id_p;";

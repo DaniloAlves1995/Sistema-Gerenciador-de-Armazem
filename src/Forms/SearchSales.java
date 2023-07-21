@@ -380,15 +380,7 @@ public class SearchSales extends javax.swing.JFrame {
 
     private void jBGerarN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarN1ActionPerformed
         if (exits.size() > 0) {
-            try {
-                SaleDao vdao = new SaleDao();
-                vdao.adicionaPDF(d1, d2);
-
-                report();
-                vdao.LimparPDF();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error!" + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
-            }
+                report();      
         } else {
             JOptionPane.showMessageDialog(null, "There was no sale in the reported period!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -432,11 +424,8 @@ public class SearchSales extends javax.swing.JFrame {
                         p.setId_p(listav.get(i).getId_prod());
                         p.setAmount(qtd);
 
-                        //adiciona na tabela os valores para o resumo
-                        sdao.adicionaPDFResumo(p);
+                        reportResumo(p);
                     }
-                    reportResumo();
-                    sdao.LimparPDFResumo();
                 }
 
             } catch (SQLException ex) {
@@ -568,7 +557,7 @@ public class SearchSales extends javax.swing.JFrame {
             String showReport;
             String path = "c:/WMS/Reports/Sales";
             con.connect();
-            con.executeSQL("select * from product, venda, saida, cliente, pdf_venda where venda.id_s = saida.id_s and product.id_p = venda.id_p and saida.id_c = cliente.id_c and saida.data between '" + d1 + "' and '" + d2 + "' order by saida.data");
+            con.executeSQL("select * from product, venda, saida, cliente where venda.id_s = saida.id_s and product.id_p = venda.id_p and saida.id_c = cliente.id_c and saida.data between '" + d1 + "' and '" + d2 + "' order by saida.data");
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
             JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/ReportExits.jasper"), new HashMap(), jrRS);
@@ -713,7 +702,7 @@ public class SearchSales extends javax.swing.JFrame {
     }
 
     //Cria o report da nota
-    private void reportResumo() {
+    private void reportResumo(Stock stock) {
         Date data = new Date();
 
         int year = data.getYear() + 1900;
@@ -736,7 +725,7 @@ public class SearchSales extends javax.swing.JFrame {
         ConectionReport con = new ConectionReport();
 
         //gerar string sql;
-        String sql = "select product.*, pdf_resumon.* from product, pdf_resumon where pdf_resumon.id_p = product.id_p;";
+        String sql = "select produto.*, estoque.* from produto, estoque where estoque.id_p = product.id_p;";
 
         //diretorio que vai salvar
         File dir = new File("c:/WMS");

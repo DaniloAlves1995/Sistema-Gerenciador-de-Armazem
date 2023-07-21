@@ -319,20 +319,20 @@ public class BlankReport extends javax.swing.JFrame {
         String path = "c:/WMS/Reports/Entry/";
         try {
             con.connect();
-            String sql = "select row_number() over (order by product.id_p) as id_ree, product.id_p, product.Name_p as product, stock.qtd as qtd_e from product, stock where \n" +
-"product.id_p=stock.id_p and (";
+            String sql = "select row_number() over (order by produto.id_p) as id_ree, produto.id_p, produto.nome_p as produto, estoque.qtd as qtd_e from produto, estoque where \n" +
+"produto.id_p=estoque.id_p and (";
             for (int i=0; i<lista.size(); i++){
                 if (i == 0)
-                    sql += "product.id_p="+lista.get(i).getId();
+                    sql += "produto.id_p="+lista.get(i).getId();
                 else
-                    sql += " and product.id_p="+lista.get(i).getId();
+                    sql += " and produto.id_p="+lista.get(i).getId();
             }
             sql += ")";
             con.executeSQL(sql);
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
             //referencia o jasper
-            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/ReportEntrada.jasper"), new HashMap(), jrRS);
+            JasperPrint jp = JasperFillManager.fillReport(getClass().getResourceAsStream("/Jasper/RelatorioEntrada.jasper"), new HashMap(), jrRS);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
             jv.setTitle("Invoice - .: WMS :.");

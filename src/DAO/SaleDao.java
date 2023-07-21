@@ -101,23 +101,6 @@ public class SaleDao {
         }
     }
 
-    public void adicionaPDF(String d1, String d2) throws SQLException {
-        String sql = "insert into pdf_venda(dataI, dataF) values(?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, d1);
-            stmt.setString(2, d2);
-
-            stmt.execute();
-        }
-    }
-
-    public void LimparPDF() throws SQLException {
-        String sql = "TRUNCATE TABLE `pdf_venda`";
-        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.execute();
-        }
-    }
-
     public int getAmount(int id_s) throws SQLException {
         String sql = "select SUM(qtd) from venda WHERE id_s=?";
         ResultSet rs;

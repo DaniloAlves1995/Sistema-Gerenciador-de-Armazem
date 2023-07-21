@@ -39,22 +39,6 @@ public class StockDao {
         }
     }
 
-    public void addTotal(int amount) throws SQLException {
-        String sql = "insert into pdf_total(total) values(?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, amount);
-
-            stmt.execute();
-        }
-    }
-
-    public void cleanTotal() throws SQLException {
-        String sql = "TRUNCATE pdf_total";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.execute();
-        }
-    }
-
     public void addStockIn(Stock m1) throws SQLException {
         String sql = "insert into estoque_entrada(id_p, qtd, data) values(?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {

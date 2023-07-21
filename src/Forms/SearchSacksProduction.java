@@ -323,20 +323,19 @@ public class SearchSacksProduction extends javax.swing.JFrame {
     }//GEN-LAST:event_jTNotaMouseClicked
 
     private void jBGerarN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerarN1ActionPerformed
-        if (this.sacas.size() > 0) {
+        if (!this.sacas.isEmpty()) {
             if (jRadioButton1.isSelected()) {
                 try {
                     StockDao edao = new StockDao();
                     SackDao sdao = new SackDao();
                     int qtd = sdao.getAmoutSacks(d1, d2, jTProduct.getText());
-                    edao.addTotal(qtd);
-                    report();
-                    edao.cleanTotal();
+                   
+                    report(qtd);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "ERROR: " + ex, "..: WMS :..", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                report();
+                report(0);
             }
         } else {
             JOptionPane.showMessageDialog(null, "There was no production in the reported period!", "..: WMS :..", JOptionPane.INFORMATION_MESSAGE);
@@ -494,7 +493,7 @@ public class SearchSacksProduction extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     //Cria o report da lista de vendas
-    private void report() {
+    private void report(int qtd) {
         Date data = new Date();
 
         int year = data.getYear() + 1900;
@@ -540,7 +539,7 @@ public class SearchSacksProduction extends javax.swing.JFrame {
                 sql = "select product.Name_p, truck.Name_ca, sacas.* from product, truck, sacas WHERE sacas.data between '" + d1 + "' and '" + d2 + "' and product.id_p=sacas.id_p and truck.id_ca = sacas.id_ca;";
                 jasper = "/Jasper/ReportProducaoSacas.jasper";
             } else {
-                sql = "select pdf_total.*, product.Name_p, truck.Name_ca, sacas.* from sacas, product, truck, pdf_total WHERE sacas.data between '" + d1 + "' and '" + d2 + "' and product.Name_p LIKE '%" + jTProduct.getText() + "%' and product.id_p = sacas.id_p and sacas.id_ca=truck.id_ca;";
+                sql = "select product.Name_p, truck.Name_ca, sacas.* from sacas, product, truck WHERE sacas.data between '" + d1 + "' and '" + d2 + "' and product.Name_p LIKE '%" + jTProduct.getText() + "%' and produto.id_p = sacas.id_p and sacas.id_ca=caminhao.id_ca;";
                 jasper = "/Jasper/ReportProducaoSacas_i.jasper";
             }
             con.executeSQL(sql);
