@@ -5,8 +5,6 @@
  */
 package Forms;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -48,12 +46,12 @@ public class Main extends javax.swing.JFrame {
                     jLabel1.setText("Good morning!");
             }
         }
-        //posiciona a logo no centro da janela
-        JLabel logo = new JLabel(new ImageIcon(getClass().getResource("/Imagens/Main_image.png")));
+        // set logo in window center
+        JLabel logo = new JLabel(new ImageIcon(getClass().getResource("/Imagens/logo.png")));
 
-        logo.setSize(320, 236);
+        logo.setSize(401, 270);
         logo.show();
-        logo.setLocation(jPanel1.getWidth() / 2 + logo.getWidth() / 2 - 60, jPanel1.getHeight() / 2 - logo.getHeight() / 2 - 50);
+        logo.setLocation(jPanel1.getWidth() / 2 + logo.getWidth() / 2 - 150, jPanel1.getHeight() / 2 - logo.getHeight() / 2 - 50);
         jPanel1.add(logo);
     }
 
