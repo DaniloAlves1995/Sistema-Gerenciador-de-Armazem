@@ -9,6 +9,7 @@ import Connection.ConectionReport;
 import DAO.StockDao;
 import DAO.ProductDao;
 import Entities.Product;
+import Utils.OSUtilities;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
@@ -301,22 +302,10 @@ public class BlankReport extends javax.swing.JFrame {
 
         ConectionReport con = new ConectionReport();
 
-        //diretorio para salvar
-        File dir = new File("c:/WMS");
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
-        File l = new File("c:/WMS/Reports");
-        if (!l.exists()) {
-            l.mkdir();
-        }
-        File li = new File("c:/WMS/Reports/Entry");
-        if (!li.exists()) {
-            li.mkdir();
-        }
+        OSUtilities osUtilities = new OSUtilities();
 
         String showReport;
-        String path = "c:/WMS/Reports/Entry/";
+        String path = osUtilities.getDirectory("/Reports/Entry/");
         try {
             con.connect();
             String sql = "select row_number() over (order by produto.id_p) as id_ree, produto.id_p, produto.nome_p as produto, estoque.qtd as qtd_e from produto, estoque where \n" +
@@ -325,9 +314,10 @@ public class BlankReport extends javax.swing.JFrame {
                 if (i == 0)
                     sql += "produto.id_p="+lista.get(i).getId();
                 else
-                    sql += " and produto.id_p="+lista.get(i).getId();
+                    sql += " or produto.id_p="+lista.get(i).getId();
             }
             sql += ")";
+            System.out.println(sql);
             con.executeSQL(sql);
 
             JRResultSetDataSource jrRS = new JRResultSetDataSource(con.resultset);
