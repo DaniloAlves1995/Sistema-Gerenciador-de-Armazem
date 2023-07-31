@@ -23,14 +23,14 @@ import java.util.List;
 
 public class SaleDao {
 
-    private Connection connection;
+    private final Connection connection;
 
     public SaleDao() throws SQLException {
         this.connection = (Connection) CreateConnection.getConnection();
     }
 
     public void add(Sale m1) throws SQLException {
-        String sql = "insert into venda(id_s, id_p, preco, qtd, valor_p) "
+        String sql = "insert into sale(id_sale_out, id_product, price, amount, value) "
                 + "values(?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, m1.getId_outStock());
@@ -44,7 +44,7 @@ public class SaleDao {
     }
 
     public List<Sale> getList(int id_s) throws SQLException {
-        String sql = "select * from venda WHERE id_s=?";
+        String sql = "select * from sale WHERE id_sal=?";
         ResultSet rs;
         List<Sale> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
@@ -56,12 +56,12 @@ public class SaleDao {
             while (rs.next()) {
                 Sale m = new Sale();
 
-                m.setId_sale(rs.getInt("id_v"));
-                m.setId_prod(rs.getInt("id_p"));
-                m.setId_outStock(rs.getInt("id_s"));
-                m.setPrice(rs.getDouble("preco"));
-                m.setAmount(rs.getInt("qtd"));
-                m.setValueProduct(rs.getDouble("valor_p"));
+                m.setId_sale(rs.getInt("id_sale"));
+                m.setId_prod(rs.getInt("id_product"));
+                m.setId_outStock(rs.getInt("id_sale_out"));
+                m.setPrice(rs.getDouble("prico"));
+                m.setAmount(rs.getInt("amount"));
+                m.setValueProduct(rs.getDouble("value"));
 
                 ma.add(m);
             }
@@ -72,8 +72,8 @@ public class SaleDao {
     }
 
     public void update(Sale m) throws SQLException {
-        String sql = "update venda set id_p=?, preco=?, qtd=?, valor_p=?"
-                + " where id_v=?";
+        String sql = "update sale set id_product=?, price=?, amount=?, value=?"
+                + " where id_sale=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId_prod());
             stmt.setDouble(2, m.getPrice());
@@ -86,68 +86,68 @@ public class SaleDao {
     }
 
     public void deleteBySale(Sale m) throws SQLException {
-        String sql = "delete from venda where id_v=?";
+        String sql = "delete from sale where id_sale=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId_sale());
             stmt.execute();
         }
     }
 
-    public void deleteByOut(int idsaida) throws SQLException {
-        String sql = "delete from venda where id_s=?";
+    public void deleteByOut(int idsale_out) throws SQLException {
+        String sql = "delete from sale where id_sale=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setInt(1, idsaida);
+            stmt.setInt(1, idsale_out);
             stmt.execute();
         }
     }
 
     public int getAmount(int id_s) throws SQLException {
-        String sql = "select SUM(qtd) from venda WHERE id_s=?";
+        String sql = "select SUM(amount) from sale WHERE id_sale=?";
         ResultSet rs;
-        int qtd;
+        int amount;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
 
             stmt.setInt(1, id_s);
 
             rs = stmt.executeQuery();
-            qtd = 0;
+            amount = 0;
             while (rs.next()) 
-                qtd = rs.getInt("SUM(qtd)");
+                amount = rs.getInt("SUM(amount)");
             
 
         }
         rs.close();
 
-        return qtd;
+        return amount;
     }
 
-    public int getAmountProductsOut(List<OutStock> lists, int id_p) throws SQLException {
+    public int getAmountProductsOut(List<OutStock> lists, int id_product) throws SQLException {
 
         //montando String SQL dinamicamente
-        String sql = "select SUM(qtd) from venda WHERE id_p=" + id_p + " and (";
+        String sql = "select SUM(amount) from sale WHERE id_product=" + id_product + " and (";
         for (int i = 0; i < lists.size(); i++)
-            sql = (i == 0) ? sql + "id_s=" + lists.get(i).getId_outStock() : sql + " or id_s=" + lists.get(i).getId_outStock();
+            sql = (i == 0) ? sql + "id_sale_out=" + lists.get(i).getId_outStock() : sql + " or id_sale_out=" + lists.get(i).getId_outStock();
 
         sql += ");";
 
         ResultSet rs;
-        int qtd;
+        int amount;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             rs = stmt.executeQuery();
-            qtd = 0;
+            amount = 0;
             while (rs.next()) {
-                qtd = rs.getInt("SUM(qtd)");
+                amount = rs.getInt("SUM(amount)");
             }
         }
         rs.close();
 
-        return qtd;
+        return amount;
     }
 
     public List<Sale> getProductsOut(List<OutStock> listas) throws SQLException {
-        String sql = "select distinct id_p from venda WHERE ";
+        String sql = "select distinct id_product from sale WHERE ";
         for (int i = 0; i < listas.size(); i++)
-            sql += (i == 0) ? "id_s=" + listas.get(i).getId_outStock() : " or id_s=" + listas.get(i).getId_outStock();
+            sql += (i == 0) ? "id_sale_out=" + listas.get(i).getId_outStock() : " or id_sale_out=" + listas.get(i).getId_outStock();
         ResultSet rs;
         List<Sale> lista;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
@@ -155,7 +155,7 @@ public class SaleDao {
             lista = new ArrayList<>();
             while (rs.next()) {
                 Sale v = new Sale();
-                v.setId_prod(rs.getInt("id_p"));
+                v.setId_prod(rs.getInt("id_product"));
 
                 lista.add(v);
             }

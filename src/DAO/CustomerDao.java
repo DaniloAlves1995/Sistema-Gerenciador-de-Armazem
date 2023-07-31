@@ -35,7 +35,7 @@ public class CustomerDao implements InterfaceBasicDB<Customer>{
 
     @Override
     public void add(Customer m1) { 
-        String sql = "insert into cliente(nome, endereco, cpf, contato1, contato2) "
+        String sql = "insert into customer(name, address, cpf, phone1, phone2) "
                 + "values(?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, m1.getName().toUpperCase());
@@ -51,7 +51,7 @@ public class CustomerDao implements InterfaceBasicDB<Customer>{
     }
 
     public List<Customer> getList(String dado) {
-        String sql = "select * from cliente WHERE nome LIKE ?";
+        String sql = "select * from customer WHERE name LIKE ?";
         ResultSet rs;
         List<Customer> ma = null;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
@@ -62,11 +62,11 @@ public class CustomerDao implements InterfaceBasicDB<Customer>{
             while (rs.next()) {
                 Customer m = new Customer();
 
-                m.setId(rs.getInt("id_c"));
-                m.setName(rs.getString("nome"));
-                m.setAddress(rs.getString("endereco"));
-                m.setContato1(rs.getString("contato1"));
-                m.setContact2(rs.getString("contato2"));
+                m.setId(rs.getInt("id_customer"));
+                m.setName(rs.getString("name"));
+                m.setAddress(rs.getString("address"));
+                m.setContato1(rs.getString("phone1"));
+                m.setContact2(rs.getString("phone2"));
                 m.setCpf(rs.getString("cpf"));
 
                 ma.add(m);
@@ -81,7 +81,7 @@ public class CustomerDao implements InterfaceBasicDB<Customer>{
     }
 
     public List<Customer> getListByAddress(String address) throws SQLException {
-        String sql = "select * from cliente WHERE endereco LIKE ?";
+        String sql = "select * from customer WHERE address LIKE ?";
         ResultSet rs;
         List<Customer> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
@@ -92,11 +92,11 @@ public class CustomerDao implements InterfaceBasicDB<Customer>{
             while (rs.next()) {
                 Customer m = new Customer();
 
-                m.setId(rs.getInt("id_c"));
-                m.setName(rs.getString("nome"));
-                m.setAddress(rs.getString("endereco"));
-                m.setContato1(rs.getString("contato1"));
-                m.setContact2(rs.getString("contato2"));
+                m.setId(rs.getInt("id_customer"));
+                m.setName(rs.getString("name"));
+                m.setAddress(rs.getString("address"));
+                m.setContato1(rs.getString("phone1"));
+                m.setContact2(rs.getString("phone2"));
                 m.setCpf(rs.getString("cpf"));
 
                 ma.add(m);
@@ -109,8 +109,8 @@ public class CustomerDao implements InterfaceBasicDB<Customer>{
 
     @Override
     public void update(Customer m)  {
-        String sql = "update cliente set nome=?, endereco=?, cpf=?, contato1=?, contato2=?"
-                + " where id_c=?";
+        String sql = "update customer set name=?, address=?, cpf=?, phone1=?, phone2=?"
+                + " where id_customer=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, m.getName().toUpperCase());
             stmt.setString(2, m.getAddress().toUpperCase());
@@ -127,7 +127,7 @@ public class CustomerDao implements InterfaceBasicDB<Customer>{
 
     @Override
     public void delete(Customer m)  {
-        String sql = "delete from cliente where id_c=?";
+        String sql = "delete from customer where id_customer=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId());
             stmt.execute();
@@ -137,7 +137,7 @@ public class CustomerDao implements InterfaceBasicDB<Customer>{
     }
 
     public int getAmountCustumers() throws SQLException {
-        String sql = "SELECT COUNT(*) FROM cliente;";
+        String sql = "SELECT COUNT(*) FROM customer;";
         int amount;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
@@ -151,7 +151,7 @@ public class CustomerDao implements InterfaceBasicDB<Customer>{
     }
 
     public Customer getCustumer(int id) throws SQLException {
-        String sql = "select * from cliente WHERE id_c=?";
+        String sql = "select * from customer WHERE id_customer=?";
         ResultSet rs;
         Customer m;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
@@ -160,11 +160,11 @@ public class CustomerDao implements InterfaceBasicDB<Customer>{
             rs = stmt.executeQuery();
             m = new Customer();
             while (rs.next()) {
-                m.setId(rs.getInt("id_c"));
-                m.setName(rs.getString("nome"));
-                m.setAddress(rs.getString("endereco"));
-                m.setContato1(rs.getString("contato1"));
-                m.setContact2(rs.getString("contato2"));
+                m.setId(rs.getInt("id_customer"));
+                m.setName(rs.getString("name"));
+                m.setAddress(rs.getString("address"));
+                m.setContato1(rs.getString("phone1"));
+                m.setContact2(rs.getString("phone2"));
                 m.setCpf(rs.getString("cpf"));
             }
         }

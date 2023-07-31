@@ -33,7 +33,7 @@ public class SackDao {
     }
 
     public void add(Sack m1) throws SQLException {
-        String sql = "insert into sacas(id_p, id_ca, qtd, data) values(?, ?, ?, ?)";
+        String sql = "insert into sacks(id_product, id_truck, amount, date) values(?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, m1.getId_prod());
             stmt.setInt(2, m1.getId_truck());
@@ -46,11 +46,11 @@ public class SackDao {
 
     public List<Sack> getList(String data, String date, int tipo, String product) throws SQLException {
 
-        String sql = (tipo == 0) ? "select produto.nome_p, caminhao.nome_ca, sacas.* from sacas, produto, caminhao"
-                +" WHERE sacas.data between ? and ? and produto.nome_p LIKE '%?%' and produto.id_p = sacas.id_p"
-                +" and sacas.id_ca=caminhao.id_ca;" : "select produto.nome_p, caminhao.nome_ca, sacas.* from "
-                + "produto, caminhao, sacas WHERE sacas.data between ? and ? and produto.id_p=sacas.id_p"
-                +" and caminhao.id_ca = sacas.id_ca;";
+        String sql = (tipo == 0) ? "select product.name, truck.name, sacks.* from sacks, product, truck"
+                +" WHERE sacks.date between ? and ? and product.name LIKE '%?%' and product.id_product = sacks.id_product"
+                +" and sacks.id_truck=truck.id_truck;" : "select product.name, truck.name, sacks.* from "
+                + "product, truck, sacks WHERE sacks.date between ? and ? and product.id_product=sacks.id_product"
+                +" and truck.id_truck = sacks.id_truck;";
 
         ResultSet rs;
         List<Sack> ma;
@@ -66,11 +66,11 @@ public class SackDao {
             while (rs.next()) {
                 Sack m = new Sack();
 
-                m.setId_sack(rs.getInt("id_sa"));
-                m.setId_prod(rs.getInt("id_p"));
-                m.setId_truck(rs.getInt("id_ca"));
-                m.setAmount(rs.getInt("qtd"));
-                m.setDate(rs.getString("data"));
+                m.setId_sack(rs.getInt("id_sacks"));
+                m.setId_prod(rs.getInt("id_product"));
+                m.setId_truck(rs.getInt("id_truck"));
+                m.setAmount(rs.getInt("amount"));
+                m.setDate(rs.getString("date"));
 
                 ma.add(m);
             }
@@ -81,20 +81,20 @@ public class SackDao {
     }
 
     public int getAmoutSacks(String d1, String d2, String product) throws SQLException {
-        String sql = "select sum(qtd) from sacas, produto WHERE sacas.data between ? and ? and produto.nome_p LIKE '%?%' and produto.id_p = sacas.id_p;";
-        int qtd;
+        String sql = "select sum(amount) from sacks, product WHERE sacks.date between ? and ? and product.name LIKE '%?%' and product.id_product = sacks.id_product;";
+        int amount;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, d1);
             stmt.setString(2, d2);
             stmt.setString(3, product);
 
             ResultSet rs = stmt.executeQuery();
-            qtd = 0;
+            amount = 0;
             while (rs.next())
-                qtd = rs.getInt("sum(qtd)");
+                amount = rs.getInt("sum(amount)");
             
         }
 
-        return qtd;
+        return amount;
     }
 }

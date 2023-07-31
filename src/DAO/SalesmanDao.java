@@ -29,7 +29,7 @@ public class SalesmanDao {
     } 
 
     public void add(Salesman m1) throws SQLException {
-        String sql = "insert into funcionario(nome_fun, endereco, contato1, contato2) "
+        String sql = "insert into seller(name, address, phone1, phone2) "
                 + "values(?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, m1.getName().toUpperCase());
@@ -41,23 +41,23 @@ public class SalesmanDao {
         }
     }
 
-    public List<Salesman> getList(String data) throws SQLException {
-        String sql = "select * from funcionario WHERE nome_fun LIKE ?";
+    public List<Salesman> getList(String date) throws SQLException {
+        String sql = "select * from seller WHERE name LIKE ?";
         ResultSet rs;
         List<Salesman> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
 
-            stmt.setString(1, "%"+data+"%");
+            stmt.setString(1, "%"+date+"%");
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
                 Salesman m = new Salesman();
 
-                m.setId_salesman(rs.getInt("id_fun"));
-                m.setName(rs.getString("nome_fun"));
-                m.setAddress(rs.getString("endereco"));
-                m.setContato1(rs.getString("contato1"));
-                m.setContact2(rs.getString("contato2"));
+                m.setId_salesman(rs.getInt("id_seller"));
+                m.setName(rs.getString("name"));
+                m.setAddress(rs.getString("address"));
+                m.setContato1(rs.getString("phone1"));
+                m.setContact2(rs.getString("phone2"));
 
                 ma.add(m);
             }
@@ -68,8 +68,8 @@ public class SalesmanDao {
     }
 
     public void update(Salesman m) throws SQLException {
-        String sql = "update funcionario set nome_fun=?, endereco=?, contato1=?, contato2=?"
-                + " where id_fun=?";
+        String sql = "update seller set name=?, address=?, phone1=?, phone2=?"
+                + " where id_seller=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, m.getName().toUpperCase());
             stmt.setString(2, m.getAddress().toUpperCase());
@@ -82,7 +82,7 @@ public class SalesmanDao {
     }
 
     public void delete(Salesman m) throws SQLException {
-        String sql = "delete from funcionario where id_fun=?";
+        String sql = "delete from seller where id_seller=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId_salesman());
             stmt.execute();
@@ -90,7 +90,7 @@ public class SalesmanDao {
     }
 
     public Salesman getSelesman(int id) throws SQLException {
-        String sql = "select * from funcionario WHERE id_fun=?";
+        String sql = "select * from seller WHERE id_seller=?";
         ResultSet rs;
         Salesman m;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
@@ -99,11 +99,11 @@ public class SalesmanDao {
             rs = stmt.executeQuery();
             m = new Salesman();
             while (rs.next()) {
-                m.setId_salesman(rs.getInt("id_fun"));
-                m.setName(rs.getString("nome_fun"));
-                m.setAddress(rs.getString("endereco"));
-                m.setContato1(rs.getString("contato1"));
-                m.setContact2(rs.getString("contato2"));
+                m.setId_salesman(rs.getInt("id_seller"));
+                m.setName(rs.getString("name"));
+                m.setAddress(rs.getString("address"));
+                m.setContato1(rs.getString("phone1"));
+                m.setContact2(rs.getString("phone2"));
             }
         }
         rs.close();
@@ -112,7 +112,7 @@ public class SalesmanDao {
     }
 
     public int getAmountSelesman() throws SQLException {
-        String sql = "SELECT COUNT(*) FROM funcionario;";
+        String sql = "SELECT COUNT(*) FROM seller;";
         int amount;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();

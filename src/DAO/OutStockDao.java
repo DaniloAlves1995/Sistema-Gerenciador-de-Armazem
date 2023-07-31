@@ -3,7 +3,6 @@ package DAO;
 import java.sql.Connection;
 
 import Connection.CreateConnection;
-import Entities.Stock;
 import Entities.OutStock;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,14 +22,14 @@ import java.util.List;
 
 public class OutStockDao {
 
-    private Connection connection;
+    private final Connection connection;
 
     public OutStockDao() throws SQLException {
         this.connection = (Connection) CreateConnection.getConnection();
     }
 
     public void add(OutStock m1) throws SQLException {
-        String sql = "insert into saida(id_c, id_fun, total, data) "
+        String sql = "insert into sale_out(id_customer, id_seller, total, date) "
                 + "values(?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -48,25 +47,25 @@ public class OutStockDao {
         String sql = "";
         switch (type) {
             case 0:
-                sql = "select * from saida";
+                sql = "select * from sale_out";
                 break;
             case 1:
-                sql = "select * from saida WHERE id_s=?";
+                sql = "select * from sale_out WHERE id_s=?";
                 break;
             case 2:
-                sql = "select * from saida WHERE id_c=? and data like ?";
+                sql = "select * from sale_out WHERE id_customer=? and date like ?";
                 break;
             case 3:
-                sql = "select * from saida WHERE data like ?";
+                sql = "select * from sale_out WHERE date like ?";
                 break;
             case 6:
-                sql = "select * from saida WHERE id_c=?";
+                sql = "select * from sale_out WHERE id_customer=?";
                 break;
             case 7:
-                sql = "select * from saida WHERE id_c=?";
+                sql = "select * from sale_out WHERE id_customer=?";
                 break; 
             case 8:
-                sql = "select * from saida WHERE data between ? and ?";
+                sql = "select * from sale_out WHERE date between ? and ?";
                 break;
         }
 
@@ -87,11 +86,11 @@ public class OutStockDao {
             while (rs.next()) {
                 OutStock m = new OutStock();
 
-                m.setId_outStock(rs.getInt("id_s"));
-                m.setId_customer(rs.getInt("id_c"));
-                m.setId_salesman(rs.getInt("id_fun"));
+                m.setId_outStock(rs.getInt("id_sale_out"));
+                m.setId_customer(rs.getInt("id_customer"));
+                m.setId_salesman(rs.getInt("id_seller"));
                 m.setTotal(rs.getDouble("total"));
-                m.setDate(rs.getString("data"));
+                m.setDate(rs.getString("date"));
 
                 ma.add(m);
 
@@ -103,7 +102,7 @@ public class OutStockDao {
     }
 
     public List<OutStock> getInvoiceNotPaid(int id_customer) throws SQLException {
-        String sql = "select * from saida WHERE id_c=? and pg=0";
+        String sql = "select * from sale_out WHERE id_customer=? and pg=0";
         ResultSet rs;
         List<OutStock> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
@@ -115,11 +114,11 @@ public class OutStockDao {
             while (rs.next()) {
                 OutStock m = new OutStock();
 
-                m.setId_outStock(rs.getInt("id_s"));
-                m.setId_customer(rs.getInt("id_c"));
-                m.setId_salesman(rs.getInt("id_fun"));
+                m.setId_outStock(rs.getInt("id_sale_out"));
+                m.setId_customer(rs.getInt("id_customer"));
+                m.setId_salesman(rs.getInt("id_seller"));
                 m.setTotal(rs.getDouble("total"));
-                m.setDate(rs.getString("data"));
+                m.setDate(rs.getString("date"));
 
                 ma.add(m);
 
@@ -131,7 +130,7 @@ public class OutStockDao {
     }
 
     public void delete(OutStock m) throws SQLException {
-        String sql = "delete from saida where id_s=?";
+        String sql = "delete from sale_out where id_sale_out=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId_outStock());
             stmt.execute();
@@ -140,20 +139,20 @@ public class OutStockDao {
 
    
     public int getLastInvoiceId() throws SQLException {
-        String sql = "SELECT * FROM saida ORDER BY id_s DESC LIMIT 1";
+        String sql = "SELECT * FROM sale_out ORDER BY id_sale_out DESC LIMIT 1";
         PreparedStatement stmt = this.connection.prepareStatement(sql);
 
         int id = 0;
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            id = rs.getInt("id_s");
+            id = rs.getInt("id_sale_out");
         }
         return id;
     }
 
     public void updateInvoice(OutStock n) throws SQLException {
-        String sql = "update saida set total=? where id_s=?";
+        String sql = "update sale_out set total=? where id_sale_out=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setDouble(1, n.getTotal());
             stmt.setInt(2, n.getId_outStock());

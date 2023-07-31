@@ -36,7 +36,7 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
     @Override
     public void add(Truck m1) {
         try {
-            String sql = "insert into caminhao(nome_ca, carga, data) "
+            String sql = "insert into truck(name_ca, carga, date) "
                     + "values(?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(sql);
             
@@ -52,7 +52,7 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
     }
 
     public void addTruckLoad(Truck m1) throws SQLException {
-        String sql = "insert into caminhao_carga(id_ca, carga) "
+        String sql = "insert into caminhao_carga(id_customera, carga) "
                 + "values(?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -67,10 +67,10 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
     public List<Truck> getList(String dado, int tipo) throws SQLException {
         String sql = "";
         if (tipo == 0)
-            sql = "select caminhao.id_ca, caminhao.nome_ca, caminhao.data, caminhao_carga.carga from caminhao, caminhao_carga WHERE caminhao.nome_ca LIKE '%" + dado + "%' and caminhao.id_ca = caminhao_carga.id_ca;";
+            sql = "select truck.id_customera, truck.name_ca, truck.date, caminhao_carga.carga from truck, caminhao_carga WHERE truck.name_ca LIKE '%" + dado + "%' and truck.id_customera = caminhao_carga.id_customera;";
         else
-            sql = "select caminhao.id_ca, caminhao.nome_ca, caminhao.data, caminhao_carga.carga from caminhao, caminhao_carga WHERE "
-                    + "caminhao_carga.carga > 0 and caminhao.id_ca = caminhao_carga.id_ca;";
+            sql = "select truck.id_customera, truck.name_ca, truck.date, caminhao_carga.carga from truck, caminhao_carga WHERE "
+                    + "caminhao_carga.carga > 0 and truck.id_customera = caminhao_carga.id_customera;";
         
         ResultSet rs;
         List<Truck> ma;
@@ -80,10 +80,10 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
             while (rs.next()) {
                 Truck m = new Truck();
 
-                m.setId(rs.getInt("id_ca"));
-                m.setName(rs.getString("nome_ca"));
+                m.setId(rs.getInt("id_customera"));
+                m.setName(rs.getString("name_ca"));
                 m.setTruckLoad(rs.getInt("carga"));
-                m.setData(rs.getString("data"));
+                m.setdate(rs.getString("date"));
 
                 ma.add(m);
             }
@@ -93,17 +93,17 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
         return ma;
     }
 
-    public Truck getTruck(int id_ca) throws SQLException {
-        String sql = "select * from caminhao where id_ca=" + id_ca;
+    public Truck getTruck(int id_customera) throws SQLException {
+        String sql = "select * from truck where id_customera=" + id_customera;
         Truck m;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
             m = new Truck();
             while (rs.next()) {
-                m.setId(rs.getInt("id_ca"));
-                m.setName(rs.getString("nome_ca"));
+                m.setId(rs.getInt("id_customera"));
+                m.setName(rs.getString("name_ca"));
                 m.setTruckLoad(rs.getInt("carga"));
-                m.setData(rs.getString("data"));
+                m.setdate(rs.getString("date"));
             }
         }
 
@@ -112,7 +112,7 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
 
     @Override
     public void update(Truck m) {
-        String sql = "update caminhao set nome_ca=?, carga=? where id_ca=?";
+        String sql = "update truck set name_ca=?, carga=? where id_customera=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, m.getName().toUpperCase());
             stmt.setInt(2, m.getTruckLoad());
@@ -125,7 +125,7 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
     }
 
     public void updateTruckLoad(Truck m) throws SQLException {
-        String sql = "update caminhao_carga set carga=? where id_ca=?";
+        String sql = "update caminhao_carga set carga=? where id_customera=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getTruckLoad());
             stmt.setInt(2, m.getId());
@@ -136,7 +136,7 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
 
     @Override
     public void delete(Truck m) {
-        String sql = "delete from caminhao where id_ca=?";
+        String sql = "delete from truck where id_customera=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId());
 
@@ -147,7 +147,7 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
     }
 
     public void deleteTruckLoad(Truck m) throws SQLException {
-        String sql = "delete from caminhao_carga where id_ca=?";
+        String sql = "delete from caminhao_carga where id_customera=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId());
 
@@ -156,7 +156,7 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
     }
 
     public int getAmountTrucks() throws SQLException {
-        String sql = "SELECT COUNT(*) FROM caminhao;";
+        String sql = "SELECT COUNT(*) FROM truck;";
         int amount;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
@@ -171,36 +171,36 @@ public class TruckDao implements InterfaceBasicDB<Truck>{
     }
 
     public int getLastId() throws SQLException {
-        String sql = "SELECT * FROM caminhao ORDER BY id_ca DESC LIMIT 1";
+        String sql = "SELECT * FROM truck ORDER BY id_customera DESC LIMIT 1";
         PreparedStatement stmt = this.connection.prepareStatement(sql);
 
         int id = 0;
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            id = rs.getInt("id_ca");
+            id = rs.getInt("id_customera");
         }
         return id;
     }
 
-    public List<Truck> getTruckDates(String dado, String data) throws SQLException {
-        String sql = "select * from caminhao WHERE data between ? and ?";
+    public List<Truck> getTruckDates(String dado, String date) throws SQLException {
+        String sql = "select * from truck WHERE date between ? and ?";
         ResultSet rs;
         List<Truck> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
 
             stmt.setString(1, dado);
-            stmt.setString(2, data);
+            stmt.setString(2, date);
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
                 Truck m = new Truck();
 
-                m.setId(rs.getInt("id_ca"));
-                m.setName(rs.getString("nome_ca"));
+                m.setId(rs.getInt("id_customera"));
+                m.setName(rs.getString("name_ca"));
                 m.setTruckLoad(rs.getInt("carga"));
-                m.setData(rs.getString("data"));
+                m.setdate(rs.getString("date"));
 
                 ma.add(m);
             }

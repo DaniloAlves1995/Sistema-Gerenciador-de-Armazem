@@ -22,14 +22,14 @@ import java.util.List;
 
 public class ProductDao {
 
-    private Connection connection;
+    private final Connection connection;
 
     public ProductDao() throws SQLException {
         this.connection = (Connection) CreateConnection.getConnection();
     }
 
     public void add(Product m1) throws SQLException {
-        String sql = "insert into produto(nome_p, preco_p, obs) values(?, ?, ?)";
+        String sql = "insert into product(name, price, notes) values(?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, m1.getProduct().toUpperCase());
             stmt.setDouble(2, m1.getPrice());
@@ -39,22 +39,22 @@ public class ProductDao {
         } 
     }
 
-    public List<Product> getList(String data) throws SQLException {
-        String sql = "select * from produto WHERE nome_p LIKE ?";
+    public List<Product> getList(String date) throws SQLException {
+        String sql = "select * from product WHERE name LIKE ?";
         ResultSet rs;
         List<Product> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setString(1, "%"+data+"%");
+            stmt.setString(1, "%"+date+"%");
 
             rs = stmt.executeQuery();
             ma = new ArrayList<>();
             while (rs.next()) {
                 Product m = new Product();
 
-                m.setId(rs.getInt("id_p"));
-                m.setProduct(rs.getString("nome_p"));
-                m.setPrice(rs.getDouble("preco_p"));
-                m.setNote(rs.getString("obs"));
+                m.setId(rs.getInt("id_product"));
+                m.setProduct(rs.getString("name"));
+                m.setPrice(rs.getDouble("price"));
+                m.setNote(rs.getString("notes"));
 
                 ma.add(m);
             }
@@ -65,7 +65,7 @@ public class ProductDao {
     }
 
     public List<Product> getListAll() throws SQLException {
-        String sql = "select * from produto";
+        String sql = "select * from product";
         ResultSet rs;
         List<Product> ma;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
@@ -74,10 +74,10 @@ public class ProductDao {
             while (rs.next()) {
                 Product m = new Product();
 
-                m.setId(rs.getInt("id_p"));
-                m.setProduct(rs.getString("nome_p"));
-                m.setPrice(rs.getDouble("preco_p"));
-                m.setNote(rs.getString("obs"));
+                m.setId(rs.getInt("id_product"));
+                m.setProduct(rs.getString("name"));
+                m.setPrice(rs.getDouble("price"));
+                m.setNote(rs.getString("notes"));
 
                 ma.add(m);
             }
@@ -88,7 +88,7 @@ public class ProductDao {
     }
 
     public void update(Product m) throws SQLException {
-        String sql = "update produto set nome_p=?, preco_p=?, obs=? where id_p=?";
+        String sql = "update product set name=?, price=?, notes=? where id_product=?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, m.getProduct().toUpperCase());
             stmt.setDouble(2, m.getPrice());
@@ -100,7 +100,7 @@ public class ProductDao {
     }
 
     public void delete(Product m) throws SQLException {
-        String sql = "delete from produto where id_p=?";
+        String sql = "delete from product where id_product=?";
 
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, m.getId());
@@ -109,7 +109,7 @@ public class ProductDao {
     }
 
     public int getAmountProducts() throws SQLException {
-        String sql = "SELECT COUNT(*) FROM produto;";
+        String sql = "SELECT COUNT(*) FROM product;";
         int amount = 0;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
@@ -123,7 +123,7 @@ public class ProductDao {
     }
 
     public Product getProduct(int id) throws SQLException {
-        String sql = "select * from produto where id_p=?";
+        String sql = "select * from product where id_product=?";
         Product m;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -131,10 +131,10 @@ public class ProductDao {
             ResultSet rs = stmt.executeQuery();
             m = new Product();
             while (rs.next()) {
-                m.setId(rs.getInt("id_p"));
-                m.setProduct(rs.getString("nome_p"));
-                m.setPrice(rs.getDouble("preco_p"));
-                m.setNote(rs.getString("obs"));
+                m.setId(rs.getInt("id_product"));
+                m.setProduct(rs.getString("name"));
+                m.setPrice(rs.getDouble("price"));
+                m.setNote(rs.getString("notes"));
             }
         }
 
@@ -142,7 +142,7 @@ public class ProductDao {
     }
 
     public Product getProduct(String name) throws SQLException {
-        String sql = "select * from produto where nome_p=?;";
+        String sql = "select * from product where name=?;";
         Product m;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, name);
@@ -150,10 +150,10 @@ public class ProductDao {
             ResultSet rs = stmt.executeQuery();
             m = new Product();
             while (rs.next()) {
-                m.setId(rs.getInt("id_p"));
-                m.setProduct(rs.getString("nome_p"));
-                m.setPrice(rs.getDouble("preco_p"));
-                m.setNote(rs.getString("obs"));
+                m.setId(rs.getInt("id_product"));
+                m.setProduct(rs.getString("name"));
+                m.setPrice(rs.getDouble("price"));
+                m.setNote(rs.getString("notes"));
             }
         }
 
@@ -161,13 +161,13 @@ public class ProductDao {
     }
 
     public int getLastId() throws SQLException {
-        String sql = "SELECT * FROM produto ORDER BY id_p DESC LIMIT 1";
+        String sql = "SELECT * FROM product ORDER BY id_product DESC LIMIT 1";
         int id;
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             id = 0;
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                id = rs.getInt("id_p");
+                id = rs.getInt("id_product");
             }
         }
         return id;
